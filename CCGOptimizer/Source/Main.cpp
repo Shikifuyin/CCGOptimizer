@@ -23,16 +23,7 @@
 // Entry Point
 int main()
 {
-	MemoryManager::Create();
-
-	XMLDocument * pTest = XMLFn->CreateDocument( TEXT("TestDoc"), XML_VERSION, XML_ENCODING_DEFAULT );
-
-	pTest->Render( TEXT("XML/MyXMLFile.xml") );
-
-	XMLFn->DestroyDocument( pTest );
-	pTest = NULL;
-
-	MemoryManager::Destroy();
+	
 
 	return 0;
 }

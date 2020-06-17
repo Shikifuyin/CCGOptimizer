@@ -13,10 +13,29 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\BackEnd">
+      <UniqueIdentifier>{aaaf5563-9cac-4421-a639-93d951415f69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BackEnd">
+      <UniqueIdentifier>{6cdf91ff-41ee-4984-a3d9-0bf0a75ac7ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\BackEnd\GameData.cpp">
+      <Filter>Source Files\BackEnd</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\BackEnd\GameData.h">
+      <Filter>Header Files\BackEnd</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\BackEnd\GameData.inl">
+      <Filter>Source Files\BackEnd</Filter>
+    </None>
   </ItemGroup>
 </Project>

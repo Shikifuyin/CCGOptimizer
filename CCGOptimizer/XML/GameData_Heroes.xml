@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gamedata_heroes>
+
+<!--
+    Hero Faction Codes :
+     - Lawful   = 0
+     - Chaotic  = 1
+     - Evil     = 2
+     - Light    = 3
+     - Dark     = 4
+
+    Hero Rank Codes :
+     - 1 Star   = hero_rank_0
+     - 2 Stars  = hero_rank_1
+     - 3 Stars  = hero_rank_2
+     - 4 Stars  = hero_rank_3
+     - 5 Stars  = hero_rank_4
+     - 6 Stars  = hero_rank_5
+
+    Hero Sanctify Codes :
+     - None     = hero_sanctify_0
+     - Base HP  = hero_sanctify_1
+     - Base ATT = hero_sanctify_2
+     - Base DEF = hero_sanctify_3
+     - Base HIT = hero_sanctify_4
+     - Base RES = hero_sanctify_5
+-->
+
+<!-- Heroes Max Level Per Rank -->
+<hero_rank_max_level hero_rank_0="15" hero_rank_1="20" hero_rank_2="25" hero_rank_3="30" hero_rank_4="35" hero_rank_5="40" />
+
+<!-- Heroes Sanctify Bonus To Base Stats -->
+<hero_sanctify_bonus hero_sanctify_0="0" hero_sanctify_1="15" hero_sanctify_2="15" hero_sanctify_3="15" hero_sanctify_4="20" hero_sanctify_5="20" />
+
+<!-- HERO DATABASE -->
+    <!-- LAWFUL -->
+<hero_data name="Archmage" faction="0" natural_rank="4" >
+    <base_stats>
+        <hero_rank_4>
+            <hero_level_1  HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_2  HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_3  HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_4  HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_5  HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_6  HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_7  HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_8  HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_9  HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_10 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_11 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_12 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_13 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_14 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_15 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_16 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_17 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_18 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_19 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_20 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_21 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_22 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_23 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_24 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_25 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_26 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_27 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_28 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_29 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_30 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_31 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_32 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_33 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_34 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_35 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+        </hero_rank_4>
+        <hero_rank_5>
+            <hero_level_35 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_36 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_37 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_38 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_39 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_40 HP="0"       ATT="0"     DEF="0"     SPD="100"   CRITRATE="15"   CRITDMG="50"    HIT="0"     RES="15" />
+        </hero_rank_5>
+    </base_stats>
+    <base_stats_evolved>
+        <hero_rank_4>
+            <hero_level_1  HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_2  HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_3  HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_4  HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_5  HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_6  HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_7  HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_8  HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_9  HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_10 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_11 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_12 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_13 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_14 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_15 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_16 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_17 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_18 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_19 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_20 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_21 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_22 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_23 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_24 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_25 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_26 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_27 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_28 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_29 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_30 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_31 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_32 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_33 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_34 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_35 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+        </hero_rank_4>
+        <hero_rank_5>
+            <hero_level_35 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_36 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_37 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_38 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_39 HP="0"       ATT="0"     DEF="0"     SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+            <hero_level_40 HP="15855"   ATT="1906"  DEF="903"   SPD="101"   CRITRATE="30"   CRITDMG="50"    HIT="0"     RES="15" />
+        </hero_rank_5>
+    </base_stats_evolved>
+</hero_data>
+
+    <!-- CHAOTIC -->
+
+    <!-- EVIL -->
+
+    <!-- LIGHT -->
+
+    <!-- DARK -->
+
+<!-- End Of Data -->
+</gamedata_heroes>

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gamedata_runes>
+
+<!--
+    Rune Slot Codes :
+     - Slot 1   = rune_slot_0
+     - Slot 2   = rune_slot_1
+     - Slot 3   = rune_slot_2
+     - Slot 4   = rune_slot_3
+     - Slot 5   = rune_slot_4
+     - Slot 6   = rune_slot_5
+
+    Rune Rank Codes :
+     - 1 Star   = rune_rank_0
+     - 2 Stars  = rune_rank_1
+     - 3 Stars  = rune_rank_2
+     - 4 Stars  = rune_rank_3
+     - 5 Stars  = rune_rank_4
+     - 6 Stars  = rune_rank_5
+-->
+
+<!-- Rune Sets Sizes -->
+<rune_set_sizes
+    rune_set_0="2"
+    rune_set_1="4"
+    rune_set_2="2"
+    rune_set_3="4"
+    rune_set_4="2"
+    rune_set_5="4"
+    rune_set_6="2"
+    rune_set_7="2"
+    rune_set_8="4"
+    rune_set_9="4"
+    rune_set_10="2"
+    rune_set_11="4"
+    rune_set_12="2"
+    rune_set_13="2"
+    rune_set_14="2"
+    rune_set_15="2"
+    rune_set_16="2"
+    rune_set_17="2"
+    rune_set_18="2"
+    rune_set_19="2"
+    rune_set_20="2"
+/>
+
+<!-- Allowed Main Stats Per Slot -->
+<main_stats_allowed>
+    <HP_Flat        rune_slot_0="false" rune_slot_1="false" rune_slot_2="false" rune_slot_3="false" rune_slot_4="true"  rune_slot_5="false" />
+    <HP_Percent     rune_slot_0="false" rune_slot_1="true"  rune_slot_2="false" rune_slot_3="true"  rune_slot_4="false" rune_slot_5="true"  />
+    <ATT_Flat       rune_slot_0="true"  rune_slot_1="false" rune_slot_2="false" rune_slot_3="false" rune_slot_4="false" rune_slot_5="false" />
+    <ATT_Percent    rune_slot_0="false" rune_slot_1="true"  rune_slot_2="false" rune_slot_3="true"  rune_slot_4="false" rune_slot_5="true"  />
+    <DEF_Flat       rune_slot_0="false" rune_slot_1="false" rune_slot_2="true"  rune_slot_3="false" rune_slot_4="false" rune_slot_5="false" />
+    <DEF_Percent    rune_slot_0="false" rune_slot_1="true"  rune_slot_2="false" rune_slot_3="true"  rune_slot_4="false" rune_slot_5="true"  />
+    <SPD            rune_slot_0="false" rune_slot_1="true"  rune_slot_2="false" rune_slot_3="false" rune_slot_4="false" rune_slot_5="false" />
+    <CRITRATE       rune_slot_0="false" rune_slot_1="false" rune_slot_2="false" rune_slot_3="true"  rune_slot_4="false" rune_slot_5="false" />
+    <CRITDMG        rune_slot_0="false" rune_slot_1="false" rune_slot_2="false" rune_slot_3="true"  rune_slot_4="false" rune_slot_5="false" />
+    <HIT            rune_slot_0="false" rune_slot_1="false" rune_slot_2="false" rune_slot_3="false" rune_slot_4="false" rune_slot_5="true"  />
+    <RES            rune_slot_0="false" rune_slot_1="false" rune_slot_2="false" rune_slot_3="false" rune_slot_4="false" rune_slot_5="true"  />
+</main_stats_allowed>
+
+<!-- Main Stat Values Per Level Per Rank -->
+<main_stats_values>
+    <HP_Flat>
+        <rune_level_0   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_1   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_2   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_3   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_4   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_5   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_6   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_7   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_8   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_9   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_10  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_11  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_12  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_13  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_14  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_15  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+    </HP_Flat>
+    <HP_Percent>
+        <rune_level_0   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_1   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_2   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_3   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_4   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_5   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_6   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_7   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_8   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_9   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_10  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_11  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_12  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_13  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_14  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_15  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+    </HP_Percent>
+    <ATT_Flat>
+        <rune_level_0   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_1   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_2   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_3   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_4   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_5   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_6   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_7   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_8   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_9   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_10  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_11  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_12  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_13  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_14  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_15  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+    </ATT_Flat>
+    <ATT_Percent>
+        <rune_level_0   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_1   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_2   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_3   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_4   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_5   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_6   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_7   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_8   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_9   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_10  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_11  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_12  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_13  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_14  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_15  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+    </ATT_Percent>
+    <DEF_Flat>
+        <rune_level_0   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_1   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_2   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_3   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_4   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_5   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_6   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_7   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_8   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_9   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_10  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_11  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_12  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_13  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_14  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_15  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+    </DEF_Flat>
+    <DEF_Percent>
+        <rune_level_0   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_1   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_2   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_3   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_4   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_5   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_6   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_7   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_8   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_9   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_10  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_11  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_12  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_13  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_14  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_15  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+    </DEF_Percent>
+    <SPD>
+        <rune_level_0   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_1   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_2   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_3   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_4   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_5   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_6   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_7   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_8   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_9   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_10  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_11  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_12  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_13  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_14  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_15  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+    </SPD>
+    <CRITRATE>
+        <rune_level_0   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_1   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_2   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_3   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_4   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_5   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_6   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_7   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_8   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_9   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_10  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_11  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_12  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_13  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_14  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_15  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+    </CRITRATE>
+    <CRITDMG>
+        <rune_level_0   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_1   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_2   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_3   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_4   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_5   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_6   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_7   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_8   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_9   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_10  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_11  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_12  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_13  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_14  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_15  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+    </CRITDMG>
+    <HIT>
+        <rune_level_0   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_1   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_2   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_3   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_4   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_5   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_6   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_7   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_8   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_9   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_10  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_11  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_12  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_13  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_14  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_15  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+    </HIT>
+    <RES>
+        <rune_level_0   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_1   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_2   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_3   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_4   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_5   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_6   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_7   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_8   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_9   rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_10  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_11  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_12  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_13  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_14  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+        <rune_level_15  rune_rank_0="0" rune_rank_1="0" rune_rank_2="0" rune_rank_3="0" rune_rank_4="0" rune_rank_5="0" />
+    </RES>
+</main_stats_values>
+
+<!-- Sub Stats Upgrade Roll Ranges -->
+<sub_stats_roll_ranges>
+    <HP_Flat>
+        <rune_rank_0 min="0" max ="0" />
+        <rune_rank_1 min="0" max ="0" />
+        <rune_rank_2 min="0" max ="0" />
+        <rune_rank_3 min="0" max ="0" />
+        <rune_rank_4 min="0" max ="0" />
+        <rune_rank_5 min="0" max ="0" />
+    </HP_Flat>
+    <HP_Percent>
+        <rune_rank_0 min="0" max ="0" />
+        <rune_rank_1 min="0" max ="0" />
+        <rune_rank_2 min="0" max ="0" />
+        <rune_rank_3 min="0" max ="0" />
+        <rune_rank_4 min="4" max ="7" />
+        <rune_rank_5 min="5" max ="8" />
+    </HP_Percent>
+    <ATT_Flat>
+        <rune_rank_0 min="0" max ="0" />
+        <rune_rank_1 min="0" max ="0" />
+        <rune_rank_2 min="0" max ="0" />
+        <rune_rank_3 min="0" max ="0" />
+        <rune_rank_4 min="0" max ="0" />
+        <rune_rank_5 min="0" max ="0" />
+    </ATT_Flat>
+    <ATT_Percent>
+        <rune_rank_0 min="0" max ="0" />
+        <rune_rank_1 min="0" max ="0" />
+        <rune_rank_2 min="0" max ="0" />
+        <rune_rank_3 min="0" max ="0" />
+        <rune_rank_4 min="4" max ="7" />
+        <rune_rank_5 min="5" max ="8" />
+    </ATT_Percent>
+    <DEF_Flat>
+        <rune_rank_0 min="0" max ="0" />
+        <rune_rank_1 min="0" max ="0" />
+        <rune_rank_2 min="0" max ="0" />
+        <rune_rank_3 min="0" max ="0" />
+        <rune_rank_4 min="0" max ="0" />
+        <rune_rank_5 min="0" max ="0" />
+    </DEF_Flat>
+    <DEF_Percent>
+        <rune_rank_0 min="0" max ="0" />
+        <rune_rank_1 min="0" max ="0" />
+        <rune_rank_2 min="0" max ="0" />
+        <rune_rank_3 min="0" max ="0" />
+        <rune_rank_4 min="4" max ="7" />
+        <rune_rank_5 min="5" max ="8" />
+    </DEF_Percent>
+    <SPD>
+        <rune_rank_0 min="0" max ="0" />
+        <rune_rank_1 min="0" max ="0" />
+        <rune_rank_2 min="0" max ="0" />
+        <rune_rank_3 min="0" max ="0" />
+        <rune_rank_4 min="3" max ="5" />
+        <rune_rank_5 min="4" max ="6" />
+    </SPD>
+    <CRITRATE>
+        <rune_rank_0 min="0" max ="0" />
+        <rune_rank_1 min="0" max ="0" />
+        <rune_rank_2 min="0" max ="0" />
+        <rune_rank_3 min="0" max ="0" />
+        <rune_rank_4 min="3" max ="5" />
+        <rune_rank_5 min="4" max ="6" />
+    </CRITRATE>
+    <CRITDMG>
+        <rune_rank_0 min="0" max ="0" />
+        <rune_rank_1 min="0" max ="0" />
+        <rune_rank_2 min="0" max ="0" />
+        <rune_rank_3 min="0" max ="0" />
+        <rune_rank_4 min="4" max ="7" />
+        <rune_rank_5 min="5" max ="8" />
+    </CRITDMG>
+    <HIT>
+        <rune_rank_0 min="0" max ="0" />
+        <rune_rank_1 min="0" max ="0" />
+        <rune_rank_2 min="0" max ="0" />
+        <rune_rank_3 min="0" max ="0" />
+        <rune_rank_4 min="4" max ="7" />
+        <rune_rank_5 min="5" max ="8" />
+    </HIT>
+    <RES>
+        <rune_rank_0 min="0" max ="0" />
+        <rune_rank_1 min="0" max ="0" />
+        <rune_rank_2 min="0" max ="0" />
+        <rune_rank_3 min="0" max ="0" />
+        <rune_rank_4 min="4" max ="7" />
+        <rune_rank_5 min="5" max ="8" />
+    </RES>
+</sub_stats_roll_ranges>
+
+<!-- End Of Data -->
+</gamedata_runes>
