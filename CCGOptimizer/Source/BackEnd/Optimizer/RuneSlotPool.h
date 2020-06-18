@@ -34,134 +34,68 @@
 class RuneSlotPool
 {
 public:
-    RuneSlotPool::RuneSlotPool( int $iRuneSlot )
-    {
-        $this->RuneSlot = $iRuneSlot;
+    RuneSlotPool();
+    ~RuneSlotPool();
 
-        $this->IsForced = false;
+    // Global access
+    inline UInt GetSlot() const;
+    inline Bool IsForced() const;
 
-        $this->AvailableSets = array();
-        for( $i = 0; $i < RUNE_SET_COUNT; ++$i ) {
-            $this->AvailableSets[$i] = false;
-        }
-        $this->MainPoolsSize = 0;
-        $this->MainPools = array();
+    inline Bool IsEmpty() const;
+    inline UInt GetTotalCount() const;
 
-        $this->AvailableBrokenSets = array();
-        for( $i = 0; $i < RUNE_SET_COUNT; ++$i ) {
-            $this->AvailableBrokenSets[$i] = false;
-        }
-        $this->BrokenPoolsSize = 0;
-        $this->BrokenPools = array();
+    inline Bool IsSetAvailable( RuneSet iRuneSet ) const;
 
-        $this->m_bFinalized = false;
-        $this->m_hMainPoolsHeaps = array();
-        $this->m_hBrokenPoolsHeaps = array();
-    }
-    RuneSlotPool::RuneSlotPool()
-    {
-    }
+    // Main Sets Pool access
+    inline UInt GetMainSetsTotalCount() const;
 
-    // Methods
-    public function IsEmpty():bool {
-        return ( ($this->MainPoolsSize + $this->BrokenPoolsSize) == 0 );
-    }
-    public function GetTotalSize():int {
-        return ( $this->MainPoolsSize + $this->BrokenPoolsSize );
-    }
+    inline Bool IsMainSetAvailable( RuneSet iRuneSet ) const;
+    inline Float GetMainSetBestRating( RuneSet iRuneSet ) const;
 
-    public function IsMainSetAvailable( int $iRuneSet ):bool {
-        assert( $iRuneSet < RUNE_SET_COUNT );
-        return $this->AvailableSets[$iRuneSet];
-    }
-    public function IsBrokenSetAvailable( int $iRuneSet ):bool {
-        assert( $iRuneSet < RUNE_SET_COUNT );
-        return $this->AvailableBrokenSets[$iRuneSet];
-    }
-    public function IsSetAvailable( int $iRuneSet ):bool {
-        assert( $iRuneSet < RUNE_SET_COUNT );
-        return ( $this->AvailableSets[$iRuneSet] || $this->AvailableBrokenSets[$iRuneSet] );
-    }
+    inline UInt GetMainSetCount( RuneSet iRuneSet ) const;
+    inline RuneID GetMainSetRune( RuneSet iRuneSet, UInt iIndex, Float * outRating = NULL ) const;
 
-    public function AddMainPoolRune( int $iRuneID, float $fRating ):void {
-        assert( !$this->m_bFinalized );
-        $hCCGOPManager = &CCGOPManager::GetSingleton();
-        $hRune = &$hCCGOPManager->GetRune( $iRuneID );
-        assert( $hRune->GetSlot() == $this->RuneSlot );
-        $iRuneSet = $hRune->GetSet();
-        if ( !$this->AvailableSets[$iRuneSet] ) {
-            $this->AvailableSets[$iRuneSet] = true;
-            $this->m_hMainPoolsHeaps[$iRuneSet] = new Heap( "RuneSlotPool::Comparator" );
-        }
-        $this->m_hMainPoolsHeaps[$iRuneSet]->Merge( array($iRuneID, $fRating) );
-    }
-    public function AddBrokenPoolRune( int $iRuneID, float $fRating ):void {
-        assert( !$this->m_bFinalized );
-        $hCCGOPManager = &CCGOPManager::GetSingleton();
-        $hRune = &$hCCGOPManager->GetRune( $iRuneID );
-        assert( $hRune->GetSlot() == $this->RuneSlot );
-        $iRuneSet = $hRune->GetSet();
-        if ( !$this->AvailableBrokenSets[$iRuneSet] ) {
-            $this->AvailableBrokenSets[$iRuneSet] = true;
-            $this->m_hBrokenPoolsHeaps[$iRuneSet] = new Heap( "RuneSlotPool::Comparator" );
-        }
-        $this->m_hBrokenPoolsHeaps[$iRuneSet]->Merge( array($iRuneID, $fRating) );
-    }
+    // Off Sets Pool access
+    inline UInt GetOffSetsTotalCount() const;
 
-    public function FinalizeSorting():void {
-        for( $iSet = 0; $iSet < RUNE_SET_COUNT; ++$iSet ) {
-            if ( $this->AvailableSets[$iSet] ) {
-                $this->MainPools[$iSet] = array();
-                $iCount = 0;
-                while( !$this->m_hMainPoolsHeaps[$iSet]->IsEmpty() ) {
-                    $this->m_hMainPoolsHeaps[$iSet]->Extract( $this->MainPools[$iSet][$iCount] );
-                    ++$iCount;
-                }
-                $this->MainPoolsSize += $iCount;
-            }
-            if ( $this->AvailableBrokenSets[$iSet] ) {
-                $this->BrokenPools[$iSet] = array();
-                $iCount = 0;
-                while( !$this->m_hBrokenPoolsHeaps[$iSet]->IsEmpty() ) {
-                    $this->m_hBrokenPoolsHeaps[$iSet]->Extract( $this->BrokenPools[$iSet][$iCount] );
-                    ++$iCount;
-                }
-                $this->BrokenPoolsSize += $iCount;
-            }
-        }
-        
-        $this->m_bFinalized = true;
-        $this->m_hMainPoolsHeaps = NULL;
-        $this->m_hBrokenPoolsHeaps = NULL;
-    }
+    inline Bool IsOffSetAvailable( RuneSet iRuneSet ) const;
+    inline Float GetOffSetBestRating( RuneSet iRuneSet ) const;
 
-    // Helpers
-    public static function Comparator( array & $arrLeft, array & $arrRight ):int {
-        // Compare based on ratings
-        if ( $arrLeft[1] > $arrRight[1] )
-            return +1;
-        if ( $arrLeft[1] < $arrRight[1] )
-            return -1;
-        return 0;
-    }
+    inline UInt GetOffSetCount( RuneSet iRuneSet ) const;
+    inline RuneID GetOffSetRune( RuneSet iRuneSet, UInt iIndex, Float * outRating = NULL ) const;
 
-    // Members
-    public $RuneSlot; // rune slot this pool contains
+    // Construction Procedure
+    inline Void SetSlot( UInt iSlot );
+    inline Void SetForced();
+    Void AddMainSetRune( RuneID iRuneID, Float fRating );
+    Void AddOffSetRune( RuneID iRuneID, Float fRating );
+    Void FinalizeSorting();
 
-    public $IsForced; // true if rune pool has been forced by user (therefore is small)
-
-    public $AvailableSets; // available sets for main pools
-    public $MainPoolsSize; // total runes in main pools
-    public $MainPools;     // requested sets runes
-
-    public $AvailableBrokenSets; // available sets for broken pools
-    public $BrokenPoolsSize;     // total runes in broken pools
-    public $BrokenPools;         // off-sets runes
+    Void Reset();
 
 private:
-    private $m_bFinalized;
-    private $m_hMainPoolsHeaps; // Heap sorting
-    private $m_hBrokenPoolsHeaps; // Heap sorting
+    typedef struct _rune_pool_entry {
+        RuneID iRuneID;
+        Float fRating;
+    } RunePoolEntry;
+    typedef Heap<RunePoolEntry> PoolHeap;
+
+    inline static Int _CompareRunePoolEntries( const RunePoolEntry & hLeft, const RunePoolEntry & hRight );
+
+    Bool m_bFinalized;
+
+    UInt m_iRuneSlot;
+    Bool m_bIsForced; // True if rune pool has been forced by user (therefore is small)
+
+    UInt m_iMainSetsTotalCount;
+    Bool m_arrAvailableMainSets[RUNE_SET_COUNT];
+    PoolHeap m_arrMainSetsHeaps[RUNE_SET_COUNT];
+    Array<RunePoolEntry> m_arrMainSets[RUNE_SET_COUNT];
+
+    UInt m_iOffSetsTotalCount;
+    Bool m_arrAvailableOffSets[RUNE_SET_COUNT];
+    PoolHeap m_arrOffSetsHeaps[RUNE_SET_COUNT];
+    Array<RunePoolEntry> m_arrOffSets[RUNE_SET_COUNT];
 };
 
 /////////////////////////////////////////////////////////////////////////////////

@@ -22,4 +22,10 @@ inline CCGOptimizer * CCGOptimizer::GetInstance() {
 	return &s_hInstance;
 }
 
+inline SearchParameters * CCGOptimizer::GetSearchParameters() {
+    return &m_hSearchParams;
+}
 
+inline UInt CCGOptimizer::GetEstimatedPermutations() const {
+    return m_iEstimatedPermutations;
+}

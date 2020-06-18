@@ -45,7 +45,7 @@ public:
         // Set Filtering
     Array<RuneSet> arrRequestedSets;
     Array<RuneSet> arrExcludedSets;
-    Bool bAllowBrokenSets; // default = true
+    Bool bAllowOffSets; // default = true
 
         // Main Stats Filtering
     Array<RuneStat> arrRequestedMainStatsSlot2;

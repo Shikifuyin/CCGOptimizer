@@ -32,7 +32,7 @@ SearchParameters::SearchParameters():
 
     arrRequestedSets.Create();
     arrExcludedSets.Create();
-    bAllowBrokenSets = true;
+    bAllowOffSets = true;
 
     arrRequestedMainStatsSlot2.Create();
     arrRequestedMainStatsSlot4.Create();
