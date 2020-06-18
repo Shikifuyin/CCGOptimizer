@@ -1,10 +1,8 @@
-<?php
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/PHP/BackEnd/Hero.php
+// File : Source/BackEnd/Hero.h
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 1.0
 // Status : Alpha
-// Portability : Any
 /////////////////////////////////////////////////////////////////////////////////
 // Description : Hero Representation
 /////////////////////////////////////////////////////////////////////////////////
@@ -18,175 +16,90 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////
+// Header prelude
+#ifndef CCGOP_BACKEND_HERO_H
+#define CCGOP_BACKEND_HERO_H
+
+/////////////////////////////////////////////////////////////////////////////////
 // Includes
+#include "GameData.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
+
+// Hero IDs
+typedef UInt HeroID;
+
+// GearSet ID
+#ifndef GearSetID
+    typedef UInt GearSetID;
+#endif // GearSetID
+
+// Prototypes
+class CCGOPManager;
+class HeroInventory;
 
 /////////////////////////////////////////////////////////////////////////////////
 // The Hero class
 class Hero
 {
-    // Constructor / Destructor
-	public function __construct( int $iHeroID = 0, string $strName = "Slime",
-								 int $iRank = HERO_RANK_1S, int $iLevel = 1, bool $bEvolved = false, int $iSanctify = HERO_SANCTIFY_NONE )
-    {
-		$hGameData = &GameData::GetSingleton();
-
-		$this->m_iHeroID = $iHeroID;
-		$this->m_strName = $strName;
-		assert( $hGameData->IsHeroNameValid($this->m_strName) );
-		$this->m_iFaction = $hGameData->GetHeroFaction( $this->m_strName );
-		$this->m_iRank = $iRank;
-		assert( $this->m_iRank >= $hGameData->GetHeroNaturalRank($this->m_strName) );
-		$this->m_iLevel = $iLevel;
-		assert( $this->m_iLevel > 0 && $this->m_iLevel <= $hGameData->GetHeroRankMaxLevel($this->m_iRank) );
-		$this->m_bEvolved = $bEvolved;
-		$this->m_iSanctify = $iSanctify;
-
-		$this->m_arrAttachedGearSets = array();
-		$this->m_strSelectedGearSet = "";
-	}
-	public function __destruct()
-    {
-		// nothing to do
-	}
+public:
+	Hero();
+	Hero( HeroID iHeroID, const GChar * strName, HeroRank iRank, UInt iLevel, Bool bEvolved, HeroSanctify iSanctify );
+	~Hero();
 
 	// Import/Export
-    public function ImportFromXML( XMLElement & $hXMLElement ):void {
-		assert( $hXMLElement->GetTagName() == "hero" );
-		$hGameData = &GameData::GetSingleton();
-		
-		$this->m_iHeroID = intval( $hXMLElement->GetAttributeValue("hero_id") );
-		$this->m_strName = $hXMLElement->GetAttributeValue( "name" );
-		assert( $hGameData->IsHeroNameValid($this->m_strName) );
-		$this->m_iFaction = $hGameData->GetHeroFaction( $this->m_strName );
-        $this->m_iRank = intval( $hXMLElement->GetAttributeValue("rank") );
-        $this->m_iLevel = intval( $hXMLElement->GetAttributeValue("level") );
-		$this->m_bEvolved = ( $hXMLElement->GetAttributeValue("evolved") == "true" );
-		$this->m_iSanctify = intval( $hXMLElement->GetAttributeValue("sanctify") );
-		
-		$this->m_arrAttachedGearSets = array();
-		$hAttachedGearSetsElement = $hXMLElement->GetChildByTag( "attached_gearsets" );
-        $iCount = intval( $hAttachedGearSetsElement->GetAttributeValue("count") );
-        for( $i = 0; $i < $iCount; ++$i ) {
-            $strAttributeName = sprintf( "gearset_%d", $i );
-            $strGearSetName = $hAttachedGearSetsElement->GetAttributeValue( $strAttributeName );
-            array_push( $this->m_arrAttachedGearSets, $strGearSetName );
-        }
-
-		$this->m_strSelectedGearSet = $hXMLElement->GetAttributeValue( "gearset_selected" );
-	}	
-	public function ExportToXML( XMLDocument & $hRootDocument, XMLElement & $hXMLElement ):void {
-		$hXMLElement = $hRootDocument->CreateElement( "hero" );
-
-		$hXMLElement->SetAttributeValue( "hero_id", $this->m_iHeroID );
-        $hXMLElement->SetAttributeValue( "name", $this->m_strName );
-        $hXMLElement->SetAttributeValue( "rank", $this->m_iRank );
-		$hXMLElement->SetAttributeValue( "level", $this->m_iLevel );
-		$hXMLElement->SetAttributeValue( "evolved", $this->m_bEvolved ? "true" : "false" );
-		$hXMLElement->SetAttributeValue( "sanctify", $this->m_iSanctify );
-
-		$hAttachedGearSetsElement = $hRootDocument->CreateElement( "attached_gearsets" );
-        $iCount = count( $this->m_arrAttachedGearSets );
-        $hAttachedGearSetsElement->SetAttributeValue( "count", $iCount );
-        for( $i = 0; $i < $iCount; ++$i ) {
-            $strAttributeName = sprintf( "gearset_%d", $i );
-            $strGearSetName = $this->m_arrAttachedGearSets[$i];
-            $hAttachedGearSetsElement->SetAttributeValue( $strAttributeName, $strGearSetName );
-        }
-        $hXMLElement->AppendChild( $hAttachedGearSetsElement );
-
-		$hXMLElement->SetAttributeValue( "gearset_selected", $this->m_strSelectedGearSet );
-	}
+	Void ImportFromXML( XMLNode * pNode );
+	Void ExportToXML( XMLNode * pNode ) const;
 
 	// Hero Characteristics
-	public function GetID():int {
-		return $this->m_iHeroID;
-	}
-	public function GetName():string {
-		return $this->m_strName;
-	}
-	public function GetFaction():int {
-		return $this->m_iFaction;
-	}
-	public function GetRank():int {
-        return $this->m_iRank;
-    }
-    public function GetLevel():int {
-        return $this->m_iLevel;
-	}
-	public function IsEvolved():bool {
-        return $this->m_bEvolved;
-	}
-	public function IsSanctified():bool {
-        return ( $this->m_iSanctify != HERO_SANCTIFY_NONE );
-	}
-	public function GetSanctification():int {
-		return $this->m_iSanctify;
-	}
-	public function SetSanctification( int $iSanctify ):void {
-		assert( $iSanctify < HERO_SANCTIFY_COUNT );
-		$this->m_iSanctify = $iSanctify;
-	}
+	inline HeroID GetID() const;
+	inline const GChar * GetName() const;
+	inline HeroFaction GetFaction() const;
+	inline HeroRank GetRank() const;
+	inline UInt GetLevel() const;
+	inline Bool IsEvolved() const;
+	inline Bool IsSanctified() const;
+	inline HeroSanctify GetSanctification() const;
+	inline Void SetSanctification( HeroSanctify iSanctify );
 
 	// GearSet Attach
-	public function GetGearSetCount():int {
-		return count( $this->m_arrAttachedGearSets );
-	}
-	public function GetGearSet( int $iIndex ):string {
-		assert( $iIndex < count($this->m_arrAttachedGearSets) );
-		return $this->m_arrAttachedGearSets[$iIndex];
-	}
-	public function HasGearSet( string $strGearSetName ):bool {
-		return in_array( $strGearSetName, $this->m_arrAttachedGearSets );
-	}
+	inline UInt GetGearSetCount() const;
+	inline GearSetID GetGearSet( UInt iIndex ) const;
+	inline Bool HasGearSet( GearSetID iGearSetID ) const;
 
-	public function GetSelectedGearSet():string {
-		return $this->m_strSelectedGearSet;
-	}
-	public function SelectGearSet( string $strGearSetName ):void {
-		assert( in_array($strGearSetName, $this->m_arrAttachedGearSets) );
-		$this->m_strSelectedGearSet = $strGearSetName;
-	}
-	public function UnselectGearSet():void {
-		$this->m_strSelectedGearSet = "";
-	}
+	inline GearSetID GetSelectedGearSet() const;
+	inline Void SelectGearSet( GearSetID iGearSetID );
+	inline Void UnselectGearSet();
 
+private:
 	// Internals
-	public function _AttachGearSet( string $strGearSetName ):int {
-		$iFound = array_search( $strGearSetName, $this->m_arrAttachedGearSets );
-		if ( $iFound !== false )
-			return $iFound;
-		$iNewCount = array_push( $this->m_arrAttachedGearSets, $strGearSetName );
-		return ( $iNewCount - 1 );
-	}
-	public function _DetachGearSet( string $strGearSetName ):void {
-		$iFound = array_search( $strGearSetName, $this->m_arrAttachedGearSets );
-		if ( $iFound === false )
-			return;
-		if ( $this->m_strSelectedGearSet == $strGearSetName )
-			$this->m_strSelectedGearSet = "";
-		array_splice( $this->m_arrAttachedGearSets, $iFound, 1 );
-	}
-	public function _DetachAllGearSets():void {
-		$this->m_arrAttachedGearSets = array();
-		$this->m_strSelectedGearSet = "";
-	}
+	friend class CCGOPManager;
+	friend class HeroInventory;
 
-	// Helpers
+	inline UInt _AttachGearSet( GearSetID iGearSetID );
+	inline Void _DetachGearSet( GearSetID iGearSetID );
+	inline Void _DetachAllGearSets();
 
-	// Members
-	private $m_iHeroID;
-	private $m_strName;
-	private $m_iFaction;
-	private $m_iRank;
-	private $m_iLevel;
-	private $m_bEvolved;
-	private $m_iSanctify;
+    // Descriptor
+	HeroID m_iHeroID;
+	GChar m_strName[GAMEDATA_NAMES_MAX_LENGTH];
+	HeroFaction m_iFaction;
+	HeroRank m_iRank;
+	UInt m_iLevel;
+	Bool m_bEvolved;
+	HeroSanctify m_iSanctify;
 
-	private $m_arrAttachedGearSets;
-	private $m_strSelectedGearSet;
-}
+    // State
+	Array<GearSetID> m_arrAttachedGearSets;
+	GearSetID m_iSelectedGearSet;
+};
 
-?>
+/////////////////////////////////////////////////////////////////////////////////
+// Backward Includes (Inlines & Templates)
+#include "Hero.inl"
+
+/////////////////////////////////////////////////////////////////////////////////
+// Header end
+#endif // CCGOP_BACKEND_HERO_H
+

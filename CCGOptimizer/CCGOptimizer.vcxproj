@@ -151,14 +151,44 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\BackEnd\CCGOPManager.cpp" />
     <ClCompile Include="Source\BackEnd\GameData.cpp" />
+    <ClCompile Include="Source\BackEnd\GearSet.cpp" />
+    <ClCompile Include="Source\BackEnd\GearSetInventory.cpp" />
+    <ClCompile Include="Source\BackEnd\Hero.cpp" />
+    <ClCompile Include="Source\BackEnd\HeroInventory.cpp" />
+    <ClCompile Include="Source\BackEnd\Optimizer\CCGOptimizer.cpp" />
+    <ClCompile Include="Source\BackEnd\Optimizer\RuneSlotPool.cpp" />
+    <ClCompile Include="Source\BackEnd\Optimizer\SearchParameters.cpp" />
+    <ClCompile Include="Source\BackEnd\Rune.cpp" />
+    <ClCompile Include="Source\BackEnd\RuneInventory.cpp" />
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\BackEnd\CCGOPManager.h" />
     <ClInclude Include="Source\BackEnd\GameData.h" />
+    <ClInclude Include="Source\BackEnd\GearSet.h" />
+    <ClInclude Include="Source\BackEnd\GearSetInventory.h" />
+    <ClInclude Include="Source\BackEnd\Hero.h" />
+    <ClInclude Include="Source\BackEnd\HeroInventory.h" />
+    <ClInclude Include="Source\BackEnd\Optimizer\CCGOptimizer.h" />
+    <ClInclude Include="Source\BackEnd\Optimizer\RuneSlotPool.h" />
+    <ClInclude Include="Source\BackEnd\Optimizer\SearchParameters.h" />
+    <ClInclude Include="Source\BackEnd\Rune.h" />
+    <ClInclude Include="Source\BackEnd\RuneInventory.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Source\BackEnd\CCGOPManager.inl" />
     <None Include="Source\BackEnd\GameData.inl" />
+    <None Include="Source\BackEnd\GearSet.inl" />
+    <None Include="Source\BackEnd\GearSetInventory.inl" />
+    <None Include="Source\BackEnd\Hero.inl" />
+    <None Include="Source\BackEnd\HeroInventory.inl" />
+    <None Include="Source\BackEnd\Optimizer\CCGOptimizer.inl" />
+    <None Include="Source\BackEnd\Optimizer\RuneSlotPool.inl" />
+    <None Include="Source\BackEnd\Optimizer\SearchParameters.inl" />
+    <None Include="Source\BackEnd\Rune.inl" />
+    <None Include="Source\BackEnd\RuneInventory.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

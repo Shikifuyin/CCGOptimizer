@@ -19,6 +19,12 @@
     <Filter Include="Header Files\BackEnd">
       <UniqueIdentifier>{6cdf91ff-41ee-4984-a3d9-0bf0a75ac7ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\BackEnd\Optimizer">
+      <UniqueIdentifier>{90a6cfc1-4040-4e83-86a7-e78211b7059d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BackEnd\Optimizer">
+      <UniqueIdentifier>{c04e8a71-c0dc-4359-a37b-4566a605c53e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -27,15 +33,105 @@
     <ClCompile Include="Source\BackEnd\GameData.cpp">
       <Filter>Source Files\BackEnd</Filter>
     </ClCompile>
+    <ClCompile Include="Source\BackEnd\Rune.cpp">
+      <Filter>Source Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BackEnd\Hero.cpp">
+      <Filter>Source Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BackEnd\GearSet.cpp">
+      <Filter>Source Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BackEnd\RuneInventory.cpp">
+      <Filter>Source Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BackEnd\HeroInventory.cpp">
+      <Filter>Source Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BackEnd\GearSetInventory.cpp">
+      <Filter>Source Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BackEnd\CCGOPManager.cpp">
+      <Filter>Source Files\BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BackEnd\Optimizer\CCGOptimizer.cpp">
+      <Filter>Source Files\BackEnd\Optimizer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BackEnd\Optimizer\SearchParameters.cpp">
+      <Filter>Source Files\BackEnd\Optimizer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BackEnd\Optimizer\RuneSlotPool.cpp">
+      <Filter>Source Files\BackEnd\Optimizer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BackEnd\GameData.h">
       <Filter>Header Files\BackEnd</Filter>
     </ClInclude>
+    <ClInclude Include="Source\BackEnd\Rune.h">
+      <Filter>Header Files\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BackEnd\Hero.h">
+      <Filter>Header Files\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BackEnd\GearSet.h">
+      <Filter>Header Files\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BackEnd\RuneInventory.h">
+      <Filter>Header Files\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BackEnd\HeroInventory.h">
+      <Filter>Header Files\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BackEnd\GearSetInventory.h">
+      <Filter>Header Files\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BackEnd\CCGOPManager.h">
+      <Filter>Header Files\BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BackEnd\Optimizer\CCGOptimizer.h">
+      <Filter>Header Files\BackEnd\Optimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BackEnd\Optimizer\SearchParameters.h">
+      <Filter>Header Files\BackEnd\Optimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BackEnd\Optimizer\RuneSlotPool.h">
+      <Filter>Header Files\BackEnd\Optimizer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\BackEnd\GameData.inl">
       <Filter>Source Files\BackEnd</Filter>
+    </None>
+    <None Include="Source\BackEnd\Rune.inl">
+      <Filter>Source Files\BackEnd</Filter>
+    </None>
+    <None Include="Source\BackEnd\Hero.inl">
+      <Filter>Source Files\BackEnd</Filter>
+    </None>
+    <None Include="Source\BackEnd\GearSet.inl">
+      <Filter>Source Files\BackEnd</Filter>
+    </None>
+    <None Include="Source\BackEnd\RuneInventory.inl">
+      <Filter>Source Files\BackEnd</Filter>
+    </None>
+    <None Include="Source\BackEnd\HeroInventory.inl">
+      <Filter>Source Files\BackEnd</Filter>
+    </None>
+    <None Include="Source\BackEnd\GearSetInventory.inl">
+      <Filter>Source Files\BackEnd</Filter>
+    </None>
+    <None Include="Source\BackEnd\CCGOPManager.inl">
+      <Filter>Source Files\BackEnd</Filter>
+    </None>
+    <None Include="Source\BackEnd\Optimizer\CCGOptimizer.inl">
+      <Filter>Source Files\BackEnd\Optimizer</Filter>
+    </None>
+    <None Include="Source\BackEnd\Optimizer\SearchParameters.inl">
+      <Filter>Source Files\BackEnd\Optimizer</Filter>
+    </None>
+    <None Include="Source\BackEnd\Optimizer\RuneSlotPool.inl">
+      <Filter>Source Files\BackEnd\Optimizer</Filter>
     </None>
   </ItemGroup>
 </Project>
