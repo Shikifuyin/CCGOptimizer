@@ -185,13 +185,23 @@ CCGOPGUI::CCGOPGUI( CCGOPApplication * pApplication ):
 	m_hTabPaneModelGearSetExplorer(this, CCGOP_MAINMENU_GEARSET_EXPLORER),
 	m_hTabPaneModelOptimizer(this, CCGOP_MAINMENU_OPTIMIZER),
 
-	m_hCCGOPStatusBarModel(this)
+	m_hCCGOPStatusBarModel(this),
+
+	m_hHeroExplorer(this)
 {
 	m_pApplication = pApplication;
 
 	m_pAppWindow = NULL;
 
 	m_pCCGOPTabs = NULL;
+
+	m_arrCCGOPTabPanes[CCGOP_MAINMENU_IMPORT_EXPORT] = NULL;
+	m_arrCCGOPTabPanes[CCGOP_MAINMENU_HERO_EXPLORER] = NULL;
+	m_arrCCGOPTabPanes[CCGOP_MAINMENU_RUNE_EXPLORER] = NULL;
+	m_arrCCGOPTabPanes[CCGOP_MAINMENU_GEARSET_EXPLORER] = NULL;
+	m_arrCCGOPTabPanes[CCGOP_MAINMENU_OPTIMIZER] = NULL;
+
+	m_pCCGOPStatusBar = NULL;
 }
 CCGOPGUI::~CCGOPGUI()
 {
@@ -221,6 +231,9 @@ Void CCGOPGUI::Initialize()
 	m_pCCGOPStatusBar->SetPartTipText( 0, TEXT("Nothing Here !") );
 	m_pCCGOPStatusBar->SetPartText( 1, TEXT("... with this empty bar !"), WINGUI_STATUSBAR_DRAW_SINKBORDER );
 	m_pCCGOPStatusBar->SetPartTipText( 1, TEXT("Not much more Here !") );
+
+	// Build Delegates
+	m_hHeroExplorer.Initialize();
 
 	// Initial Tab
 	m_pCCGOPTabs->SelectTab( CCGOP_MAINMENU_IMPORT_EXPORT );

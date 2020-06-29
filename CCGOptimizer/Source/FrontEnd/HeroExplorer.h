@@ -29,17 +29,24 @@
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
 
+// Prototypes
+class CCGOPGUI;
+
 /////////////////////////////////////////////////////////////////////////////////
 // The HeroExplorer class
 class HeroExplorer
 {
 public:
-	HeroExplorer();
+	HeroExplorer( CCGOPGUI * pGUI );
 	~HeroExplorer();
 
+	// Initialization / Cleanup
+	Void Initialize();
+	Void Cleanup();
 
 private:
-	// Root Container
+	// GUI Instance
+	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;
 
 	// Search UI

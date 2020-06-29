@@ -137,6 +137,9 @@ public:
 	Void Initialize();
 	Void Cleanup();
 
+	// Access for delegates
+	inline WinGUIContainer * GetRoot( CCGOPMainMenuTabs iTabIndex ) const;
+
 private:
 	friend class CCGOPWindowModel;
 	friend class CCGOPTabsModel;
@@ -166,6 +169,7 @@ private:
 	WinGUIStatusBar * m_pCCGOPStatusBar;
 
 	// Main Menu Delegates
+	HeroExplorer m_hHeroExplorer;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
