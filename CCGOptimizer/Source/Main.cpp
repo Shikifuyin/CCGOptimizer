@@ -38,9 +38,6 @@ CCGOPApplication::~CCGOPApplication()
 
 Void CCGOPApplication::Initialize()
 {
-    // Initialize Memory Manager
-    MemoryManager::Create();
-
     // Initialize Back-End
     GameDataFn->ImportFromXML();
 
@@ -54,9 +51,6 @@ Void CCGOPApplication::Cleanup()
 
     // Cleanup Back-End
     // Nothing to do
-
-    // Cleanup Memory Manager
-    MemoryManager::Destroy();
 }
 
 Void CCGOPApplication::IdleTime( Void * pUserData )
@@ -76,13 +70,21 @@ int APIENTRY wWinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstanc
     UNREFERENCED_PARAMETER(lpCmdLine);
     UNREFERENCED_PARAMETER(nCmdShow);
 
-    CCGOPApplication hApplication;
+    // Initialize Memory Manager
+    MemoryManager::Create();
 
-    hApplication.Initialize();
+    CCGOPApplication * pApplication = New() CCGOPApplication();
+    pApplication->Initialize();
 
-    Int iReturnCode = WinGUIFn->MessageLoop( CCGOPApplication::IdleTime, &hApplication );
+    Int iReturnCode = WinGUIFn->MessageLoop( CCGOPApplication::IdleTime, pApplication );
 
-    hApplication.Cleanup();
+    pApplication->Cleanup();
+
+    Delete( pApplication );
+    pApplication = NULL;
+
+    // Cleanup Memory Manager
+    MemoryManager::Destroy();
 
     return iReturnCode;
 }

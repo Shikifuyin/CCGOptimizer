@@ -31,6 +31,12 @@
     <Filter Include="Source Files\FrontEnd">
       <UniqueIdentifier>{50df4cf8-c9a5-46db-9d48-cd9365ba6f0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FrontEnd\HeroExplorer">
+      <UniqueIdentifier>{ed075c60-45e3-48b0-8a52-6786f8d9e891}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FrontEnd\HeroExplorer">
+      <UniqueIdentifier>{b4daf2cd-f836-4dec-bb56-d4ec813606de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -74,6 +80,12 @@
     </ClCompile>
     <ClCompile Include="Source\FrontEnd\HeroExplorer.cpp">
       <Filter>Source Files\FrontEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroCreation.cpp">
+      <Filter>Source Files\FrontEnd\HeroExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroTable.cpp">
+      <Filter>Source Files\FrontEnd\HeroExplorer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +131,15 @@
     <ClInclude Include="Source\FrontEnd\HeroExplorer.h">
       <Filter>Header Files\FrontEnd</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FrontEnd\HeroExplorer\HeroCreation.h">
+      <Filter>Header Files\FrontEnd\HeroExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FrontEnd\ResourceIDs.h">
+      <Filter>Header Files\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FrontEnd\HeroExplorer\HeroTable.h">
+      <Filter>Header Files\FrontEnd\HeroExplorer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\BackEnd\GameData.inl">
@@ -159,6 +180,12 @@
     </None>
     <None Include="Source\FrontEnd\HeroExplorer.inl">
       <Filter>Source Files\FrontEnd</Filter>
+    </None>
+    <None Include="Source\FrontEnd\HeroExplorer\HeroCreation.inl">
+      <Filter>Source Files\FrontEnd\HeroExplorer</Filter>
+    </None>
+    <None Include="Source\FrontEnd\HeroExplorer\HeroTable.inl">
+      <Filter>Source Files\FrontEnd\HeroExplorer</Filter>
     </None>
   </ItemGroup>
 </Project>

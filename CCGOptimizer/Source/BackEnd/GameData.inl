@@ -41,6 +41,30 @@ inline const GChar * GameData::GetRuneStatName( RuneStat iRuneStat ) const {
     Assert( iRuneStat < RUNE_STAT_COUNT );
     return s_arrNames[iRuneStat];
 }
+
+inline const GChar * GameData::GetHeroFactionName( HeroFaction iHeroFaction ) const {
+    static const GChar * s_arrNames[HERO_FACTION_COUNT] = {
+        TEXT("Lawful"),
+        TEXT("Chaotic"),
+        TEXT("Evil"),
+        TEXT("Light"),
+        TEXT("Dark")
+    };
+    Assert( iHeroFaction < HERO_FACTION_COUNT );
+    return s_arrNames[iHeroFaction];
+}
+inline const GChar * GameData::GetHeroRankName( HeroRank iHeroRank ) const {
+    static const GChar * s_arrNames[HERO_RANK_COUNT] = {
+        TEXT("1-Star"),
+        TEXT("2-Stars"),
+        TEXT("3-Stars"),
+        TEXT("4-Stars"),
+        TEXT("5-Stars"),
+        TEXT("6-Stars")
+    };
+    Assert( iHeroRank < HERO_RANK_COUNT );
+    return s_arrNames[iHeroRank];
+}
 inline const GChar * GameData::GetHeroStatName( HeroStat iHeroStat ) const {
     static const GChar * s_arrNames[HERO_STAT_COUNT] = {
         TEXT("HP"),
@@ -54,6 +78,18 @@ inline const GChar * GameData::GetHeroStatName( HeroStat iHeroStat ) const {
     };
     Assert( iHeroStat < HERO_STAT_COUNT );
     return s_arrNames[iHeroStat];
+}
+inline const GChar * GameData::GetHeroSanctifyName( HeroSanctify iHeroSanctify ) const {
+    static const GChar * s_arrNames[HERO_SANCTIFY_COUNT] = {
+        TEXT("None"),
+        TEXT("HP"),
+        TEXT("Attack"),
+        TEXT("Defense"),
+        TEXT("Hit"),
+        TEXT("Resistance")
+    };
+    Assert( iHeroSanctify < HERO_SANCTIFY_COUNT );
+    return s_arrNames[iHeroSanctify];
 }
 
 inline UInt GameData::GetRuneSetSize( RuneSet iRuneSet ) const {
@@ -114,3 +150,8 @@ inline UInt GameData::GetHeroBaseStat( const GChar * strHeroName, HeroStat iHero
     else
         return m_mapHeroData[strHeroName].arrBaseStats[ iHeroStat * (HERO_RANK_COUNT * HERO_MAX_LEVEL) + iRank * HERO_MAX_LEVEL + iLevel-1 ];
 }
+
+inline GameData::HeroDataMap::Iterator GameData::EnumHeroData() const {
+    return m_mapHeroData.Begin();
+}
+

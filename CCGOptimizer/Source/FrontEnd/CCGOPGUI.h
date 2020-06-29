@@ -26,6 +26,7 @@
 
 #include "../BackEnd/CCGOPManager.h"
 
+#include "ResourceIDs.h"
 #include "HeroExplorer.h"
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -34,11 +35,6 @@
 // Main Application Window
 #define CCGOP_WINDOW_WIDTH  1600
 #define CCGOP_WINDOW_HEIGHT 960
-
-// Resource IDs
-#define CCGOP_RESID_TABS_MAINMENU     1000
-#define CCGOP_RESID_TABPANES_MAINMENU 1010
-#define CCGOP_RESID_STATUSBAR         1020
 
 // Main Menu Tabs
 enum CCGOPMainMenuTabs {
@@ -63,8 +59,11 @@ class CCGOPApplication;
 class CCGOPWindowModel : public WinGUIWindowModel
 {
 public:
-	CCGOPWindowModel( CCGOPGUI * pGUI );
+	CCGOPWindowModel();
 	virtual ~CCGOPWindowModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
@@ -81,8 +80,11 @@ private:
 class CCGOPTabsModel : public WinGUITabsModel
 {
 public:
-	CCGOPTabsModel( CCGOPGUI * pGUI );
-	~CCGOPTabsModel();
+	CCGOPTabsModel();
+	virtual ~CCGOPTabsModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
@@ -100,8 +102,11 @@ private:
 class CCGOPTabPaneModel : public WinGUIContainerModel
 {
 public:
-	CCGOPTabPaneModel( CCGOPGUI * pGUI, CCGOPMainMenuTabs iTabIndex );
-	~CCGOPTabPaneModel();
+	CCGOPTabPaneModel( CCGOPMainMenuTabs iTabIndex );
+	virtual ~CCGOPTabPaneModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
@@ -115,8 +120,11 @@ private:
 class CCGOPStatusBarModel : public WinGUIStatusBarModel
 {
 public:
-	CCGOPStatusBarModel( CCGOPGUI * pGUI );
-	~CCGOPStatusBarModel();
+	CCGOPStatusBarModel();
+	virtual ~CCGOPStatusBarModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
@@ -139,6 +147,8 @@ public:
 
 	// Access for delegates
 	inline WinGUIContainer * GetRoot( CCGOPMainMenuTabs iTabIndex ) const;
+
+	inline HeroExplorer * GetHeroExplorer();
 
 private:
 	friend class CCGOPWindowModel;

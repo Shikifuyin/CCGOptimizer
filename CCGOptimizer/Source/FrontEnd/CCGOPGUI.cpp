@@ -22,12 +22,21 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // CCGOPWindowModel implementation
-CCGOPWindowModel::CCGOPWindowModel( CCGOPGUI * pGUI ):
+CCGOPWindowModel::CCGOPWindowModel():
     WinGUIWindowModel(0)
+{
+    m_pGUI = NULL;
+}
+CCGOPWindowModel::~CCGOPWindowModel()
+{
+	// nothing to do
+}
+
+Void CCGOPWindowModel::Initialize( CCGOPGUI * pGUI )
 {
     m_pGUI = pGUI;
 
-    m_hCreationParameters.hClientRect.iLeft = 10;
+	m_hCreationParameters.hClientRect.iLeft = 10;
 	m_hCreationParameters.hClientRect.iTop = 10;
 	m_hCreationParameters.hClientRect.iWidth = CCGOP_WINDOW_WIDTH;
 	m_hCreationParameters.hClientRect.iHeight = CCGOP_WINDOW_HEIGHT;
@@ -40,10 +49,6 @@ CCGOPWindowModel::CCGOPWindowModel( CCGOPGUI * pGUI ):
 	m_hCreationParameters.bAllowResizing = false;
 	m_hCreationParameters.bClipChildren = false;
 	m_hCreationParameters.bClipSibblings = false;
-}
-CCGOPWindowModel::~CCGOPWindowModel()
-{
-	// nothing to do
 }
 
 const WinGUILayout * CCGOPWindowModel::GetLayout() const
@@ -69,8 +74,17 @@ const GChar * CCGOPTabsModel::sm_arrMenuNames[CCGOP_MAINMENU_COUNT] = {
 	TEXT("Optimizer"),
 };
 
-CCGOPTabsModel::CCGOPTabsModel( CCGOPGUI * pGUI ):
-	WinGUITabsModel(CCGOP_RESID_TABS_MAINMENU)
+CCGOPTabsModel::CCGOPTabsModel():
+	WinGUITabsModel(CCGOP_RESID_MAINMENU_TABS)
+{
+	m_pGUI = NULL;
+}
+CCGOPTabsModel::~CCGOPTabsModel()
+{
+	// nothing to do
+}
+
+Void CCGOPTabsModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -83,10 +97,6 @@ CCGOPTabsModel::CCGOPTabsModel( CCGOPGUI * pGUI ):
 		StringFn->NCopy( m_hCreationParameters.arrTabs[i].strLabel, sm_arrMenuNames[i], 63 );
 		m_hCreationParameters.arrTabs[i].pUserData = NULL;
 	}
-}
-CCGOPTabsModel::~CCGOPTabsModel()
-{
-	// nothing to do
 }
 
 const WinGUILayout * CCGOPTabsModel::GetLayout() const
@@ -118,8 +128,17 @@ Bool CCGOPTabsModel::OnSelect()
 
 /////////////////////////////////////////////////////////////////////////////////
 // CCGOPTabPaneModel implementation
-CCGOPTabPaneModel::CCGOPTabPaneModel( CCGOPGUI * pGUI, CCGOPMainMenuTabs iTabIndex ):
-	WinGUIContainerModel(CCGOP_RESID_TABPANES_MAINMENU + iTabIndex)
+CCGOPTabPaneModel::CCGOPTabPaneModel( CCGOPMainMenuTabs iTabIndex ):
+	WinGUIContainerModel(CCGOP_RESID_MAINMENU_TABPANES + iTabIndex)
+{
+	m_pGUI = NULL;	
+}
+CCGOPTabPaneModel::~CCGOPTabPaneModel()
+{
+	// nothing to do
+}
+
+Void CCGOPTabPaneModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -127,10 +146,6 @@ CCGOPTabPaneModel::CCGOPTabPaneModel( CCGOPGUI * pGUI, CCGOPMainMenuTabs iTabInd
 	m_hCreationParameters.bAllowResizing = false;
 	m_hCreationParameters.bClipChildren = true;
 	m_hCreationParameters.bClipSibblings = true;
-}
-CCGOPTabPaneModel::~CCGOPTabPaneModel()
-{
-	// nothing to do
 }
 
 const WinGUILayout * CCGOPTabPaneModel::GetLayout() const
@@ -153,17 +168,22 @@ const WinGUILayout * CCGOPTabPaneModel::GetLayout() const
 
 /////////////////////////////////////////////////////////////////////////////////
 // CCGOPStatusBarModel implementation
-CCGOPStatusBarModel::CCGOPStatusBarModel( CCGOPGUI * pGUI ):
+CCGOPStatusBarModel::CCGOPStatusBarModel():
 	WinGUIStatusBarModel(CCGOP_RESID_STATUSBAR)
+{
+	m_pGUI = NULL;
+}
+CCGOPStatusBarModel::~CCGOPStatusBarModel()
+{
+	// nothing to do
+}
+
+Void CCGOPStatusBarModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
 	m_hCreationParameters.bHasSizingGrip = false;
 	m_hCreationParameters.bEnableToolTips = true;
-}
-CCGOPStatusBarModel::~CCGOPStatusBarModel()
-{
-	// nothing to do
 }
 
 const WinGUILayout * CCGOPStatusBarModel::GetLayout() const
@@ -175,17 +195,11 @@ const WinGUILayout * CCGOPStatusBarModel::GetLayout() const
 /////////////////////////////////////////////////////////////////////////////////
 // CCGOPGUI implementation
 CCGOPGUI::CCGOPGUI( CCGOPApplication * pApplication ):
-	m_hAppWindowModel(this),
-
-	m_hCCGOPTabsModel(this),
-
-	m_hTabPaneModelImportExport(this, CCGOP_MAINMENU_IMPORT_EXPORT),
-	m_hTabPaneModelHeroExplorer(this, CCGOP_MAINMENU_HERO_EXPLORER),
-	m_hTabPaneModelRuneExplorer(this, CCGOP_MAINMENU_RUNE_EXPLORER),
-	m_hTabPaneModelGearSetExplorer(this, CCGOP_MAINMENU_GEARSET_EXPLORER),
-	m_hTabPaneModelOptimizer(this, CCGOP_MAINMENU_OPTIMIZER),
-
-	m_hCCGOPStatusBarModel(this),
+	m_hTabPaneModelImportExport(CCGOP_MAINMENU_IMPORT_EXPORT),
+	m_hTabPaneModelHeroExplorer(CCGOP_MAINMENU_HERO_EXPLORER),
+	m_hTabPaneModelRuneExplorer(CCGOP_MAINMENU_RUNE_EXPLORER),
+	m_hTabPaneModelGearSetExplorer(CCGOP_MAINMENU_GEARSET_EXPLORER),
+	m_hTabPaneModelOptimizer(CCGOP_MAINMENU_OPTIMIZER),
 
 	m_hHeroExplorer(this)
 {
@@ -211,18 +225,26 @@ CCGOPGUI::~CCGOPGUI()
 Void CCGOPGUI::Initialize()
 {
 	// Create App Window
+	m_hAppWindowModel.Initialize( this );
 	WinGUIFn->CreateAppWindow( &m_hAppWindowModel );
 	m_pAppWindow = WinGUIFn->GetAppWindow();
 
 	// Build GUI
+	m_hCCGOPTabsModel.Initialize( this );
 	m_pCCGOPTabs = WinGUIFn->CreateTabs( m_pAppWindow, &m_hCCGOPTabsModel );
 
+	m_hTabPaneModelImportExport.Initialize( this );
+	m_hTabPaneModelHeroExplorer.Initialize( this );
+	m_hTabPaneModelRuneExplorer.Initialize( this );
+	m_hTabPaneModelGearSetExplorer.Initialize( this );
+	m_hTabPaneModelOptimizer.Initialize( this );
 	m_arrCCGOPTabPanes[CCGOP_MAINMENU_IMPORT_EXPORT]    = WinGUIFn->CreateContainer( m_pAppWindow, &m_hTabPaneModelImportExport );
 	m_arrCCGOPTabPanes[CCGOP_MAINMENU_HERO_EXPLORER]    = WinGUIFn->CreateContainer( m_pAppWindow, &m_hTabPaneModelHeroExplorer );
 	m_arrCCGOPTabPanes[CCGOP_MAINMENU_RUNE_EXPLORER]    = WinGUIFn->CreateContainer( m_pAppWindow, &m_hTabPaneModelRuneExplorer );
 	m_arrCCGOPTabPanes[CCGOP_MAINMENU_GEARSET_EXPLORER] = WinGUIFn->CreateContainer( m_pAppWindow, &m_hTabPaneModelGearSetExplorer );
 	m_arrCCGOPTabPanes[CCGOP_MAINMENU_OPTIMIZER]        = WinGUIFn->CreateContainer( m_pAppWindow, &m_hTabPaneModelOptimizer );
 
+	m_hCCGOPStatusBarModel.Initialize( this );
 	m_pCCGOPStatusBar = WinGUIFn->CreateStatusBar( m_pAppWindow, &m_hCCGOPStatusBarModel );
 	UInt arrEdges[2] = { 800, INVALID_OFFSET };
 	m_pCCGOPStatusBar->SetMinHeight( 24 );

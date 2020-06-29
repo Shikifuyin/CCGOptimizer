@@ -22,14 +22,12 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // HeroExplorer implementation
-HeroExplorer::HeroExplorer( CCGOPGUI * pGUI )
+HeroExplorer::HeroExplorer( CCGOPGUI * pGUI ):
+	m_hHeroTable( pGUI ),
+	m_hHeroCreation( pGUI )
 {
 	m_pGUI = pGUI;
-	m_pRoot = m_pGUI->GetRoot( CCGOP_MAINMENU_HERO_EXPLORER );
-
-	m_pSearchUI = NULL;
-
-	m_pHeroTable = NULL;
+	m_pRoot = NULL;
 }
 HeroExplorer::~HeroExplorer()
 {
@@ -38,15 +36,22 @@ HeroExplorer::~HeroExplorer()
 
 Void HeroExplorer::Initialize()
 {
-	// Build GUI
+	// Grab Root
+	m_pRoot = m_pGUI->GetRoot( CCGOP_MAINMENU_HERO_EXPLORER );
 
+	// Build Hero Table UI
+	m_hHeroTable.Initialize();
 
-
+	// Build Hero Creation UI
+	m_hHeroCreation.Initialize();
 }
 Void HeroExplorer::Cleanup()
 {
-	// nothing to do (for now)
+	// Cleanup Hero Creation UI
+	m_hHeroCreation.Cleanup();
+
+	// Cleanup Hero Table UI
+	m_hHeroTable.Cleanup();
 }
 
-/////////////////////////////////////////////////////////////////////////////////
 

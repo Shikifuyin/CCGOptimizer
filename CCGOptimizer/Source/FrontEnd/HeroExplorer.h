@@ -26,6 +26,11 @@
 
 #include "../BackEnd/CCGOPManager.h"
 
+#include "ResourceIDs.h"
+
+#include "HeroExplorer/HeroCreation.h"
+#include "HeroExplorer/HeroTable.h"
+
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
 
@@ -44,16 +49,24 @@ public:
 	Void Initialize();
 	Void Cleanup();
 
+	// Access for delegates
+	inline HeroTable * GetHeroTable();
+	inline HeroCreation * GetHeroCreation();
+
 private:
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;
 
-	// Search UI
-	WinGUIContainer * m_pSearchUI;
-
 	// Table UI
-	WinGUITable * m_pHeroTable;
+	HeroTable m_hHeroTable;
+
+	// Hero Creation UI
+	HeroCreation m_hHeroCreation;
+
+	// Load/Save Hero Data UI
+
+	// Search UI
 
 };
 

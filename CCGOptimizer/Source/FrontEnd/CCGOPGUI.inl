@@ -34,3 +34,7 @@ inline WinGUIContainer * CCGOPGUI::GetRoot( CCGOPMainMenuTabs iTabIndex ) const 
 	return m_arrCCGOPTabPanes[iTabIndex];
 }
 
+inline HeroExplorer * CCGOPGUI::GetHeroExplorer() {
+	return &m_hHeroExplorer;
+}
+

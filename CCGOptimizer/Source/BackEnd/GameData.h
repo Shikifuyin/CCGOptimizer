@@ -167,12 +167,18 @@ private:
     ~GameData();
 
 public:
+    typedef TreeMap<const GChar *, HeroData> HeroDataMap;
+
     // Import (No Export Needed)
     Void ImportFromXML();
 
     // Constant Names
     inline const GChar * GetRuneStatName( RuneStat iRuneStat ) const;
+
+    inline const GChar * GetHeroFactionName( HeroFaction iHeroFaction ) const;
+    inline const GChar * GetHeroRankName( HeroRank iHeroRank ) const;
     inline const GChar * GetHeroStatName( HeroStat iHeroStat ) const;
+    inline const GChar * GetHeroSanctifyName( HeroSanctify iHeroSanctify ) const;
 
     // Rune Data
     inline UInt GetRuneSetSize( RuneSet iRuneSet ) const;
@@ -192,6 +198,8 @@ public:
     inline HeroRank GetHeroNaturalRank( const GChar * strHeroName ) const;
     inline UInt GetHeroBaseStat( const GChar * strHeroName, HeroStat iHeroStat, HeroRank iRank, UInt iLevel, Bool bEvolved ) const;
 
+    inline HeroDataMap::Iterator EnumHeroData() const;
+
 private:
     // Rune Data
     UInt m_arrRuneSetSizes[RUNE_SET_COUNT];
@@ -205,7 +213,6 @@ private:
     UInt m_arrHeroSanctifyBonus[HERO_SANCTIFY_COUNT];
 
     static Int _Compare_HeroNames( const GChar * const & rLeft, const GChar * const & rRight, Void * pUserData );
-    typedef TreeMap<const GChar *, HeroData> HeroDataMap;
     HeroDataMap m_mapHeroData;
 };
 
