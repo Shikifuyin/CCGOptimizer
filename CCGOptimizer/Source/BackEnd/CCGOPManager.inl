@@ -18,8 +18,10 @@
 /////////////////////////////////////////////////////////////////////////////////
 // CCGOPManager implementation
 inline CCGOPManager * CCGOPManager::GetInstance() {
-	static CCGOPManager s_hInstance;
-	return &s_hInstance;
+	static CCGOPManager * s_pInstance = NULL;
+    if ( s_pInstance == NULL )
+        s_pInstance = New() CCGOPManager();
+	return s_pInstance;
 }
 
 inline UInt CCGOPManager::GetRuneCount() const {

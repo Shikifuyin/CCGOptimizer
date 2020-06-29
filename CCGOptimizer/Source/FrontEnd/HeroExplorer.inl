@@ -1,12 +1,12 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/BackEnd/Optimizer/CCGOptimizer.inl
+// File : Source/FrontEnd/HeroExplorer.inl
 /////////////////////////////////////////////////////////////////////////////////
-// Version : 1.0
+// Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : Optimized Search Implementation
+// Description : HeroExplorer GUI
 /////////////////////////////////////////////////////////////////////////////////
-// License :
+// Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
 //   http://creativecommons.org/licenses/by-nc-nd/3.0/
 /////////////////////////////////////////////////////////////////////////////////
@@ -16,18 +16,4 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////
-// CCGOptimizer implementation
-inline CCGOptimizer * CCGOptimizer::GetInstance() {
-	static CCGOptimizer * s_pInstance = NULL;
-    if ( s_pInstance == NULL )
-        s_pInstance = New() CCGOptimizer();
-	return s_pInstance;
-}
-
-inline SearchParameters * CCGOptimizer::GetSearchParameters() {
-    return &m_hSearchParams;
-}
-
-inline UInt CCGOptimizer::GetEstimatedPermutations() const {
-    return m_iEstimatedPermutations;
-}
+// HeroExplorer implementation

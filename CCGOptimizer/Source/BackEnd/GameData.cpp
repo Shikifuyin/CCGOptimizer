@@ -24,6 +24,7 @@
 GameData::GameData():
     m_mapHeroData()
 {
+    m_mapHeroData.SetComparator( _Compare_HeroNames );
     m_mapHeroData.Create();
 }
 GameData::~GameData()
@@ -125,7 +126,7 @@ Void GameData::ImportFromXML()
     Assert( StringFn->Cmp(pHeroDocument->GetTagName(), TEXT("gamedata_heroes")) == 0 );
 
         // Hero Rank Max Level
-    pNode = pHeroDocument->GetChildByTag( TEXT("sub_stats_roll_ranges"), 0 );
+    pNode = pHeroDocument->GetChildByTag( TEXT("hero_rank_max_level"), 0 );
     Assert( pNode != NULL );
     for( i = 0; i < HERO_RANK_COUNT; ++i ) {
         StringFn->Format( strNameBuffer, TEXT("hero_rank_%d"), i );
@@ -147,10 +148,12 @@ Void GameData::ImportFromXML()
     }
 
         // Hero Data
-    UInt iHeroDataCount = pHeroDocument->GetChildCount() - 2;
-    for( UInt iHero = 0; iHero < iHeroDataCount; ++iHero ) {
+    UInt iHero = 0;
+    while( true ) {
         pNode = pHeroDocument->GetChildNByTag( TEXT("hero_data"), iHero );
-        Assert( pNode != NULL );
+        if ( pNode == NULL )
+            break;
+        ++iHero;
 
         HeroData hHeroData;
 
@@ -195,7 +198,7 @@ Void GameData::ImportFromXML()
                     pAttribute = pSubSubNode->GetAttribute( strStatName );
                     Assert( pAttribute != NULL );
 
-                    hHeroData.arrBaseStats[ l * (HERO_RANK_COUNT * HERO_MAX_LEVEL) + j * HERO_MAX_LEVEL + k ] = (UInt)( StringFn->ToUInt(pAttribute->GetValue()) );
+                    hHeroData.arrBaseStats[ l * (HERO_RANK_COUNT * HERO_MAX_LEVEL) + j * HERO_MAX_LEVEL + k-1 ] = (UInt)( StringFn->ToUInt(pAttribute->GetValue()) );
                 }
             }
         }
@@ -223,7 +226,7 @@ Void GameData::ImportFromXML()
                     pAttribute = pSubSubNode->GetAttribute( strStatName );
                     Assert( pAttribute != NULL );
 
-                    hHeroData.arrBaseStatsEvolved[ l * (HERO_RANK_COUNT * HERO_MAX_LEVEL) + j * HERO_MAX_LEVEL + k ] = (UInt)( StringFn->ToUInt(pAttribute->GetValue()) );
+                    hHeroData.arrBaseStatsEvolved[ l * (HERO_RANK_COUNT * HERO_MAX_LEVEL) + j * HERO_MAX_LEVEL + k-1 ] = (UInt)( StringFn->ToUInt(pAttribute->GetValue()) );
                 }
             }
         }
@@ -233,4 +236,10 @@ Void GameData::ImportFromXML()
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////////
+
+Int GameData::_Compare_HeroNames( const GChar * const & rLeft, const GChar * const & rRight, Void * pUserData )
+{
+    return StringFn->NCmp( rLeft, rRight, GAMEDATA_NAMES_MAX_LENGTH - 1 );
+}
 

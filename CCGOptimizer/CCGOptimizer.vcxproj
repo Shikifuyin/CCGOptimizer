@@ -91,9 +91,9 @@
       <AdditionalIncludeDirectories>$(SolutionDir)..\Scarab-Engine-64\Scarab-Engine-64\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Scarab-Engine-64.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;ws2_32.lib;Iphlpapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Scarab-Engine-64.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;ws2_32.lib;Iphlpapi.lib;comctl32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\Scarab-Engine-64\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -108,11 +108,11 @@
       <AdditionalIncludeDirectories>$(SolutionDir)..\Scarab-Engine-64\Scarab-Engine-64\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Scarab-Engine-64.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;ws2_32.lib;Iphlpapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Scarab-Engine-64.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;ws2_32.lib;Iphlpapi.lib;comctl32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\Scarab-Engine-64\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -125,9 +125,9 @@
       <AdditionalIncludeDirectories>$(SolutionDir)..\Scarab-Engine-64\Scarab-Engine-64\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Scarab-Engine-64.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;ws2_32.lib;Iphlpapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Scarab-Engine-64.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;ws2_32.lib;Iphlpapi.lib;comctl32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\Scarab-Engine-64\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -142,11 +142,11 @@
       <AdditionalIncludeDirectories>$(SolutionDir)..\Scarab-Engine-64\Scarab-Engine-64\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Scarab-Engine-64.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;ws2_32.lib;Iphlpapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Scarab-Engine-64.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;ws2_32.lib;Iphlpapi.lib;comctl32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\Scarab-Engine-64\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -162,6 +162,8 @@
     <ClCompile Include="Source\BackEnd\Optimizer\SearchParameters.cpp" />
     <ClCompile Include="Source\BackEnd\Rune.cpp" />
     <ClCompile Include="Source\BackEnd\RuneInventory.cpp" />
+    <ClCompile Include="Source\FrontEnd\CCGOPGUI.cpp" />
+    <ClCompile Include="Source\FrontEnd\HeroExplorer.cpp" />
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +178,9 @@
     <ClInclude Include="Source\BackEnd\Optimizer\SearchParameters.h" />
     <ClInclude Include="Source\BackEnd\Rune.h" />
     <ClInclude Include="Source\BackEnd\RuneInventory.h" />
+    <ClInclude Include="Source\FrontEnd\CCGOPGUI.h" />
+    <ClInclude Include="Source\FrontEnd\HeroExplorer.h" />
+    <ClInclude Include="Source\Main.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\BackEnd\CCGOPManager.inl" />
@@ -189,6 +194,8 @@
     <None Include="Source\BackEnd\Optimizer\SearchParameters.inl" />
     <None Include="Source\BackEnd\Rune.inl" />
     <None Include="Source\BackEnd\RuneInventory.inl" />
+    <None Include="Source\FrontEnd\CCGOPGUI.inl" />
+    <None Include="Source\FrontEnd\HeroExplorer.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

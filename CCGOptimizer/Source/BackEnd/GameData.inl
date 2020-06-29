@@ -18,8 +18,10 @@
 /////////////////////////////////////////////////////////////////////////////////
 // GameData implementation
 inline GameData * GameData::GetInstance() {
-	static GameData s_hInstance;
-	return &s_hInstance;
+	static GameData * s_pInstance = NULL;
+    if ( s_pInstance == NULL )
+        s_pInstance = New() GameData();
+	return s_pInstance;
 }
 
 inline const GChar * GameData::GetRuneStatName( RuneStat iRuneStat ) const {
@@ -68,7 +70,7 @@ inline UInt GameData::GetRuneMainStatValue( RuneStat iRuneStat, RuneRank iRank, 
     Assert( iRuneStat < RUNE_STAT_COUNT );
     Assert( iRank < RUNE_RANK_COUNT );
     Assert( iLevel <= RUNE_MAX_LEVEL );
-    return m_arrRuneMainStatsValues[iRuneStat * (RUNE_RANK_COUNT * RUNE_MAX_LEVEL) + iRank * RUNE_MAX_LEVEL + iLevel];
+    return m_arrRuneMainStatsValues[iRuneStat * (RUNE_RANK_COUNT * RUNE_MAX_LEVEL) + iRank * (RUNE_MAX_LEVEL+1) + iLevel];
 }
 
 inline UInt GameData::GetRuneStatMinRoll( RuneStat iRuneStat, RuneRank iRank ) const {
@@ -108,7 +110,7 @@ inline UInt GameData::GetHeroBaseStat( const GChar * strHeroName, HeroStat iHero
     Assert( iRank < HERO_RANK_COUNT );
     Assert( iLevel <= m_arrHeroRankMaxLevel[iRank] );
     if ( bEvolved )
-        return m_mapHeroData[strHeroName].arrBaseStatsEvolved[ iHeroStat * (HERO_RANK_COUNT * HERO_MAX_LEVEL) + iRank * HERO_MAX_LEVEL + iLevel ];
+        return m_mapHeroData[strHeroName].arrBaseStatsEvolved[ iHeroStat * (HERO_RANK_COUNT * HERO_MAX_LEVEL) + iRank * HERO_MAX_LEVEL + iLevel-1 ];
     else
-        return m_mapHeroData[strHeroName].arrBaseStats[ iHeroStat * (HERO_RANK_COUNT * HERO_MAX_LEVEL) + iRank * HERO_MAX_LEVEL + iLevel ];
+        return m_mapHeroData[strHeroName].arrBaseStats[ iHeroStat * (HERO_RANK_COUNT * HERO_MAX_LEVEL) + iRank * HERO_MAX_LEVEL + iLevel-1 ];
 }

@@ -196,7 +196,7 @@ private:
     // Rune Data
     UInt m_arrRuneSetSizes[RUNE_SET_COUNT];
     Bool m_arrRuneMainStatsAllowed[RUNE_STAT_COUNT * RUNE_SLOT_COUNT];
-    UInt m_arrRuneMainStatsValues[RUNE_STAT_COUNT * RUNE_RANK_COUNT * RUNE_MAX_LEVEL];
+    UInt m_arrRuneMainStatsValues[RUNE_STAT_COUNT * RUNE_RANK_COUNT * (RUNE_MAX_LEVEL+1)];
     UInt m_arrRuneSubStatsMinRoll[RUNE_STAT_COUNT * RUNE_RANK_COUNT];
     UInt m_arrRuneSubStatsMaxRoll[RUNE_STAT_COUNT * RUNE_RANK_COUNT];
 
@@ -204,6 +204,7 @@ private:
     UInt m_arrHeroRankMaxLevel[HERO_RANK_COUNT];
     UInt m_arrHeroSanctifyBonus[HERO_SANCTIFY_COUNT];
 
+    static Int _Compare_HeroNames( const GChar * const & rLeft, const GChar * const & rRight, Void * pUserData );
     typedef TreeMap<const GChar *, HeroData> HeroDataMap;
     HeroDataMap m_mapHeroData;
 };
