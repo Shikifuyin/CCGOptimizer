@@ -111,6 +111,150 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
+// The HeroTableGroupModel class
+class HeroTableGroupModel : public WinGUIGroupBoxModel
+{
+public:
+	HeroTableGroupModel();
+	virtual ~HeroTableGroupModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The HeroTableSelectAllModel class
+class HeroTableSelectAllModel : public WinGUIButtonModel
+{
+public:
+	HeroTableSelectAllModel();
+	~HeroTableSelectAllModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The HeroTableUnselectAllModel class
+class HeroTableUnselectAllModel : public WinGUIButtonModel
+{
+public:
+	HeroTableUnselectAllModel();
+	~HeroTableUnselectAllModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The HeroTableCheckAllModel class
+class HeroTableCheckAllModel : public WinGUIButtonModel
+{
+public:
+	HeroTableCheckAllModel();
+	~HeroTableCheckAllModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The HeroTableUncheckAllModel class
+class HeroTableUncheckAllModel : public WinGUIButtonModel
+{
+public:
+	HeroTableUncheckAllModel();
+	~HeroTableUncheckAllModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The HeroTableCheckSelectedModel class
+class HeroTableCheckSelectedModel : public WinGUIButtonModel
+{
+public:
+	HeroTableCheckSelectedModel();
+	~HeroTableCheckSelectedModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The HeroTableUncheckSelectedModel class
+class HeroTableUncheckSelectedModel : public WinGUIButtonModel
+{
+public:
+	HeroTableUncheckSelectedModel();
+	~HeroTableUncheckSelectedModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
 // The HeroTable class
 class HeroTable
 {
@@ -123,6 +267,13 @@ public:
 	Void Cleanup();
 
 private:
+	friend class HeroTableSelectAllModel;
+	friend class HeroTableUnselectAllModel;
+	friend class HeroTableCheckAllModel;
+	friend class HeroTableUncheckAllModel;
+	friend class HeroTableCheckSelectedModel;
+	friend class HeroTableUncheckSelectedModel;
+
 	friend class HeroCreationButtonModel;
 
 	friend class HeroOptionsMaxRankModel;
@@ -138,6 +289,21 @@ private:
 	// Hero Table UI
 	HeroTableModel m_hHeroTableModel;
 	WinGUITable * m_pHeroTable;
+
+	HeroTableGroupModel m_hGroup;
+	WinGUIGroupBox * m_pGroup;
+	HeroTableSelectAllModel m_hSelectAll;
+	WinGUIButton * m_pSelectAll;
+	HeroTableUnselectAllModel m_hUnselectAll;
+	WinGUIButton * m_pUnselectAll;
+	HeroTableCheckAllModel m_hCheckAll;
+	WinGUIButton * m_pCheckAll;
+	HeroTableUncheckAllModel m_hUncheckAll;
+	WinGUIButton * m_pUncheckAll;
+	HeroTableCheckSelectedModel m_hCheckSelected;
+	WinGUIButton * m_pCheckSelected;
+	HeroTableUncheckSelectedModel m_hUncheckSelected;
+	WinGUIButton * m_pUncheckSelected;
 };
 
 /////////////////////////////////////////////////////////////////////////////////

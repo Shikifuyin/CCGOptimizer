@@ -114,6 +114,7 @@ Void HeroTableModel::CreateColumns()
 	pTable->SetTextBackgroundColor( 0x00d0d0d0 );
 	pTable->ShowGridLines( true );
 	pTable->ToggleFullRowSelection( true );
+	pTable->ToggleAlwaysShowSelection( true );
 
 	// Build Columns
 	for( UInt i = 0; i < CCGOP_HEROTABLE_COLUMN_COUNT; ++i ) {
@@ -448,6 +449,384 @@ Int __stdcall HeroTableModel::_Compare_HeroRES( Void * pItemDataA, Void * pItemD
 }
 
 /////////////////////////////////////////////////////////////////////////////////
+// HeroTableGroupModel implementation
+HeroTableGroupModel::HeroTableGroupModel():
+	WinGUIGroupBoxModel(CCGOP_RESID_HEROEXPLORER_HEROTABLE_GROUP)
+{
+	m_pGUI = NULL;
+}
+HeroTableGroupModel::~HeroTableGroupModel()
+{
+	// nothing to do
+}
+
+Void HeroTableGroupModel::Initialize( CCGOPGUI * pGUI )
+{
+	m_pGUI = pGUI;
+
+	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Table Options :") );
+}
+
+const WinGUILayout * HeroTableGroupModel::GetLayout() const
+{
+	static WinGUIManualLayout hLayout;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = 400;
+	hLayout.FixedPosition.iY = 620;
+
+	hLayout.UseScalingSize = false;
+	hLayout.FixedSize.iX = 800;
+	hLayout.FixedSize.iY = 48;
+
+	return &hLayout;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+// HeroTableSelectAllModel implementation
+HeroTableSelectAllModel::HeroTableSelectAllModel():
+	WinGUIButtonModel(CCGOP_RESID_HEROEXPLORER_HEROTABLE_SELECTALL)
+{
+	m_pGUI = NULL;
+}
+HeroTableSelectAllModel::~HeroTableSelectAllModel()
+{
+	// nothing to do
+}
+
+Void HeroTableSelectAllModel::Initialize( CCGOPGUI * pGUI )
+{
+	m_pGUI = pGUI;
+
+	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Select All") );
+	m_hCreationParameters.bCenterLabel = true;
+	m_hCreationParameters.bEnableTabStop = true;
+	m_hCreationParameters.bEnableNotify = false;
+}
+
+const WinGUILayout * HeroTableSelectAllModel::GetLayout() const
+{
+	HeroTable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable();
+	WinGUIGroupBox * pGroupBox = pHeroTable->m_pGroup;
+
+	WinGUIRectangle hClientArea;
+	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+
+	static WinGUIManualLayout hLayout;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft;
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
+	hLayout.UseScalingSize = false;
+	hLayout.FixedSize.iX = 120;
+	hLayout.FixedSize.iY = 24;
+
+	return &hLayout;
+}
+
+Bool HeroTableSelectAllModel::OnClick()
+{
+	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
+
+	UInt iItemCount = pHeroTable->GetItemCount();
+	for( UInt i = 0; i < iItemCount; ++i ) {
+		pHeroTable->SelectItem( i, true );
+	}
+
+	pHeroTable->GiveFocus();
+
+	return true;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+// HeroTableUnselectAllModel implementation
+HeroTableUnselectAllModel::HeroTableUnselectAllModel():
+	WinGUIButtonModel(CCGOP_RESID_HEROEXPLORER_HEROTABLE_UNSELECTALL)
+{
+	m_pGUI = NULL;
+}
+HeroTableUnselectAllModel::~HeroTableUnselectAllModel()
+{
+	// nothing to do
+}
+
+Void HeroTableUnselectAllModel::Initialize( CCGOPGUI * pGUI )
+{
+	m_pGUI = pGUI;
+
+	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Unselect All") );
+	m_hCreationParameters.bCenterLabel = true;
+	m_hCreationParameters.bEnableTabStop = true;
+	m_hCreationParameters.bEnableNotify = false;
+}
+
+const WinGUILayout * HeroTableUnselectAllModel::GetLayout() const
+{
+	HeroTable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable();
+	WinGUIGroupBox * pGroupBox = pHeroTable->m_pGroup;
+
+	WinGUIRectangle hClientArea;
+	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+
+	static WinGUIManualLayout hLayout;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + 124;
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
+	hLayout.UseScalingSize = false;
+	hLayout.FixedSize.iX = 120;
+	hLayout.FixedSize.iY = 24;
+
+	return &hLayout;
+}
+
+Bool HeroTableUnselectAllModel::OnClick()
+{
+	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
+
+	UInt iItemCount = pHeroTable->GetItemCount();
+	for( UInt i = 0; i < iItemCount; ++i ) {
+		pHeroTable->SelectItem( i, false );
+	}
+
+	pHeroTable->GiveFocus();
+
+	return true;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+// HeroTableCheckAllModel implementation
+HeroTableCheckAllModel::HeroTableCheckAllModel():
+	WinGUIButtonModel(CCGOP_RESID_HEROEXPLORER_HEROTABLE_CHECKALL)
+{
+	m_pGUI = NULL;
+}
+HeroTableCheckAllModel::~HeroTableCheckAllModel()
+{
+	// nothing to do
+}
+
+Void HeroTableCheckAllModel::Initialize( CCGOPGUI * pGUI )
+{
+	m_pGUI = pGUI;
+
+	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Check All") );
+	m_hCreationParameters.bCenterLabel = true;
+	m_hCreationParameters.bEnableTabStop = true;
+	m_hCreationParameters.bEnableNotify = false;
+}
+
+const WinGUILayout * HeroTableCheckAllModel::GetLayout() const
+{
+	HeroTable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable();
+	WinGUIGroupBox * pGroupBox = pHeroTable->m_pGroup;
+
+	WinGUIRectangle hClientArea;
+	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+
+	static WinGUIManualLayout hLayout;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + 266;
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
+	hLayout.UseScalingSize = false;
+	hLayout.FixedSize.iX = 120;
+	hLayout.FixedSize.iY = 24;
+
+	return &hLayout;
+}
+
+Bool HeroTableCheckAllModel::OnClick()
+{
+	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
+
+	UInt iItemCount = pHeroTable->GetItemCount();
+	for( UInt i = 0; i < iItemCount; ++i ) {
+		pHeroTable->CheckItem( i, true );
+	}
+
+	pHeroTable->GiveFocus();
+
+	return true;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+// HeroTableUncheckAllModel implementation
+HeroTableUncheckAllModel::HeroTableUncheckAllModel():
+	WinGUIButtonModel(CCGOP_RESID_HEROEXPLORER_HEROTABLE_UNCHECKALL)
+{
+	m_pGUI = NULL;
+}
+HeroTableUncheckAllModel::~HeroTableUncheckAllModel()
+{
+	// nothing to do
+}
+
+Void HeroTableUncheckAllModel::Initialize( CCGOPGUI * pGUI )
+{
+	m_pGUI = pGUI;
+
+	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Uncheck All") );
+	m_hCreationParameters.bCenterLabel = true;
+	m_hCreationParameters.bEnableTabStop = true;
+	m_hCreationParameters.bEnableNotify = false;
+}
+
+const WinGUILayout * HeroTableUncheckAllModel::GetLayout() const
+{
+	HeroTable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable();
+	WinGUIGroupBox * pGroupBox = pHeroTable->m_pGroup;
+
+	WinGUIRectangle hClientArea;
+	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+
+	static WinGUIManualLayout hLayout;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + 390;
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
+	hLayout.UseScalingSize = false;
+	hLayout.FixedSize.iX = 120;
+	hLayout.FixedSize.iY = 24;
+
+	return &hLayout;
+}
+
+Bool HeroTableUncheckAllModel::OnClick()
+{
+	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
+
+	UInt iItemCount = pHeroTable->GetItemCount();
+	for( UInt i = 0; i < iItemCount; ++i ) {
+		pHeroTable->CheckItem( i, false );
+	}
+
+	pHeroTable->GiveFocus();
+
+	return true;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+// HeroTableCheckSelectedModel implementation
+HeroTableCheckSelectedModel::HeroTableCheckSelectedModel():
+	WinGUIButtonModel(CCGOP_RESID_HEROEXPLORER_HEROTABLE_CHECKSELECTED)
+{
+	m_pGUI = NULL;
+}
+HeroTableCheckSelectedModel::~HeroTableCheckSelectedModel()
+{
+	// nothing to do
+}
+
+Void HeroTableCheckSelectedModel::Initialize( CCGOPGUI * pGUI )
+{
+	m_pGUI = pGUI;
+
+	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Check Selected") );
+	m_hCreationParameters.bCenterLabel = true;
+	m_hCreationParameters.bEnableTabStop = true;
+	m_hCreationParameters.bEnableNotify = false;
+}
+
+const WinGUILayout * HeroTableCheckSelectedModel::GetLayout() const
+{
+	HeroTable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable();
+	WinGUIGroupBox * pGroupBox = pHeroTable->m_pGroup;
+
+	WinGUIRectangle hClientArea;
+	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+
+	static WinGUIManualLayout hLayout;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + 532;
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
+	hLayout.UseScalingSize = false;
+	hLayout.FixedSize.iX = 120;
+	hLayout.FixedSize.iY = 24;
+
+	return &hLayout;
+}
+
+Bool HeroTableCheckSelectedModel::OnClick()
+{
+	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
+
+	UInt iItemCount = pHeroTable->GetItemCount();
+	for( UInt i = 0; i < iItemCount; ++i ) {
+		if ( pHeroTable->IsItemSelected(i) )
+			pHeroTable->CheckItem( i, true );
+	}
+
+	pHeroTable->GiveFocus();
+
+	return true;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+// HeroTableUncheckSelectedModel implementation
+HeroTableUncheckSelectedModel::HeroTableUncheckSelectedModel():
+	WinGUIButtonModel(CCGOP_RESID_HEROEXPLORER_HEROTABLE_UNCHECKSELECTED)
+{
+	m_pGUI = NULL;
+}
+HeroTableUncheckSelectedModel::~HeroTableUncheckSelectedModel()
+{
+	// nothing to do
+}
+
+Void HeroTableUncheckSelectedModel::Initialize( CCGOPGUI * pGUI )
+{
+	m_pGUI = pGUI;
+
+	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Uncheck Selected") );
+	m_hCreationParameters.bCenterLabel = true;
+	m_hCreationParameters.bEnableTabStop = true;
+	m_hCreationParameters.bEnableNotify = false;
+}
+
+const WinGUILayout * HeroTableUncheckSelectedModel::GetLayout() const
+{
+	HeroTable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable();
+	WinGUIGroupBox * pGroupBox = pHeroTable->m_pGroup;
+
+	WinGUIRectangle hClientArea;
+	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+
+	static WinGUIManualLayout hLayout;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + 656;
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
+	hLayout.UseScalingSize = false;
+	hLayout.FixedSize.iX = 120;
+	hLayout.FixedSize.iY = 24;
+
+	return &hLayout;
+}
+
+Bool HeroTableUncheckSelectedModel::OnClick()
+{
+	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
+
+	UInt iItemCount = pHeroTable->GetItemCount();
+	for( UInt i = 0; i < iItemCount; ++i ) {
+		if ( pHeroTable->IsItemSelected(i) )
+			pHeroTable->CheckItem( i, false );
+	}
+
+	pHeroTable->GiveFocus();
+
+	return true;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
 // HeroTable implementation
 HeroTable::HeroTable( CCGOPGUI * pGUI )
 {
@@ -455,6 +834,14 @@ HeroTable::HeroTable( CCGOPGUI * pGUI )
 	m_pRoot = NULL;
 
 	m_pHeroTable = NULL;
+
+	m_pGroup = NULL;
+	m_pSelectAll = NULL;
+	m_pUnselectAll = NULL;
+	m_pCheckAll = NULL;
+	m_pUncheckAll = NULL;
+	m_pCheckSelected = NULL;
+	m_pUncheckSelected = NULL;
 }
 HeroTable::~HeroTable()
 {
@@ -466,10 +853,31 @@ Void HeroTable::Initialize()
 	// Grab Root
 	m_pRoot = m_pGUI->GetRoot( CCGOP_MAINMENU_HERO_EXPLORER );
 
-	// Build Hero Table
+	// Build Hero Table UI
 	m_hHeroTableModel.Initialize( m_pGUI );
 	m_pHeroTable = WinGUIFn->CreateTable( m_pRoot, &m_hHeroTableModel );
 	m_hHeroTableModel.CreateColumns();
+
+	m_hGroup.Initialize( m_pGUI );
+	m_pGroup = WinGUIFn->CreateGroupBox( m_pRoot, &m_hGroup );
+
+	m_hSelectAll.Initialize( m_pGUI );
+	m_pSelectAll = WinGUIFn->CreateButton( m_pRoot, &m_hSelectAll );
+
+	m_hUnselectAll.Initialize( m_pGUI );
+	m_pUnselectAll = WinGUIFn->CreateButton( m_pRoot, &m_hUnselectAll );
+
+	m_hCheckAll.Initialize( m_pGUI );
+	m_pCheckAll = WinGUIFn->CreateButton( m_pRoot, &m_hCheckAll );
+
+	m_hUncheckAll.Initialize( m_pGUI );
+	m_pUncheckAll = WinGUIFn->CreateButton( m_pRoot, &m_hUncheckAll );
+
+	m_hCheckSelected.Initialize( m_pGUI );
+	m_pCheckSelected = WinGUIFn->CreateButton( m_pRoot, &m_hCheckSelected );
+
+	m_hUncheckSelected.Initialize( m_pGUI );
+	m_pUncheckSelected = WinGUIFn->CreateButton( m_pRoot, &m_hUncheckSelected );
 }
 Void HeroTable::Cleanup()
 {
