@@ -35,6 +35,9 @@ typedef UInt RuneID;
     typedef UInt GearSetID;
 #endif // GearSetID
 
+// GearSets Per Rune
+#define RUNE_MAX_GEARSETS 64
+
 // Prototypes
 class CCGOPManager;
 class RuneInventory;
@@ -86,7 +89,7 @@ public:
     inline Bool IsEquipped() const;
     inline UInt GetGearSetCount() const;
     inline GearSetID GetGearSet( UInt iIndex ) const;
-    inline Bool HasGearSet( GearSetID iGearSetID ) const;
+    Bool HasGearSet( GearSetID iGearSetID ) const;
 
     // Score system
     inline Float GetScoreEfficiency() const;
@@ -98,8 +101,8 @@ private:
     friend class CCGOPManager;
     friend class RuneInventory;
 
-    inline UInt _EquipToGearSet( GearSetID iGearSetID );
-    inline Void _UnequipFromGearSet( GearSetID iGearSetID );
+    UInt _EquipToGearSet( GearSetID iGearSetID );
+    Void _UnequipFromGearSet( GearSetID iGearSetID );
     inline Void _UnequipFromAllGearSets();
 
     // Helpers
@@ -121,7 +124,8 @@ private:
 
     // State
     Bool m_bLocked;
-    Array<GearSetID> m_arrEquippedGearSets;
+    UInt m_iEquippedGearSetsCount;
+    GearSetID m_arrEquippedGearSets[RUNE_MAX_GEARSETS];
 
     // Score System
     Float m_fScoreEfficiency; // How close the rune is to max rolls

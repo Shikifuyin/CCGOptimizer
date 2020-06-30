@@ -24,7 +24,7 @@
 CCGOPManager::CCGOPManager():
     m_hRuneInventory(), m_hHeroInventory(), m_hGearSetInventory()
 {
-    GameDataFn->ImportFromXML();
+	// nothing to do
 }
 CCGOPManager::~CCGOPManager()
 {
@@ -72,18 +72,27 @@ Void CCGOPManager::ExportToXML( const GChar * strFileName ) const
     XMLFn->DestroyDocument( pXMLDoc );
 }
 
-Void CCGOPManager::EquipRuneToGearSet( RuneID iRuneID, GearSetID iGearSetID )
+Bool CCGOPManager::EquipRuneToGearSet( RuneID iRuneID, GearSetID iGearSetID )
 {
     Rune * pRune = m_hRuneInventory.GetRune( iRuneID );
     GearSet * pGearSet = m_hGearSetInventory.GetGearSet( iGearSetID );
     UInt iSlot = pRune->GetSlot();
+
+    if ( pRune->GetGearSetCount() >= RUNE_MAX_GEARSETS )
+        return false;
+
     UInt iOldRuneID = pGearSet->GetEquippedRune( iSlot );
     if ( iOldRuneID != INVALID_OFFSET ) {
         Rune * pOldRune = m_hRuneInventory.GetRune( iOldRuneID );
         pOldRune->_UnequipFromGearSet( iGearSetID );
     }
-    pRune->_EquipToGearSet( iGearSetID );
+
+    UInt iIndex = pRune->_EquipToGearSet( iGearSetID );
+    Assert( iIndex != INVALID_OFFSET );
+
     pGearSet->_EquipRune( iRuneID, iSlot );
+
+    return true;
 }
 Void CCGOPManager::UnequipRuneFromGearSet( RuneID iRuneID, GearSetID iGearSetID )
 {
@@ -123,12 +132,23 @@ Void CCGOPManager::UnequipAllRunes()
     m_hGearSetInventory._UnequipAll();
 }
 
-Void CCGOPManager::AttachGearSetToHero( GearSetID iGearSetID, HeroID iHeroID )
+Bool CCGOPManager::AttachGearSetToHero( GearSetID iGearSetID, HeroID iHeroID )
 {
     GearSet * pGearSet = m_hGearSetInventory.GetGearSet( iGearSetID );
     Hero * pHero = m_hHeroInventory.GetHero( iHeroID );
-    pGearSet->_AttachToHero( iHeroID );
-    pHero->_AttachGearSet( iGearSetID );
+
+    if ( pGearSet->GetAttachedHeroCount() >= GEARSET_MAX_HEROES )
+        return false;
+    if ( pHero->GetGearSetCount() >= HERO_MAX_GEARSETS )
+        return false;
+
+    UInt iIndex = pGearSet->_AttachToHero( iHeroID );
+    Assert( iIndex != INVALID_OFFSET );
+
+    iIndex = pHero->_AttachGearSet( iGearSetID );
+    Assert( iIndex != INVALID_OFFSET );
+
+    return true;
 }
 Void CCGOPManager::DetachGearSetFromHero( GearSetID iGearSetID, HeroID iHeroID )
 {

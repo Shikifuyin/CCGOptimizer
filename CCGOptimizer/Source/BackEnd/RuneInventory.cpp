@@ -26,6 +26,7 @@ RuneInventory::RuneInventory():
 {
     m_iNextFreeRuneID = 0;
 
+    m_mapRuneInventory.SetComparator( _Compare_RuneID );
     m_mapRuneInventory.Create();
 }
 RuneInventory::~RuneInventory()
@@ -202,5 +203,16 @@ Void RuneInventory::FilterSearch( Array<RuneID> * outResults, const RuneQueryMap
         // Next Rune
         ++itRune;
     }
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+
+Int RuneInventory::_Compare_RuneID( const RuneID & rLeft, const RuneID & rRight, Void * pUserData )
+{
+    if ( rLeft < rRight )
+        return +1;
+    if ( rLeft > rRight )
+        return -1;
+    return 0;
 }
 

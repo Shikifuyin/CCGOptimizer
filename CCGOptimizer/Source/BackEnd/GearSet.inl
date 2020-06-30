@@ -38,14 +38,11 @@ inline UInt GearSet::HasEquippedRune( RuneID iRuneID ) const {
 }
 
 inline UInt GearSet::GetAttachedHeroCount() const {
-    return m_arrAttachedHeroes.Count();
+    return m_iAttachedHeroesCount;
 }
 inline HeroID GearSet::GetAttachedHero( UInt iIndex ) const {
-    Assert( iIndex < m_arrAttachedHeroes.Count() );
+    Assert( iIndex < m_iAttachedHeroesCount );
     return m_arrAttachedHeroes[iIndex];
-}
-inline Bool GearSet::HasAttachedHero( HeroID iHeroID ) const {
-    return ( m_arrAttachedHeroes.Search(iHeroID) != INVALID_OFFSET );
 }
 
 inline Float GearSet::GetScoreEfficiency() const {
@@ -76,20 +73,6 @@ inline Void GearSet::_UnequipAllRunes() {
     _ComputeScores();
 }
 
-inline UInt GearSet::_AttachToHero( HeroID iHeroID ) {
-    UInt iIndex = m_arrAttachedHeroes.Search( iHeroID );
-    if ( iIndex != INVALID_OFFSET )
-        return iIndex;
-    iIndex = m_arrAttachedHeroes.Count();
-    m_arrAttachedHeroes.Push( iHeroID );
-	return iIndex;
-}
-inline Void GearSet::_DetachFromHero( HeroID iHeroID ) {
-    UInt iIndex = m_arrAttachedHeroes.Search( iHeroID );
-    if ( iIndex == INVALID_OFFSET )
-        return;
-    m_arrAttachedHeroes.Remove( iIndex, NULL, 1 );
-}
 inline Void GearSet::_DetachFromAllHeroes() {
-    m_arrAttachedHeroes.Clear();
+    m_iAttachedHeroesCount = 0;
 }

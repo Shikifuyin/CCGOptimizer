@@ -28,6 +28,9 @@
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
 
+// Heroes Per GearSet
+#define GEARSET_MAX_HEROES 64
+
 // Prototypes
 class CCGOPManager;
 class GearSetInventory;
@@ -58,7 +61,7 @@ public:
     // Hero Attach
     inline UInt GetAttachedHeroCount() const;
     inline HeroID GetAttachedHero( UInt iIndex ) const;
-    inline Bool HasAttachedHero( HeroID iHeroID ) const;
+    Bool HasAttachedHero( HeroID iHeroID ) const;
 
     // Score system
     inline Float GetScoreEfficiency() const;
@@ -74,8 +77,8 @@ private:
     inline Void _UnequipRune( UInt iSlot );
     inline Void _UnequipAllRunes();
 
-    inline UInt _AttachToHero( HeroID iHeroID );
-    inline Void _DetachFromHero( HeroID iHeroID );
+    UInt _AttachToHero( HeroID iHeroID );
+    Void _DetachFromHero( HeroID iHeroID );
     inline Void _DetachFromAllHeroes();
 
     // Helpers
@@ -87,7 +90,8 @@ private:
 
     // State
     RuneID m_arrEquippedRunes[RUNE_SLOT_COUNT];
-    Array<HeroID> m_arrAttachedHeroes;
+    UInt m_iAttachedHeroesCount;
+    HeroID m_arrAttachedHeroes[GEARSET_MAX_HEROES];
 
     // Score System
     Float m_fScoreEfficiency;

@@ -35,6 +35,9 @@ typedef UInt HeroID;
     typedef UInt GearSetID;
 #endif // GearSetID
 
+// GearSets Per Hero
+#define HERO_MAX_GEARSETS 64
+
 // Prototypes
 class CCGOPManager;
 class HeroInventory;
@@ -66,7 +69,7 @@ public:
 	// GearSet Attach
 	inline UInt GetGearSetCount() const;
 	inline GearSetID GetGearSet( UInt iIndex ) const;
-	inline Bool HasGearSet( GearSetID iGearSetID ) const;
+	Bool HasGearSet( GearSetID iGearSetID ) const;
 
 	inline GearSetID GetSelectedGearSet() const;
 	inline Void SelectGearSet( GearSetID iGearSetID );
@@ -77,8 +80,8 @@ private:
 	friend class CCGOPManager;
 	friend class HeroInventory;
 
-	inline UInt _AttachGearSet( GearSetID iGearSetID );
-	inline Void _DetachGearSet( GearSetID iGearSetID );
+	UInt _AttachGearSet( GearSetID iGearSetID );
+	Void _DetachGearSet( GearSetID iGearSetID );
 	inline Void _DetachAllGearSets();
 
     // Descriptor
@@ -91,7 +94,8 @@ private:
 	HeroSanctify m_iSanctify;
 
     // State
-	Array<GearSetID> m_arrAttachedGearSets;
+	UInt m_iAttachedGearSetsCount;
+	GearSetID m_arrAttachedGearSets[HERO_MAX_GEARSETS];
 	GearSetID m_iSelectedGearSet;
 };
 

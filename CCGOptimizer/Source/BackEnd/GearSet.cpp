@@ -29,7 +29,8 @@ GearSet::GearSet():
         
     for ( UInt i = 0; i < RUNE_SLOT_COUNT; ++i )
         m_arrEquippedRunes[i] = INVALID_OFFSET;
-    m_arrAttachedHeroes.Create();
+
+    m_iAttachedHeroesCount = 0;
 
     m_fScoreEfficiency = 0.0f;
     m_fScoreDamage = 0.0f;
@@ -43,7 +44,8 @@ GearSet::GearSet( GearSetID iGearSetID, const GChar * strName ):
         
     for ( UInt i = 0; i < RUNE_SLOT_COUNT; ++i )
         m_arrEquippedRunes[i] = INVALID_OFFSET;
-    m_arrAttachedHeroes.Create();
+
+    m_iAttachedHeroesCount = 0;
 
     m_fScoreEfficiency = 0.0f;
     m_fScoreDamage = 0.0f;
@@ -51,7 +53,7 @@ GearSet::GearSet( GearSetID iGearSetID, const GChar * strName ):
 }
 GearSet::~GearSet()
 {
-    m_arrAttachedHeroes.Destroy();
+    // nothing to do
 }
 
 Void GearSet::ImportFromXML( XMLNode * pNode )
@@ -80,7 +82,7 @@ Void GearSet::ImportFromXML( XMLNode * pNode )
         m_arrEquippedRunes[i] = (RuneID)( StringFn->ToUInt(pAttribute->GetValue()) );
     }
 
-    m_arrAttachedHeroes.Clear();
+    m_iAttachedHeroesCount = 0;
     XMLNode * pSubNode = pNode->GetChildByTag( TEXT("attached_heroes"), 0 );
     Assert( pSubNode != NULL );
 
@@ -93,7 +95,11 @@ Void GearSet::ImportFromXML( XMLNode * pNode )
         pAttribute = pSubNode->GetAttribute( strNameBuffer );
         Assert( pAttribute != NULL );
 
-        m_arrAttachedHeroes.Push( (HeroID)( StringFn->ToUInt(pAttribute->GetValue()) ) );
+        if ( m_iAttachedHeroesCount >= GEARSET_MAX_HEROES )
+            break;
+
+        m_arrAttachedHeroes[m_iAttachedHeroesCount] = (HeroID)( StringFn->ToUInt(pAttribute->GetValue()) );
+        ++m_iAttachedHeroesCount;
     }
 
     // Score System
@@ -126,7 +132,7 @@ Void GearSet::ExportToXML( XMLNode * pNode ) const
 
     XMLNode * pSubNode = XMLFn->CreateNode( TEXT("attached_heroes"), true );
 
-    UInt iHeroCount = m_arrAttachedHeroes.Count();
+    UInt iHeroCount = m_iAttachedHeroesCount;
     StringFn->FromUInt( strValueBuffer, iHeroCount );
     pSubNode->CreateAttribute( TEXT("count"), strValueBuffer );
 
@@ -139,7 +145,48 @@ Void GearSet::ExportToXML( XMLNode * pNode ) const
     pNode->AppendChild( pSubNode );
 }
 
+Bool GearSet::HasAttachedHero( HeroID iHeroID ) const
+{
+    for( UInt i = 0; i < m_iAttachedHeroesCount; ++i ) {
+		if ( m_arrAttachedHeroes[i] == iHeroID )
+			return true;
+	}
+	return false;
+}
+
 /////////////////////////////////////////////////////////////////////////////////
+
+UInt GearSet::_AttachToHero( HeroID iHeroID )
+{
+    UInt iIndex = INVALID_OFFSET;
+	for( UInt i = 0; i < m_iAttachedHeroesCount; ++i ) {
+		if ( m_arrAttachedHeroes[i] == iHeroID ) {
+			iIndex = i;
+			break;
+		}
+	}
+	if ( iIndex != INVALID_OFFSET )
+		return iIndex;
+
+	if ( m_iAttachedHeroesCount >= GEARSET_MAX_HEROES )
+		return INVALID_OFFSET;
+
+	m_arrAttachedHeroes[m_iAttachedHeroesCount] = iHeroID;
+	++m_iAttachedHeroesCount;
+
+	return ( m_iAttachedHeroesCount - 1 );
+}
+Void GearSet::_DetachFromHero( HeroID iHeroID )
+{
+    UInt iIndex = INVALID_OFFSET;
+	for( UInt i = 0; i < m_iAttachedHeroesCount; ++i ) {
+		if ( m_arrAttachedHeroes[i] == iHeroID ) {
+			m_arrAttachedHeroes[i] = m_arrAttachedHeroes[m_iAttachedHeroesCount - 1];
+			--m_iAttachedHeroesCount;
+			break;
+		}
+	}
+}
 
 Void GearSet::_ComputeScores()
 {

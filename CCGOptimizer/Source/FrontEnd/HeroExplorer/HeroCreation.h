@@ -60,9 +60,9 @@ public:
 	HeroCreationNameModel();
 	~HeroCreationNameModel();
 
-	// Initialization
+	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
-	Void Populate();
+	Void Update();
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
@@ -88,12 +88,9 @@ public:
 	HeroCreationRankModel();
 	~HeroCreationRankModel();
 
-	// Initialization
+	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
-	Void Populate();
-
-	// Updates
-	Void UpdateFirstAvailableRank( HeroRank iFirstAvailableRank );
+	Void Update( HeroRank iFirstAvailableRank );
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
@@ -111,6 +108,97 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
+// The HeroCreationLevelModel class
+class HeroCreationLevelModel : public WinGUIComboBoxModel
+{
+public:
+	HeroCreationLevelModel();
+	~HeroCreationLevelModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+	Void Update( UInt iMinLevel, UInt iMaxLevel );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnSelectionOK();
+
+	// Item Callback Events
+	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
+
+private:
+	CCGOPGUI * m_pGUI;
+
+	UInt m_iMinLevel;
+	UInt m_iMaxLevel;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The HeroCreationEvolvedModel class
+class HeroCreationEvolvedModel : public WinGUICheckBoxModel
+{
+public:
+	HeroCreationEvolvedModel();
+	~HeroCreationEvolvedModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The HeroCreationSanctifyModel class
+class HeroCreationSanctifyModel : public WinGUIComboBoxModel
+{
+public:
+	HeroCreationSanctifyModel();
+	~HeroCreationSanctifyModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+	Void Update( Bool bSanctifyAllowed );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Item Callback Events
+	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
+
+private:
+	CCGOPGUI * m_pGUI;
+
+	Bool m_bSanctifyAllowed;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The HeroCreationButtonModel class
+class HeroCreationButtonModel : public WinGUIButtonModel
+{
+public:
+	HeroCreationButtonModel();
+	~HeroCreationButtonModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
 // The HeroCreation class
 class HeroCreation
 {
@@ -125,6 +213,10 @@ public:
 private:
 	friend class HeroCreationNameModel;
 	friend class HeroCreationRankModel;
+	friend class HeroCreationLevelModel;
+	friend class HeroCreationEvolvedModel;
+	friend class HeroCreationSanctifyModel;
+	friend class HeroCreationButtonModel;
 
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
@@ -137,13 +229,13 @@ private:
 	WinGUIComboBox * m_pName;
 	HeroCreationRankModel m_hRankModel;
 	WinGUIComboBox * m_pRank;
-	//HeroCreationLevelModel m_hLevelModel;
-	WinGUITextEdit * m_pLevel;
-	//HeroCreationEvolvedModel m_hEvolvedModel;
+	HeroCreationLevelModel m_hLevelModel;
+	WinGUIComboBox * m_pLevel;
+	HeroCreationEvolvedModel m_hEvolvedModel;
 	WinGUICheckBox * m_pEvolved;
-	//HeroCreationSanctifyModel m_hSanctifyModel;
+	HeroCreationSanctifyModel m_hSanctifyModel;
 	WinGUIComboBox * m_pSanctify;
-	//HeroCreationButtonModel m_hButtonModel;
+	HeroCreationButtonModel m_hButtonModel;
 	WinGUIButton * m_pButton;
 };
 

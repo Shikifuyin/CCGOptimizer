@@ -41,7 +41,7 @@ Rune::Rune():
     }
 
     m_bLocked = false;
-    m_arrEquippedGearSets.Create();
+    m_iEquippedGearSetsCount = 0;
 
     m_fScoreEfficiency = 0.0f;
     m_fScoreDamage = 0.0f;
@@ -69,7 +69,7 @@ Rune::Rune( RuneID iRuneID, UInt iSlot, RuneSet iSet, RuneRank iRank, RuneQualit
     }
 
     m_bLocked = false;
-    m_arrEquippedGearSets.Create();
+    m_iEquippedGearSetsCount = 0;
 
     m_fScoreEfficiency = 0.0f;
     m_fScoreDamage = 0.0f;
@@ -78,7 +78,7 @@ Rune::Rune( RuneID iRuneID, UInt iSlot, RuneSet iSet, RuneRank iRank, RuneQualit
 }
 Rune::~Rune()
 {
-    m_arrEquippedGearSets.Destroy();
+    // nothing to do
 }
 
 Void Rune::ImportFromXML( XMLNode * pNode )
@@ -158,7 +158,7 @@ Void Rune::ImportFromXML( XMLNode * pNode )
     Assert( pAttribute != NULL );
     m_bLocked = ( StringFn->Cmp(pAttribute->GetValue(),TEXT("true")) == 0 );
 
-    m_arrEquippedGearSets.Clear();
+    m_iEquippedGearSetsCount = 0;
     pSubNode = pNode->GetChildByTag( TEXT("equipped_gearsets"), 0 );
     Assert( pSubNode != NULL );
 
@@ -171,7 +171,11 @@ Void Rune::ImportFromXML( XMLNode * pNode )
         pAttribute = pSubNode->GetAttribute( strNameBuffer );
         Assert( pAttribute != NULL );
 
-        m_arrEquippedGearSets.Push( (GearSetID)( StringFn->ToUInt(pAttribute->GetValue()) ) );
+        if ( m_iEquippedGearSetsCount >= RUNE_MAX_GEARSETS )
+            break;
+
+        m_arrEquippedGearSets[m_iEquippedGearSetsCount] = (GearSetID)( StringFn->ToUInt(pAttribute->GetValue()) );
+        ++m_iEquippedGearSetsCount;
     }
 
     // Score System
@@ -246,7 +250,7 @@ Void Rune::ExportToXML( XMLNode * pNode ) const
 
     pSubNode = XMLFn->CreateNode( TEXT("equipped_gearsets"), true );
 
-    UInt iGearSetCount = m_arrEquippedGearSets.Count();
+    UInt iGearSetCount = m_iEquippedGearSetsCount;
     StringFn->FromUInt( strValueBuffer, iGearSetCount );
     pSubNode->CreateAttribute( TEXT("count"), strValueBuffer );
 
@@ -288,7 +292,48 @@ UInt Rune::HasSubStat( RuneStat iRuneStat ) const
     return 0;
 }
 
+Bool Rune::HasGearSet( GearSetID iGearSetID ) const
+{
+    for( UInt i = 0; i < m_iEquippedGearSetsCount; ++i ) {
+		if ( m_arrEquippedGearSets[i] == iGearSetID )
+			return true;
+	}
+	return false;
+}
+
 /////////////////////////////////////////////////////////////////////////////////
+
+UInt Rune::_EquipToGearSet( GearSetID iGearSetID )
+{
+    UInt iIndex = INVALID_OFFSET;
+	for( UInt i = 0; i < m_iEquippedGearSetsCount; ++i ) {
+		if ( m_arrEquippedGearSets[i] == iGearSetID ) {
+			iIndex = i;
+			break;
+		}
+	}
+	if ( iIndex != INVALID_OFFSET )
+		return iIndex;
+
+	if ( m_iEquippedGearSetsCount >= RUNE_MAX_GEARSETS )
+		return INVALID_OFFSET;
+
+	m_arrEquippedGearSets[m_iEquippedGearSetsCount] = iGearSetID;
+	++m_iEquippedGearSetsCount;
+
+	return ( m_iEquippedGearSetsCount - 1 );
+}
+Void Rune::_UnequipFromGearSet( GearSetID iGearSetID )
+{
+	UInt iIndex = INVALID_OFFSET;
+	for( UInt i = 0; i < m_iEquippedGearSetsCount; ++i ) {
+		if ( m_arrEquippedGearSets[i] == iGearSetID ) {
+			m_arrEquippedGearSets[i] = m_arrEquippedGearSets[m_iEquippedGearSetsCount - 1];
+			--m_iEquippedGearSetsCount;
+			break;
+		}
+	}
+}
 
 Void Rune::_ComputeScores()
 {

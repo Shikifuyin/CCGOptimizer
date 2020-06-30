@@ -123,6 +123,7 @@ private:
     GearSetID m_iNextFreeGearSetID;
 
     typedef TreeMap<GearSetID, GearSet> GearSetMap;
+    static Int _Compare_GearSetID( const GearSetID & rLeft, const GearSetID & rRight, Void * pUserData );
     GearSetMap m_mapGearSetInventory;
 };
 

@@ -47,21 +47,18 @@ inline Void Hero::SetSanctification( HeroSanctify iSanctify ) {
 }
 
 inline UInt Hero::GetGearSetCount() const {
-	return m_arrAttachedGearSets.Count();
+	return m_iAttachedGearSetsCount;
 }
 inline GearSetID Hero::GetGearSet( UInt iIndex ) const {
-	Assert( iIndex < m_arrAttachedGearSets.Count() );
+	Assert( iIndex < m_iAttachedGearSetsCount );
 	return m_arrAttachedGearSets[iIndex];
-}
-inline Bool Hero::HasGearSet( GearSetID iGearSetID ) const {
-	return ( m_arrAttachedGearSets.Search(iGearSetID) != INVALID_OFFSET );
 }
 
 inline GearSetID Hero::GetSelectedGearSet() const {
 	return m_iSelectedGearSet;
 }
 inline Void Hero::SelectGearSet( GearSetID iGearSetID ) {
-	Assert( m_arrAttachedGearSets.Search(iGearSetID) != INVALID_OFFSET );
+	Assert( HasGearSet(iGearSetID) );
 	m_iSelectedGearSet = iGearSetID;
 }
 inline Void Hero::UnselectGearSet() {
@@ -70,23 +67,7 @@ inline Void Hero::UnselectGearSet() {
 
 /////////////////////////////////////////////////////////////////////////////////
 
-inline UInt Hero::_AttachGearSet( GearSetID iGearSetID ) {
-	UInt iIndex = m_arrAttachedGearSets.Search( iGearSetID );
-	if ( iIndex != INVALID_OFFSET )
-		return iIndex;
-	iIndex = m_arrAttachedGearSets.Count();
-	m_arrAttachedGearSets.Push( iGearSetID );
-	return iIndex;
-}
-inline Void Hero::_DetachGearSet( GearSetID iGearSetID ) {
-	UInt iIndex = m_arrAttachedGearSets.Search( iGearSetID );
-	if ( iIndex == INVALID_OFFSET )
-		return;
-	if ( m_iSelectedGearSet == iGearSetID )
-		m_iSelectedGearSet = INVALID_OFFSET;
-	m_arrAttachedGearSets.Remove( iIndex, NULL, 1 );
-}
 inline Void Hero::_DetachAllGearSets() {
 	m_iSelectedGearSet = INVALID_OFFSET;
-	m_arrAttachedGearSets.Clear();
+	m_iAttachedGearSetsCount = 0;
 }

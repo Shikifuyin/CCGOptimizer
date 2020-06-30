@@ -32,7 +32,7 @@ Hero::Hero():
 	m_bEvolved = false;
 	m_iSanctify = HERO_SANCTIFY_COUNT;
 
-	m_arrAttachedGearSets.Create();
+	m_iAttachedGearSetsCount = 0;
 	m_iSelectedGearSet = INVALID_OFFSET;
 }
 Hero::Hero( HeroID iHeroID, const GChar * strName, HeroRank iRank, UInt iLevel, Bool bEvolved, HeroSanctify iSanctify ):
@@ -49,12 +49,12 @@ Hero::Hero( HeroID iHeroID, const GChar * strName, HeroRank iRank, UInt iLevel, 
 	m_bEvolved = bEvolved;
 	m_iSanctify = iSanctify;
 
-	m_arrAttachedGearSets.Create();
+	m_iAttachedGearSetsCount = 0;
 	m_iSelectedGearSet = INVALID_OFFSET;
 }
 Hero::~Hero()
 {
-	m_arrAttachedGearSets.Destroy();
+	// nothing to do
 }
 
 Void Hero::ImportFromXML( XMLNode * pNode )
@@ -101,7 +101,7 @@ Void Hero::ImportFromXML( XMLNode * pNode )
 	m_iSanctify = (HeroSanctify)( StringFn->ToUInt(pAttribute->GetValue()) );
 
 	// State
-	m_arrAttachedGearSets.Clear();
+	m_iAttachedGearSetsCount = 0;
 	XMLNode * pSubNode = pNode->GetChildByTag( TEXT("attached_gearsets"), 0 );
 	Assert( pSubNode != NULL );
 
@@ -114,7 +114,11 @@ Void Hero::ImportFromXML( XMLNode * pNode )
         pAttribute = pSubNode->GetAttribute( strNameBuffer );
         Assert( pAttribute != NULL );
 
-        m_arrAttachedGearSets.Push( (GearSetID)( StringFn->ToUInt(pAttribute->GetValue()) ) );
+		if ( m_iAttachedGearSetsCount >= HERO_MAX_GEARSETS )
+			break;
+
+        m_arrAttachedGearSets[m_iAttachedGearSetsCount] = (GearSetID)( StringFn->ToUInt(pAttribute->GetValue()) );
+		++m_iAttachedGearSetsCount;
     }
 
 	pAttribute = pNode->GetAttribute( TEXT("gearset_selected") );
@@ -154,7 +158,7 @@ Void Hero::ExportToXML( XMLNode * pNode ) const
 	// State
 	XMLNode * pSubNode = XMLFn->CreateNode( TEXT("attached_gearsets"), true );
 
-    UInt iGearSetCount = m_arrAttachedGearSets.Count();
+    UInt iGearSetCount = m_iAttachedGearSetsCount;
     StringFn->FromUInt( strValueBuffer, iGearSetCount );
     pSubNode->CreateAttribute( TEXT("count"), strValueBuffer );
 
@@ -168,5 +172,51 @@ Void Hero::ExportToXML( XMLNode * pNode ) const
 
 	StringFn->FromUInt( strValueBuffer, m_iSelectedGearSet );
     pNode->CreateAttribute( TEXT("gearset_selected"), strValueBuffer );
+}
+
+Bool Hero::HasGearSet( GearSetID iGearSetID ) const
+{
+	for( UInt i = 0; i < m_iAttachedGearSetsCount; ++i ) {
+		if ( m_arrAttachedGearSets[i] == iGearSetID )
+			return true;
+	}
+	return false;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+
+UInt Hero::_AttachGearSet( GearSetID iGearSetID )
+{
+	UInt iIndex = INVALID_OFFSET;
+	for( UInt i = 0; i < m_iAttachedGearSetsCount; ++i ) {
+		if ( m_arrAttachedGearSets[i] == iGearSetID ) {
+			iIndex = i;
+			break;
+		}
+	}
+	if ( iIndex != INVALID_OFFSET )
+		return iIndex;
+
+	if ( m_iAttachedGearSetsCount >= HERO_MAX_GEARSETS )
+		return INVALID_OFFSET;
+
+	m_arrAttachedGearSets[m_iAttachedGearSetsCount] = iGearSetID;
+	++m_iAttachedGearSetsCount;
+
+	return ( m_iAttachedGearSetsCount - 1 );
+}
+Void Hero::_DetachGearSet( GearSetID iGearSetID )
+{
+	if ( m_iSelectedGearSet == iGearSetID )
+		m_iSelectedGearSet = INVALID_OFFSET;
+
+	UInt iIndex = INVALID_OFFSET;
+	for( UInt i = 0; i < m_iAttachedGearSetsCount; ++i ) {
+		if ( m_arrAttachedGearSets[i] == iGearSetID ) {
+			m_arrAttachedGearSets[i] = m_arrAttachedGearSets[m_iAttachedGearSetsCount - 1];
+			--m_iAttachedGearSetsCount;
+			break;
+		}
+	}
 }
 

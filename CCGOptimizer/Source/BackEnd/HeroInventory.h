@@ -123,6 +123,7 @@ private:
     HeroID m_iNextFreeHeroID;
 
     typedef TreeMap<HeroID, Hero> HeroMap;
+    static Int _Compare_HeroID( const HeroID & rLeft, const HeroID & rRight, Void * pUserData );
     HeroMap m_mapHeroInventory;
 };
 

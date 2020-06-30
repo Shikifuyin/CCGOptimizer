@@ -26,6 +26,7 @@ GearSetInventory::GearSetInventory():
 {
     m_iNextFreeGearSetID = 0;
 
+    m_mapGearSetInventory.SetComparator( _Compare_GearSetID );
     m_mapGearSetInventory.Create();
 }
 GearSetInventory::~GearSetInventory()
@@ -185,5 +186,16 @@ Void GearSetInventory::FilterSearch( Array<GearSetID> * outResults, const GearSe
         // Next GearSet
         ++itGearSet;
     }
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+
+Int GearSetInventory::_Compare_GearSetID( const GearSetID & rLeft, const GearSetID & rRight, Void * pUserData )
+{
+    if ( rLeft < rRight )
+        return +1;
+    if ( rLeft > rRight )
+        return -1;
+    return 0;
 }
 

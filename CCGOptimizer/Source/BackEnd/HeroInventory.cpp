@@ -28,6 +28,7 @@ HeroInventory::HeroInventory():
 {
     m_iNextFreeHeroID = 0;
 
+    m_mapHeroInventory.SetComparator( _Compare_HeroID );
     m_mapHeroInventory.Create();
 }
 HeroInventory::~HeroInventory()
@@ -181,4 +182,14 @@ Void HeroInventory::FilterSearch( Array<HeroID> * outResults, const HeroQueryMap
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////////
+
+Int HeroInventory::_Compare_HeroID( const HeroID & rLeft, const HeroID & rRight, Void * pUserData )
+{
+    if ( rLeft < rRight )
+        return +1;
+    if ( rLeft > rRight )
+        return -1;
+    return 0;
+}
 

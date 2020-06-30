@@ -81,17 +81,14 @@ inline Void Rune::Unlock() {
 }
 
 inline Bool Rune::IsEquipped() const {
-    return ( m_arrEquippedGearSets.Count() > 0 );
+    return ( m_iEquippedGearSetsCount > 0 );
 }
 inline UInt Rune::GetGearSetCount() const {
-    return m_arrEquippedGearSets.Count();
+    return m_iEquippedGearSetsCount;
 }
 inline GearSetID Rune::GetGearSet( UInt iIndex ) const {
-    Assert( iIndex < m_arrEquippedGearSets.Count() );
+    Assert( iIndex < m_iEquippedGearSetsCount );
     return m_arrEquippedGearSets[iIndex];
-}
-inline Bool Rune::HasGearSet( GearSetID iGearSetID ) const {
-    return ( m_arrEquippedGearSets.Search(iGearSetID) != INVALID_OFFSET );
 }
 
 inline Float Rune::GetScoreEfficiency() const {
@@ -106,21 +103,7 @@ inline Float Rune::GetScoreTanking() const {
 
 /////////////////////////////////////////////////////////////////////////////////
 
-inline UInt Rune::_EquipToGearSet( GearSetID iGearSetID ) {
-    UInt iIndex = m_arrEquippedGearSets.Search( iGearSetID );
-    if ( iIndex != INVALID_OFFSET )
-        return iIndex;
-    iIndex = m_arrEquippedGearSets.Count();
-    m_arrEquippedGearSets.Push( iGearSetID );
-    return iIndex;
-}
-inline Void Rune::_UnequipFromGearSet( GearSetID iGearSetID ) {
-    UInt iIndex = m_arrEquippedGearSets.Search( iGearSetID );
-    if ( iIndex == INVALID_OFFSET )
-        return;
-    m_arrEquippedGearSets.Remove( iIndex, NULL, 1 );
-}
 inline Void Rune::_UnequipFromAllGearSets() {
-    m_arrEquippedGearSets.Clear();
+    m_iEquippedGearSetsCount = 0;
 }
 

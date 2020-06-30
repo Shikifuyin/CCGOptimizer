@@ -129,6 +129,7 @@ private:
     RuneID m_iNextFreeRuneID;
 
     typedef TreeMap<RuneID, Rune> RuneMap;
+    static Int _Compare_RuneID( const RuneID & rLeft, const RuneID & rRight, Void * pUserData );
     RuneMap m_mapRuneInventory;
 };
 

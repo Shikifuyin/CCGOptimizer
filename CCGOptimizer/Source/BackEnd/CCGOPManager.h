@@ -85,14 +85,14 @@ public:
     inline Void DestroyAllGearSets();
 
     // Rune Equip management
-    Void EquipRuneToGearSet( RuneID iRuneID, GearSetID iGearSetID );
+    Bool EquipRuneToGearSet( RuneID iRuneID, GearSetID iGearSetID );
     Void UnequipRuneFromGearSet( RuneID iRuneID, GearSetID iGearSetID );
     Void UnequipAllRunesFromGearSet( GearSetID iGearSetID );
     Void UnequipRuneFromAllGearSets( RuneID iRuneID );
     Void UnequipAllRunes();
 
     // GearSet Attach management
-    Void AttachGearSetToHero( GearSetID iGearSetID, HeroID iHeroID );
+    Bool AttachGearSetToHero( GearSetID iGearSetID, HeroID iHeroID );
     Void DetachGearSetFromHero( GearSetID iGearSetID, HeroID iHeroID );
     Void DetachAllGearSetsFromHero( HeroID iHeroID );
     Void DetachGearSetFromAllHeroes( GearSetID iGearSetID );
