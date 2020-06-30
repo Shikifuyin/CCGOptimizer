@@ -129,29 +129,38 @@ inline UInt GameData::GetHeroSanctifyBonus( HeroSanctify iSanctify ) const {
     return m_arrHeroSanctifyBonus[iSanctify];
 }
 
-inline Bool GameData::IsHeroNameValid( const GChar * strHeroName ) const {
-    return m_mapHeroData.Contains( strHeroName );
+inline UInt GameData::GetHeroDataCount() const {
+    return m_mapHeroData.Count();
 }
-inline HeroFaction GameData::GetHeroFaction( const GChar * strHeroName ) const {
-    Assert( m_mapHeroData.Contains(strHeroName) );
-    return m_mapHeroData[strHeroName].iFaction;
-}
-inline HeroRank GameData::GetHeroNaturalRank( const GChar * strHeroName ) const {
-    Assert( m_mapHeroData.Contains(strHeroName) );
-    return m_mapHeroData[strHeroName].iNaturalRank;
-}
-inline UInt GameData::GetHeroBaseStat( const GChar * strHeroName, HeroStat iHeroStat, HeroRank iRank, UInt iLevel, Bool bEvolved ) const {
-    Assert( m_mapHeroData.Contains(strHeroName) );
-    Assert( iHeroStat < HERO_STAT_COUNT );
-    Assert( iRank < HERO_RANK_COUNT );
-    Assert( iLevel <= m_arrHeroRankMaxLevel[iRank] );
-    if ( bEvolved )
-        return m_mapHeroData[strHeroName].arrBaseStatsEvolved[ iHeroStat * (HERO_RANK_COUNT * HERO_MAX_LEVEL) + iRank * HERO_MAX_LEVEL + iLevel-1 ];
-    else
-        return m_mapHeroData[strHeroName].arrBaseStats[ iHeroStat * (HERO_RANK_COUNT * HERO_MAX_LEVEL) + iRank * HERO_MAX_LEVEL + iLevel-1 ];
-}
-
 inline GameData::HeroDataMap::Iterator GameData::EnumHeroData() const {
     return m_mapHeroData.Begin();
 }
+
+inline Bool GameData::IsHeroNameValid( const GChar * strHeroName ) const {
+    HeroName hTemp;
+    StringFn->NCopy( hTemp.strName, strHeroName, GAMEDATA_NAMES_MAX_LENGTH - 1 );
+    return m_mapHeroData.Contains( hTemp );
+}
+inline HeroFaction GameData::GetHeroFaction( const GChar * strHeroName ) const {
+    HeroName hTemp;
+    StringFn->NCopy( hTemp.strName, strHeroName, GAMEDATA_NAMES_MAX_LENGTH - 1 );
+    return m_mapHeroData[hTemp].iFaction;
+}
+inline HeroRank GameData::GetHeroNaturalRank( const GChar * strHeroName ) const {
+    HeroName hTemp;
+    StringFn->NCopy( hTemp.strName, strHeroName, GAMEDATA_NAMES_MAX_LENGTH - 1 );
+    return m_mapHeroData[hTemp].iNaturalRank;
+}
+inline UInt GameData::GetHeroBaseStat( const GChar * strHeroName, HeroStat iHeroStat, HeroRank iRank, UInt iLevel, Bool bEvolved ) const {
+    Assert( iHeroStat < HERO_STAT_COUNT );
+    Assert( iRank < HERO_RANK_COUNT );
+    Assert( iLevel <= m_arrHeroRankMaxLevel[iRank] );
+    HeroName hTemp;
+    StringFn->NCopy( hTemp.strName, strHeroName, GAMEDATA_NAMES_MAX_LENGTH - 1 );
+    if ( bEvolved )
+        return m_mapHeroData[hTemp].arrBaseStatsEvolved[ iHeroStat * (HERO_RANK_COUNT * HERO_MAX_LEVEL) + iRank * HERO_MAX_LEVEL + iLevel-1 ];
+    else
+        return m_mapHeroData[hTemp].arrBaseStats[ iHeroStat * (HERO_RANK_COUNT * HERO_MAX_LEVEL) + iRank * HERO_MAX_LEVEL + iLevel-1 ];
+}
+
 

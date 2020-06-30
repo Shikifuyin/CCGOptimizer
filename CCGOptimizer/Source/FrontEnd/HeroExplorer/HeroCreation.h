@@ -62,17 +62,16 @@ public:
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
+	Void Populate();
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
 
-	// Content Data
-	virtual UInt GetItemCount() const;
-	virtual const GChar * GetItemString( UInt iIndex ) const;
-	virtual Void * GetItemData( UInt iIndex ) const { return NULL; }
-
 	// Events
-	virtual Bool OnSelectionOK() { return true; }
+	virtual Bool OnSelectionOK();
+
+	// Item Callback Events
+	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
 
 private:
 	CCGOPGUI * m_pGUI;
@@ -91,17 +90,19 @@ public:
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
+	Void Populate();
+
+	// Updates
+	Void UpdateFirstAvailableRank( HeroRank iFirstAvailableRank );
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
 
-	// Content Data
-	virtual UInt GetItemCount() const;
-	virtual const GChar * GetItemString( UInt iIndex ) const;
-	virtual Void * GetItemData( UInt iIndex ) const;
-
 	// Events
-	virtual Bool OnSelectionOK() { return true; }
+	virtual Bool OnSelectionOK();
+
+	// Item Callback Events
+	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
 
 private:
 	CCGOPGUI * m_pGUI;

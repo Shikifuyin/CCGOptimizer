@@ -155,13 +155,14 @@ Void GameData::ImportFromXML()
             break;
         ++iHero;
 
+        HeroName hHeroName;
         HeroData hHeroData;
 
         // Get Name
         XMLAttribute * pAttribute = pNode->GetAttribute( TEXT("name") );
         Assert( pAttribute != NULL );
 
-        StringFn->NCopy( hHeroData.strName, pAttribute->GetValue(), GAMEDATA_NAMES_MAX_LENGTH - 1 );
+        StringFn->NCopy( hHeroName.strName, pAttribute->GetValue(), GAMEDATA_NAMES_MAX_LENGTH - 1 );
 
         // Get Faction
         pAttribute = pNode->GetAttribute( TEXT("faction") );
@@ -232,14 +233,15 @@ Void GameData::ImportFromXML()
         }
 
         // Done
-        m_mapHeroData.Insert( hHeroData.strName, hHeroData );
+        m_mapHeroData.Insert( hHeroName, hHeroData );
     }
 }
 
 /////////////////////////////////////////////////////////////////////////////////
 
-Int GameData::_Compare_HeroNames( const GChar * const & rLeft, const GChar * const & rRight, Void * pUserData )
+Int GameData::_Compare_HeroNames( const HeroName & rLeft, const HeroName & rRight, Void * pUserData )
 {
-    return StringFn->NCmp( rLeft, rRight, GAMEDATA_NAMES_MAX_LENGTH - 1 );
+    return StringFn->NCmp( rLeft.strName, rRight.strName, GAMEDATA_NAMES_MAX_LENGTH - 1 );
 }
+
 

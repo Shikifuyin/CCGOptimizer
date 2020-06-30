@@ -73,18 +73,31 @@ Void HeroCreationNameModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
+	m_hCreationParameters.iItemCallBackMode = WINGUI_COMBOBOX_ITEMCALLBACK_LABELS;
+
 	m_hCreationParameters.iType = WINGUI_COMBOBOX_BUTTON;
 	m_hCreationParameters.iCase = WINGUI_COMBOBOX_CASE_BOTH;
 	m_hCreationParameters.iInitialSelectedItem = 0;
 	m_hCreationParameters.bAllowHorizontalScroll = false;
+	m_hCreationParameters.bItemTextEllipsis = true;
+	m_hCreationParameters.bCaseSensitiveSearch = false;
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
 
 	GameData::HeroDataMap::Iterator itHeroData = GameDataFn->EnumHeroData();
 	while( !(itHeroData.IsNull()) ) {
-		m_arrHeroNames.Push( itHeroData.GetKey() );
+		m_arrHeroNames.Push( itHeroData.GetKeyPtr()->strName );
 		++itHeroData;
 	}
+}
+Void HeroCreationNameModel::Populate()
+{
+	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
+
+	for( UInt i = 0; i < m_arrHeroNames.Count(); ++i )
+		pController->AddItem( i );
+
+	pController->SetCueText( TEXT("Hero Name ...") );
 }
 
 const WinGUILayout * HeroCreationNameModel::GetLayout() const
@@ -108,14 +121,26 @@ const WinGUILayout * HeroCreationNameModel::GetLayout() const
 	return &hLayout;
 }
 
-UInt HeroCreationNameModel::GetItemCount() const
+Bool HeroCreationNameModel::OnSelectionOK()
 {
-	return m_arrHeroNames.Count();
+	// Retrieve Natural Rank
+	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
+	UInt iSelected = pController->GetSelectedItem();
+
+	HeroRank iNaturalRank = GameDataFn->GetHeroNaturalRank( m_arrHeroNames[iSelected] );
+
+	// Update RankModel content
+	HeroCreationRankModel * pHeroRankModel = &( m_pGUI->GetHeroExplorer()->GetHeroCreation()->m_hRankModel );
+	pHeroRankModel->UpdateFirstAvailableRank( iNaturalRank );
+
+	return true;
 }
-const GChar * HeroCreationNameModel::GetItemString( UInt iIndex ) const
+
+Void HeroCreationNameModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
-	Assert( iIndex < m_arrHeroNames.Count() );
-	return m_arrHeroNames[iIndex];
+	Assert( iItemIndex < m_arrHeroNames.Count() );
+
+	StringFn->NCopy( outBuffer, m_arrHeroNames[iItemIndex], iMaxLength - 1 );
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -136,12 +161,36 @@ Void HeroCreationRankModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
+	m_hCreationParameters.iItemCallBackMode = WINGUI_COMBOBOX_ITEMCALLBACK_LABELS;
+
 	m_hCreationParameters.iType = WINGUI_COMBOBOX_BUTTON;
 	m_hCreationParameters.iCase = WINGUI_COMBOBOX_CASE_BOTH;
 	m_hCreationParameters.iInitialSelectedItem = 0;
 	m_hCreationParameters.bAllowHorizontalScroll = false;
+	m_hCreationParameters.bItemTextEllipsis = true;
+	m_hCreationParameters.bCaseSensitiveSearch = false;
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
+}
+Void HeroCreationRankModel::Populate()
+{
+	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
+
+	for( UInt i = m_iFirstAvailableRank; i < HERO_RANK_COUNT; ++i ) {
+		pController->AddItem( i - m_iFirstAvailableRank );
+		pController->SetItemData( i - m_iFirstAvailableRank, (Void*)i );
+	}
+	pController->SelectItem( 0 );
+}
+
+Void HeroCreationRankModel::UpdateFirstAvailableRank( HeroRank iFirstAvailableRank )
+{
+	m_iFirstAvailableRank = iFirstAvailableRank;
+
+	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
+
+	pController->RemoveAllItems();
+	Populate();
 }
 
 const WinGUILayout * HeroCreationRankModel::GetLayout() const
@@ -165,27 +214,16 @@ const WinGUILayout * HeroCreationRankModel::GetLayout() const
 	return &hLayout;
 }
 
-UInt HeroCreationRankModel::GetItemCount() const
+Bool HeroCreationRankModel::OnSelectionOK()
 {
-	return HERO_RANK_COUNT;
+	return true;
 }
-const GChar * HeroCreationRankModel::GetItemString( UInt iIndex ) const
+
+Void HeroCreationRankModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
-	Assert( iIndex < HERO_RANK_COUNT );
-	return GameDataFn->GetHeroRankName( (HeroRank)iIndex );
-}
-Void * HeroCreationRankModel::GetItemData( UInt iIndex ) const
-{
-	Assert( iIndex < HERO_RANK_COUNT );
-	static HeroRank arrValues[HERO_RANK_COUNT] = {
-		HERO_RANK_1S,
-		HERO_RANK_2S,
-		HERO_RANK_3S,
-		HERO_RANK_4S,
-		HERO_RANK_5S,
-		HERO_RANK_6S
-	};
-	return ( arrValues + iIndex );
+	Assert( iItemIndex < HERO_RANK_COUNT );
+
+	StringFn->NCopy( outBuffer, GameDataFn->GetHeroRankName((HeroRank)(m_iFirstAvailableRank + iItemIndex)), iMaxLength - 1 );
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -219,9 +257,11 @@ Void HeroCreation::Initialize()
 
 	m_hNameModel.Initialize( m_pGUI );
 	m_pName = WinGUIFn->CreateComboBox( m_pRoot, &(m_hNameModel) );
+	m_hNameModel.Populate();
 
 	m_hRankModel.Initialize( m_pGUI );
 	m_pRank = WinGUIFn->CreateComboBox( m_pRoot, &(m_hRankModel) );
+	m_hRankModel.Populate();
 }
 Void HeroCreation::Cleanup()
 {

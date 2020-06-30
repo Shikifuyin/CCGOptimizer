@@ -147,7 +147,6 @@ enum HeroSanctify {
 };
 
 typedef struct _hero_data {
-    GChar strName[GAMEDATA_NAMES_MAX_LENGTH];
     HeroFaction iFaction;
     HeroRank iNaturalRank;
     UInt arrBaseStats[HERO_STAT_COUNT * HERO_RANK_COUNT * HERO_MAX_LEVEL];
@@ -167,7 +166,8 @@ private:
     ~GameData();
 
 public:
-    typedef TreeMap<const GChar *, HeroData> HeroDataMap;
+    typedef struct _hero_name { GChar strName[GAMEDATA_NAMES_MAX_LENGTH]; } HeroName;
+    typedef TreeMap<HeroName, HeroData> HeroDataMap;
 
     // Import (No Export Needed)
     Void ImportFromXML();
@@ -193,12 +193,13 @@ public:
     inline UInt GetHeroRankMaxLevel( HeroRank iRank ) const;
     inline UInt GetHeroSanctifyBonus( HeroSanctify iSanctify ) const;
 
+    inline UInt GetHeroDataCount() const;
+    inline HeroDataMap::Iterator EnumHeroData() const;
+
     inline Bool IsHeroNameValid( const GChar * strHeroName ) const;
     inline HeroFaction GetHeroFaction( const GChar * strHeroName ) const;
     inline HeroRank GetHeroNaturalRank( const GChar * strHeroName ) const;
     inline UInt GetHeroBaseStat( const GChar * strHeroName, HeroStat iHeroStat, HeroRank iRank, UInt iLevel, Bool bEvolved ) const;
-
-    inline HeroDataMap::Iterator EnumHeroData() const;
 
 private:
     // Rune Data
@@ -212,7 +213,7 @@ private:
     UInt m_arrHeroRankMaxLevel[HERO_RANK_COUNT];
     UInt m_arrHeroSanctifyBonus[HERO_SANCTIFY_COUNT];
 
-    static Int _Compare_HeroNames( const GChar * const & rLeft, const GChar * const & rRight, Void * pUserData );
+    static Int _Compare_HeroNames( const HeroName & rLeft, const HeroName & rRight, Void * pUserData );
     HeroDataMap m_mapHeroData;
 };
 
