@@ -180,7 +180,8 @@ Void HeroCreationRankModel::Populate()
 		pController->AddItem( i - m_iFirstAvailableRank );
 		pController->SetItemData( i - m_iFirstAvailableRank, (Void*)i );
 	}
-	pController->SelectItem( 0 );
+
+	pController->SetCueText( TEXT("Hero Rank ...") );
 }
 
 Void HeroCreationRankModel::UpdateFirstAvailableRank( HeroRank iFirstAvailableRank )

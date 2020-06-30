@@ -107,7 +107,6 @@ public:
 private:
 	CCGOPGUI * m_pGUI;
 
-	// Content Data
 	HeroRank m_iFirstAvailableRank;
 };
 
