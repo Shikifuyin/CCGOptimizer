@@ -619,7 +619,11 @@ Bool HeroCreationButtonModel::OnClick()
 		return true;
 
 	// Create the Hero
-	CCGOPFn->CreateHero( strName, iRank, iLevel, bEvolved, iSanctify );
+	HeroID iHeroID = CCGOPFn->CreateHero( strName, iRank, iLevel, bEvolved, iSanctify );
+
+	// Update HeroTable
+	HeroTable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable();
+	pHeroTable->m_hHeroTableModel.UpdateAfterHeroCreation( iHeroID );
 
 	// Done
 	return true;

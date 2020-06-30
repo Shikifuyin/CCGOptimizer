@@ -33,9 +33,8 @@
 
 // Hero Table Columns
 enum CCGOPHeroTableColumn {
-	CCGOP_HEROTABLE_COLUMN_CB = 0, // CheckBoxes
+	CCGOP_HEROTABLE_COLUMN_NAME = 0, // CheckBoxes
 	CCGOP_HEROTABLE_COLUMN_ID,
-	CCGOP_HEROTABLE_COLUMN_NAME,
 	CCGOP_HEROTABLE_COLUMN_FACTION,
 	CCGOP_HEROTABLE_COLUMN_RANK,
 	CCGOP_HEROTABLE_COLUMN_LEVEL,
@@ -55,6 +54,8 @@ enum CCGOPHeroTableColumn {
 // Prototypes
 class CCGOPGUI;
 
+class HeroCreationButtonModel;
+
 /////////////////////////////////////////////////////////////////////////////////
 // The HeroTableModel class
 class HeroTableModel : public WinGUITableModel
@@ -67,8 +68,14 @@ public:
 	Void Initialize( CCGOPGUI * pGUI );
 	Void CreateColumns();
 
+	// Update
+	Void UpdateAfterHeroCreation( HeroID iHeroID );
+
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnColumnHeaderClick( UInt iIndex );
 
 	// Callback Events
 	virtual GChar * OnRequestItemLabel( UInt iItemIndex, UInt iSubItemIndex, Void * pItemData );
@@ -77,6 +84,24 @@ private:
 	CCGOPGUI * m_pGUI;
 
 	GChar m_arrColumnNames[CCGOP_HEROTABLE_COLUMN_COUNT][64];
+	UInt m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_COUNT];
+
+	// Beware, those have reversed convention ...
+	static Int __stdcall _Compare_HeroName( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
+	static Int __stdcall _Compare_HeroID( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
+	static Int __stdcall _Compare_HeroFaction( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
+	static Int __stdcall _Compare_HeroRank( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
+	static Int __stdcall _Compare_HeroLevel( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
+	static Int __stdcall _Compare_HeroEvolved( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
+	static Int __stdcall _Compare_HeroSanctified( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
+	static Int __stdcall _Compare_HeroHP( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
+	static Int __stdcall _Compare_HeroATT( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
+	static Int __stdcall _Compare_HeroDEF( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
+	static Int __stdcall _Compare_HeroSPD( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
+	static Int __stdcall _Compare_HeroCritRate( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
+	static Int __stdcall _Compare_HeroCritDmg( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
+	static Int __stdcall _Compare_HeroHIT( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
+	static Int __stdcall _Compare_HeroRES( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
 };
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -92,6 +117,8 @@ public:
 	Void Cleanup();
 
 private:
+	friend class HeroCreationButtonModel;
+
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;
