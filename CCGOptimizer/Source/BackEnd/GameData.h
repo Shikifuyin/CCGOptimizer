@@ -191,6 +191,7 @@ public:
     
     // Hero Data
     inline UInt GetHeroRankMaxLevel( HeroRank iRank ) const;
+    inline UInt GetHeroRankMinLevel( const GChar * strHeroName, HeroRank iRank ) const;
     inline UInt GetHeroSanctifyBonus( HeroSanctify iSanctify ) const;
 
     inline UInt GetHeroDataCount() const;

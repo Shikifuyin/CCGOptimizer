@@ -124,6 +124,14 @@ inline UInt GameData::GetHeroRankMaxLevel( HeroRank iRank ) const {
     Assert( iRank < HERO_RANK_COUNT );
     return m_arrHeroRankMaxLevel[iRank];
 }
+inline UInt GameData::GetHeroRankMinLevel( const GChar * strHeroName, HeroRank iRank ) const {
+    Assert( iRank < HERO_RANK_COUNT );
+    HeroRank iNaturalRank = GetHeroNaturalRank(strHeroName);
+    Assert( iRank >= iNaturalRank );
+    if ( iRank == iNaturalRank )
+        return 1;
+    return GetHeroRankMaxLevel( (HeroRank)(iRank - 1) );
+}
 inline UInt GameData::GetHeroSanctifyBonus( HeroSanctify iSanctify ) const {
     Assert( iSanctify < HERO_SANCTIFY_COUNT );
     return m_arrHeroSanctifyBonus[iSanctify];

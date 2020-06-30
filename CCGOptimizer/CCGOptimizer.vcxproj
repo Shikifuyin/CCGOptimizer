@@ -165,6 +165,7 @@
     <ClCompile Include="Source\FrontEnd\CCGOPGUI.cpp" />
     <ClCompile Include="Source\FrontEnd\HeroExplorer.cpp" />
     <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroCreation.cpp" />
+    <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroOptions.cpp" />
     <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroTable.cpp" />
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
@@ -183,6 +184,7 @@
     <ClInclude Include="Source\FrontEnd\CCGOPGUI.h" />
     <ClInclude Include="Source\FrontEnd\HeroExplorer.h" />
     <ClInclude Include="Source\FrontEnd\HeroExplorer\HeroCreation.h" />
+    <ClInclude Include="Source\FrontEnd\HeroExplorer\HeroOptions.h" />
     <ClInclude Include="Source\FrontEnd\HeroExplorer\HeroTable.h" />
     <ClInclude Include="Source\FrontEnd\ResourceIDs.h" />
     <ClInclude Include="Source\Main.h" />
@@ -202,6 +204,7 @@
     <None Include="Source\FrontEnd\CCGOPGUI.inl" />
     <None Include="Source\FrontEnd\HeroExplorer.inl" />
     <None Include="Source\FrontEnd\HeroExplorer\HeroCreation.inl" />
+    <None Include="Source\FrontEnd\HeroExplorer\HeroOptions.inl" />
     <None Include="Source\FrontEnd\HeroExplorer\HeroTable.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

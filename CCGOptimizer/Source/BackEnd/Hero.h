@@ -59,9 +59,16 @@ public:
 	inline HeroID GetID() const;
 	inline const GChar * GetName() const;
 	inline HeroFaction GetFaction() const;
+
 	inline HeroRank GetRank() const;
+	Void SetRank( HeroRank iHeroRank );
+
 	inline UInt GetLevel() const;
+	Void SetLevel( UInt iLevel );
+
 	inline Bool IsEvolved() const;
+	inline Void SetEvolved( Bool bEvolved );
+
 	inline Bool IsSanctified() const;
 	inline HeroSanctify GetSanctification() const;
 	inline Void SetSanctification( HeroSanctify iSanctify );

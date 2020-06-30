@@ -23,3 +23,7 @@ inline HeroTable * HeroExplorer::GetHeroTable() {
 inline HeroCreation * HeroExplorer::GetHeroCreation() {
 	return &m_hHeroCreation;
 }
+inline HeroOptions * HeroExplorer::GetHeroOptions() {
+	return &m_HeroOptions;
+}
+

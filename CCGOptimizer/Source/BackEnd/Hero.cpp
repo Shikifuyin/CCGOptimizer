@@ -174,6 +174,40 @@ Void Hero::ExportToXML( XMLNode * pNode ) const
     pNode->CreateAttribute( TEXT("gearset_selected"), strValueBuffer );
 }
 
+Void Hero::SetRank( HeroRank iHeroRank )
+{
+	// Update Rank
+	HeroRank iNaturalRank = GameDataFn->GetHeroNaturalRank( m_strName );
+	Assert( iHeroRank >= iNaturalRank );
+
+	m_iRank = iHeroRank;
+	if ( m_iRank < iNaturalRank )
+		m_iRank = iNaturalRank;
+
+	// Update Level
+	UInt iMinLevel = GameDataFn->GetHeroRankMinLevel( m_strName, m_iRank );
+	UInt iMaxLevel = GameDataFn->GetHeroRankMaxLevel( m_iRank );
+
+	if ( m_iLevel < iMinLevel )
+		m_iLevel = iMinLevel;
+	if ( m_iLevel > iMaxLevel )
+		m_iLevel = iMaxLevel;
+}
+
+Void Hero::SetLevel( UInt iLevel )
+{
+	// Update Level
+	m_iLevel = iLevel;
+
+	UInt iMinLevel = GameDataFn->GetHeroRankMinLevel( m_strName, m_iRank );
+	UInt iMaxLevel = GameDataFn->GetHeroRankMaxLevel( m_iRank );
+
+	if ( m_iLevel < iMinLevel )
+		m_iLevel = iMinLevel;
+	if ( m_iLevel > iMaxLevel )
+		m_iLevel = iMaxLevel;
+}
+
 Bool Hero::HasGearSet( GearSetID iGearSetID ) const
 {
 	for( UInt i = 0; i < m_iAttachedGearSetsCount; ++i ) {

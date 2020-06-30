@@ -26,15 +26,22 @@ inline const GChar * Hero::GetName() const {
 inline HeroFaction Hero::GetFaction() const {
 	return m_iFaction;
 }
+
 inline HeroRank Hero::GetRank() const {
     return m_iRank;
 }
+
 inline UInt Hero::GetLevel() const {
     return m_iLevel;
 }
+
 inline Bool Hero::IsEvolved() const {
     return m_bEvolved;
 }
+inline Void Hero::SetEvolved( Bool bEvolved ) {
+	m_bEvolved = bEvolved;
+}
+
 inline Bool Hero::IsSanctified() const {
     return ( m_iSanctify != HERO_SANCTIFY_NONE );
 }

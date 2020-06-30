@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/HeroExplorer.cpp
+// File : Source/FrontEnd/HeroExplorer/HeroOptions.inl
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : HeroExplorer GUI
+// Description : HeroExplorer GUI : Hero Options
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -16,49 +16,14 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////
-// Includes
-#include "HeroExplorer.h"
-#include "CCGOPGUI.h"
+// HeroOptionsGroupModel implementation
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroExplorer implementation
-HeroExplorer::HeroExplorer( CCGOPGUI * pGUI ):
-	m_hHeroTable( pGUI ),
-	m_hHeroCreation( pGUI ),
-	m_HeroOptions( pGUI )
-{
-	m_pGUI = pGUI;
-	m_pRoot = NULL;
-}
-HeroExplorer::~HeroExplorer()
-{
-	// nothing to do
-}
+// HeroOptionsMaxRankModel implementation
 
-Void HeroExplorer::Initialize()
-{
-	// Grab Root
-	m_pRoot = m_pGUI->GetRoot( CCGOP_MAINMENU_HERO_EXPLORER );
+/////////////////////////////////////////////////////////////////////////////////
+// HeroOptionsMaxLevelModel implementation
 
-	// Build Hero Table UI
-	m_hHeroTable.Initialize();
-
-	// Build Hero Creation UI
-	m_hHeroCreation.Initialize();
-
-	// Build Hero Options UI
-	m_HeroOptions.Initialize();
-}
-Void HeroExplorer::Cleanup()
-{
-	// Cleanup Hero Options UI
-	m_HeroOptions.Cleanup();
-
-	// Cleanup Hero Creation UI
-	m_hHeroCreation.Cleanup();
-
-	// Cleanup Hero Table UI
-	m_hHeroTable.Cleanup();
-}
-
+/////////////////////////////////////////////////////////////////////////////////
+// HeroOptions implementation
 

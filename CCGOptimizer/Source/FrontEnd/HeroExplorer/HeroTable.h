@@ -56,6 +56,12 @@ class CCGOPGUI;
 
 class HeroCreationButtonModel;
 
+class HeroOptionsMaxRankModel;
+class HeroOptionsMaxLevelModel;
+class HeroOptionsEvolveModel;
+class HeroOptionsSanctifyModel;
+class HeroOptionsDeleteModel;
+
 /////////////////////////////////////////////////////////////////////////////////
 // The HeroTableModel class
 class HeroTableModel : public WinGUITableModel
@@ -118,6 +124,12 @@ public:
 
 private:
 	friend class HeroCreationButtonModel;
+
+	friend class HeroOptionsMaxRankModel;
+	friend class HeroOptionsMaxLevelModel;
+	friend class HeroOptionsEvolveModel;
+	friend class HeroOptionsSanctifyModel;
+	friend class HeroOptionsDeleteModel;
 
 	// GUI Instance
 	CCGOPGUI * m_pGUI;

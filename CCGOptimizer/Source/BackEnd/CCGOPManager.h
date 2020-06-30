@@ -56,6 +56,7 @@ public:
     // Rune Management
     inline UInt GetRuneCount() const;
     inline const Rune * GetRune( RuneID iRuneID ) const;
+    inline Rune * GetRune( RuneID iRuneID );
 
     inline RuneID CreateRune( UInt iSlot, RuneSet iSet, RuneRank iRank, RuneQuality iQuality, UInt iLevel,
                               RuneStat iMainStat, RuneStat iInnateStat, UInt iInnateStatValue,
@@ -69,6 +70,7 @@ public:
     // Hero Management
     inline UInt GetHeroCount() const;
     inline const Hero * GetHero( HeroID iHeroID ) const;
+    inline Hero * GetHero( HeroID iHeroID );
 
     inline HeroID CreateHero( const GChar * strName, HeroRank iRank, UInt iLevel, Bool bEvolved, HeroSanctify iSanctify );
     inline Void DestroyHero( HeroID iHeroID );
@@ -79,6 +81,7 @@ public:
     // GearSet Management
     inline UInt GetGearSetCount() const;
     inline const GearSet * GetGearSet( GearSetID iGearSetID ) const;
+    inline GearSet * GetGearSet( GearSetID iGearSetID );
 
     inline GearSetID CreateGearSet( const GChar * strName );
     inline Void DestroyGearSet( GearSetID iGearSetID );

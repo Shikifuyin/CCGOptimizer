@@ -28,8 +28,9 @@
 
 #include "ResourceIDs.h"
 
-#include "HeroExplorer/HeroCreation.h"
 #include "HeroExplorer/HeroTable.h"
+#include "HeroExplorer/HeroCreation.h"
+#include "HeroExplorer/HeroOptions.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
@@ -52,6 +53,7 @@ public:
 	// Access for delegates
 	inline HeroTable * GetHeroTable();
 	inline HeroCreation * GetHeroCreation();
+	inline HeroOptions * GetHeroOptions();
 
 private:
 	// GUI Instance
@@ -63,6 +65,9 @@ private:
 
 	// Hero Creation UI
 	HeroCreation m_hHeroCreation;
+
+	// Hero Options UI
+	HeroOptions m_HeroOptions;
 
 	// Load/Save Hero Data UI
 

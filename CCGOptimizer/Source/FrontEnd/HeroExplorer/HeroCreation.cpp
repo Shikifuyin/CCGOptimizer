@@ -121,7 +121,7 @@ const WinGUILayout * HeroCreationNameModel::GetLayout() const
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = 120;
-	hLayout.FixedSize.iY = 100;
+	hLayout.FixedSize.iY = 120;
 
 	return &hLayout;
 }
@@ -223,7 +223,7 @@ const WinGUILayout * HeroCreationRankModel::GetLayout() const
 
 Bool HeroCreationRankModel::OnSelectionOK()
 {
-	// Retrieve Natural Rank
+	// Retrieve Selected Name
 	HeroCreationNameModel * pHeroNameModel = &( m_pGUI->GetHeroExplorer()->GetHeroCreation()->m_hNameModel );
 	WinGUIComboBox * pHeroNameController = (WinGUIComboBox*)( pHeroNameModel->GetController() );
 
@@ -254,8 +254,6 @@ Bool HeroCreationRankModel::OnSelectionOK()
 
 	const GChar * strSelectedHeroName = (const GChar *)( pHeroNameController->GetItemData(iSelectedHeroName) );
 
-	HeroRank iNaturalRank = GameDataFn->GetHeroNaturalRank( strSelectedHeroName );
-
 	// Retrieve Selected Rank
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	UInt iSelectedHeroRank = pController->GetSelectedItem();
@@ -263,12 +261,7 @@ Bool HeroCreationRankModel::OnSelectionOK()
 	HeroRank iRank = (HeroRank)(UIntPtr)( pController->GetItemData(iSelectedHeroRank) );
 
 	// Compute Allowed Level Range
-	UInt iMinLevel;
-	if ( iRank == iNaturalRank )
-		iMinLevel = 1;
-	else
-		iMinLevel = GameDataFn->GetHeroRankMaxLevel( (HeroRank)(iRank - 1) );
-
+	UInt iMinLevel = GameDataFn->GetHeroRankMinLevel( strSelectedHeroName, iRank );
 	UInt iMaxLevel = GameDataFn->GetHeroRankMaxLevel( iRank );
 
 	// Update LevelModel content

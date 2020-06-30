@@ -30,6 +30,9 @@ inline UInt CCGOPManager::GetRuneCount() const {
 inline const Rune * CCGOPManager::GetRune( RuneID iRuneID ) const {
     return m_hRuneInventory.GetRune( iRuneID );
 }
+inline Rune * CCGOPManager::GetRune( RuneID iRuneID ) {
+    return m_hRuneInventory.GetRune( iRuneID );
+}
 
 inline RuneID CCGOPManager::CreateRune( UInt iSlot, RuneSet iSet, RuneRank iRank, RuneQuality iQuality, UInt iLevel,
                             RuneStat iMainStat, RuneStat iInnateStat, UInt iInnateStatValue,
@@ -62,6 +65,9 @@ inline UInt CCGOPManager::GetHeroCount() const {
 inline const Hero * CCGOPManager::GetHero( HeroID iHeroID ) const {
     return m_hHeroInventory.GetHero( iHeroID );
 }
+inline Hero * CCGOPManager::GetHero( HeroID iHeroID ) {
+    return m_hHeroInventory.GetHero( iHeroID );
+}
 
 inline HeroID CCGOPManager::CreateHero( const GChar * strName, HeroRank iRank, UInt iLevel, Bool bEvolved, HeroSanctify iSanctify ) {
     return m_hHeroInventory._CreateHero(
@@ -85,6 +91,9 @@ inline UInt CCGOPManager::GetGearSetCount() const {
     return m_hGearSetInventory.GetGearSetCount();
 }
 inline const GearSet * CCGOPManager::GetGearSet( GearSetID iGearSetID ) const {
+    return m_hGearSetInventory.GetGearSet( iGearSetID );
+}
+inline GearSet * CCGOPManager::GetGearSet( GearSetID iGearSetID ) {
     return m_hGearSetInventory.GetGearSet( iGearSetID );
 }
 
