@@ -137,11 +137,11 @@ const WinGUILayout * HeroTableModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = 100;
+	hLayout.FixedPosition.iX = 200;
 	hLayout.FixedPosition.iY = 10;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 1400;
+	hLayout.FixedSize.iX = 1200;
 	hLayout.FixedSize.iY = 600;
 
 	return &hLayout;

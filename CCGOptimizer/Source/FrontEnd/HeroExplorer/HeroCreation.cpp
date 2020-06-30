@@ -47,11 +47,11 @@ const WinGUILayout * HeroCreationGroupModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = 10;
-	hLayout.FixedPosition.iY = 620;
+	hLayout.FixedPosition.iX = 28;
+	hLayout.FixedPosition.iY = 20;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 200;
+	hLayout.FixedSize.iX = 144;
 	hLayout.FixedSize.iY = 200;
 
 	return &hLayout;
@@ -120,7 +120,7 @@ const WinGUILayout * HeroCreationNameModel::GetLayout() const
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 100;
+	hLayout.FixedSize.iX = 120;
 	hLayout.FixedSize.iY = 100;
 
 	return &hLayout;
@@ -212,10 +212,10 @@ const WinGUILayout * HeroCreationRankModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + 24;
+	hLayout.FixedPosition.iY = hClientArea.iTop + 28;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 100;
+	hLayout.FixedSize.iX = 120;
 	hLayout.FixedSize.iY = 120;
 
 	return &hLayout;
@@ -347,10 +347,10 @@ const WinGUILayout * HeroCreationLevelModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + 48;
+	hLayout.FixedPosition.iY = hClientArea.iTop + 56;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 100;
+	hLayout.FixedSize.iX = 120;
 	hLayout.FixedSize.iY = 120;
 
 	return &hLayout;
@@ -414,10 +414,10 @@ const WinGUILayout * HeroCreationEvolvedModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + 72;
+	hLayout.FixedPosition.iY = hClientArea.iTop + 84;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 100;
+	hLayout.FixedSize.iX = 120;
 	hLayout.FixedSize.iY = 24;
 
 	return &hLayout;
@@ -484,10 +484,10 @@ const WinGUILayout * HeroCreationSanctifyModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + 96;
+	hLayout.FixedPosition.iY = hClientArea.iTop + 112;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 100;
+	hLayout.FixedSize.iX = 120;
 	hLayout.FixedSize.iY = 120;
 
 	return &hLayout;
@@ -534,10 +534,10 @@ const WinGUILayout * HeroCreationButtonModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + 120;
+	hLayout.FixedPosition.iY = hClientArea.iTop + 150;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 100;
+	hLayout.FixedSize.iX = 120;
 	hLayout.FixedSize.iY = 24;
 
 	return &hLayout;
