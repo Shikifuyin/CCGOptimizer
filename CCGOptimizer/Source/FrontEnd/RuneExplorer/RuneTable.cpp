@@ -812,7 +812,7 @@ const WinGUILayout * RuneTableUnselectAllModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0);
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
@@ -869,7 +869,7 @@ const WinGUILayout * RuneTableCheckAllModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(2,0,1);
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(2,0,0,1);
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
@@ -926,7 +926,7 @@ const WinGUILayout * RuneTableUncheckAllModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(3,0,1);
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(3,0,0,1);
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
@@ -983,7 +983,7 @@ const WinGUILayout * RuneTableCheckSelectedModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(4,0,2);
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(4,0,0,2);
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
@@ -1041,7 +1041,7 @@ const WinGUILayout * RuneTableUncheckSelectedModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(5,0,2);
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(5,0,0,2);
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;

@@ -111,7 +111,7 @@ const WinGUILayout * HeroLoadSaveFileNameModel::GetLayout() const
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 244;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH * 2 + CCGOP_LAYOUT_SPACING_HORIZ;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_TEXTEDIT_HEIGHT;
 
 	return &hLayout;
@@ -151,7 +151,7 @@ const WinGUILayout * HeroLoadSaveLoadModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,1,0,0);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
@@ -252,8 +252,8 @@ const WinGUILayout * HeroLoadSaveSaveModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,0,0);
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,1,0,0);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;

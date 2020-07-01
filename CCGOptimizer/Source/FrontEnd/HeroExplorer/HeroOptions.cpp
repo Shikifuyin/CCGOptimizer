@@ -157,7 +157,7 @@ const WinGUILayout * HeroOptionsMaxLevelModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,0,0,0);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
@@ -223,7 +223,7 @@ const WinGUILayout * HeroOptionsEvolveModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(2,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(2,0,0,0);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
@@ -308,7 +308,7 @@ const WinGUILayout * HeroOptionsSanctifyChoiceModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(3,0,1);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(3,0,0,1);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
@@ -358,7 +358,7 @@ const WinGUILayout * HeroOptionsSanctifyModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(3,1,1);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(3,0,1,1);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
@@ -434,7 +434,7 @@ const WinGUILayout * HeroOptionsDeleteModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(4,1,2);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(4,0,1,2);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;

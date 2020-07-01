@@ -169,6 +169,7 @@
     <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroOptions.cpp" />
     <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroTable.cpp" />
     <ClCompile Include="Source\FrontEnd\RuneExplorer.cpp" />
+    <ClCompile Include="Source\FrontEnd\RuneExplorer\RuneCreation.cpp" />
     <ClCompile Include="Source\FrontEnd\RuneExplorer\RuneTable.cpp" />
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
@@ -193,6 +194,7 @@
     <ClInclude Include="Source\FrontEnd\Layout.h" />
     <ClInclude Include="Source\FrontEnd\ResourceIDs.h" />
     <ClInclude Include="Source\FrontEnd\RuneExplorer.h" />
+    <ClInclude Include="Source\FrontEnd\RuneExplorer\RuneCreation.h" />
     <ClInclude Include="Source\FrontEnd\RuneExplorer\RuneTable.h" />
     <ClInclude Include="Source\Main.h" />
   </ItemGroup>
@@ -215,6 +217,7 @@
     <None Include="Source\FrontEnd\HeroExplorer\HeroOptions.inl" />
     <None Include="Source\FrontEnd\HeroExplorer\HeroTable.inl" />
     <None Include="Source\FrontEnd\RuneExplorer.inl" />
+    <None Include="Source\FrontEnd\RuneExplorer\RuneCreation.inl" />
     <None Include="Source\FrontEnd\RuneExplorer\RuneTable.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

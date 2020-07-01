@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/RuneExplorer.h
+// File : Source/FrontEnd/RuneExplorer/RuneCreation.inl
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : RuneExplorer GUI
+// Description : RuneExplorer GUI : Rune Creation
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -16,70 +16,28 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////
-// Header prelude
-#ifndef CCGOP_FRONTEND_RUNEEXPLORER_H
-#define CCGOP_FRONTEND_RUNEEXPLORER_H
+// RuneCreationGroupModel implementation
 
 /////////////////////////////////////////////////////////////////////////////////
-// Includes
-#include "ThirdParty/WinGUI/WinGUI.h"
-
-#include "../BackEnd/CCGOPManager.h"
-
-#include "ResourceIDs.h"
-#include "Layout.h"
-
-#include "RuneExplorer/RuneTable.h"
-#include "RuneExplorer/RuneCreation.h"
+// RuneCreationSlotModel implementation
 
 /////////////////////////////////////////////////////////////////////////////////
-// Constants definitions
-
-// Prototypes
-class CCGOPGUI;
+// RuneCreationSetModel implementation
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneExplorer class
-class RuneExplorer
-{
-public:
-	RuneExplorer( CCGOPGUI * pGUI );
-	~RuneExplorer();
-
-	// Initialization / Cleanup
-	Void Initialize();
-	Void Cleanup();
-
-	// Access for delegates
-	inline RuneTable * GetRuneTable();
-	inline RuneCreation * GetRuneCreation();
-
-private:
-	// GUI Instance
-	CCGOPGUI * m_pGUI;
-	WinGUIContainer * m_pRoot;
-
-	// Table UI
-	RuneTable m_hRuneTable;
-
-	// Hero Creation UI
-	RuneCreation m_hRuneCreation;
-
-	// Hero Options UI
-	//RuneOptions m_hRuneOptions;
-
-	// Hero Load/Save UI
-	//RuneLoadSave m_hRuneLoadSave;
-
-	// Search UI
-
-};
+// RuneCreationRankModel implementation
 
 /////////////////////////////////////////////////////////////////////////////////
-// Backward Includes (Inlines & Templates)
-#include "RuneExplorer.inl"
+// RuneCreationQualityModel implementation
 
 /////////////////////////////////////////////////////////////////////////////////
-// Header end
-#endif // CCGOP_FRONTEND_RUNEEXPLORER_H
+// RuneCreationLevelModel implementation
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+// RuneCreationButtonModel implementation
+
+/////////////////////////////////////////////////////////////////////////////////
+// RuneCreation implementation
 

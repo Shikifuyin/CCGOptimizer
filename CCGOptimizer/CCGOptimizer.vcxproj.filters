@@ -105,6 +105,9 @@
     <ClCompile Include="Source\FrontEnd\RuneExplorer.cpp">
       <Filter>Source Files\FrontEnd</Filter>
     </ClCompile>
+    <ClCompile Include="Source\FrontEnd\RuneExplorer\RuneCreation.cpp">
+      <Filter>Source Files\FrontEnd\RuneExplorer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BackEnd\GameData.h">
@@ -173,6 +176,9 @@
     <ClInclude Include="Source\FrontEnd\RuneExplorer.h">
       <Filter>Header Files\FrontEnd</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FrontEnd\RuneExplorer\RuneCreation.h">
+      <Filter>Header Files\FrontEnd\RuneExplorer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\BackEnd\GameData.inl">
@@ -231,6 +237,9 @@
     </None>
     <None Include="Source\FrontEnd\RuneExplorer.inl">
       <Filter>Source Files\FrontEnd</Filter>
+    </None>
+    <None Include="Source\FrontEnd\RuneExplorer\RuneCreation.inl">
+      <Filter>Source Files\FrontEnd\RuneExplorer</Filter>
     </None>
   </ItemGroup>
 </Project>

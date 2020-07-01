@@ -20,3 +20,6 @@
 inline RuneTable * RuneExplorer::GetRuneTable() {
 	return &m_hRuneTable;
 }
+inline RuneCreation * RuneExplorer::GetRuneCreation() {
+	return &m_hRuneCreation;
+}

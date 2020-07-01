@@ -52,6 +52,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // TextEdit
+#define CCGOP_LAYOUT_TEXTEDIT_WIDTH  CCGOP_LAYOUT_BUTTON_WIDTH
 #define CCGOP_LAYOUT_TEXTEDIT_HEIGHT 20
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -69,14 +70,16 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // Shift Macros
-#define CCGOP_LAYOUT_SHIFT_HORIZ( _num_buttons, _num_combos, _num_gaps ) ( \
+#define CCGOP_LAYOUT_SHIFT_HORIZ( _num_buttons, _num_textedits, _num_combos, _num_gaps ) ( \
 	(CCGOP_LAYOUT_BUTTON_WIDTH + CCGOP_LAYOUT_SPACING_HORIZ)   * (_num_buttons) + \
+	(CCGOP_LAYOUT_TEXTEDIT_WIDTH + CCGOP_LAYOUT_SPACING_HORIZ) * (_num_textedits) + \
 	(CCGOP_LAYOUT_COMBOBOX_WIDTH + CCGOP_LAYOUT_SPACING_HORIZ) * (_num_combos) + \
 	CCGOP_LAYOUT_SPACING_GAP_HORIZ                             * (_num_gaps) \
 )
 
-#define CCGOP_LAYOUT_SHIFT_VERT( _num_buttons, _num_combos, _num_gaps ) ( \
+#define CCGOP_LAYOUT_SHIFT_VERT( _num_buttons, _num_textedits, _num_combos, _num_gaps ) ( \
 	(CCGOP_LAYOUT_BUTTON_HEIGHT + CCGOP_LAYOUT_SPACING_VERT)         * (_num_buttons) + \
+	(CCGOP_LAYOUT_TEXTEDIT_HEIGHT + CCGOP_LAYOUT_SPACING_VERT)       * (_num_textedits) + \
 	(CCGOP_LAYOUT_COMBOBOX_BUTTONHEIGHT + CCGOP_LAYOUT_SPACING_VERT) * (_num_combos) + \
 	CCGOP_LAYOUT_SPACING_GAP_VERT                                    * (_num_gaps) \
 )
