@@ -51,6 +51,10 @@
 #define CCGOP_LAYOUT_RADIOBUTTON_HEIGHT CCGOP_LAYOUT_BUTTON_HEIGHT
 
 /////////////////////////////////////////////////////////////////////////////////
+// TextEdit
+#define CCGOP_LAYOUT_TEXTEDIT_HEIGHT 20
+
+/////////////////////////////////////////////////////////////////////////////////
 // ComboBoxes
 #define CCGOP_LAYOUT_COMBOBOX_WIDTH        CCGOP_LAYOUT_BUTTON_WIDTH
 #define CCGOP_LAYOUT_COMBOBOX_HEIGHT       120 // Fit the dropdown

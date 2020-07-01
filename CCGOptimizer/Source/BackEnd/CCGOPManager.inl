@@ -69,6 +69,10 @@ inline Hero * CCGOPManager::GetHero( HeroID iHeroID ) {
     return m_hHeroInventory.GetHero( iHeroID );
 }
 
+inline HeroInventory::HeroMap::Iterator CCGOPManager::EnumHeroes() const {
+    return m_hHeroInventory.m_mapHeroInventory.Begin();
+}
+
 inline HeroID CCGOPManager::CreateHero( const GChar * strName, HeroRank iRank, UInt iLevel, Bool bEvolved, HeroSanctify iSanctify ) {
     return m_hHeroInventory._CreateHero(
         strName, iRank, iLevel, bEvolved, iSanctify

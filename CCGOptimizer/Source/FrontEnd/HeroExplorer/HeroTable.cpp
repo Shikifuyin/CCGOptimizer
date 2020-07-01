@@ -132,6 +132,22 @@ Void HeroTableModel::UpdateAfterHeroCreation( HeroID iHeroID )
 	pTable->AddItem( iIndex ); // Append
 	pTable->SetItemData( iIndex, (Void*)iHeroID );
 }
+Void HeroTableModel::UpdateAfterDataLoad()
+{
+	WinGUITable * pTable = (WinGUITable*)m_pController;
+	Assert( pTable->GetItemCount() == 0 );
+
+	UInt iIndex = 0;
+	HeroInventory::HeroMap::Iterator itHero = CCGOPFn->EnumHeroes();
+	while( !(itHero.IsNull()) ) {
+
+		pTable->AddItem( iIndex );
+		pTable->SetItemData( iIndex, (Void*)(itHero.GetKey()) );
+
+		++iIndex;
+		++itHero;
+	}
+}
 
 const WinGUILayout * HeroTableModel::GetLayout() const
 {

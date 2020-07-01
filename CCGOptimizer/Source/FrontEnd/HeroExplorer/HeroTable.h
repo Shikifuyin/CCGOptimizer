@@ -27,6 +27,7 @@
 #include "../../BackEnd/CCGOPManager.h"
 
 #include "../ResourceIDs.h"
+#include "../Layout.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
@@ -62,6 +63,8 @@ class HeroOptionsEvolveModel;
 class HeroOptionsSanctifyModel;
 class HeroOptionsDeleteModel;
 
+class HeroLoadSaveLoadModel;
+
 /////////////////////////////////////////////////////////////////////////////////
 // The HeroTableModel class
 class HeroTableModel : public WinGUITableModel
@@ -76,6 +79,7 @@ public:
 
 	// Update
 	Void UpdateAfterHeroCreation( HeroID iHeroID );
+	Void UpdateAfterDataLoad();
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
@@ -281,6 +285,8 @@ private:
 	friend class HeroOptionsEvolveModel;
 	friend class HeroOptionsSanctifyModel;
 	friend class HeroOptionsDeleteModel;
+
+	friend class HeroLoadSaveLoadModel;
 
 	// GUI Instance
 	CCGOPGUI * m_pGUI;

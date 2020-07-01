@@ -1783,7 +1783,7 @@
 </hero_data>
 	
     <!-- LIGHT -->
-<hero_data name="Valyrie" faction="3" natural_rank="4" >
+<hero_data name="Valkyrie" faction="3" natural_rank="4" >
 	<base_stats>
 		<hero_rank_4>
 			<hero_level_1  HP="0"       ATT="0"     DEF="0"     SPD="95"   CRITRATE="15"    CRITDMG="50"    HIT="0"     RES="15" />

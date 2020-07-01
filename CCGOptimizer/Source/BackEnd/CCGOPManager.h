@@ -72,6 +72,8 @@ public:
     inline const Hero * GetHero( HeroID iHeroID ) const;
     inline Hero * GetHero( HeroID iHeroID );
 
+    inline HeroInventory::HeroMap::Iterator EnumHeroes() const;
+
     inline HeroID CreateHero( const GChar * strName, HeroRank iRank, UInt iLevel, Bool bEvolved, HeroSanctify iSanctify );
     inline Void DestroyHero( HeroID iHeroID );
     inline Void DestroyAllHeroes();

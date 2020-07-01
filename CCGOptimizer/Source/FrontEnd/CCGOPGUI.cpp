@@ -67,7 +67,7 @@ Bool CCGOPWindowModel::OnClose()
 /////////////////////////////////////////////////////////////////////////////////
 // CCGOPTabsModel implementation
 const GChar * CCGOPTabsModel::sm_arrMenuNames[CCGOP_MAINMENU_COUNT] = {
-	TEXT("Import / Export"),
+	TEXT("Import"),
 	TEXT("Hero Explorer"),
 	TEXT("Rune Explorer"),
 	TEXT("GearSet Explorer"),
@@ -195,7 +195,7 @@ const WinGUILayout * CCGOPStatusBarModel::GetLayout() const
 /////////////////////////////////////////////////////////////////////////////////
 // CCGOPGUI implementation
 CCGOPGUI::CCGOPGUI( CCGOPApplication * pApplication ):
-	m_hTabPaneModelImportExport(CCGOP_MAINMENU_IMPORT_EXPORT),
+	m_hTabPaneModelImport(CCGOP_MAINMENU_IMPORT),
 	m_hTabPaneModelHeroExplorer(CCGOP_MAINMENU_HERO_EXPLORER),
 	m_hTabPaneModelRuneExplorer(CCGOP_MAINMENU_RUNE_EXPLORER),
 	m_hTabPaneModelGearSetExplorer(CCGOP_MAINMENU_GEARSET_EXPLORER),
@@ -209,7 +209,7 @@ CCGOPGUI::CCGOPGUI( CCGOPApplication * pApplication ):
 
 	m_pCCGOPTabs = NULL;
 
-	m_arrCCGOPTabPanes[CCGOP_MAINMENU_IMPORT_EXPORT] = NULL;
+	m_arrCCGOPTabPanes[CCGOP_MAINMENU_IMPORT] = NULL;
 	m_arrCCGOPTabPanes[CCGOP_MAINMENU_HERO_EXPLORER] = NULL;
 	m_arrCCGOPTabPanes[CCGOP_MAINMENU_RUNE_EXPLORER] = NULL;
 	m_arrCCGOPTabPanes[CCGOP_MAINMENU_GEARSET_EXPLORER] = NULL;
@@ -233,12 +233,12 @@ Void CCGOPGUI::Initialize()
 	m_hCCGOPTabsModel.Initialize( this );
 	m_pCCGOPTabs = WinGUIFn->CreateTabs( m_pAppWindow, &m_hCCGOPTabsModel );
 
-	m_hTabPaneModelImportExport.Initialize( this );
+	m_hTabPaneModelImport.Initialize( this );
 	m_hTabPaneModelHeroExplorer.Initialize( this );
 	m_hTabPaneModelRuneExplorer.Initialize( this );
 	m_hTabPaneModelGearSetExplorer.Initialize( this );
 	m_hTabPaneModelOptimizer.Initialize( this );
-	m_arrCCGOPTabPanes[CCGOP_MAINMENU_IMPORT_EXPORT]    = WinGUIFn->CreateContainer( m_pAppWindow, &m_hTabPaneModelImportExport );
+	m_arrCCGOPTabPanes[CCGOP_MAINMENU_IMPORT]           = WinGUIFn->CreateContainer( m_pAppWindow, &m_hTabPaneModelImport );
 	m_arrCCGOPTabPanes[CCGOP_MAINMENU_HERO_EXPLORER]    = WinGUIFn->CreateContainer( m_pAppWindow, &m_hTabPaneModelHeroExplorer );
 	m_arrCCGOPTabPanes[CCGOP_MAINMENU_RUNE_EXPLORER]    = WinGUIFn->CreateContainer( m_pAppWindow, &m_hTabPaneModelRuneExplorer );
 	m_arrCCGOPTabPanes[CCGOP_MAINMENU_GEARSET_EXPLORER] = WinGUIFn->CreateContainer( m_pAppWindow, &m_hTabPaneModelGearSetExplorer );
@@ -258,8 +258,8 @@ Void CCGOPGUI::Initialize()
 	m_hHeroExplorer.Initialize();
 
 	// Initial Tab
-	m_pCCGOPTabs->SelectTab( CCGOP_MAINMENU_IMPORT_EXPORT );
-	m_pCCGOPTabs->SwitchSelectedTabPane( m_arrCCGOPTabPanes[CCGOP_MAINMENU_IMPORT_EXPORT] );
+	m_pCCGOPTabs->SelectTab( CCGOP_MAINMENU_IMPORT );
+	m_pCCGOPTabs->SwitchSelectedTabPane( m_arrCCGOPTabPanes[CCGOP_MAINMENU_IMPORT] );
 
 	// Done
 	m_pAppWindow->SetVisible( true );

@@ -27,10 +27,12 @@
 #include "../BackEnd/CCGOPManager.h"
 
 #include "ResourceIDs.h"
+#include "Layout.h"
 
 #include "HeroExplorer/HeroTable.h"
 #include "HeroExplorer/HeroCreation.h"
 #include "HeroExplorer/HeroOptions.h"
+#include "HeroExplorer/HeroLoadSave.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
@@ -54,6 +56,7 @@ public:
 	inline HeroTable * GetHeroTable();
 	inline HeroCreation * GetHeroCreation();
 	inline HeroOptions * GetHeroOptions();
+	inline HeroLoadSave * GetHeroLoadSave();
 
 private:
 	// GUI Instance
@@ -67,9 +70,10 @@ private:
 	HeroCreation m_hHeroCreation;
 
 	// Hero Options UI
-	HeroOptions m_HeroOptions;
+	HeroOptions m_hHeroOptions;
 
-	// Load/Save Hero Data UI
+	// Hero Load/Save UI
+	HeroLoadSave m_hHeroLoadSave;
 
 	// Search UI
 

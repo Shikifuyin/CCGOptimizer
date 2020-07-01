@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/CCGOPGUI.h
+// File : Source/FrontEnd/HeroExplorer/HeroLoadSave.h
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : CCGOP GUI
+// Description : HeroExplorer GUI : Load/Save Data
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -17,171 +17,141 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // Header prelude
-#ifndef CCGOP_FRONTEND_CCGOPGUI_H
-#define CCGOP_FRONTEND_CCGOPGUI_H
+#ifndef CCGOP_FRONTEND_HEROEXPLORER_HEROLOADSAVE_H
+#define CCGOP_FRONTEND_HEROEXPLORER_HEROLOADSAVE_H
 
 /////////////////////////////////////////////////////////////////////////////////
 // Includes
 #include "ThirdParty/WinGUI/WinGUI.h"
 
-#include "../BackEnd/CCGOPManager.h"
+#include "../../BackEnd/CCGOPManager.h"
 
-#include "ResourceIDs.h"
-#include "Layout.h"
-
-#include "HeroExplorer.h"
+#include "../ResourceIDs.h"
+#include "../Layout.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
 
-// Main Menu Tabs
-enum CCGOPMainMenuTabs {
-	CCGOP_MAINMENU_IMPORT = 0,
-	CCGOP_MAINMENU_HERO_EXPLORER,
-	CCGOP_MAINMENU_RUNE_EXPLORER,
-	CCGOP_MAINMENU_GEARSET_EXPLORER,
-	CCGOP_MAINMENU_OPTIMIZER,
-	CCGOP_MAINMENU_COUNT,
-};
-
 // Prototypes
 class CCGOPGUI;
 
-class CCGOPApplication;
-
 /////////////////////////////////////////////////////////////////////////////////
-// The CCGOPWindowModel class
-class CCGOPWindowModel : public WinGUIWindowModel
+// The HeroLoadSaveGroupModel class
+class HeroLoadSaveGroupModel : public WinGUIGroupBoxModel
 {
 public:
-	CCGOPWindowModel();
-	virtual ~CCGOPWindowModel();
+	HeroLoadSaveGroupModel();
+	virtual ~HeroLoadSaveGroupModel();
 
 	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The HeroLoadSaveFileNameModel class
+class HeroLoadSaveFileNameModel : public WinGUITextEditModel
+{
+public:
+	HeroLoadSaveFileNameModel();
+	~HeroLoadSaveFileNameModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
+	Void Update();
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The HeroLoadSaveLoadModel class
+class HeroLoadSaveLoadModel : public WinGUIButtonModel
+{
+public:
+	HeroLoadSaveLoadModel();
+	~HeroLoadSaveLoadModel();
+
+	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
 
 	// Events
-	virtual Bool OnClose();
+	virtual Bool OnClick();
 
 private:
 	CCGOPGUI * m_pGUI;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The CCGOPTabsModel class
-class CCGOPTabsModel : public WinGUITabsModel
+// The HeroLoadSaveSaveModel class
+class HeroLoadSaveSaveModel : public WinGUIButtonModel
 {
 public:
-	CCGOPTabsModel();
-	virtual ~CCGOPTabsModel();
+	HeroLoadSaveSaveModel();
+	~HeroLoadSaveSaveModel();
 
-	// Initialization
+	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
 
 	// Events
-	virtual Bool OnSelect();
-
-private:
-	CCGOPGUI * m_pGUI;
-	static const GChar * sm_arrMenuNames[CCGOP_MAINMENU_COUNT];
-};
-
-/////////////////////////////////////////////////////////////////////////////////
-// The CCGOPTabPaneModel class
-class CCGOPTabPaneModel : public WinGUIContainerModel
-{
-public:
-	CCGOPTabPaneModel( CCGOPMainMenuTabs iTabIndex );
-	virtual ~CCGOPTabPaneModel();
-
-	// Initialization
-	Void Initialize( CCGOPGUI * pGUI );
-
-	// Layout
-	virtual const WinGUILayout * GetLayout() const;
+	virtual Bool OnClick();
 
 private:
 	CCGOPGUI * m_pGUI;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The CCGOPStatusBarModel class
-class CCGOPStatusBarModel : public WinGUIStatusBarModel
+// The HeroLoadSave class
+class HeroLoadSave
 {
 public:
-	CCGOPStatusBarModel();
-	virtual ~CCGOPStatusBarModel();
-
-	// Initialization
-	Void Initialize( CCGOPGUI * pGUI );
-
-	// Layout
-	virtual const WinGUILayout * GetLayout() const;
-
-private:
-	CCGOPGUI * m_pGUI;
-};
-
-/////////////////////////////////////////////////////////////////////////////////
-// The CCGOPGUI class
-class CCGOPGUI
-{
-public:
-	CCGOPGUI( CCGOPApplication * pApplication );
-	~CCGOPGUI();
+	HeroLoadSave( CCGOPGUI * pGUI );
+	~HeroLoadSave();
 
 	// Initialization / Cleanup
 	Void Initialize();
 	Void Cleanup();
 
-	// Access for delegates
-	inline WinGUIContainer * GetRoot( CCGOPMainMenuTabs iTabIndex ) const;
-
-	inline HeroExplorer * GetHeroExplorer();
-
 private:
-	friend class CCGOPWindowModel;
-	friend class CCGOPTabsModel;
-	friend class CCGOPTabPaneModel;
+	friend class HeroLoadSaveFileNameModel;
+	friend class HeroLoadSaveLoadModel;
+	friend class HeroLoadSaveSaveModel;
 
-	// Application Instance
-	CCGOPApplication * m_pApplication;
+	// GUI Instance
+	CCGOPGUI * m_pGUI;
+	WinGUIContainer * m_pRoot;
 
-	// Main Application Window
-	CCGOPWindowModel m_hAppWindowModel;
-	WinGUIWindow * m_pAppWindow;
-
-	// Main Tab Menu
-	CCGOPTabsModel m_hCCGOPTabsModel;
-	WinGUITabs * m_pCCGOPTabs;
-
-	// Main Tab Panes
-	CCGOPTabPaneModel m_hTabPaneModelImport;
-	CCGOPTabPaneModel m_hTabPaneModelHeroExplorer;
-	CCGOPTabPaneModel m_hTabPaneModelRuneExplorer;
-	CCGOPTabPaneModel m_hTabPaneModelGearSetExplorer;
-	CCGOPTabPaneModel m_hTabPaneModelOptimizer;
-	WinGUIContainer * m_arrCCGOPTabPanes[CCGOP_MAINMENU_COUNT];
-
-	// Status Bar
-	CCGOPStatusBarModel m_hCCGOPStatusBarModel;
-	WinGUIStatusBar * m_pCCGOPStatusBar;
-
-	// Main Menu Delegates
-	HeroExplorer m_hHeroExplorer;
+	// Hero Load/Save UI
+	HeroLoadSaveGroupModel m_hGroup;
+	WinGUIGroupBox * m_pGroup;
+	HeroLoadSaveFileNameModel m_hFileName;
+	WinGUITextEdit * m_pFileName;
+	HeroLoadSaveLoadModel m_hLoad;
+	WinGUIButton * m_pLoad;
+	HeroLoadSaveSaveModel m_hSave;
+	WinGUIButton * m_pSave;
 };
+
 
 /////////////////////////////////////////////////////////////////////////////////
 // Backward Includes (Inlines & Templates)
-#include "CCGOPGUI.inl"
+#include "HeroLoadSave.inl"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Header end
-#endif // CCGOP_FRONTEND_CCGOPGUI_H
+#endif // CCGOP_FRONTEND_HEROEXPLORER_HEROLOADSAVE_H
 

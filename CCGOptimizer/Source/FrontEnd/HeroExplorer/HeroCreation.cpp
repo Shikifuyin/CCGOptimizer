@@ -496,7 +496,7 @@ Void HeroCreationSanctifyModel::OnRequestItemLabel( GChar * outBuffer, UInt iMax
 /////////////////////////////////////////////////////////////////////////////////
 // HeroCreationButtonModel implementation
 HeroCreationButtonModel::HeroCreationButtonModel():
-	WinGUIButtonModel(CCGOP_RESID_HEROEXPLORER_HEROCREATION_BUTTON)
+	WinGUIButtonModel(CCGOP_RESID_HEROEXPLORER_HEROCREATION_CREATE)
 {
 	m_pGUI = NULL;
 }

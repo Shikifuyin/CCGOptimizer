@@ -90,6 +90,9 @@
     <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroOptions.cpp">
       <Filter>Source Files\FrontEnd\HeroExplorer</Filter>
     </ClCompile>
+    <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroLoadSave.cpp">
+      <Filter>Source Files\FrontEnd\HeroExplorer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BackEnd\GameData.h">
@@ -149,6 +152,9 @@
     <ClInclude Include="Source\FrontEnd\Layout.h">
       <Filter>Header Files\FrontEnd</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FrontEnd\HeroExplorer\HeroLoadSave.h">
+      <Filter>Header Files\FrontEnd\HeroExplorer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\BackEnd\GameData.inl">
@@ -197,6 +203,9 @@
       <Filter>Source Files\FrontEnd\HeroExplorer</Filter>
     </None>
     <None Include="Source\FrontEnd\HeroExplorer\HeroOptions.inl">
+      <Filter>Source Files\FrontEnd\HeroExplorer</Filter>
+    </None>
+    <None Include="Source\FrontEnd\HeroExplorer\HeroLoadSave.inl">
       <Filter>Source Files\FrontEnd\HeroExplorer</Filter>
     </None>
   </ItemGroup>

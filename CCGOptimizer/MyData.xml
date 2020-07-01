@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ccgop_data>
+	<inventory_runes></inventory_runes>
+	<inventory_heroes>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="0" level="40" name="Valkyrie" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+	</inventory_heroes>
+	<inventory_gearsets></inventory_gearsets>
+</ccgop_data>

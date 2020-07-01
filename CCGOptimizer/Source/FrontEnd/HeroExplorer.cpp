@@ -18,6 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////////
 // Includes
 #include "HeroExplorer.h"
+
 #include "CCGOPGUI.h"
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -25,7 +26,8 @@
 HeroExplorer::HeroExplorer( CCGOPGUI * pGUI ):
 	m_hHeroTable( pGUI ),
 	m_hHeroCreation( pGUI ),
-	m_HeroOptions( pGUI )
+	m_hHeroOptions( pGUI ),
+	m_hHeroLoadSave( pGUI )
 {
 	m_pGUI = pGUI;
 	m_pRoot = NULL;
@@ -47,12 +49,18 @@ Void HeroExplorer::Initialize()
 	m_hHeroCreation.Initialize();
 
 	// Build Hero Options UI
-	m_HeroOptions.Initialize();
+	m_hHeroOptions.Initialize();
+
+	// Build Hero Load/Save UI
+	m_hHeroLoadSave.Initialize();
 }
 Void HeroExplorer::Cleanup()
 {
+	// Cleanup Hero Load/Save UI
+	m_hHeroLoadSave.Cleanup();
+
 	// Cleanup Hero Options UI
-	m_HeroOptions.Cleanup();
+	m_hHeroOptions.Cleanup();
 
 	// Cleanup Hero Creation UI
 	m_hHeroCreation.Cleanup();
