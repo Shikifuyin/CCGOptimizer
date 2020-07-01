@@ -26,7 +26,7 @@
 /////////////////////////////////////////////////////////////////////////////////
 // HeroTableModel implementation
 HeroTableModel::HeroTableModel():
-	WinGUITableModel(CCGOP_RESID_HEROEXPLORER_HEROTABLE)
+	WinGUITableModel(CCGOP_RESID_HEROEXPLORER_HEROTABLE_TABLE)
 {
 	m_pGUI = NULL;
 

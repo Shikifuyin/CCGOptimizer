@@ -145,9 +145,9 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalDependencies>Scarab-Engine-64.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;ws2_32.lib;Iphlpapi.lib;comctl32.lib;msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\Scarab-Engine-64\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\Scarab-Engine-64\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -168,6 +168,8 @@
     <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroLoadSave.cpp" />
     <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroOptions.cpp" />
     <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroTable.cpp" />
+    <ClCompile Include="Source\FrontEnd\RuneExplorer.cpp" />
+    <ClCompile Include="Source\FrontEnd\RuneExplorer\RuneTable.cpp" />
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +192,8 @@
     <ClInclude Include="Source\FrontEnd\HeroExplorer\HeroTable.h" />
     <ClInclude Include="Source\FrontEnd\Layout.h" />
     <ClInclude Include="Source\FrontEnd\ResourceIDs.h" />
+    <ClInclude Include="Source\FrontEnd\RuneExplorer.h" />
+    <ClInclude Include="Source\FrontEnd\RuneExplorer\RuneTable.h" />
     <ClInclude Include="Source\Main.h" />
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +214,8 @@
     <None Include="Source\FrontEnd\HeroExplorer\HeroLoadSave.inl" />
     <None Include="Source\FrontEnd\HeroExplorer\HeroOptions.inl" />
     <None Include="Source\FrontEnd\HeroExplorer\HeroTable.inl" />
+    <None Include="Source\FrontEnd\RuneExplorer.inl" />
+    <None Include="Source\FrontEnd\RuneExplorer\RuneTable.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

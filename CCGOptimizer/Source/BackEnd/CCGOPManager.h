@@ -58,6 +58,8 @@ public:
     inline const Rune * GetRune( RuneID iRuneID ) const;
     inline Rune * GetRune( RuneID iRuneID );
 
+    inline RuneInventory::RuneMap::Iterator EnumRunes() const;
+
     inline RuneID CreateRune( UInt iSlot, RuneSet iSet, RuneRank iRank, RuneQuality iQuality, UInt iLevel,
                               RuneStat iMainStat, RuneStat iInnateStat, UInt iInnateStatValue,
                               UInt iRandomStatCount, const RuneStat * arrRandomStats, const UInt * arrRandomStatValues );

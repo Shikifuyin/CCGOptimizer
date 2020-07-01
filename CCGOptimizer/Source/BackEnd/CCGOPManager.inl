@@ -34,6 +34,10 @@ inline Rune * CCGOPManager::GetRune( RuneID iRuneID ) {
     return m_hRuneInventory.GetRune( iRuneID );
 }
 
+inline RuneInventory::RuneMap::Iterator CCGOPManager::EnumRunes() const {
+    return m_hRuneInventory.m_mapRuneInventory.Begin();
+}
+
 inline RuneID CCGOPManager::CreateRune( UInt iSlot, RuneSet iSet, RuneRank iRank, RuneQuality iQuality, UInt iLevel,
                             RuneStat iMainStat, RuneStat iInnateStat, UInt iInnateStatValue,
                             UInt iRandomStatCount, const RuneStat * arrRandomStats, const UInt * arrRandomStatValues ) {

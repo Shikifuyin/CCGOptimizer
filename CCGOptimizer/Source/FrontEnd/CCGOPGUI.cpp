@@ -201,7 +201,8 @@ CCGOPGUI::CCGOPGUI( CCGOPApplication * pApplication ):
 	m_hTabPaneModelGearSetExplorer(CCGOP_MAINMENU_GEARSET_EXPLORER),
 	m_hTabPaneModelOptimizer(CCGOP_MAINMENU_OPTIMIZER),
 
-	m_hHeroExplorer(this)
+	m_hHeroExplorer(this),
+	m_hRuneExplorer(this)
 {
 	m_pApplication = pApplication;
 
@@ -256,6 +257,7 @@ Void CCGOPGUI::Initialize()
 
 	// Build Delegates
 	m_hHeroExplorer.Initialize();
+	m_hRuneExplorer.Initialize();
 
 	// Initial Tab
 	m_pCCGOPTabs->SelectTab( CCGOP_MAINMENU_IMPORT );

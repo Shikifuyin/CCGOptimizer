@@ -30,6 +30,7 @@
 #include "Layout.h"
 
 #include "HeroExplorer.h"
+#include "RuneExplorer.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
@@ -144,6 +145,7 @@ public:
 	inline WinGUIContainer * GetRoot( CCGOPMainMenuTabs iTabIndex ) const;
 
 	inline HeroExplorer * GetHeroExplorer();
+	inline RuneExplorer * GetRuneExplorer();
 
 private:
 	friend class CCGOPWindowModel;
@@ -175,6 +177,7 @@ private:
 
 	// Main Menu Delegates
 	HeroExplorer m_hHeroExplorer;
+	RuneExplorer m_hRuneExplorer;
 };
 
 /////////////////////////////////////////////////////////////////////////////////

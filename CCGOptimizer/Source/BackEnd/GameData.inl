@@ -24,6 +24,56 @@ inline GameData * GameData::GetInstance() {
 	return s_pInstance;
 }
 
+inline const GChar * GameData::GetRuneSetName( RuneSet iRuneSet ) const {
+    static const GChar * s_arrNames[RUNE_SET_COUNT] = {
+        TEXT("Blessing"),
+        TEXT("Attack"),
+        TEXT("Defense"),
+        TEXT("Agile"),
+        TEXT("Wild"),
+        TEXT("Destruction"),
+        TEXT("Focus"),
+        TEXT("Stalwart"),
+        TEXT("Desperation"),
+        TEXT("Drain"),
+        TEXT("Frenzy"),
+        TEXT("Berserk"),
+        TEXT("Counter"),
+        TEXT("Guard"),
+        TEXT("Immunity"),
+        TEXT("Ravage"),
+        TEXT("Prayer"),
+        TEXT("Conflict"),
+        TEXT("Unity"),
+        TEXT("Hit"),
+        TEXT("Fortitude")
+    };
+    Assert( iRuneSet < RUNE_SET_COUNT );
+    return s_arrNames[iRuneSet];
+}
+inline const GChar * GameData::GetRuneRankName( RuneRank iRuneRank ) const {
+    static const GChar * s_arrNames[RUNE_RANK_COUNT] = {
+        TEXT("1-Star"),
+        TEXT("2-Stars"),
+        TEXT("3-Stars"),
+        TEXT("4-Stars"),
+        TEXT("5-Stars"),
+        TEXT("6-Stars")
+    };
+    Assert( iRuneRank < RUNE_RANK_COUNT );
+    return s_arrNames[iRuneRank];
+}
+inline const GChar * GameData::GetRuneQualityName( RuneQuality iRuneQuality ) const {
+    static const GChar * s_arrNames[RUNE_QUALITY_COUNT] = {
+        TEXT("Common"),
+        TEXT("Magic"),
+        TEXT("Rare"),
+        TEXT("Heroic"),
+        TEXT("Legendary")
+    };
+    Assert( iRuneQuality < RUNE_QUALITY_COUNT );
+    return s_arrNames[iRuneQuality];
+}
 inline const GChar * GameData::GetRuneStatName( RuneStat iRuneStat ) const {
     static const GChar * s_arrNames[RUNE_STAT_COUNT] = {
         TEXT("HP_Flat"),

@@ -91,6 +91,8 @@ class CCGOPManager;
 class RuneInventory
 {
 public:
+    typedef TreeMap<RuneID, Rune> RuneMap;
+
     RuneInventory();
     ~RuneInventory();
 
@@ -128,7 +130,6 @@ private:
     // Members
     RuneID m_iNextFreeRuneID;
 
-    typedef TreeMap<RuneID, Rune> RuneMap;
     static Int _Compare_RuneID( const RuneID & rLeft, const RuneID & rRight, Void * pUserData );
     RuneMap m_mapRuneInventory;
 };

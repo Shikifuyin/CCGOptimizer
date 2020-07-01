@@ -173,6 +173,9 @@ public:
     Void ImportFromXML();
 
     // Constant Names
+    inline const GChar * GetRuneSetName( RuneSet iRuneSet ) const;
+    inline const GChar * GetRuneRankName( RuneRank iRuneRank ) const;
+    inline const GChar * GetRuneQualityName( RuneQuality iRuneQuality ) const;
     inline const GChar * GetRuneStatName( RuneStat iRuneStat ) const;
 
     inline const GChar * GetHeroFactionName( HeroFaction iHeroFaction ) const;
