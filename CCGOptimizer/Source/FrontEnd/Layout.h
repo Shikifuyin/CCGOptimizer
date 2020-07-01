@@ -42,13 +42,19 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // CheckBoxes
-#define CCGOP_LAYOUT_CHECKBOX_WIDTH  120
-#define CCGOP_LAYOUT_CHECKBOX_HEIGHT 24
+#define CCGOP_LAYOUT_CHECKBOX_WIDTH  CCGOP_LAYOUT_BUTTON_WIDTH
+#define CCGOP_LAYOUT_CHECKBOX_HEIGHT CCGOP_LAYOUT_BUTTON_HEIGHT
+
+/////////////////////////////////////////////////////////////////////////////////
+// Radio Buttons
+#define CCGOP_LAYOUT_RADIOBUTTON_WIDTH  CCGOP_LAYOUT_BUTTON_WIDTH
+#define CCGOP_LAYOUT_RADIOBUTTON_HEIGHT CCGOP_LAYOUT_BUTTON_HEIGHT
 
 /////////////////////////////////////////////////////////////////////////////////
 // ComboBoxes
-#define CCGOP_LAYOUT_COMBOBOX_WIDTH  120
-#define CCGOP_LAYOUT_COMBOBOX_HEIGHT 120
+#define CCGOP_LAYOUT_COMBOBOX_WIDTH        CCGOP_LAYOUT_BUTTON_WIDTH
+#define CCGOP_LAYOUT_COMBOBOX_HEIGHT       120 // Fit the dropdown
+#define CCGOP_LAYOUT_COMBOBOX_BUTTONHEIGHT 26
 
 /////////////////////////////////////////////////////////////////////////////////
 // GroupBoxes
@@ -58,5 +64,20 @@
 #define CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT (CCGOP_LAYOUT_BUTTON_HEIGHT + 24)
 
 /////////////////////////////////////////////////////////////////////////////////
+// Shift Macros
+#define CCGOP_LAYOUT_SHIFT_HORIZ( _num_buttons, _num_combos, _num_gaps ) ( \
+	(CCGOP_LAYOUT_BUTTON_WIDTH + CCGOP_LAYOUT_SPACING_HORIZ)   * (_num_buttons) + \
+	(CCGOP_LAYOUT_COMBOBOX_WIDTH + CCGOP_LAYOUT_SPACING_HORIZ) * (_num_combos) + \
+	CCGOP_LAYOUT_SPACING_GAP_HORIZ                             * (_num_gaps) \
+)
+
+#define CCGOP_LAYOUT_SHIFT_VERT( _num_buttons, _num_combos, _num_gaps ) ( \
+	(CCGOP_LAYOUT_BUTTON_HEIGHT + CCGOP_LAYOUT_SPACING_VERT)         * (_num_buttons) + \
+	(CCGOP_LAYOUT_COMBOBOX_BUTTONHEIGHT + CCGOP_LAYOUT_SPACING_VERT) * (_num_combos) + \
+	CCGOP_LAYOUT_SPACING_GAP_VERT                                    * (_num_gaps) \
+)
+
+/////////////////////////////////////////////////////////////////////////////////
 // Header end
 #endif // CCGOP_FRONTEND_LAYOUT_H
+
