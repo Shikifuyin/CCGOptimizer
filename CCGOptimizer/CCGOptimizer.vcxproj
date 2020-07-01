@@ -186,6 +186,7 @@
     <ClInclude Include="Source\FrontEnd\HeroExplorer\HeroCreation.h" />
     <ClInclude Include="Source\FrontEnd\HeroExplorer\HeroOptions.h" />
     <ClInclude Include="Source\FrontEnd\HeroExplorer\HeroTable.h" />
+    <ClInclude Include="Source\FrontEnd\Layout.h" />
     <ClInclude Include="Source\FrontEnd\ResourceIDs.h" />
     <ClInclude Include="Source\Main.h" />
   </ItemGroup>

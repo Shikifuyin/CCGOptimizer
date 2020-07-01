@@ -47,12 +47,12 @@ const WinGUILayout * HeroCreationGroupModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = 28;
-	hLayout.FixedPosition.iY = 20;
+	hLayout.FixedPosition.iX = (200 - CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH) / 2;
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_SPACING_BORDER;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 144;
-	hLayout.FixedSize.iY = 200;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
+	hLayout.FixedSize.iY = 204;
 
 	return &hLayout;
 }
@@ -111,7 +111,7 @@ const WinGUILayout * HeroCreationNameModel::GetLayout() const
 	WinGUIGroupBox * pGroupBox = pHeroCreation->m_pGroup;
 
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 
 	static WinGUIManualLayout hLayout;
 
@@ -120,8 +120,8 @@ const WinGUILayout * HeroCreationNameModel::GetLayout() const
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 120;
-	hLayout.FixedSize.iY = 120;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
 	return &hLayout;
 }
@@ -206,17 +206,17 @@ const WinGUILayout * HeroCreationRankModel::GetLayout() const
 	WinGUIGroupBox * pGroupBox = pHeroCreation->m_pGroup;
 
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + 28;
+	hLayout.FixedPosition.iY = hClientArea.iTop + (CCGOP_LAYOUT_BUTTON_HEIGHT + CCGOP_LAYOUT_SPACING_VERT);
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 120;
-	hLayout.FixedSize.iY = 120;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
 	return &hLayout;
 }
@@ -334,17 +334,17 @@ const WinGUILayout * HeroCreationLevelModel::GetLayout() const
 	WinGUIGroupBox * pGroupBox = pHeroCreation->m_pGroup;
 
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + 56;
+	hLayout.FixedPosition.iY = hClientArea.iTop + 2 * (CCGOP_LAYOUT_BUTTON_HEIGHT + CCGOP_LAYOUT_SPACING_VERT);
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 120;
-	hLayout.FixedSize.iY = 120;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
 	return &hLayout;
 }
@@ -401,17 +401,17 @@ const WinGUILayout * HeroCreationEvolvedModel::GetLayout() const
 	WinGUIGroupBox * pGroupBox = pHeroCreation->m_pGroup;
 
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + 84;
+	hLayout.FixedPosition.iY = hClientArea.iTop + 3 * (CCGOP_LAYOUT_BUTTON_HEIGHT + CCGOP_LAYOUT_SPACING_VERT);
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 120;
-	hLayout.FixedSize.iY = 24;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_CHECKBOX_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_CHECKBOX_HEIGHT;
 
 	return &hLayout;
 }
@@ -471,17 +471,17 @@ const WinGUILayout * HeroCreationSanctifyModel::GetLayout() const
 	WinGUIGroupBox * pGroupBox = pHeroCreation->m_pGroup;
 
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + 112;
+	hLayout.FixedPosition.iY = hClientArea.iTop + 3 * (CCGOP_LAYOUT_BUTTON_HEIGHT + CCGOP_LAYOUT_SPACING_VERT) + (CCGOP_LAYOUT_CHECKBOX_HEIGHT + CCGOP_LAYOUT_SPACING_VERT);
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 120;
-	hLayout.FixedSize.iY = 120;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
 	return &hLayout;
 }
@@ -521,17 +521,17 @@ const WinGUILayout * HeroCreationButtonModel::GetLayout() const
 	WinGUIGroupBox * pGroupBox = pHeroCreation->m_pGroup;
 
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + 150;
+	hLayout.FixedPosition.iY = hClientArea.iTop + 4 * (CCGOP_LAYOUT_BUTTON_HEIGHT + CCGOP_LAYOUT_SPACING_VERT) + (CCGOP_LAYOUT_CHECKBOX_HEIGHT + CCGOP_LAYOUT_SPACING_VERT) + CCGOP_LAYOUT_SPACING_GAP_VERT;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 120;
-	hLayout.FixedSize.iY = 24;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
 	return &hLayout;
 }

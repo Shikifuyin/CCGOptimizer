@@ -139,7 +139,7 @@ const WinGUILayout * HeroTableModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = 200;
-	hLayout.FixedPosition.iY = 10;
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_SPACING_BORDER;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = 1200;
@@ -473,11 +473,11 @@ const WinGUILayout * HeroTableGroupModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = 400;
-	hLayout.FixedPosition.iY = 620;
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_SPACING_BORDER + 600 + CCGOP_LAYOUT_SPACING_GAP_VERT;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = 800;
-	hLayout.FixedSize.iY = 48;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	return &hLayout;
 }
@@ -510,7 +510,7 @@ const WinGUILayout * HeroTableSelectAllModel::GetLayout() const
 	WinGUIGroupBox * pGroupBox = pHeroTable->m_pGroup;
 
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 
 	static WinGUIManualLayout hLayout;
 
@@ -519,8 +519,8 @@ const WinGUILayout * HeroTableSelectAllModel::GetLayout() const
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 120;
-	hLayout.FixedSize.iY = 24;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
 	return &hLayout;
 }
@@ -567,17 +567,17 @@ const WinGUILayout * HeroTableUnselectAllModel::GetLayout() const
 	WinGUIGroupBox * pGroupBox = pHeroTable->m_pGroup;
 
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + 124;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_BUTTON_WIDTH + CCGOP_LAYOUT_SPACING_HORIZ;
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 120;
-	hLayout.FixedSize.iY = 24;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
 	return &hLayout;
 }
@@ -624,17 +624,17 @@ const WinGUILayout * HeroTableCheckAllModel::GetLayout() const
 	WinGUIGroupBox * pGroupBox = pHeroTable->m_pGroup;
 
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + 266;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + 2 * (CCGOP_LAYOUT_BUTTON_WIDTH + CCGOP_LAYOUT_SPACING_HORIZ) + CCGOP_LAYOUT_SPACING_GAP_HORIZ;
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 120;
-	hLayout.FixedSize.iY = 24;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
 	return &hLayout;
 }
@@ -681,17 +681,17 @@ const WinGUILayout * HeroTableUncheckAllModel::GetLayout() const
 	WinGUIGroupBox * pGroupBox = pHeroTable->m_pGroup;
 
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + 390;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + 3 * (CCGOP_LAYOUT_BUTTON_WIDTH + CCGOP_LAYOUT_SPACING_HORIZ) + CCGOP_LAYOUT_SPACING_GAP_HORIZ;
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 120;
-	hLayout.FixedSize.iY = 24;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
 	return &hLayout;
 }
@@ -738,17 +738,17 @@ const WinGUILayout * HeroTableCheckSelectedModel::GetLayout() const
 	WinGUIGroupBox * pGroupBox = pHeroTable->m_pGroup;
 
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + 532;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + 4 * (CCGOP_LAYOUT_BUTTON_WIDTH + CCGOP_LAYOUT_SPACING_HORIZ) + 2 * CCGOP_LAYOUT_SPACING_GAP_HORIZ;
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 120;
-	hLayout.FixedSize.iY = 24;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
 	return &hLayout;
 }
@@ -796,17 +796,17 @@ const WinGUILayout * HeroTableUncheckSelectedModel::GetLayout() const
 	WinGUIGroupBox * pGroupBox = pHeroTable->m_pGroup;
 
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, 8 );
+	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + 656;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + 5 * (CCGOP_LAYOUT_BUTTON_WIDTH + CCGOP_LAYOUT_SPACING_HORIZ) + 2 * CCGOP_LAYOUT_SPACING_GAP_HORIZ;
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 120;
-	hLayout.FixedSize.iY = 24;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
 	return &hLayout;
 }

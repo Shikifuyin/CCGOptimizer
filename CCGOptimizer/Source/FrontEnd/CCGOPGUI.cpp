@@ -38,8 +38,8 @@ Void CCGOPWindowModel::Initialize( CCGOPGUI * pGUI )
 
 	m_hCreationParameters.hClientRect.iLeft = 10;
 	m_hCreationParameters.hClientRect.iTop = 10;
-	m_hCreationParameters.hClientRect.iWidth = CCGOP_WINDOW_WIDTH;
-	m_hCreationParameters.hClientRect.iHeight = CCGOP_WINDOW_HEIGHT;
+	m_hCreationParameters.hClientRect.iWidth = CCGOP_LAYOUT_WINDOW_WIDTH;
+	m_hCreationParameters.hClientRect.iHeight = CCGOP_LAYOUT_WINDOW_HEIGHT;
 
 	StringFn->Copy( m_hCreationParameters.strClassName, TEXT("CCGOP_MainWindow") );
 	StringFn->Copy( m_hCreationParameters.strTitle, TEXT("CCG Optimizer") );

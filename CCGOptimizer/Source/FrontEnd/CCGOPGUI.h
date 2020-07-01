@@ -27,14 +27,11 @@
 #include "../BackEnd/CCGOPManager.h"
 
 #include "ResourceIDs.h"
+#include "Layout.h"
 #include "HeroExplorer.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
-
-// Main Application Window
-#define CCGOP_WINDOW_WIDTH  1600
-#define CCGOP_WINDOW_HEIGHT 960
 
 // Main Menu Tabs
 enum CCGOPMainMenuTabs {
@@ -47,9 +44,6 @@ enum CCGOPMainMenuTabs {
 };
 
 // Prototypes
-class CCGOPWindowModel;
-class CCGOPTabsModel;
-class CCGOPTabPaneModel;
 class CCGOPGUI;
 
 class CCGOPApplication;

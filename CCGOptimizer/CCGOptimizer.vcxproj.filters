@@ -146,6 +146,9 @@
     <ClInclude Include="Source\FrontEnd\HeroExplorer\HeroOptions.h">
       <Filter>Header Files\FrontEnd\HeroExplorer</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FrontEnd\Layout.h">
+      <Filter>Header Files\FrontEnd</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\BackEnd\GameData.inl">
