@@ -27,13 +27,39 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // Spacing
-#define CCGOP_LAYOUT_SPACING_BORDER 16
+#define CCGOP_LAYOUT_SPACING_BORDER 8
 
 #define CCGOP_LAYOUT_SPACING_HORIZ 4
 #define CCGOP_LAYOUT_SPACING_VERT  4
 
-#define CCGOP_LAYOUT_SPACING_GAP_HORIZ 16
-#define CCGOP_LAYOUT_SPACING_GAP_VERT  16
+#define CCGOP_LAYOUT_SPACING_GAP_HORIZ 8
+#define CCGOP_LAYOUT_SPACING_GAP_VERT  8
+
+/////////////////////////////////////////////////////////////////////////////////
+// Tabs
+#define CCGOP_LAYOUT_TABS_WIDTH  CCGOP_LAYOUT_WINDOW_WIDTH
+#define CCGOP_LAYOUT_TABS_HEIGHT 24
+
+/////////////////////////////////////////////////////////////////////////////////
+// Status Bar
+#define CCGOP_LAYOUT_STATUSBAR_WIDTH  CCGOP_LAYOUT_WINDOW_WIDTH
+#define CCGOP_LAYOUT_STATUSBAR_HEIGHT 26
+
+/////////////////////////////////////////////////////////////////////////////////
+// TabPanes Client Area
+#define CCGOP_LAYOUT_CLIENT_WIDTH  (CCGOP_LAYOUT_WINDOW_WIDTH - 8)
+#define CCGOP_LAYOUT_CLIENT_HEIGHT (CCGOP_LAYOUT_WINDOW_HEIGHT - CCGOP_LAYOUT_TABS_HEIGHT - CCGOP_LAYOUT_STATUSBAR_HEIGHT - 4)
+
+/////////////////////////////////////////////////////////////////////////////////
+// Available Room (Client Area - Table)
+#define CCGOP_LAYOUT_ROOM_WIDTH  (CCGOP_LAYOUT_CLIENT_WIDTH - 2*CCGOP_LAYOUT_SPACING_BORDER)
+#define CCGOP_LAYOUT_ROOM_HEIGHT 400 // This one is a choice
+
+#define CCGOP_LAYOUT_ROOM_LEFT  CCGOP_LAYOUT_SPACING_BORDER
+#define CCGOP_LAYOUT_ROOM_RIGHT (CCGOP_LAYOUT_ROOM_LEFT + CCGOP_LAYOUT_ROOM_WIDTH)
+
+#define CCGOP_LAYOUT_ROOM_BOTTOM (CCGOP_LAYOUT_CLIENT_HEIGHT - CCGOP_LAYOUT_SPACING_BORDER)
+#define CCGOP_LAYOUT_ROOM_TOP    (CCGOP_LAYOUT_ROOM_BOTTOM - CCGOP_LAYOUT_ROOM_HEIGHT)
 
 /////////////////////////////////////////////////////////////////////////////////
 // Buttons
@@ -65,8 +91,13 @@
 // GroupBoxes
 #define CCGOP_LAYOUT_GROUPBOX_PADDING 8
 
-#define CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH  (CCGOP_LAYOUT_BUTTON_WIDTH  + 24)
-#define CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT (CCGOP_LAYOUT_BUTTON_HEIGHT + 24)
+#define CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH  20
+#define CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT 20
+
+/////////////////////////////////////////////////////////////////////////////////
+// Tables
+#define CCGOP_LAYOUT_TABLE_WIDTH  (CCGOP_LAYOUT_CLIENT_WIDTH - 2 * CCGOP_LAYOUT_SPACING_BORDER)
+#define CCGOP_LAYOUT_TABLE_HEIGHT (CCGOP_LAYOUT_CLIENT_HEIGHT - 2 * CCGOP_LAYOUT_SPACING_BORDER - CCGOP_LAYOUT_ROOM_HEIGHT)
 
 /////////////////////////////////////////////////////////////////////////////////
 // Shift Macros
@@ -82,6 +113,15 @@
 	(CCGOP_LAYOUT_TEXTEDIT_HEIGHT + CCGOP_LAYOUT_SPACING_VERT)       * (_num_textedits) + \
 	(CCGOP_LAYOUT_COMBOBOX_BUTTONHEIGHT + CCGOP_LAYOUT_SPACING_VERT) * (_num_combos) + \
 	CCGOP_LAYOUT_SPACING_GAP_VERT                                    * (_num_gaps) \
+)
+
+/////////////////////////////////////////////////////////////////////////////////
+// Alignment Macros
+#define CCGOP_LAYOUT_ALIGNRIGHT( _size, _parent_size ) ( \
+	(_parent_size) - (_size) \
+)
+#define CCGOP_LAYOUT_CENTER( _size, _parent_size ) ( \
+	( (_parent_size) - (_size) ) >> 1 \
 )
 
 /////////////////////////////////////////////////////////////////////////////////

@@ -217,13 +217,13 @@ const WinGUILayout * CCGOPFileGroupModel::GetLayout() const
 {
 	static WinGUIManualLayout hLayout;
 
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = CCGOP_LAYOUT_WINDOW_WIDTH - CCGOP_LAYOUT_SPACING_BORDER - 268;
-	hLayout.FixedPosition.iY = CCGOP_LAYOUT_WINDOW_HEIGHT - CCGOP_LAYOUT_SPACING_BORDER - 120;
-
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 268;
-	hLayout.FixedSize.iY = 80;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(2,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(1,1,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ROOM_LEFT + CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iX, CCGOP_LAYOUT_ROOM_WIDTH );
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_ROOM_TOP + CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iY, CCGOP_LAYOUT_ROOM_HEIGHT );
 
 	return &hLayout;
 }

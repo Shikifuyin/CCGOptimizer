@@ -168,12 +168,12 @@ const WinGUILayout * RuneTableModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = 200;
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_SPACING_BORDER;
 	hLayout.FixedPosition.iY = CCGOP_LAYOUT_SPACING_BORDER;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 1200;
-	hLayout.FixedSize.iY = 600;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_TABLE_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_TABLE_HEIGHT;
 
 	return &hLayout;
 }
@@ -601,13 +601,13 @@ const WinGUILayout * RuneTableGroupModel::GetLayout() const
 {
 	static WinGUIManualLayout hLayout;
 
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = 400;
-	hLayout.FixedPosition.iY = CCGOP_LAYOUT_SPACING_BORDER + 600 + CCGOP_LAYOUT_SPACING_GAP_VERT;
-
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 800;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(6,0,0,2) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iX, CCGOP_LAYOUT_ROOM_WIDTH );
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_ROOM_TOP;
 
 	return &hLayout;
 }
