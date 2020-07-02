@@ -81,6 +81,7 @@
 // Root/RuneExplorer
 #define CCGOP_RESID_RUNEEXPLORER_RUNETABLE    (CCGOP_RESID_RUNEEXPLORER + 0)
 #define CCGOP_RESID_RUNEEXPLORER_RUNECREATION (CCGOP_RESID_RUNEEXPLORER + 10)
+#define CCGOP_RESID_RUNEEXPLORER_RUNESEARCH   (CCGOP_RESID_RUNEEXPLORER + 30)
 
 /////////////////////////////////////////////////////////////////////////////////
 // Root/RuneExplorer/RuneTable
@@ -107,6 +108,10 @@
 #define CCGOP_RESID_RUNEEXPLORER_RUNECREATION_RANDOMSTAT      (CCGOP_RESID_RUNEEXPLORER_RUNECREATION + 9)
 #define CCGOP_RESID_RUNEEXPLORER_RUNECREATION_RANDOMSTATVALUE (CCGOP_RESID_RUNEEXPLORER_RUNECREATION + 10)
 #define CCGOP_RESID_RUNEEXPLORER_RUNECREATION_CREATE          (CCGOP_RESID_RUNEEXPLORER_RUNECREATION + 11)
+
+/////////////////////////////////////////////////////////////////////////////////
+// Root/RuneExplorer/RuneSearch
+#define CCGOP_RESID_RUNEEXPLORER_RUNESEARCH_GROUP (CCGOP_RESID_RUNEEXPLORER_RUNESEARCH + 0)
 
 /////////////////////////////////////////////////////////////////////////////////
 // Header end

@@ -31,6 +31,7 @@
 
 #include "RuneExplorer/RuneTable.h"
 #include "RuneExplorer/RuneCreation.h"
+#include "RuneExplorer/RuneSearch.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
@@ -53,6 +54,7 @@ public:
 	// Access for delegates
 	inline RuneTable * GetRuneTable();
 	inline RuneCreation * GetRuneCreation();
+	inline RuneSearch * GetRuneSearch();
 
 private:
 	// GUI Instance
@@ -62,17 +64,11 @@ private:
 	// Table UI
 	RuneTable m_hRuneTable;
 
-	// Hero Creation UI
+	// Rune Creation UI
 	RuneCreation m_hRuneCreation;
 
-	// Hero Options UI
-	//RuneOptions m_hRuneOptions;
-
-	// Hero Load/Save UI
-	//RuneLoadSave m_hRuneLoadSave;
-
-	// Search UI
-
+	// Rune Filter Search UI
+	RuneSearch m_hRuneSearch;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
