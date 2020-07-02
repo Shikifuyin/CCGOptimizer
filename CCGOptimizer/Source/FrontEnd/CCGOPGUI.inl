@@ -41,6 +41,10 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // CCGOPGUI implementation
+inline Bool CCGOPGUI::HasUnsavedChangesMark() const {
+	return m_bUnsavedChanges;
+}
+
 inline WinGUIContainer * CCGOPGUI::GetRoot( CCGOPMainMenuTabs iTabIndex ) const {
 	Assert( iTabIndex < CCGOP_MAINMENU_COUNT );
 	return m_arrCCGOPTabPanes[iTabIndex];

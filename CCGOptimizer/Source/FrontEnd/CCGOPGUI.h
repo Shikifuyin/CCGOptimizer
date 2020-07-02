@@ -227,6 +227,11 @@ public:
 	Void Initialize();
 	Void Cleanup();
 
+	// Unsaved Changes Mark
+	inline Bool HasUnsavedChangesMark() const;
+	Void SetUnsavedChangesMark();
+	Void ClearUnsavedChangesMark();
+
 	// Access for delegates
 	inline WinGUIContainer * GetRoot( CCGOPMainMenuTabs iTabIndex ) const;
 
@@ -279,6 +284,7 @@ private:
 		CCGOPFileSaveModel m_hSave;
 		WinGUIButton * m_pSave;
 	} m_arrTabCopies[CCGOP_MAINMENU_COUNT];
+	Bool m_bUnsavedChanges;
 
 	// Main Menu Delegates
 	HeroExplorer m_hHeroExplorer;

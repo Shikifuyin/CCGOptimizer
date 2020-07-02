@@ -553,6 +553,9 @@ Bool HeroCreationButtonModel::OnClick()
 	HeroTable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable();
 	pHeroTable->m_hHeroTableModel.UpdateAfterHeroCreation( iHeroID );
 
+	// Set Unsaved Changes Mark
+	m_pGUI->SetUnsavedChangesMark();
+
 	// Done
 	return true;
 }

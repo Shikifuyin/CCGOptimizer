@@ -86,6 +86,15 @@
 		<hero evolved="true" gearset_selected="4294967295" hero_id="0" level="40" name="AbyssLord" rank="5" sanctify="1">
 			<attached_gearsets count="0"/>
 		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="1" level="40" name="Archmage" rank="5" sanctify="2">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="2" level="40" name="Valkyrie" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="3" level="40" name="Loki" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
 	</inventory_heroes>
 	<inventory_gearsets></inventory_gearsets>
 </ccgop_data>

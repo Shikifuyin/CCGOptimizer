@@ -106,6 +106,7 @@ Bool HeroOptionsMaxRankModel::OnClick()
 	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
 
 	// Find all checked elements
+	Bool bChanged = false;
 	UInt iItemCount = pHeroTable->GetItemCount();
 	for ( UInt i = 0; i < iItemCount; ++i ) {
 		if ( pHeroTable->IsItemChecked(i) ) {
@@ -116,8 +117,14 @@ Bool HeroOptionsMaxRankModel::OnClick()
 
 			// Update HeroTable
 			pHeroTable->UpdateItem( i );
+
+			bChanged = true;
 		}
 	}
+
+	// Set Unsaved Changes Mark
+	if ( bChanged )
+		m_pGUI->SetUnsavedChangesMark();
 	
 	// Done
 	return true;
@@ -172,6 +179,7 @@ Bool HeroOptionsMaxLevelModel::OnClick()
 	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
 
 	// Find all checked elements
+	Bool bChanged = false;
 	UInt iItemCount = pHeroTable->GetItemCount();
 	for ( UInt i = 0; i < iItemCount; ++i ) {
 		if ( pHeroTable->IsItemChecked(i) ) {
@@ -182,9 +190,15 @@ Bool HeroOptionsMaxLevelModel::OnClick()
 
 			// Update HeroTable
 			pHeroTable->UpdateItem( i );
+
+			bChanged = true;
 		}
 	}
 	
+	// Set Unsaved Changes Mark
+	if ( bChanged )
+		m_pGUI->SetUnsavedChangesMark();
+
 	// Done
 	return true;
 }
@@ -238,6 +252,7 @@ Bool HeroOptionsEvolveModel::OnClick()
 	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
 
 	// Find all checked elements
+	Bool bChanged = false;
 	UInt iItemCount = pHeroTable->GetItemCount();
 	for ( UInt i = 0; i < iItemCount; ++i ) {
 		if ( pHeroTable->IsItemChecked(i) ) {
@@ -249,8 +264,14 @@ Bool HeroOptionsEvolveModel::OnClick()
 
 			// Update HeroTable
 			pHeroTable->UpdateItem( i );
+
+			bChanged = true;
 		}
 	}
+
+	// Set Unsaved Changes Mark
+	if ( bChanged )
+		m_pGUI->SetUnsavedChangesMark();
 	
 	// Done
 	return true;
@@ -378,6 +399,7 @@ Bool HeroOptionsSanctifyModel::OnClick()
 	HeroSanctify iSanctify = (HeroSanctify)(UIntPtr)( pSanctifyChoice->GetItemData(iSelected) );
 
 	// Find all checked elements
+	Bool bChanged = false;
 	UInt iItemCount = pHeroTable->GetItemCount();
 	for ( UInt i = 0; i < iItemCount; ++i ) {
 		if ( pHeroTable->IsItemChecked(i) ) {
@@ -393,8 +415,14 @@ Bool HeroOptionsSanctifyModel::OnClick()
 
 			// Update HeroTable
 			pHeroTable->UpdateItem( i );
+
+			bChanged = true;
 		}
 	}
+
+	// Set Unsaved Changes Mark
+	if ( bChanged )
+		m_pGUI->SetUnsavedChangesMark();
 	
 	// Done
 	return true;
@@ -466,6 +494,7 @@ Bool HeroOptionsDeleteModel::OnClick()
 	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
 
 	// Delete all checked elements
+	Bool bChanged = false;
 	while( true ) {
 		Bool bRemoved = false;
 
@@ -480,6 +509,8 @@ Bool HeroOptionsDeleteModel::OnClick()
 				// Delete Hero
 				CCGOPFn->DestroyHero( iHeroID );
 
+				bChanged = true;
+
 				// Bail out
 				bRemoved = true;
 				break;
@@ -490,6 +521,10 @@ Bool HeroOptionsDeleteModel::OnClick()
 		if ( !bRemoved )
 			break;
 	}
+
+	// Set Unsaved Changes Mark
+	if ( bChanged )
+		m_pGUI->SetUnsavedChangesMark();
 
 	// Done
 	return true;

@@ -1086,6 +1086,9 @@ Bool RuneCreationButtonModel::OnClick()
 	RuneTable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable();
 	pRuneTable->m_hRuneTableModel.UpdateAfterRuneCreation( iRuneID );
 
+	// Set Unsaved Changes Mark
+	m_pGUI->SetUnsavedChangesMark();
+
 	// Done
 	return true;
 }

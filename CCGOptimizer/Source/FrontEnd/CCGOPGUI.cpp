@@ -59,6 +59,24 @@ const WinGUILayout * CCGOPWindowModel::GetLayout() const
 
 Bool CCGOPWindowModel::OnClose()
 {
+	// Check for Unsaved Changes
+	if ( m_pGUI->HasUnsavedChangesMark() ) {
+		WinGUIMessageBoxOptions hOptions;
+		hOptions.iType = WINGUI_MESSAGEBOX_YESNO;
+		hOptions.iIcon = WINGUI_MESSAGEBOX_ICON_WARNING;
+		hOptions.iDefaultResponse = WINGUI_MESSAGEBOX_RESPONSE_NO;
+		hOptions.bMustAnswer = true;
+
+		WinGUIMessageBoxResponse iResponse = WinGUIFn->SpawnMessageBox(
+			TEXT("Warning !"),
+			TEXT("You are about to leave while there are unsaved changes ! Are you sure you want to quit ?"),
+			hOptions
+		);
+
+		if ( iResponse != WINGUI_MESSAGEBOX_RESPONSE_YES )
+			return true;
+	}
+
 	// Destroy App Window
 	WinGUIFn->DestroyAppWindow();
 	return true;
@@ -412,6 +430,9 @@ Bool CCGOPFileLoadModel::OnClick()
 	pHeroTable->m_hHeroTableModel.UpdateAfterDataLoad();
 	pRuneTable->m_hRuneTableModel.UpdateAfterDataLoad();
 
+	// Clear Unsaved Changes Mark
+	m_pGUI->ClearUnsavedChangesMark();
+
 	// Done
 	return true;
 }
@@ -494,6 +515,9 @@ Bool CCGOPFileSaveModel::OnClick()
 	// Save to XML
 	CCGOPFn->ExportToXML( strFileName );
 	
+	// Clear Unsaved Changes Mark
+	m_pGUI->ClearUnsavedChangesMark();
+
 	// Done
 	hFile.Close();
 	return true;
@@ -531,6 +555,7 @@ CCGOPGUI::CCGOPGUI( CCGOPApplication * pApplication ):
 		m_arrTabCopies[i].m_pLoad = NULL;
 		m_arrTabCopies[i].m_pSave = NULL;
 	}
+	m_bUnsavedChanges = false;
 }
 CCGOPGUI::~CCGOPGUI()
 {
@@ -566,7 +591,7 @@ Void CCGOPGUI::Initialize()
 	m_pCCGOPStatusBar->SetParts( arrEdges, 2 );
 	m_pCCGOPStatusBar->SetPartText( 0, TEXT("Do something interesting ..."), WINGUI_STATUSBAR_DRAW_SINKBORDER );
 	m_pCCGOPStatusBar->SetPartTipText( 0, TEXT("Nothing Here !") );
-	m_pCCGOPStatusBar->SetPartText( 1, TEXT("... with this empty bar !"), WINGUI_STATUSBAR_DRAW_SINKBORDER );
+	m_pCCGOPStatusBar->SetPartText( 1, TEXT("No Data has been Loaded Yet !"), WINGUI_STATUSBAR_DRAW_SINKBORDER );
 	m_pCCGOPStatusBar->SetPartTipText( 1, TEXT("Not much more Here !") );
 
 	// Build Load/Save
@@ -603,6 +628,19 @@ Void CCGOPGUI::Cleanup()
 	// Cleanup Delegates
 	m_hRuneExplorer.Cleanup();
 	m_hHeroExplorer.Cleanup();
+}
+
+Void CCGOPGUI::SetUnsavedChangesMark()
+{
+	m_pCCGOPStatusBar->SetPartText( 1, TEXT("Unsaved Changes are Pending !"), WINGUI_STATUSBAR_DRAW_SINKBORDER );
+
+	m_bUnsavedChanges = true;
+}
+Void CCGOPGUI::ClearUnsavedChangesMark()
+{
+	m_pCCGOPStatusBar->SetPartText( 1, TEXT("All Changes have been Saved !"), WINGUI_STATUSBAR_DRAW_SINKBORDER );
+
+	m_bUnsavedChanges = false;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
