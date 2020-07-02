@@ -62,6 +62,8 @@ enum CCGOPRuneTableColumn {
 // Prototypes
 class CCGOPGUI;
 
+class RuneCreationButtonModel;
+
 class CCGOPFileLoadModel;
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -283,6 +285,8 @@ private:
 	friend class RuneTableUncheckAllModel;
 	friend class RuneTableCheckSelectedModel;
 	friend class RuneTableUncheckSelectedModel;
+
+	friend class RuneCreationButtonModel;
 
 	friend class CCGOPFileLoadModel;
 

@@ -364,26 +364,35 @@ private:
 
 	RuneCreationSlotModel m_hSlotModel;
 	WinGUIComboBox * m_pSlot;
+
 	RuneCreationSetModel m_hSetModel;
 	WinGUIComboBox * m_pSet;
+
 	RuneCreationRankModel m_hRankModel;
 	WinGUIComboBox * m_pRank;
+
 	RuneCreationQualityModel m_hQualityModel;
 	WinGUIComboBox * m_pQuality;
+
 	RuneCreationLevelModel m_hLevelModel;
 	WinGUIComboBox * m_pLevel;
+
 	RuneCreationMainStatModel m_hMainStatModel;
 	WinGUIComboBox * m_pMainStat;
+
 	RuneCreationInnateStatModel m_hInnateStatModel;
 	WinGUIComboBox * m_pInnateStat;
+
 	RuneCreationInnateStatValueModel m_hInnateStatValueModel;
 	WinGUITextEdit * m_pInnateStatValue;
+
 	struct _random_stats {
 		RuneCreationRandomStatModel m_hRandomStatModel;
 		WinGUIComboBox * m_pRandomStat;
 		RuneCreationRandomStatValueModel m_hRandomStatValueModel;
 		WinGUITextEdit * m_pRandomStatValue;
 	} m_arrRandomStats[RUNE_RANDOM_STAT_COUNT];
+
 	RuneCreationButtonModel m_hButtonModel;
 	WinGUIButton * m_pButton;
 };

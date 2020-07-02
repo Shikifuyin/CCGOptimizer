@@ -53,28 +53,30 @@ RuneTableModel::RuneTableModel():
 	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HIT],      TEXT("HIT") );
 	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_RES],      TEXT("RES") );
 
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_ID]                  = 60;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_LOCKED]              = 80;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_SLOT]                = 60;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_SET]                 = 60;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANK]                = 60;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_QUALITY]             = 80;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_LEVEL]               = 60;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_MAINSTAT]            = 100;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_MAINSTAT_VALUE]      = 100;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_INNATESTAT]          = 100;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_INNATESTAT_VALUE]    = 100;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_PC]    = 80;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_FLAT]  = 80;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_PC]   = 80;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_FLAT] = 80;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_PC]   = 80;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_FLAT] = 80;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_SPD]      = 80;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITRATE] = 80;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITDMG]  = 80;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HIT]      = 80;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_RES]      = 80;
+	UInt iAvgWidth = ( CCGOP_LAYOUT_TABLE_WIDTH / CCGOP_RUNETABLE_COLUMN_COUNT );
+
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_ID]                  = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_LOCKED]              = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_SLOT]                = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_SET]                 = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANK]                = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_QUALITY]             = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_LEVEL]               = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_MAINSTAT]            = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_MAINSTAT_VALUE]      = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_INNATESTAT]          = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_INNATESTAT_VALUE]    = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_PC]    = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_FLAT]  = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_PC]   = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_FLAT] = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_PC]   = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_FLAT] = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_SPD]      = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITRATE] = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITDMG]  = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HIT]      = iAvgWidth;
+	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_RES]      = iAvgWidth;
 }
 RuneTableModel::~RuneTableModel()
 {
@@ -258,10 +260,16 @@ GChar * RuneTableModel::OnRequestItemLabel( UInt iItemIndex, UInt iSubItemIndex,
 			StringFn->FromUInt( strBuffer, pRune->GetMainStatValue() );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_INNATESTAT:
-			StringFn->NCopy( strBuffer, GameDataFn->GetRuneStatName(pRune->GetInnateStat()), 63 );
+			if ( pRune->GetInnateStat() != RUNE_STAT_COUNT )
+				StringFn->NCopy( strBuffer, GameDataFn->GetRuneStatName(pRune->GetInnateStat()), 63 );
+			else
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_INNATESTAT_VALUE:
-			StringFn->FromUInt( strBuffer, pRune->GetInnateStatValue() );
+			if ( pRune->GetInnateStat() != RUNE_STAT_COUNT )
+				StringFn->FromUInt( strBuffer, pRune->GetInnateStatValue() );
+			else
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_PC:
 			if ( pRune->HasRandomStat(RUNE_STAT_HP_PERCENT) )

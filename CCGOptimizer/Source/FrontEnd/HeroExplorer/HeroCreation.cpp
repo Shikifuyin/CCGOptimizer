@@ -46,13 +46,13 @@ const WinGUILayout * HeroCreationGroupModel::GetLayout() const
 {
 	static WinGUIManualLayout hLayout;
 
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = (200 - CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH) / 2;
-	hLayout.FixedPosition.iY = CCGOP_LAYOUT_SPACING_BORDER;
-
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
-	hLayout.FixedSize.iY = 212;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(0,0,3,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(0,0,2,1) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ROOM_LEFT;
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_ROOM_TOP + CCGOP_LAYOUT_CENTER( hLayout.FixedSize.iY, CCGOP_LAYOUT_ROOM_HEIGHT );
 
 	return &hLayout;
 }
@@ -121,7 +121,7 @@ const WinGUILayout * HeroCreationNameModel::GetLayout() const
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
+	hLayout.FixedSize.iY = (UInt)( 1.5f * (Float)CCGOP_LAYOUT_COMBOBOX_HEIGHT ); // Bigger for convenience !
 
 	return &hLayout;
 }
@@ -198,8 +198,8 @@ const WinGUILayout * HeroCreationRankModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,0);
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,1,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
@@ -281,8 +281,8 @@ const WinGUILayout * HeroCreationLevelModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,2,0);
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,2,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
@@ -306,49 +306,6 @@ Void HeroCreationLevelModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLen
 	GChar strBuffer[32];
 	StringFn->FromUInt( strBuffer, (m_iMinLevel + iItemIndex) );
 	StringFn->NCopy( outBuffer, strBuffer, iMaxLength - 1 );
-}
-
-/////////////////////////////////////////////////////////////////////////////////
-// HeroCreationEvolvedModel implementation
-HeroCreationEvolvedModel::HeroCreationEvolvedModel():
-	WinGUICheckBoxModel(CCGOP_RESID_HEROEXPLORER_HEROCREATION_EVOLVED)
-{
-	m_pGUI = NULL;
-}
-HeroCreationEvolvedModel::~HeroCreationEvolvedModel()
-{
-	// nothing to do
-}
-
-Void HeroCreationEvolvedModel::Initialize( CCGOPGUI * pGUI )
-{
-	m_pGUI = pGUI;
-
-	StringFn->NCopy( m_hCreationParameters.strLabel, TEXT("Evolved"), 63 );
-
-	m_hCreationParameters.bEnableNotify = false;
-	m_hCreationParameters.bEnableTabStop = true;
-}
-
-const WinGUILayout * HeroCreationEvolvedModel::GetLayout() const
-{
-	HeroCreation * pHeroCreation = m_pGUI->GetHeroExplorer()->GetHeroCreation();
-	WinGUIGroupBox * pGroupBox = pHeroCreation->m_pGroup;
-
-	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
-
-	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,3,0);
-
-	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_CHECKBOX_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_CHECKBOX_HEIGHT;
-
-	return &hLayout;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -412,7 +369,7 @@ const WinGUILayout * HeroCreationSanctifyModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,0,3,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,1);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
@@ -426,6 +383,49 @@ Void HeroCreationSanctifyModel::OnRequestItemLabel( GChar * outBuffer, UInt iMax
 	Assert( iItemIndex < HERO_SANCTIFY_COUNT );
 
 	StringFn->NCopy( outBuffer, GameDataFn->GetHeroSanctifyName((HeroSanctify)iItemIndex), iMaxLength - 1 );
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+// HeroCreationEvolvedModel implementation
+HeroCreationEvolvedModel::HeroCreationEvolvedModel():
+	WinGUICheckBoxModel(CCGOP_RESID_HEROEXPLORER_HEROCREATION_EVOLVED)
+{
+	m_pGUI = NULL;
+}
+HeroCreationEvolvedModel::~HeroCreationEvolvedModel()
+{
+	// nothing to do
+}
+
+Void HeroCreationEvolvedModel::Initialize( CCGOPGUI * pGUI )
+{
+	m_pGUI = pGUI;
+
+	StringFn->NCopy( m_hCreationParameters.strLabel, TEXT("Evolved"), 63 );
+
+	m_hCreationParameters.bEnableNotify = false;
+	m_hCreationParameters.bEnableTabStop = true;
+}
+
+const WinGUILayout * HeroCreationEvolvedModel::GetLayout() const
+{
+	HeroCreation * pHeroCreation = m_pGUI->GetHeroExplorer()->GetHeroCreation();
+	WinGUIGroupBox * pGroupBox = pHeroCreation->m_pGroup;
+
+	WinGUIRectangle hClientArea;
+	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+
+	static WinGUIManualLayout hLayout;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,1,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,1);
+
+	hLayout.UseScalingSize = false;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_CHECKBOX_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_CHECKBOX_HEIGHT;
+
+	return &hLayout;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -461,8 +461,8 @@ const WinGUILayout * HeroCreationButtonModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,0,4,1);
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,2,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,1);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
@@ -512,10 +512,6 @@ Bool HeroCreationButtonModel::OnClick()
 
 	UInt iLevel = (UInt)(UIntPtr)( pHeroLevel->GetItemData(iSelected) );
 
-	// Retrieve Hero Evolved
-	WinGUICheckBox * pHeroEvolved = pHeroCreation->m_pEvolved;
-	Bool bEvolved = pHeroEvolved->IsChecked();
-
 	// Retrieve Hero Sanctify
 	WinGUIComboBox * pHeroSanctify = pHeroCreation->m_pSanctify;
 	iSelected = pHeroSanctify->GetSelectedItem();
@@ -525,6 +521,10 @@ Bool HeroCreationButtonModel::OnClick()
 	}
 
 	HeroSanctify iSanctify = (HeroSanctify)(UIntPtr)( pHeroSanctify->GetItemData(iSelected) );
+
+	// Retrieve Hero Evolved
+	WinGUICheckBox * pHeroEvolved = pHeroCreation->m_pEvolved;
+	Bool bEvolved = pHeroEvolved->IsChecked();
 
 	// Confirmation Message
 	hOptions.iType = WINGUI_MESSAGEBOX_OKCANCEL;
@@ -568,8 +568,8 @@ HeroCreation::HeroCreation( CCGOPGUI * pGUI )
 	m_pName = NULL;
 	m_pRank = NULL;
 	m_pLevel = NULL;
-	m_pEvolved = NULL;
 	m_pSanctify = NULL;
+	m_pEvolved = NULL;
 	m_pButton = NULL;
 }
 HeroCreation::~HeroCreation()
@@ -598,13 +598,13 @@ Void HeroCreation::Initialize()
 	m_pLevel = WinGUIFn->CreateComboBox( m_pRoot, &(m_hLevelModel) );
 	m_hLevelModel.Update( 1, HERO_MAX_LEVEL );
 
-	m_hEvolvedModel.Initialize( m_pGUI );
-	m_pEvolved = WinGUIFn->CreateCheckBox( m_pRoot, &(m_hEvolvedModel) );
-	m_pEvolved->Check();
-
 	m_hSanctifyModel.Initialize( m_pGUI );
 	m_pSanctify = WinGUIFn->CreateComboBox( m_pRoot, &(m_hSanctifyModel) );
 	m_hSanctifyModel.Update( false );
+
+	m_hEvolvedModel.Initialize( m_pGUI );
+	m_pEvolved = WinGUIFn->CreateCheckBox( m_pRoot, &(m_hEvolvedModel) );
+	m_pEvolved->Check();
 
 	m_hButtonModel.Initialize( m_pGUI );
 	m_pButton = WinGUIFn->CreateButton( m_pRoot, &(m_hButtonModel) );

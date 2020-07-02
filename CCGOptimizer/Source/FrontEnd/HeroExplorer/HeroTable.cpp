@@ -46,21 +46,25 @@ HeroTableModel::HeroTableModel():
 	StringFn->Copy( m_arrColumnNames[CCGOP_HEROTABLE_COLUMN_HIT],        TEXT("HIT") );
 	StringFn->Copy( m_arrColumnNames[CCGOP_HEROTABLE_COLUMN_RES],        TEXT("RES") );
 
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_NAME]       = 100;
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_ID]         = 60;
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_FACTION]    = 100;
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_RANK]       = 60;
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_LEVEL]      = 60;
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_EVOLVED]    = 80;
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_SANCTIFIED] = 80;
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_HP]         = 60;
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_ATT]        = 60;
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_DEF]        = 60;
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_SPD]        = 60;
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_CRITRATE]   = 80;
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_CRITDMG]    = 80;
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_HIT]        = 60;
-	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_RES]        = 60;
+	UInt iNameWidth = (2 * CCGOP_LAYOUT_TABLE_WIDTH) / CCGOP_HEROTABLE_COLUMN_COUNT;
+	UInt iAvgWidth = (CCGOP_LAYOUT_TABLE_WIDTH - iNameWidth) / (CCGOP_HEROTABLE_COLUMN_COUNT - 1);
+	iNameWidth = ( CCGOP_LAYOUT_TABLE_WIDTH - iAvgWidth * (CCGOP_HEROTABLE_COLUMN_COUNT - 1) );
+
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_NAME]       = iNameWidth;
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_ID]         = iAvgWidth;
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_FACTION]    = iAvgWidth;
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_RANK]       = iAvgWidth;
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_LEVEL]      = iAvgWidth;
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_EVOLVED]    = iAvgWidth;
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_SANCTIFIED] = iAvgWidth;
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_HP]         = iAvgWidth;
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_ATT]        = iAvgWidth;
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_DEF]        = iAvgWidth;
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_SPD]        = iAvgWidth;
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_CRITRATE]   = iAvgWidth;
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_CRITDMG]    = iAvgWidth;
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_HIT]        = iAvgWidth;
+	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_RES]        = iAvgWidth;
 }
 HeroTableModel::~HeroTableModel()
 {
@@ -113,8 +117,9 @@ Void HeroTableModel::CreateColumns()
 	pTable->SetBackgroundColor( 0x00d0d0d0 );
 	pTable->SetTextBackgroundColor( 0x00d0d0d0 );
 	pTable->ShowGridLines( true );
-	pTable->ToggleFullRowSelection( true );
+
 	pTable->ToggleAlwaysShowSelection( true );
+	pTable->ToggleFullRowSelection( true );
 
 	// Build Columns
 	for( UInt i = 0; i < CCGOP_HEROTABLE_COLUMN_COUNT; ++i ) {

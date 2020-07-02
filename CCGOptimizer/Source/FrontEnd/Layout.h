@@ -53,7 +53,7 @@
 /////////////////////////////////////////////////////////////////////////////////
 // Available Room (Client Area - Table)
 #define CCGOP_LAYOUT_ROOM_WIDTH  (CCGOP_LAYOUT_CLIENT_WIDTH - 2*CCGOP_LAYOUT_SPACING_BORDER)
-#define CCGOP_LAYOUT_ROOM_HEIGHT 400 // This one is a choice
+#define CCGOP_LAYOUT_ROOM_HEIGHT 410 // This one is a choice (setup for 24 item rows in the table)
 
 #define CCGOP_LAYOUT_ROOM_LEFT  CCGOP_LAYOUT_SPACING_BORDER
 #define CCGOP_LAYOUT_ROOM_RIGHT (CCGOP_LAYOUT_ROOM_LEFT + CCGOP_LAYOUT_ROOM_WIDTH)
@@ -84,7 +84,7 @@
 /////////////////////////////////////////////////////////////////////////////////
 // ComboBoxes
 #define CCGOP_LAYOUT_COMBOBOX_WIDTH        CCGOP_LAYOUT_BUTTON_WIDTH
-#define CCGOP_LAYOUT_COMBOBOX_HEIGHT       120 // Fit the dropdown
+#define CCGOP_LAYOUT_COMBOBOX_HEIGHT       160 // Fit the dropdown
 #define CCGOP_LAYOUT_COMBOBOX_BUTTONHEIGHT 26
 
 /////////////////////////////////////////////////////////////////////////////////

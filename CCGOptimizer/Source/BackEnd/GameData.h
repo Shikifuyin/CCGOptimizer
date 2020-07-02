@@ -208,6 +208,10 @@ public:
     inline UInt GetHeroBaseStat( const GChar * strHeroName, HeroStat iHeroStat, HeroRank iRank, UInt iLevel, Bool bEvolved ) const;
 
 private:
+    // Helpers
+    inline const GChar * _GetRuneStatNameXML( RuneStat iRuneStat ) const;
+    inline const GChar * _GetHeroStatNameXML( HeroStat iHeroStat ) const;
+
     // Rune Data
     UInt m_arrRuneSetSizes[RUNE_SET_COUNT];
     Bool m_arrRuneMainStatsAllowed[RUNE_STAT_COUNT * RUNE_SLOT_COUNT];

@@ -137,24 +137,6 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroCreationEvolvedModel class
-class HeroCreationEvolvedModel : public WinGUICheckBoxModel
-{
-public:
-	HeroCreationEvolvedModel();
-	~HeroCreationEvolvedModel();
-
-	// Initialization
-	Void Initialize( CCGOPGUI * pGUI );
-
-	// Layout
-	virtual const WinGUILayout * GetLayout() const;
-
-private:
-	CCGOPGUI * m_pGUI;
-};
-
-/////////////////////////////////////////////////////////////////////////////////
 // The HeroCreationSanctifyModel class
 class HeroCreationSanctifyModel : public WinGUIComboBoxModel
 {
@@ -176,6 +158,24 @@ private:
 	CCGOPGUI * m_pGUI;
 
 	Bool m_bSanctifyAllowed;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The HeroCreationEvolvedModel class
+class HeroCreationEvolvedModel : public WinGUICheckBoxModel
+{
+public:
+	HeroCreationEvolvedModel();
+	~HeroCreationEvolvedModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+private:
+	CCGOPGUI * m_pGUI;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -215,8 +215,8 @@ private:
 	friend class HeroCreationNameModel;
 	friend class HeroCreationRankModel;
 	friend class HeroCreationLevelModel;
-	friend class HeroCreationEvolvedModel;
 	friend class HeroCreationSanctifyModel;
+	friend class HeroCreationEvolvedModel;
 	friend class HeroCreationButtonModel;
 
 	// Helpers
@@ -231,16 +231,22 @@ private:
 	// Hero Creation UI
 	HeroCreationGroupModel m_hGroupModel;
 	WinGUIGroupBox * m_pGroup;
+
 	HeroCreationNameModel m_hNameModel;
 	WinGUIComboBox * m_pName;
+
 	HeroCreationRankModel m_hRankModel;
 	WinGUIComboBox * m_pRank;
+
 	HeroCreationLevelModel m_hLevelModel;
 	WinGUIComboBox * m_pLevel;
-	HeroCreationEvolvedModel m_hEvolvedModel;
-	WinGUICheckBox * m_pEvolved;
+
 	HeroCreationSanctifyModel m_hSanctifyModel;
 	WinGUIComboBox * m_pSanctify;
+
+	HeroCreationEvolvedModel m_hEvolvedModel;
+	WinGUICheckBox * m_pEvolved;
+
 	HeroCreationButtonModel m_hButtonModel;
 	WinGUIButton * m_pButton;
 };

@@ -57,7 +57,7 @@ Void GameData::ImportFromXML()
     pNode = pRuneDocument->GetChildByTag( TEXT("main_stats_allowed"), 0 );
     Assert( pNode != NULL );
     for( i = 0; i < RUNE_STAT_COUNT; ++i ) {
-        const GChar * strStatName = GetRuneStatName( (RuneStat)i );
+        const GChar * strStatName = _GetRuneStatNameXML( (RuneStat)i );
         XMLNode * pSubNode = pNode->GetChildByTag( strStatName, 0 );
         Assert( pSubNode != NULL );
 
@@ -74,11 +74,11 @@ Void GameData::ImportFromXML()
     pNode = pRuneDocument->GetChildByTag( TEXT("main_stats_values"), 0 );
     Assert( pNode != NULL );
     for( i = 0; i < RUNE_STAT_COUNT; ++i ) {
-        const GChar * strStatName = GetRuneStatName( (RuneStat)i );
+        const GChar * strStatName = _GetRuneStatNameXML( (RuneStat)i );
         XMLNode * pSubNode = pNode->GetChildByTag( strStatName, 0 );
         Assert( pSubNode != NULL );
 
-        for( j = 0; j < RUNE_MAX_LEVEL; ++j ) {
+        for( j = 0; j <= RUNE_MAX_LEVEL; ++j ) {
             StringFn->Format( strNameBuffer, TEXT("rune_level_%d"), j );
             XMLNode * pSubSubNode = pSubNode->GetChildByTag( strNameBuffer, 0 );
             Assert( pSubSubNode != NULL );
@@ -88,7 +88,7 @@ Void GameData::ImportFromXML()
                 XMLAttribute * pAttribute = pSubSubNode->GetAttribute( strNameBuffer );
                 Assert( pAttribute != NULL );
 
-                m_arrRuneMainStatsValues[i * (RUNE_RANK_COUNT * RUNE_MAX_LEVEL) + k * RUNE_MAX_LEVEL + j] = (UInt)( StringFn->ToUInt(pAttribute->GetValue()) );
+                m_arrRuneMainStatsValues[i * (RUNE_RANK_COUNT * (RUNE_MAX_LEVEL+1)) + k * (RUNE_MAX_LEVEL+1) + j] = (UInt)( StringFn->ToUInt(pAttribute->GetValue()) );
             }
         }
     }
@@ -114,7 +114,7 @@ Void GameData::ImportFromXML()
     pNode = pRuneDocument->GetChildByTag( TEXT("sub_stats_roll_ranges"), 0 );
     Assert( pNode != NULL );
     for( i = 0; i < RUNE_STAT_COUNT; ++i ) {
-        const GChar * strStatName = GetRuneStatName( (RuneStat)i );
+        const GChar * strStatName = _GetRuneStatNameXML( (RuneStat)i );
         XMLNode * pSubNode = pNode->GetChildByTag( strStatName, 0 );
         Assert( pSubNode != NULL );
 
@@ -212,7 +212,7 @@ Void GameData::ImportFromXML()
                 Assert( pSubSubNode != NULL );
 
                 for( l = 0; l < HERO_STAT_COUNT; ++l ) {
-                    const GChar * strStatName = GetHeroStatName( (HeroStat)l );
+                    const GChar * strStatName = _GetHeroStatNameXML( (HeroStat)l );
                     pAttribute = pSubSubNode->GetAttribute( strStatName );
                     Assert( pAttribute != NULL );
 
@@ -240,7 +240,7 @@ Void GameData::ImportFromXML()
                 Assert( pSubSubNode != NULL );
 
                 for( l = 0; l < HERO_STAT_COUNT; ++l ) {
-                    const GChar * strStatName = GetHeroStatName( (HeroStat)l );
+                    const GChar * strStatName = _GetHeroStatNameXML( (HeroStat)l );
                     pAttribute = pSubSubNode->GetAttribute( strStatName );
                     Assert( pAttribute != NULL );
 
