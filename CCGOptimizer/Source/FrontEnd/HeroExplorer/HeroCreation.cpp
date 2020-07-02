@@ -128,23 +128,10 @@ const WinGUILayout * HeroCreationNameModel::GetLayout() const
 
 Bool HeroCreationNameModel::OnSelectionOK()
 {
-	// Retrieve Natural Rank
-	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
-	UInt iSelected = pController->GetSelectedItem();
-
-	HeroRank iNaturalRank = GameDataFn->GetHeroNaturalRank( m_arrHeroNames[iSelected] );
-
-	// Update RankModel content
-	HeroCreationRankModel * pHeroRankModel = &( m_pGUI->GetHeroExplorer()->GetHeroCreation()->m_hRankModel );
-	pHeroRankModel->Update( iNaturalRank );
-
-	// Update LevelModel content
-	HeroCreationLevelModel * pHeroLevelModel = &( m_pGUI->GetHeroExplorer()->GetHeroCreation()->m_hLevelModel );
-	pHeroLevelModel->Update( 1, HERO_MAX_LEVEL );
-
-	// Update SanctifyModel content
-	HeroCreationSanctifyModel * pHeroSanctifyModel = &( m_pGUI->GetHeroExplorer()->GetHeroCreation()->m_hSanctifyModel );
-	pHeroSanctifyModel->Update( false );
+	// Ensure subsequent choices are consistent
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableRanks();
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableLevels();
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableSanctify();
 
 	return true;
 }
@@ -223,54 +210,9 @@ const WinGUILayout * HeroCreationRankModel::GetLayout() const
 
 Bool HeroCreationRankModel::OnSelectionOK()
 {
-	// Retrieve Selected Name
-	HeroCreationNameModel * pHeroNameModel = &( m_pGUI->GetHeroExplorer()->GetHeroCreation()->m_hNameModel );
-	WinGUIComboBox * pHeroNameController = (WinGUIComboBox*)( pHeroNameModel->GetController() );
-
-	UInt iSelectedHeroName = pHeroNameController->GetSelectedItem();
-	if ( iSelectedHeroName == INVALID_OFFSET ) {
-		// Retrieve Selected Rank
-		WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
-		UInt iSelectedHeroRank = pController->GetSelectedItem();
-
-		HeroRank iRank = (HeroRank)(UIntPtr)( pController->GetItemData(iSelectedHeroRank) );
-
-		// Cannot compute Min Level, assume 1 unless we're at 6*
-		UInt iMinLevel = 1;
-		if ( iRank == HERO_RANK_6S )
-			iMinLevel = GameDataFn->GetHeroRankMaxLevel( HERO_RANK_5S );
-		UInt iMaxLevel = GameDataFn->GetHeroRankMaxLevel( iRank );
-
-		// Update LevelModel content
-		HeroCreationLevelModel * pHeroLevelModel = &( m_pGUI->GetHeroExplorer()->GetHeroCreation()->m_hLevelModel );
-		pHeroLevelModel->Update( iMinLevel, iMaxLevel );
-
-		// Update SanctifyModel content
-		HeroCreationSanctifyModel * pHeroSanctifyModel = &( m_pGUI->GetHeroExplorer()->GetHeroCreation()->m_hSanctifyModel );
-		pHeroSanctifyModel->Update( false );
-
-		return false;
-	}
-
-	const GChar * strSelectedHeroName = (const GChar *)( pHeroNameController->GetItemData(iSelectedHeroName) );
-
-	// Retrieve Selected Rank
-	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
-	UInt iSelectedHeroRank = pController->GetSelectedItem();
-
-	HeroRank iRank = (HeroRank)(UIntPtr)( pController->GetItemData(iSelectedHeroRank) );
-
-	// Compute Allowed Level Range
-	UInt iMinLevel = GameDataFn->GetHeroRankMinLevel( strSelectedHeroName, iRank );
-	UInt iMaxLevel = GameDataFn->GetHeroRankMaxLevel( iRank );
-
-	// Update LevelModel content
-	HeroCreationLevelModel * pHeroLevelModel = &( m_pGUI->GetHeroExplorer()->GetHeroCreation()->m_hLevelModel );
-	pHeroLevelModel->Update( iMinLevel, iMaxLevel );
-
-	// Update SanctifyModel content
-	HeroCreationSanctifyModel * pHeroSanctifyModel = &( m_pGUI->GetHeroExplorer()->GetHeroCreation()->m_hSanctifyModel );
-	pHeroSanctifyModel->Update( false );
+	// Ensure subsequent choices are consistent
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableLevels();
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableSanctify();
 
 	return true;
 }
@@ -351,15 +293,8 @@ const WinGUILayout * HeroCreationLevelModel::GetLayout() const
 
 Bool HeroCreationLevelModel::OnSelectionOK()
 {
-	// Retrieve selected Level
-	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
-	UInt iSelectedLevel = pController->GetSelectedItem();
-
-	UInt iLevel = (UInt)(UIntPtr)( pController->GetItemData(iSelectedLevel) );
-
-	// Update SanctifyModel content
-	HeroCreationSanctifyModel * pHeroSanctifyModel = &( m_pGUI->GetHeroExplorer()->GetHeroCreation()->m_hSanctifyModel );
-	pHeroSanctifyModel->Update( iLevel == HERO_MAX_LEVEL );
+	// Ensure subsequent choices are consistent
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableSanctify();
 
 	return true;
 }
@@ -677,5 +612,64 @@ Void HeroCreation::Initialize()
 Void HeroCreation::Cleanup()
 {
 	// nothing to do (for now)
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+
+Void HeroCreation::_UpdateAvailableRanks()
+{
+	// Retrieve selected Hero
+	UInt iSelected = m_pName->GetSelectedItem();
+	if ( iSelected == INVALID_OFFSET ) {
+		m_hRankModel.Update( HERO_RANK_1S );
+		return;
+	}
+
+	const GChar * strHeroName = (const GChar *)( m_pName->GetItemData(iSelected) );
+	HeroRank iNaturalRank = GameDataFn->GetHeroNaturalRank( strHeroName );
+
+	// Update RankModel
+	m_hRankModel.Update( iNaturalRank );
+}
+Void HeroCreation::_UpdateAvailableLevels()
+{
+	// Retrieve selected Hero
+	UInt iSelected = m_pName->GetSelectedItem();
+	if ( iSelected == INVALID_OFFSET ) {
+		m_hLevelModel.Update( 1, HERO_MAX_LEVEL );
+		return;
+	}
+
+	const GChar * strHeroName = (const GChar *)( m_pName->GetItemData(iSelected) );
+
+	// Retrieve selected Rank
+	iSelected = m_pRank->GetSelectedItem();
+	if ( iSelected == INVALID_OFFSET ) {
+		m_hLevelModel.Update( 1, HERO_MAX_LEVEL );
+		return;
+	}
+
+	HeroRank iRank = (HeroRank)(UIntPtr)( m_pRank->GetItemData(iSelected) );
+
+	// Get Min/Max Levels
+	UInt iMinLevel = GameDataFn->GetHeroRankMinLevel( strHeroName, iRank );
+	UInt iMaxLevel = GameDataFn->GetHeroRankMaxLevel( iRank );
+
+	// Update LevelModel
+	m_hLevelModel.Update( iMinLevel, iMaxLevel );
+}
+Void HeroCreation::_UpdateAvailableSanctify()
+{
+	// Retrieve selected Level
+	UInt iSelected = m_pLevel->GetSelectedItem();
+	if ( iSelected == INVALID_OFFSET ) {
+		m_hSanctifyModel.Update( false );
+		return;
+	}
+
+	UInt iLevel = (UInt)(UIntPtr)( m_pLevel->GetItemData(iSelected) );
+
+	// Update SanctifyModel
+	m_hSanctifyModel.Update( (iLevel == HERO_MAX_LEVEL) );
 }
 

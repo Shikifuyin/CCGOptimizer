@@ -63,7 +63,7 @@ class HeroOptionsEvolveModel;
 class HeroOptionsSanctifyModel;
 class HeroOptionsDeleteModel;
 
-class HeroLoadSaveLoadModel;
+class CCGOPFileLoadModel;
 
 /////////////////////////////////////////////////////////////////////////////////
 // The HeroTableModel class
@@ -286,7 +286,7 @@ private:
 	friend class HeroOptionsSanctifyModel;
 	friend class HeroOptionsDeleteModel;
 
-	friend class HeroLoadSaveLoadModel;
+	friend class CCGOPFileLoadModel;
 
 	// GUI Instance
 	CCGOPGUI * m_pGUI;

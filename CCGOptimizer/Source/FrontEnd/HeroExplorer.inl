@@ -26,6 +26,3 @@ inline HeroCreation * HeroExplorer::GetHeroCreation() {
 inline HeroOptions * HeroExplorer::GetHeroOptions() {
 	return &m_hHeroOptions;
 }
-inline HeroLoadSave * HeroExplorer::GetHeroLoadSave() {
-	return &m_hHeroLoadSave;
-}

@@ -36,6 +36,9 @@ inline UInt Rune::GetLevel() const {
     return m_iLevel;
 }
 
+inline Bool Rune::HasMainStat( RuneStat iRuneStat ) const {
+    return ( m_iMainStat == iRuneStat );
+}
 inline RuneStat Rune::GetMainStat() const {
     return m_iMainStat;
 }
@@ -43,6 +46,9 @@ inline UInt Rune::GetMainStatValue() const {
     return GameDataFn->GetRuneMainStatValue( m_iMainStat, m_iRank, m_iLevel );
 }
 
+inline Bool Rune::HasInnateStat( RuneStat iRuneStat ) const {
+    return ( m_iInnateStat == iRuneStat );
+}
 inline RuneStat Rune::GetInnateStat() const {
     return m_iInnateStat;
 }
@@ -50,24 +56,31 @@ inline UInt Rune::GetInnateStatValue() const {
     return m_iInnateStatValue;
 }
 
+inline Bool Rune::HasRandomStat( RuneStat iRuneStat ) const {
+    return ( m_arrRandomStatValues[iRuneStat] != 0 );
+}
+inline UInt Rune::GetRandomStatCount() const {
+    return m_iRandomStatCount;
+}
 inline RuneStat Rune::GetRandomStat( UInt iIndex ) const {
-    Assert( iIndex < RUNE_RANDOM_STAT_COUNT );
+    Assert( iIndex < m_iRandomStatCount );
     return m_arrRandomStats[iIndex];
 }
-inline UInt Rune::GetRandomStatValue( UInt iIndex ) const {
-    Assert( iIndex < RUNE_RANDOM_STAT_COUNT );
-    return m_arrRandomStatValues[iIndex];
+inline UInt Rune::GetRandomStatValue( RuneStat iRuneStat ) const {
+    Assert( iRuneStat < RUNE_STAT_COUNT );
+    return m_arrRandomStatValues[iRuneStat];
 }
 
-inline UInt Rune::HasMainStat( RuneStat iRuneStat ) const {
-    if ( m_iMainStat == iRuneStat )
-        return GameDataFn->GetRuneMainStatValue( m_iMainStat, m_iRank, m_iLevel );
-    return 0;
+inline Bool Rune::HasSubStat( RuneStat iRuneStat ) const {
+    if ( m_iInnateStat == iRuneStat )
+        return true;
+    return ( m_arrRandomStatValues[iRuneStat] != 0 );
 }
-inline UInt Rune::HasInnateStat( RuneStat iRuneStat ) const {
+inline UInt Rune::GetSubStatValue( RuneStat iRuneStat ) const {
+    Assert( iRuneStat < RUNE_STAT_COUNT );
     if ( m_iInnateStat == iRuneStat )
         return m_iInnateStatValue;
-    return 0;
+    return ( m_arrRandomStatValues[iRuneStat] );
 }
 
 inline Bool Rune::IsLocked() const {

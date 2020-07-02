@@ -26,8 +26,7 @@
 HeroExplorer::HeroExplorer( CCGOPGUI * pGUI ):
 	m_hHeroTable( pGUI ),
 	m_hHeroCreation( pGUI ),
-	m_hHeroOptions( pGUI ),
-	m_hHeroLoadSave( pGUI )
+	m_hHeroOptions( pGUI )
 {
 	m_pGUI = pGUI;
 	m_pRoot = NULL;
@@ -50,15 +49,9 @@ Void HeroExplorer::Initialize()
 
 	// Build Hero Options UI
 	m_hHeroOptions.Initialize();
-
-	// Build Hero Load/Save UI
-	m_hHeroLoadSave.Initialize();
 }
 Void HeroExplorer::Cleanup()
 {
-	// Cleanup Hero Load/Save UI
-	m_hHeroLoadSave.Cleanup();
-
 	// Cleanup Hero Options UI
 	m_hHeroOptions.Cleanup();
 

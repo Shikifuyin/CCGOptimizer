@@ -62,6 +62,8 @@ enum CCGOPRuneTableColumn {
 // Prototypes
 class CCGOPGUI;
 
+class CCGOPFileLoadModel;
+
 /////////////////////////////////////////////////////////////////////////////////
 // The RuneTableModel class
 class RuneTableModel : public WinGUITableModel
@@ -281,6 +283,8 @@ private:
 	friend class RuneTableUncheckAllModel;
 	friend class RuneTableCheckSelectedModel;
 	friend class RuneTableUncheckSelectedModel;
+
+	friend class CCGOPFileLoadModel;
 
 	// GUI Instance
 	CCGOPGUI * m_pGUI;

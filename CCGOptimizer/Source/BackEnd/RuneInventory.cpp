@@ -157,8 +157,10 @@ Void RuneInventory::FilterSearch( Array<RuneID> * outResults, const RuneQueryMap
                 for( i = 0; i < iCount; ++i ) {
                     RuneStat iStat = mapQueries[RUNE_QUERY_SUBSTATS].hQuerySubStats.arrStats[i];
                     UInt iStatThreshold = mapQueries[RUNE_QUERY_SUBSTATS].hQuerySubStats.arrStatValues[i];
-                    UInt iStatValue = pRune->HasSubStat( iStat );
-                    if ( iStatValue == 0 || iStatValue < iStatThreshold ) {
+                    UInt iStatValue = 0;
+                    if ( pRune->HasSubStat(iStat) )
+                        iStatValue = pRune->GetSubStatValue( iStat );
+                    if ( iStatValue < iStatThreshold ) {
                         bFilterOut = true;
                         break;
                     }
@@ -168,7 +170,9 @@ Void RuneInventory::FilterSearch( Array<RuneID> * outResults, const RuneQueryMap
                 for( i = 0; i < iCount; ++i ) {
                     RuneStat iStat = mapQueries[RUNE_QUERY_SUBSTATS].hQuerySubStats.arrStats[i];
                     UInt iStatThreshold = mapQueries[RUNE_QUERY_SUBSTATS].hQuerySubStats.arrStatValues[i];
-                    UInt iStatValue = pRune->HasSubStat( iStat );
+                    UInt iStatValue = 0;
+                    if ( pRune->HasSubStat(iStat) )
+                        iStatValue = pRune->GetSubStatValue( iStat );
                     if ( iStatValue >= iStatThreshold ) {
                         bFilterOut = false;
                         break;

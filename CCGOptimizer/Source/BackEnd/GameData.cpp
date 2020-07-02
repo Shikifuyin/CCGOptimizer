@@ -93,6 +93,23 @@ Void GameData::ImportFromXML()
         }
     }
 
+        // Random Stats Counts
+    pNode = pRuneDocument->GetChildByTag( TEXT("random_stats_counts"), 0 );
+    Assert( pNode != NULL );
+    for( i = 0; i <= RUNE_MAX_LEVEL; ++i ) {
+        StringFn->Format( strNameBuffer, TEXT("rune_level_%d"), i );
+        XMLNode * pSubNode = pNode->GetChildByTag( strNameBuffer, 0 );
+        Assert( pSubNode != NULL );
+
+        for( j = 0; j < RUNE_QUALITY_COUNT; ++j ) {
+            StringFn->Format( strNameBuffer, TEXT("rune_quality_%d"), j );
+            XMLAttribute * pAttribute = pSubNode->GetAttribute( strNameBuffer );
+            Assert( pAttribute != NULL );
+
+            m_arrRuneRandomStatCount[i * RUNE_QUALITY_COUNT + j] = (UInt)( StringFn->ToUInt(pAttribute->GetValue()) );
+        }
+    }
+
         // SubStats Roll Ranges
     pNode = pRuneDocument->GetChildByTag( TEXT("sub_stats_roll_ranges"), 0 );
     Assert( pNode != NULL );

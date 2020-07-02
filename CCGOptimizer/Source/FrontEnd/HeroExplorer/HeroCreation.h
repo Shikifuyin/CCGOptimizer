@@ -219,6 +219,11 @@ private:
 	friend class HeroCreationSanctifyModel;
 	friend class HeroCreationButtonModel;
 
+	// Helpers
+	Void _UpdateAvailableRanks();
+	Void _UpdateAvailableLevels();
+	Void _UpdateAvailableSanctify();
+
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;

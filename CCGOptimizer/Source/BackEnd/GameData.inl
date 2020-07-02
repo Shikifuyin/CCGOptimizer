@@ -159,6 +159,12 @@ inline UInt GameData::GetRuneMainStatValue( RuneStat iRuneStat, RuneRank iRank, 
     return m_arrRuneMainStatsValues[iRuneStat * (RUNE_RANK_COUNT * RUNE_MAX_LEVEL) + iRank * (RUNE_MAX_LEVEL+1) + iLevel];
 }
 
+inline UInt GameData::GetRuneRandomStatCount( RuneQuality iQuality, UInt iLevel ) const {
+    Assert( iQuality < RUNE_QUALITY_COUNT );
+    Assert( iLevel <= RUNE_MAX_LEVEL );
+    return m_arrRuneRandomStatCount[iLevel * RUNE_QUALITY_COUNT + iQuality];
+}
+
 inline UInt GameData::GetRuneStatMinRoll( RuneStat iRuneStat, RuneRank iRank ) const {
     Assert( iRuneStat < RUNE_STAT_COUNT );
     Assert( iRank < RUNE_RANK_COUNT );

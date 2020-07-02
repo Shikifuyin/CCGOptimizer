@@ -32,7 +32,6 @@
 #include "HeroExplorer/HeroTable.h"
 #include "HeroExplorer/HeroCreation.h"
 #include "HeroExplorer/HeroOptions.h"
-#include "HeroExplorer/HeroLoadSave.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
@@ -56,7 +55,6 @@ public:
 	inline HeroTable * GetHeroTable();
 	inline HeroCreation * GetHeroCreation();
 	inline HeroOptions * GetHeroOptions();
-	inline HeroLoadSave * GetHeroLoadSave();
 
 private:
 	// GUI Instance
@@ -71,9 +69,6 @@ private:
 
 	// Hero Options UI
 	HeroOptions m_hHeroOptions;
-
-	// Hero Load/Save UI
-	HeroLoadSave m_hHeroLoadSave;
 
 	// Search UI
 

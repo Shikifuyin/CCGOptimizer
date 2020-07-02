@@ -130,6 +130,92 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
+// The CCGOPFileGroupModel class
+class CCGOPFileGroupModel : public WinGUIGroupBoxModel
+{
+public:
+	CCGOPFileGroupModel();
+	virtual ~CCGOPFileGroupModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI, CCGOPMainMenuTabs iMainMenuTab );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+private:
+	CCGOPGUI * m_pGUI;
+	CCGOPMainMenuTabs m_iMainMenuTab;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The CCGOPFileNameModel class
+class CCGOPFileNameModel : public WinGUITextEditModel
+{
+public:
+	CCGOPFileNameModel();
+	~CCGOPFileNameModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI, CCGOPMainMenuTabs iMainMenuTab );
+	Void Update();
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnTextChange();
+
+private:
+	CCGOPGUI * m_pGUI;
+	CCGOPMainMenuTabs m_iMainMenuTab;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The CCGOPFileLoadModel class
+class CCGOPFileLoadModel : public WinGUIButtonModel
+{
+public:
+	CCGOPFileLoadModel();
+	~CCGOPFileLoadModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI, CCGOPMainMenuTabs iMainMenuTab );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+	CCGOPMainMenuTabs m_iMainMenuTab;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The CCGOPFileSaveModel class
+class CCGOPFileSaveModel : public WinGUIButtonModel
+{
+public:
+	CCGOPFileSaveModel();
+	~CCGOPFileSaveModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI, CCGOPMainMenuTabs iMainMenuTab );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+	CCGOPMainMenuTabs m_iMainMenuTab;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
 // The CCGOPGUI class
 class CCGOPGUI
 {
@@ -151,6 +237,10 @@ private:
 	friend class CCGOPWindowModel;
 	friend class CCGOPTabsModel;
 	friend class CCGOPTabPaneModel;
+
+	friend class CCGOPFileNameModel;
+	friend class CCGOPFileLoadModel;
+	friend class CCGOPFileSaveModel;
 
 	// Application Instance
 	CCGOPApplication * m_pApplication;
@@ -174,6 +264,21 @@ private:
 	// Status Bar
 	CCGOPStatusBarModel m_hCCGOPStatusBarModel;
 	WinGUIStatusBar * m_pCCGOPStatusBar;
+
+	// Load/Save UI
+	struct _tabcopy {
+		CCGOPFileGroupModel m_hGroup;
+		WinGUIGroupBox * m_pGroup;
+
+		CCGOPFileNameModel m_hFileName;
+		WinGUITextEdit * m_pFileName;
+
+		CCGOPFileLoadModel m_hLoad;
+		WinGUIButton * m_pLoad;
+
+		CCGOPFileSaveModel m_hSave;
+		WinGUIButton * m_pSave;
+	} m_arrTabCopies[CCGOP_MAINMENU_COUNT];
 
 	// Main Menu Delegates
 	HeroExplorer m_hHeroExplorer;

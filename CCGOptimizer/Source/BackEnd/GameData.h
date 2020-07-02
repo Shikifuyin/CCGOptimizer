@@ -189,6 +189,8 @@ public:
     inline Bool IsRuneMainStatAllowed( RuneStat iRuneStat, UInt iSlot ) const;
     inline UInt GetRuneMainStatValue( RuneStat iRuneStat, RuneRank iRank, UInt iLevel ) const;
 
+    inline UInt GetRuneRandomStatCount( RuneQuality iQuality, UInt iLevel ) const;
+
     inline UInt GetRuneStatMinRoll( RuneStat iRuneStat, RuneRank iRank ) const;
     inline UInt GetRuneStatMaxRoll( RuneStat iRuneStat, RuneRank iRank ) const;
     
@@ -210,6 +212,7 @@ private:
     UInt m_arrRuneSetSizes[RUNE_SET_COUNT];
     Bool m_arrRuneMainStatsAllowed[RUNE_STAT_COUNT * RUNE_SLOT_COUNT];
     UInt m_arrRuneMainStatsValues[RUNE_STAT_COUNT * RUNE_RANK_COUNT * (RUNE_MAX_LEVEL+1)];
+    UInt m_arrRuneRandomStatCount[RUNE_QUALITY_COUNT * (RUNE_MAX_LEVEL+1)];
     UInt m_arrRuneSubStatsMinRoll[RUNE_STAT_COUNT * RUNE_RANK_COUNT];
     UInt m_arrRuneSubStatsMaxRoll[RUNE_STAT_COUNT * RUNE_RANK_COUNT];
 

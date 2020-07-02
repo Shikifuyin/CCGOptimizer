@@ -96,9 +96,6 @@
     <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroOptions.cpp">
       <Filter>Source Files\FrontEnd\HeroExplorer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroLoadSave.cpp">
-      <Filter>Source Files\FrontEnd\HeroExplorer</Filter>
-    </ClCompile>
     <ClCompile Include="Source\FrontEnd\RuneExplorer\RuneTable.cpp">
       <Filter>Source Files\FrontEnd\RuneExplorer</Filter>
     </ClCompile>
@@ -167,9 +164,6 @@
     <ClInclude Include="Source\FrontEnd\Layout.h">
       <Filter>Header Files\FrontEnd</Filter>
     </ClInclude>
-    <ClInclude Include="Source\FrontEnd\HeroExplorer\HeroLoadSave.h">
-      <Filter>Header Files\FrontEnd\HeroExplorer</Filter>
-    </ClInclude>
     <ClInclude Include="Source\FrontEnd\RuneExplorer\RuneTable.h">
       <Filter>Header Files\FrontEnd\RuneExplorer</Filter>
     </ClInclude>
@@ -227,9 +221,6 @@
       <Filter>Source Files\FrontEnd\HeroExplorer</Filter>
     </None>
     <None Include="Source\FrontEnd\HeroExplorer\HeroOptions.inl">
-      <Filter>Source Files\FrontEnd\HeroExplorer</Filter>
-    </None>
-    <None Include="Source\FrontEnd\HeroExplorer\HeroLoadSave.inl">
       <Filter>Source Files\FrontEnd\HeroExplorer</Filter>
     </None>
     <None Include="Source\FrontEnd\RuneExplorer\RuneTable.inl">

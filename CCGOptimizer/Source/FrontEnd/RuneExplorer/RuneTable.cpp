@@ -264,103 +264,70 @@ GChar * RuneTableModel::OnRequestItemLabel( UInt iItemIndex, UInt iSubItemIndex,
 			StringFn->FromUInt( strBuffer, pRune->GetInnateStatValue() );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_PC:
-			StringFn->NCopy( strBuffer, TEXT("---"), 63 );
-			for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-				if ( pRune->GetRandomStat(i) == RUNE_STAT_HP_PERCENT ) {
-					StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(i) );
-					break;
-				}
-			}
+			if ( pRune->HasRandomStat(RUNE_STAT_HP_PERCENT) )
+				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_HP_PERCENT) );
+			else
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_FLAT:
-			StringFn->NCopy( strBuffer, TEXT("---"), 63 );
-			for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-				if ( pRune->GetRandomStat(i) == RUNE_STAT_HP_FLAT ) {
-					StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(i) );
-					break;
-				}
-			}
+			if ( pRune->HasRandomStat(RUNE_STAT_HP_FLAT) )
+				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_HP_FLAT) );
+			else
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_PC:
-			StringFn->NCopy( strBuffer, TEXT("---"), 63 );
-			for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-				if ( pRune->GetRandomStat(i) == RUNE_STAT_ATTACK_PERCENT ) {
-					StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(i) );
-					break;
-				}
-			}
+			if ( pRune->HasRandomStat(RUNE_STAT_ATTACK_PERCENT) )
+				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_ATTACK_PERCENT) );
+			else
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_FLAT:
-			StringFn->NCopy( strBuffer, TEXT("---"), 63 );
-			for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-				if ( pRune->GetRandomStat(i) == RUNE_STAT_ATTACK_FLAT ) {
-					StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(i) );
-					break;
-				}
-			}
+			if ( pRune->HasRandomStat(RUNE_STAT_ATTACK_FLAT) )
+				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_ATTACK_FLAT) );
+			else
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_PC:
-			StringFn->NCopy( strBuffer, TEXT("---"), 63 );
-			for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-				if ( pRune->GetRandomStat(i) == RUNE_STAT_DEFENSE_PERCENT ) {
-					StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(i) );
-					break;
-				}
-			}
+			if ( pRune->HasRandomStat(RUNE_STAT_DEFENSE_PERCENT) )
+				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_DEFENSE_PERCENT) );
+			else
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_FLAT:
-			StringFn->NCopy( strBuffer, TEXT("---"), 63 );
-			for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-				if ( pRune->GetRandomStat(i) == RUNE_STAT_DEFENSE_FLAT ) {
-					StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(i) );
-					break;
-				}
-			}
+			if ( pRune->HasRandomStat(RUNE_STAT_DEFENSE_FLAT) )
+				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_DEFENSE_FLAT) );
+			else
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_SPD:
-			StringFn->NCopy( strBuffer, TEXT("---"), 63 );
-			for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-				if ( pRune->GetRandomStat(i) == RUNE_STAT_SPEED ) {
-					StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(i) );
-					break;
-				}
-			}
+			if ( pRune->HasRandomStat(RUNE_STAT_SPEED) )
+				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_SPEED) );
+			else
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITRATE:
-			StringFn->NCopy( strBuffer, TEXT("---"), 63 );
-			for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-				if ( pRune->GetRandomStat(i) == RUNE_STAT_CRIT_RATE ) {
-					StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(i) );
-					break;
-				}
-			}
+			if ( pRune->HasRandomStat(RUNE_STAT_CRIT_RATE) )
+				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_CRIT_RATE) );
+			else
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITDMG:
-			StringFn->NCopy( strBuffer, TEXT("---"), 63 );
-			for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-				if ( pRune->GetRandomStat(i) == RUNE_STAT_CRIT_DMG ) {
-					StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(i) );
-					break;
-				}
-			}
+			if ( pRune->HasRandomStat(RUNE_STAT_CRIT_DMG) )
+				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_CRIT_DMG) );
+			else
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HIT:
-			StringFn->NCopy( strBuffer, TEXT("---"), 63 );
-			for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-				if ( pRune->GetRandomStat(i) == RUNE_STAT_HIT ) {
-					StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(i) );
-					break;
-				}
-			}
+			if ( pRune->HasRandomStat(RUNE_STAT_HIT) )
+				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_HIT) );
+			else
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_RES:
-			StringFn->NCopy( strBuffer, TEXT("---"), 63 );
-			for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-				if ( pRune->GetRandomStat(i) == RUNE_STAT_RESISTANCE ) {
-					StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(i) );
-					break;
-				}
-			}
+			if ( pRune->HasRandomStat(RUNE_STAT_RESISTANCE) )
+				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_RESISTANCE) );
+			else
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
 		default: Assert(false); break;
 	}
@@ -493,15 +460,8 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatHPPc( Void * pItemDataA, Vo
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
-	Rune * pRuneA = CCGOPFn->GetRune( iRuneA );
-	Rune * pRuneB = CCGOPFn->GetRune( iRuneB );
-	UInt i, iIndexA = INVALID_OFFSET, iIndexB = INVALID_OFFSET;
-	for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		if ( pRuneA->GetRandomStat(i) == RUNE_STAT_HP_PERCENT ) { iIndexA = i; }
-		if ( pRuneB->GetRandomStat(i) == RUNE_STAT_HP_PERCENT ) { iIndexB = i; }
-	}
-	UInt iRandomStatValueA = pRuneA->GetRandomStatValue(iIndexA);
-	UInt iRandomStatValueB = pRuneB->GetRandomStatValue(iIndexB);
+	UInt iRandomStatValueA = CCGOPFn->GetRune(iRuneA)->GetRandomStatValue( RUNE_STAT_HP_PERCENT );
+	UInt iRandomStatValueB = CCGOPFn->GetRune(iRuneB)->GetRandomStatValue( RUNE_STAT_HP_PERCENT );
 	Int iRes = 0;
 	if ( iRandomStatValueA < iRandomStatValueB )      iRes = +1;
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
@@ -511,15 +471,8 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatHPFlat( Void * pItemDataA, 
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
-	Rune * pRuneA = CCGOPFn->GetRune( iRuneA );
-	Rune * pRuneB = CCGOPFn->GetRune( iRuneB );
-	UInt i, iIndexA = INVALID_OFFSET, iIndexB = INVALID_OFFSET;
-	for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		if ( pRuneA->GetRandomStat(i) == RUNE_STAT_HP_FLAT ) { iIndexA = i; }
-		if ( pRuneB->GetRandomStat(i) == RUNE_STAT_HP_FLAT ) { iIndexB = i; }
-	}
-	UInt iRandomStatValueA = pRuneA->GetRandomStatValue(iIndexA);
-	UInt iRandomStatValueB = pRuneB->GetRandomStatValue(iIndexB);
+	UInt iRandomStatValueA = CCGOPFn->GetRune(iRuneA)->GetRandomStatValue( RUNE_STAT_HP_FLAT );
+	UInt iRandomStatValueB = CCGOPFn->GetRune(iRuneB)->GetRandomStatValue( RUNE_STAT_HP_FLAT );
 	Int iRes = 0;
 	if ( iRandomStatValueA < iRandomStatValueB )      iRes = +1;
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
@@ -529,15 +482,8 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatATTPc( Void * pItemDataA, V
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
-	Rune * pRuneA = CCGOPFn->GetRune( iRuneA );
-	Rune * pRuneB = CCGOPFn->GetRune( iRuneB );
-	UInt i, iIndexA = INVALID_OFFSET, iIndexB = INVALID_OFFSET;
-	for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		if ( pRuneA->GetRandomStat(i) == RUNE_STAT_ATTACK_PERCENT ) { iIndexA = i; }
-		if ( pRuneB->GetRandomStat(i) == RUNE_STAT_ATTACK_PERCENT ) { iIndexB = i; }
-	}
-	UInt iRandomStatValueA = pRuneA->GetRandomStatValue(iIndexA);
-	UInt iRandomStatValueB = pRuneB->GetRandomStatValue(iIndexB);
+	UInt iRandomStatValueA = CCGOPFn->GetRune(iRuneA)->GetRandomStatValue( RUNE_STAT_ATTACK_PERCENT );
+	UInt iRandomStatValueB = CCGOPFn->GetRune(iRuneB)->GetRandomStatValue( RUNE_STAT_ATTACK_PERCENT );
 	Int iRes = 0;
 	if ( iRandomStatValueA < iRandomStatValueB )      iRes = +1;
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
@@ -547,15 +493,8 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatATTFlat( Void * pItemDataA,
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
-	Rune * pRuneA = CCGOPFn->GetRune( iRuneA );
-	Rune * pRuneB = CCGOPFn->GetRune( iRuneB );
-	UInt i, iIndexA = INVALID_OFFSET, iIndexB = INVALID_OFFSET;
-	for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		if ( pRuneA->GetRandomStat(i) == RUNE_STAT_ATTACK_FLAT ) { iIndexA = i; }
-		if ( pRuneB->GetRandomStat(i) == RUNE_STAT_ATTACK_FLAT ) { iIndexB = i; }
-	}
-	UInt iRandomStatValueA = pRuneA->GetRandomStatValue(iIndexA);
-	UInt iRandomStatValueB = pRuneB->GetRandomStatValue(iIndexB);
+	UInt iRandomStatValueA = CCGOPFn->GetRune(iRuneA)->GetRandomStatValue( RUNE_STAT_ATTACK_FLAT );
+	UInt iRandomStatValueB = CCGOPFn->GetRune(iRuneB)->GetRandomStatValue( RUNE_STAT_ATTACK_FLAT );
 	Int iRes = 0;
 	if ( iRandomStatValueA < iRandomStatValueB )      iRes = +1;
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
@@ -565,15 +504,8 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatDEFPc( Void * pItemDataA, V
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
-	Rune * pRuneA = CCGOPFn->GetRune( iRuneA );
-	Rune * pRuneB = CCGOPFn->GetRune( iRuneB );
-	UInt i, iIndexA = INVALID_OFFSET, iIndexB = INVALID_OFFSET;
-	for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		if ( pRuneA->GetRandomStat(i) == RUNE_STAT_DEFENSE_PERCENT ) { iIndexA = i; }
-		if ( pRuneB->GetRandomStat(i) == RUNE_STAT_DEFENSE_PERCENT ) { iIndexB = i; }
-	}
-	UInt iRandomStatValueA = pRuneA->GetRandomStatValue(iIndexA);
-	UInt iRandomStatValueB = pRuneB->GetRandomStatValue(iIndexB);
+	UInt iRandomStatValueA = CCGOPFn->GetRune(iRuneA)->GetRandomStatValue( RUNE_STAT_DEFENSE_PERCENT );
+	UInt iRandomStatValueB = CCGOPFn->GetRune(iRuneB)->GetRandomStatValue( RUNE_STAT_DEFENSE_PERCENT );
 	Int iRes = 0;
 	if ( iRandomStatValueA < iRandomStatValueB )      iRes = +1;
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
@@ -583,15 +515,8 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatDEFFlat( Void * pItemDataA,
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
-	Rune * pRuneA = CCGOPFn->GetRune( iRuneA );
-	Rune * pRuneB = CCGOPFn->GetRune( iRuneB );
-	UInt i, iIndexA = INVALID_OFFSET, iIndexB = INVALID_OFFSET;
-	for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		if ( pRuneA->GetRandomStat(i) == RUNE_STAT_DEFENSE_FLAT ) { iIndexA = i; }
-		if ( pRuneB->GetRandomStat(i) == RUNE_STAT_DEFENSE_FLAT ) { iIndexB = i; }
-	}
-	UInt iRandomStatValueA = pRuneA->GetRandomStatValue(iIndexA);
-	UInt iRandomStatValueB = pRuneB->GetRandomStatValue(iIndexB);
+	UInt iRandomStatValueA = CCGOPFn->GetRune(iRuneA)->GetRandomStatValue( RUNE_STAT_DEFENSE_FLAT );
+	UInt iRandomStatValueB = CCGOPFn->GetRune(iRuneB)->GetRandomStatValue( RUNE_STAT_DEFENSE_FLAT );
 	Int iRes = 0;
 	if ( iRandomStatValueA < iRandomStatValueB )      iRes = +1;
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
@@ -601,15 +526,8 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatSPD( Void * pItemDataA, Voi
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
-	Rune * pRuneA = CCGOPFn->GetRune( iRuneA );
-	Rune * pRuneB = CCGOPFn->GetRune( iRuneB );
-	UInt i, iIndexA = INVALID_OFFSET, iIndexB = INVALID_OFFSET;
-	for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		if ( pRuneA->GetRandomStat(i) == RUNE_STAT_SPEED ) { iIndexA = i; }
-		if ( pRuneB->GetRandomStat(i) == RUNE_STAT_SPEED ) { iIndexB = i; }
-	}
-	UInt iRandomStatValueA = pRuneA->GetRandomStatValue(iIndexA);
-	UInt iRandomStatValueB = pRuneB->GetRandomStatValue(iIndexB);
+	UInt iRandomStatValueA = CCGOPFn->GetRune(iRuneA)->GetRandomStatValue( RUNE_STAT_SPEED );
+	UInt iRandomStatValueB = CCGOPFn->GetRune(iRuneB)->GetRandomStatValue( RUNE_STAT_SPEED );
 	Int iRes = 0;
 	if ( iRandomStatValueA < iRandomStatValueB )      iRes = +1;
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
@@ -619,15 +537,8 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatCritRate( Void * pItemDataA
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
-	Rune * pRuneA = CCGOPFn->GetRune( iRuneA );
-	Rune * pRuneB = CCGOPFn->GetRune( iRuneB );
-	UInt i, iIndexA = INVALID_OFFSET, iIndexB = INVALID_OFFSET;
-	for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		if ( pRuneA->GetRandomStat(i) == RUNE_STAT_CRIT_RATE ) { iIndexA = i; }
-		if ( pRuneB->GetRandomStat(i) == RUNE_STAT_CRIT_RATE ) { iIndexB = i; }
-	}
-	UInt iRandomStatValueA = pRuneA->GetRandomStatValue(iIndexA);
-	UInt iRandomStatValueB = pRuneB->GetRandomStatValue(iIndexB);
+	UInt iRandomStatValueA = CCGOPFn->GetRune(iRuneA)->GetRandomStatValue( RUNE_STAT_CRIT_RATE );
+	UInt iRandomStatValueB = CCGOPFn->GetRune(iRuneB)->GetRandomStatValue( RUNE_STAT_CRIT_RATE );
 	Int iRes = 0;
 	if ( iRandomStatValueA < iRandomStatValueB )      iRes = +1;
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
@@ -637,15 +548,8 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatCritDmg( Void * pItemDataA,
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
-	Rune * pRuneA = CCGOPFn->GetRune( iRuneA );
-	Rune * pRuneB = CCGOPFn->GetRune( iRuneB );
-	UInt i, iIndexA = INVALID_OFFSET, iIndexB = INVALID_OFFSET;
-	for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		if ( pRuneA->GetRandomStat(i) == RUNE_STAT_CRIT_DMG ) { iIndexA = i; }
-		if ( pRuneB->GetRandomStat(i) == RUNE_STAT_CRIT_DMG ) { iIndexB = i; }
-	}
-	UInt iRandomStatValueA = pRuneA->GetRandomStatValue(iIndexA);
-	UInt iRandomStatValueB = pRuneB->GetRandomStatValue(iIndexB);
+	UInt iRandomStatValueA = CCGOPFn->GetRune(iRuneA)->GetRandomStatValue( RUNE_STAT_CRIT_DMG );
+	UInt iRandomStatValueB = CCGOPFn->GetRune(iRuneB)->GetRandomStatValue( RUNE_STAT_CRIT_DMG );
 	Int iRes = 0;
 	if ( iRandomStatValueA < iRandomStatValueB )      iRes = +1;
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
@@ -655,15 +559,8 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatHIT( Void * pItemDataA, Voi
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
-	Rune * pRuneA = CCGOPFn->GetRune( iRuneA );
-	Rune * pRuneB = CCGOPFn->GetRune( iRuneB );
-	UInt i, iIndexA = INVALID_OFFSET, iIndexB = INVALID_OFFSET;
-	for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		if ( pRuneA->GetRandomStat(i) == RUNE_STAT_HIT ) { iIndexA = i; }
-		if ( pRuneB->GetRandomStat(i) == RUNE_STAT_HIT ) { iIndexB = i; }
-	}
-	UInt iRandomStatValueA = pRuneA->GetRandomStatValue(iIndexA);
-	UInt iRandomStatValueB = pRuneB->GetRandomStatValue(iIndexB);
+	UInt iRandomStatValueA = CCGOPFn->GetRune(iRuneA)->GetRandomStatValue( RUNE_STAT_HIT );
+	UInt iRandomStatValueB = CCGOPFn->GetRune(iRuneB)->GetRandomStatValue( RUNE_STAT_HIT );
 	Int iRes = 0;
 	if ( iRandomStatValueA < iRandomStatValueB )      iRes = +1;
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
@@ -673,15 +570,8 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatRES( Void * pItemDataA, Voi
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
-	Rune * pRuneA = CCGOPFn->GetRune( iRuneA );
-	Rune * pRuneB = CCGOPFn->GetRune( iRuneB );
-	UInt i, iIndexA = INVALID_OFFSET, iIndexB = INVALID_OFFSET;
-	for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		if ( pRuneA->GetRandomStat(i) == RUNE_STAT_RESISTANCE ) { iIndexA = i; }
-		if ( pRuneB->GetRandomStat(i) == RUNE_STAT_RESISTANCE ) { iIndexB = i; }
-	}
-	UInt iRandomStatValueA = pRuneA->GetRandomStatValue(iIndexA);
-	UInt iRandomStatValueB = pRuneB->GetRandomStatValue(iIndexB);
+	UInt iRandomStatValueA = CCGOPFn->GetRune(iRuneA)->GetRandomStatValue( RUNE_STAT_RESISTANCE );
+	UInt iRandomStatValueB = CCGOPFn->GetRune(iRuneB)->GetRandomStatValue( RUNE_STAT_RESISTANCE );
 	Int iRes = 0;
 	if ( iRandomStatValueA < iRandomStatValueB )      iRes = +1;
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;

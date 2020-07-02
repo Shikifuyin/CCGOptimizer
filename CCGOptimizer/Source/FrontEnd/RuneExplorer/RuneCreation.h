@@ -188,7 +188,7 @@ public:
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
-	Void Update( UInt iSelectedSlot );
+	Void Update( UInt iSelectedSlot, RuneStat * arrExcludedStats, UInt iExcludedStatsCount );
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
@@ -203,6 +203,8 @@ private:
 	CCGOPGUI * m_pGUI;
 
 	UInt m_iSelectedSlot;
+	UInt m_iExcludedStatsCount;
+	RuneStat m_arrExcludedStats[2+RUNE_RANDOM_STAT_COUNT];
 };
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -215,7 +217,7 @@ public:
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
-	Void Update();
+	Void Update( RuneStat * arrExcludedStats, UInt iExcludedStatsCount );
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
@@ -228,6 +230,77 @@ public:
 
 private:
 	CCGOPGUI * m_pGUI;
+
+	UInt m_iExcludedStatsCount;
+	RuneStat m_arrExcludedStats[2+RUNE_RANDOM_STAT_COUNT];
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The RuneCreationInnateStatValueModel class
+class RuneCreationInnateStatValueModel : public WinGUITextEditModel
+{
+public:
+	RuneCreationInnateStatValueModel();
+	~RuneCreationInnateStatValueModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
+	Void Update();
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The RuneCreationRandomStatModel class
+class RuneCreationRandomStatModel : public WinGUIComboBoxModel
+{
+public:
+	RuneCreationRandomStatModel();
+	~RuneCreationRandomStatModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI, UInt iIndex );
+	Void Update( RuneStat * arrExcludedStats, UInt iExcludedStatsCount );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnSelectionOK();
+
+	// Item Callback Events
+	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
+
+private:
+	CCGOPGUI * m_pGUI;
+	UInt m_iIndex;
+
+	UInt m_iExcludedStatsCount;
+	RuneStat m_arrExcludedStats[2+RUNE_RANDOM_STAT_COUNT];
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The RuneCreationRandomStatValueModel class
+class RuneCreationRandomStatValueModel : public WinGUITextEditModel
+{
+public:
+	RuneCreationRandomStatValueModel();
+	~RuneCreationRandomStatValueModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI, UInt iIndex );
+	Void Update();
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+private:
+	CCGOPGUI * m_pGUI;
+	UInt m_iIndex;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -271,7 +344,15 @@ private:
 	friend class RuneCreationLevelModel;
 	friend class RuneCreationMainStatModel;
 	friend class RuneCreationInnateStatModel;
+	friend class RuneCreationInnateStatValueModel;
+	friend class RuneCreationRandomStatModel;
+	friend class RuneCreationRandomStatValueModel;
 	friend class RuneCreationButtonModel;
+
+	// Helpers
+	Void _UpdateAvailableMainStats();
+	Void _UpdateRandomStatsCount();
+	Void _ExcludeRuneStats( WinGUIComboBox * pJustSelected );
 
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
@@ -295,16 +376,14 @@ private:
 	WinGUIComboBox * m_pMainStat;
 	RuneCreationInnateStatModel m_hInnateStatModel;
 	WinGUIComboBox * m_pInnateStat;
-	//RuneCreationInnateStatValueModel m_hInnateStatValueModel;
-	WinGUIComboBox * m_pInnateStatValue;
-
-	//struct _random_stats {
-	//	RuneCreationRandomStatModel m_hRandomStatModel;
-	//	WinGUIComboBox * m_pRandomStat;
-	//	RuneCreationRandomStatValueModel m_hRandomStatValueModel;
-	//	WinGUIComboBox * m_pRandomStatValue;
-	//} m_arrRandomStats[RUNE_RANDOM_STAT_COUNT];
-
+	RuneCreationInnateStatValueModel m_hInnateStatValueModel;
+	WinGUITextEdit * m_pInnateStatValue;
+	struct _random_stats {
+		RuneCreationRandomStatModel m_hRandomStatModel;
+		WinGUIComboBox * m_pRandomStat;
+		RuneCreationRandomStatValueModel m_hRandomStatValueModel;
+		WinGUITextEdit * m_pRandomStatValue;
+	} m_arrRandomStats[RUNE_RANDOM_STAT_COUNT];
 	RuneCreationButtonModel m_hButtonModel;
 	WinGUIButton * m_pButton;
 };

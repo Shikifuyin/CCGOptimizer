@@ -65,20 +65,21 @@ public:
     inline RuneQuality GetQuality() const;
     inline UInt GetLevel() const;
 
+    inline Bool HasMainStat( RuneStat iRuneStat ) const;
     inline RuneStat GetMainStat() const;
     inline UInt GetMainStatValue() const;
 
+    inline Bool HasInnateStat( RuneStat iRuneStat ) const;
     inline RuneStat GetInnateStat() const;
     inline UInt GetInnateStatValue() const;
 
+    inline Bool HasRandomStat( RuneStat iRuneStat ) const;
+    inline UInt GetRandomStatCount() const;
     inline RuneStat GetRandomStat( UInt iIndex ) const;
-    inline UInt GetRandomStatValue( UInt iIndex ) const;
+    inline UInt GetRandomStatValue( RuneStat iRuneStat ) const;
 
-    // Rune Stat Queries
-    inline UInt HasMainStat( RuneStat iRuneStat ) const;
-    inline UInt HasInnateStat( RuneStat iRuneStat ) const;
-    UInt HasRandomStat( RuneStat iRuneStat ) const;
-    UInt HasSubStat( RuneStat iRuneStat ) const;
+    inline Bool HasSubStat( RuneStat iRuneStat ) const;
+    inline UInt GetSubStatValue( RuneStat iRuneStat ) const;
 
     // Rune Locks
     inline Bool IsLocked() const;
@@ -117,10 +118,13 @@ private:
     UInt m_iLevel;
 
     RuneStat m_iMainStat;
+
     RuneStat m_iInnateStat;
     UInt m_iInnateStatValue;
+
+    UInt m_iRandomStatCount;
     RuneStat m_arrRandomStats[RUNE_RANDOM_STAT_COUNT];
-    UInt m_arrRandomStatValues[RUNE_RANDOM_STAT_COUNT];
+    UInt m_arrRandomStatValues[RUNE_STAT_COUNT];
 
     // State
     Bool m_bLocked;

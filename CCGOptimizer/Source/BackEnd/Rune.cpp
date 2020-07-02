@@ -35,10 +35,12 @@ Rune::Rune():
 
     m_iInnateStat = RUNE_STAT_COUNT;
     m_iInnateStatValue = 0;
-    for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
+
+    m_iRandomStatCount = 0;
+    for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i )
         m_arrRandomStats[i] = RUNE_STAT_COUNT;
+    for( UInt i = 0; i < RUNE_STAT_COUNT; ++i )
         m_arrRandomStatValues[i] = 0;
-    }
 
     m_bLocked = false;
     m_iEquippedGearSetsCount = 0;
@@ -63,9 +65,20 @@ Rune::Rune( RuneID iRuneID, UInt iSlot, RuneSet iSet, RuneRank iRank, RuneQualit
 
     m_iInnateStat = iInnateStat;
     m_iInnateStatValue = iInnateStatValue;
+
+    for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i )
+        m_arrRandomStats[i] = RUNE_STAT_COUNT;
+    for( UInt i = 0; i < RUNE_STAT_COUNT; ++i )
+        m_arrRandomStatValues[i] = 0;
+
+    Assert( iRandomStatCount <= RUNE_RANDOM_STAT_COUNT );
+    m_iRandomStatCount = iRandomStatCount;
     for( UInt i = 0; i < iRandomStatCount; ++i ) {
         m_arrRandomStats[i] = arrRandomStats[i];
-        m_arrRandomStatValues[i] = arrRandomStatValues[i];
+        if ( arrRandomStats[i] < RUNE_STAT_COUNT ) {
+            Assert( arrRandomStatValues[i] > 0 );
+            m_arrRandomStatValues[arrRandomStats[i]] = arrRandomStatValues[i];
+        }
     }
 
     m_bLocked = false;
@@ -139,6 +152,11 @@ Void Rune::ImportFromXML( XMLNode * pNode )
     m_iInnateStatValue = (UInt)( StringFn->ToUInt(pAttribute->GetValue()) );
 
     // Random Stats
+    m_iRandomStatCount = 0;
+    for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i )
+        m_arrRandomStats[i] = RUNE_STAT_COUNT;
+    for( i = 0; i < RUNE_STAT_COUNT; ++i )
+        m_arrRandomStatValues[i] = 0;
     for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
         StringFn->Format( strNameBuffer, TEXT("random_stat_%d"), i );
         pSubNode = pNode->GetChildByTag( strNameBuffer, 0 );
@@ -146,11 +164,18 @@ Void Rune::ImportFromXML( XMLNode * pNode )
 
         pAttribute = pSubNode->GetAttribute( TEXT("type") );
         Assert( pAttribute != NULL );
-        m_arrRandomStats[i] = (RuneStat)( StringFn->ToUInt(pAttribute->GetValue()) );
+        RuneStat iRuneStat = (RuneStat)( StringFn->ToUInt(pAttribute->GetValue()) );
 
         pAttribute = pSubNode->GetAttribute( TEXT("value") );
         Assert( pAttribute != NULL );
-        m_arrRandomStatValues[i] = (UInt)( StringFn->ToUInt(pAttribute->GetValue()) );
+        UInt iValue = (UInt)( StringFn->ToUInt(pAttribute->GetValue()) );
+
+        if ( iRuneStat < RUNE_STAT_COUNT ) {
+            Assert( iValue > 0 );
+            m_arrRandomStats[m_iRandomStatCount] = iRuneStat;
+            m_arrRandomStatValues[iRuneStat] = iValue;
+            ++m_iRandomStatCount;
+        }
     }
 
     // State
@@ -236,10 +261,14 @@ Void Rune::ExportToXML( XMLNode * pNode ) const
         StringFn->Format( strNameBuffer, TEXT("random_stat_%d"), i );
         pSubNode = XMLFn->CreateNode( strNameBuffer, true );
 
+        UInt iValue = 0;
+        if ( m_arrRandomStats[i] < RUNE_STAT_COUNT )
+            iValue = m_arrRandomStatValues[m_arrRandomStats[i]];
+
         StringFn->FromUInt( strValueBuffer, m_arrRandomStats[i] );
         pSubNode->CreateAttribute( TEXT("type"), strValueBuffer );
 
-        StringFn->FromUInt( strValueBuffer, m_arrRandomStatValues[i] );
+        StringFn->FromUInt( strValueBuffer, iValue );
         pSubNode->CreateAttribute( TEXT("value"), strValueBuffer );
 
         pNode->AppendChild( pSubNode );
@@ -261,35 +290,6 @@ Void Rune::ExportToXML( XMLNode * pNode ) const
     }
 
     pNode->AppendChild( pSubNode );
-}
-
-UInt Rune::HasRandomStat( RuneStat iRuneStat ) const
-{
-    UInt iIndex = INVALID_OFFSET;
-    for ( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-        if ( m_arrRandomStats[i] == iRuneStat ) {
-            iIndex = i;
-            break;
-        }
-    }
-    if ( iIndex != INVALID_OFFSET )
-        return m_arrRandomStatValues[iIndex];
-    return 0;
-}
-UInt Rune::HasSubStat( RuneStat iRuneStat ) const
-{
-    if ( m_iInnateStat == iRuneStat )
-        return m_iInnateStatValue;
-    UInt iIndex = INVALID_OFFSET;
-    for ( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-        if ( m_arrRandomStats[i] == iRuneStat ) {
-            iIndex = i;
-            break;
-        }
-    }
-    if ( iIndex != INVALID_OFFSET )
-        return m_arrRandomStatValues[iIndex];
-    return 0;
 }
 
 Bool Rune::HasGearSet( GearSetID iGearSetID ) const
