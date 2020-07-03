@@ -81,6 +81,7 @@ typedef union _rune_query_parameter {
     } hQueryTanking;
 } RuneQueryParameter;
 
+Int RuneQueryMap_Compare( const RuneQuery & rLeft, const RuneQuery & rRight, Void * pUserData );
 typedef TreeMap<RuneQuery,RuneQueryParameter> RuneQueryMap;
 
 // Prototypes

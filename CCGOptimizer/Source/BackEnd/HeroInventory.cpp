@@ -87,32 +87,42 @@ Void HeroInventory::FilterSearch( Array<HeroID> * outResults, const HeroQueryMap
 
         // Filter Name
         if ( mapQueries.Contains(HERO_QUERY_NAME) ) {
-            if ( StringFn->Cmp( pHero->GetName(), mapQueries[HERO_QUERY_NAME].hQueryName.strName ) != 0 )
+            if ( StringFn->Cmp( pHero->GetName(), mapQueries[HERO_QUERY_NAME].hQueryName.strName ) != 0 ) {
+                ++itHero;
                 continue;
+            }
         }
 
         // Filter Faction
         if ( mapQueries.Contains(HERO_QUERY_FACTION) ) {
-            if ( pHero->GetFaction() != mapQueries[HERO_QUERY_FACTION].hQueryFaction.iFaction )
+            if ( pHero->GetFaction() != mapQueries[HERO_QUERY_FACTION].hQueryFaction.iFaction ) {
+                ++itHero;
                 continue;
+            }
         }
 
         // Filter Rank
         if ( mapQueries.Contains(HERO_QUERY_RANK) ) {
-            if ( pHero->GetRank() != mapQueries[HERO_QUERY_RANK].hQueryRank.iRank )
+            if ( pHero->GetRank() != mapQueries[HERO_QUERY_RANK].hQueryRank.iRank ) {
+                ++itHero;
                 continue;
+            }
         }
 
         // Filter Level
         if ( mapQueries.Contains(HERO_QUERY_LEVEL) ) {
-            if ( pHero->GetLevel() < mapQueries[HERO_QUERY_LEVEL].hQueryLevel.iLevel )
+            if ( pHero->GetLevel() < mapQueries[HERO_QUERY_LEVEL].hQueryLevel.iLevel ) {
+                ++itHero;
                 continue;
+            }
         }
         
         // Filter Evolved
         if ( mapQueries.Contains(HERO_QUERY_EVOLVED) ) {
-            if ( pHero->IsEvolved() != mapQueries[HERO_QUERY_EVOLVED].hQueryEvolved.bEvolved )
+            if ( pHero->IsEvolved() != mapQueries[HERO_QUERY_EVOLVED].hQueryEvolved.bEvolved ) {
+                ++itHero;
                 continue;
+            }
         }
 
         // Filter GearSet
@@ -125,8 +135,10 @@ Void HeroInventory::FilterSearch( Array<HeroID> * outResults, const HeroQueryMap
                     break;
                 }
             }
-            if ( bFilterOut )
+            if ( bFilterOut ) {
+                ++itHero;
                 continue;
+            }
         }
 
         // Filter Runes
@@ -170,8 +182,10 @@ Void HeroInventory::FilterSearch( Array<HeroID> * outResults, const HeroQueryMap
                     }
                 }
             }
-            if ( bFilterOut )
+            if ( bFilterOut ) {
+                ++itHero;
                 continue;
+            }
         }
 
         // Passed all filters, Collect

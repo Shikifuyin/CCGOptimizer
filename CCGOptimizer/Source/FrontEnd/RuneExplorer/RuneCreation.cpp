@@ -498,7 +498,7 @@ Void RuneCreationMainStatModel::Update( UInt iSelectedSlot, RuneStat * arrExclud
 	UInt iIndex = 0;
 	for( UInt i = 0; i < RUNE_STAT_COUNT; ++i ) {
 		// Check if the stat is allowed on selected slot
-		if ( (m_iSelectedSlot == INVALID_OFFSET) || GameDataFn->IsRuneMainStatAllowed((RuneStat)i, m_iSelectedSlot) ) {
+		if ( (m_iSelectedSlot == RUNE_SLOT_COUNT) || GameDataFn->IsRuneMainStatAllowed((RuneStat)i, m_iSelectedSlot) ) {
 			// Check if the stat is excluded
 			Bool bExcluded = false;
 			for( UInt j = 0; j < m_iExcludedStatsCount; ++j ) {
@@ -1109,7 +1109,7 @@ RuneCreation::RuneCreation( CCGOPGUI * pGUI )
 	m_pMainStat = NULL;
 	m_pInnateStat = NULL;
 	m_pInnateStatValue = NULL;
-	for ( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
+	for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
 		m_arrRandomStats[i].m_pRandomStat = NULL;
 		m_arrRandomStats[i].m_pRandomStatValue = NULL;
 	}
@@ -1151,7 +1151,7 @@ Void RuneCreation::Initialize()
 
 	m_hMainStatModel.Initialize( m_pGUI );
 	m_pMainStat = WinGUIFn->CreateComboBox( m_pRoot, &(m_hMainStatModel) );
-	m_hMainStatModel.Update( INVALID_OFFSET, NULL, 0 );
+	m_hMainStatModel.Update( RUNE_SLOT_COUNT, NULL, 0 );
 
 	m_hInnateStatModel.Initialize( m_pGUI );
 	m_pInnateStat = WinGUIFn->CreateComboBox( m_pRoot, &(m_hInnateStatModel) );
@@ -1186,7 +1186,9 @@ Void RuneCreation::_UpdateAvailableMainStats()
 	// Retrieve Selected Slot
 	UInt iSelected = m_pSlot->GetSelectedItem();
 
-	UInt iSlot = (UInt)(UIntPtr)( m_pSlot->GetItemData(iSelected) );
+	UInt iSlot = RUNE_SLOT_COUNT;
+	if ( iSelected != INVALID_OFFSET )
+		iSlot = (UInt)(UIntPtr)( m_pSlot->GetItemData(iSelected) );
 
 	// Update MainStatModel content
 	m_hMainStatModel.Update( iSlot, NULL, 0 );

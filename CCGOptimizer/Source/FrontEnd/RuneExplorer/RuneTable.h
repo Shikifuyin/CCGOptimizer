@@ -64,6 +64,9 @@ class CCGOPGUI;
 
 class RuneCreationButtonModel;
 
+class RuneSearchClearModel;
+class RuneSearchApplyModel;
+
 class CCGOPFileLoadModel;
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -81,6 +84,7 @@ public:
 	// Update
 	Void UpdateAfterRuneCreation( RuneID iRuneID );
 	Void UpdateAfterDataLoad();
+	Void UpdateAfterFiltering( const Array<RuneID> & arrFilteredRunes );
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
@@ -287,6 +291,9 @@ private:
 	friend class RuneTableUncheckSelectedModel;
 
 	friend class RuneCreationButtonModel;
+
+	friend class RuneSearchClearModel;
+	friend class RuneSearchApplyModel;
 
 	friend class CCGOPFileLoadModel;
 

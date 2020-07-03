@@ -164,6 +164,17 @@ Void RuneTableModel::UpdateAfterDataLoad()
 		++itRune;
 	}
 }
+Void RuneTableModel::UpdateAfterFiltering( const Array<RuneID> & arrFilteredRunes )
+{
+	WinGUITable * pTable = (WinGUITable*)m_pController;
+	Assert( pTable->GetItemCount() == 0 );
+
+	UInt iRuneCount = arrFilteredRunes.Count();
+	for( UInt i = 0; i < iRuneCount; ++i ) {
+		pTable->AddItem( i );
+		pTable->SetItemData( i, (Void*)(arrFilteredRunes[i]) );
+	}
+}
 
 const WinGUILayout * RuneTableModel::GetLayout() const
 {
@@ -239,7 +250,7 @@ GChar * RuneTableModel::OnRequestItemLabel( UInt iItemIndex, UInt iSubItemIndex,
 			StringFn->NCopy( strBuffer, (pRune->IsLocked() ? TEXT("Yes") : TEXT("No")), 63 );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_SLOT:
-			StringFn->FromUInt( strBuffer, pRune->GetSlot() );
+			StringFn->FromUInt( strBuffer, pRune->GetSlot() + 1 );
 			break;
 		case CCGOP_RUNETABLE_COLUMN_SET:
 			StringFn->NCopy( strBuffer, GameDataFn->GetRuneSetName(pRune->GetSet()), 63 );

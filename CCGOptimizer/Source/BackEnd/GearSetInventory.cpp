@@ -85,8 +85,10 @@ Void GearSetInventory::FilterSearch( Array<GearSetID> * outResults, const GearSe
 
         // Filter Name
         if ( mapQueries.Contains(GEARSET_QUERY_NAME) ) {
-            if ( StringFn->Cmp( pGearSet->GetName(), mapQueries[GEARSET_QUERY_NAME].hQueryName.strName ) != 0 )
+            if ( StringFn->Cmp( pGearSet->GetName(), mapQueries[GEARSET_QUERY_NAME].hQueryName.strName ) != 0 ) {
+                ++itGearSet;
                 continue;
+            }
         }
 
         // Filter Heroes
@@ -113,8 +115,10 @@ Void GearSetInventory::FilterSearch( Array<GearSetID> * outResults, const GearSe
                     }
                 }
             }
-            if ( bFilterOut )
+            if ( bFilterOut ) {
+                ++itGearSet;
                 continue;
+            }
         }
 
         // Filter Runes
@@ -141,8 +145,10 @@ Void GearSetInventory::FilterSearch( Array<GearSetID> * outResults, const GearSe
                     }
                 }
             }
-            if ( bFilterOut )
+            if ( bFilterOut ) {
+                ++itGearSet;
                 continue;
+            }
         }
 
         // Filter State
@@ -156,28 +162,38 @@ Void GearSetInventory::FilterSearch( Array<GearSetID> * outResults, const GearSe
                 else
                     bEmpty = false;
             }
-            if ( bComplete != mapQueries[GEARSET_QUERY_STATE].hQueryState.bComplete )
+            if ( bComplete != mapQueries[GEARSET_QUERY_STATE].hQueryState.bComplete ) {
+                ++itGearSet;
                 continue;
-            if ( bEmpty != mapQueries[GEARSET_QUERY_STATE].hQueryState.bEmpty )
+            }
+            if ( bEmpty != mapQueries[GEARSET_QUERY_STATE].hQueryState.bEmpty ) {
+                ++itGearSet;
                 continue;
+            }
         }
 
         // Filter Efficiency
         if ( mapQueries.Contains(GEARSET_QUERY_EFFICIENCY) ) {
-            if ( pGearSet->GetScoreEfficiency() < mapQueries[GEARSET_QUERY_EFFICIENCY].hQueryEfficiency.fThreshold )
+            if ( pGearSet->GetScoreEfficiency() < mapQueries[GEARSET_QUERY_EFFICIENCY].hQueryEfficiency.fThreshold ) {
+                ++itGearSet;
                 continue;
+            }
         }
 
         // Filter Damage
         if ( mapQueries.Contains(GEARSET_QUERY_DAMAGE) ) {
-            if ( pGearSet->GetScoreDamage() < mapQueries[GEARSET_QUERY_DAMAGE].hQueryDamage.fThreshold )
+            if ( pGearSet->GetScoreDamage() < mapQueries[GEARSET_QUERY_DAMAGE].hQueryDamage.fThreshold ) {
+                ++itGearSet;
                 continue;
+            }
         }
 
         // Filter Tanking
         if ( mapQueries.Contains(GEARSET_QUERY_TANKING) ) {
-            if ( pGearSet->GetScoreTanking() < mapQueries[GEARSET_QUERY_TANKING].hQueryTanking.fThreshold )
+            if ( pGearSet->GetScoreTanking() < mapQueries[GEARSET_QUERY_TANKING].hQueryTanking.fThreshold ) {
+                ++itGearSet;
                 continue;
+            }
         }
 
         // Passed all filters, Collect

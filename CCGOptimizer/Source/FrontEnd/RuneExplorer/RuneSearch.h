@@ -54,6 +54,269 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
+// The RuneSearchSlotModel class
+class RuneSearchSlotModel : public WinGUIComboBoxModel
+{
+public:
+	RuneSearchSlotModel();
+	~RuneSearchSlotModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+	Void Update();
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnSelectionOK();
+
+	// Item Callback Events
+	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The RuneSearchSetModel class
+class RuneSearchSetModel : public WinGUIComboBoxModel
+{
+public:
+	RuneSearchSetModel();
+	~RuneSearchSetModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+	Void Update();
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnSelectionOK();
+
+	// Item Callback Events
+	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The RuneSearchRankModel class
+class RuneSearchRankModel : public WinGUIComboBoxModel
+{
+public:
+	RuneSearchRankModel();
+	~RuneSearchRankModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+	Void Update();
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnSelectionOK();
+
+	// Item Callback Events
+	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The RuneSearchQualityModel class
+class RuneSearchQualityModel : public WinGUIComboBoxModel
+{
+public:
+	RuneSearchQualityModel();
+	~RuneSearchQualityModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+	Void Update();
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnSelectionOK();
+
+	// Item Callback Events
+	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The RuneSearchLevelModel class
+class RuneSearchLevelModel : public WinGUIComboBoxModel
+{
+public:
+	RuneSearchLevelModel();
+	~RuneSearchLevelModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+	Void Update();
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnSelectionOK();
+
+	// Item Callback Events
+	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The RuneSearchMainStatModel class
+class RuneSearchMainStatModel : public WinGUIComboBoxModel
+{
+public:
+	RuneSearchMainStatModel();
+	~RuneSearchMainStatModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+	Void Update( UInt iSelectedSlot, RuneStat * arrExcludedStats, UInt iExcludedStatsCount );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnSelectionOK();
+
+	// Item Callback Events
+	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
+
+private:
+	CCGOPGUI * m_pGUI;
+
+	UInt m_iSelectedSlot;
+	UInt m_iExcludedStatsCount;
+	RuneStat m_arrExcludedStats[2+RUNE_RANDOM_STAT_COUNT];
+};
+
+///////////////////////////////////////////////////////////////////////////////////
+//// The RuneSearchRandomStatModel class
+//class RuneSearchRandomStatModel : public WinGUIComboBoxModel
+//{
+//public:
+//	RuneSearchRandomStatModel();
+//	~RuneSearchRandomStatModel();
+//
+//	// Initialization / Update
+//	Void Initialize( CCGOPGUI * pGUI, UInt iIndex );
+//	Void Update( RuneStat * arrExcludedStats, UInt iExcludedStatsCount );
+//
+//	// Layout
+//	virtual const WinGUILayout * GetLayout() const;
+//
+//	// Events
+//	virtual Bool OnSelectionOK();
+//
+//	// Item Callback Events
+//	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
+//
+//private:
+//	CCGOPGUI * m_pGUI;
+//	UInt m_iIndex;
+//
+//	UInt m_iExcludedStatsCount;
+//	RuneStat m_arrExcludedStats[2+RUNE_RANDOM_STAT_COUNT];
+//};
+//
+///////////////////////////////////////////////////////////////////////////////////
+//// The RuneSearchRandomStatValueModel class
+//class RuneSearchRandomStatValueModel : public WinGUITextEditModel
+//{
+//public:
+//	RuneSearchRandomStatValueModel();
+//	~RuneSearchRandomStatValueModel();
+//
+//	// Initialization
+//	Void Initialize( CCGOPGUI * pGUI, UInt iIndex );
+//	Void Update();
+//
+//	// Layout
+//	virtual const WinGUILayout * GetLayout() const;
+//
+//private:
+//	CCGOPGUI * m_pGUI;
+//	UInt m_iIndex;
+//};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The RuneSearchIndicatorModel class
+class RuneSearchIndicatorModel : public WinGUIStaticModel
+{
+public:
+	RuneSearchIndicatorModel();
+	~RuneSearchIndicatorModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The RuneSearchClearModel class
+class RuneSearchClearModel : public WinGUIButtonModel
+{
+public:
+	RuneSearchClearModel();
+	~RuneSearchClearModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The RuneSearchApplyModel class
+class RuneSearchApplyModel : public WinGUIButtonModel
+{
+public:
+	RuneSearchApplyModel();
+	~RuneSearchApplyModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
 // The RuneSearch class
 class RuneSearch
 {
@@ -66,7 +329,22 @@ public:
 	Void Cleanup();
 
 private:
+	friend class RuneSearchSlotModel;
+	friend class RuneSearchSetModel;
+	friend class RuneSearchRankModel;
+	friend class RuneSearchQualityModel;
+	friend class RuneSearchLevelModel;
+	friend class RuneSearchMainStatModel;
+	friend class RuneSearchInnateStatModel;
+	friend class RuneSearchInnateStatValueModel;
+	friend class RuneSearchRandomStatModel;
+	friend class RuneSearchRandomStatValueModel;
+	friend class RuneSearchIndicatorModel;
+	friend class RuneSearchClearModel;
+	friend class RuneSearchApplyModel;
+
 	// Helpers
+	Void _UpdateAvailableMainStats();
 
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
@@ -83,24 +361,26 @@ private:
 	WinGUIComboBox * m_pSet;
 
 	RuneSearchRankModel m_hRankModel;
-	WinGUISliderBar * m_pRank;
+	WinGUIComboBox * m_pRank;
 
 	RuneSearchQualityModel m_hQualityModel;
-	WinGUISliderBar * m_pQuality;
+	WinGUIComboBox * m_pQuality;
 
 	RuneSearchLevelModel m_hLevelModel;
-	WinGUISliderBar * m_pLevel;
+	WinGUIComboBox * m_pLevel;
 
 	RuneSearchMainStatModel m_hMainStatModel;
 	WinGUIComboBox * m_pMainStat;
 
-	RuneSearchInnateStatModel m_hInnateStatModel;
-	WinGUIComboBox * m_pInnateStat;
+	//struct _sub_stats {
+	//	RuneSearchRandomStatModel m_hRandomStatModel;
+	//	WinGUIComboBox * m_pRandomStat;
+	//	RuneSearchRandomStatValueModel m_hRandomStatValueModel;
+	//	WinGUITextEdit * m_pRandomStatValue;
+	//} m_arrSubStats[RUNE_RANDOM_STAT_COUNT];
 
-	struct _random_stats {
-		RuneSearchRandomStatModel m_hRandomStatModel;
-		WinGUIComboBox * m_pRandomStat;
-	} m_arrRandomStats[RUNE_RANDOM_STAT_COUNT];
+	RuneSearchIndicatorModel m_hIndicatorModel;
+	WinGUIStatic * m_pIndicator;
 
 	RuneSearchClearModel m_hClearModel;
 	WinGUIButton * m_pClear;

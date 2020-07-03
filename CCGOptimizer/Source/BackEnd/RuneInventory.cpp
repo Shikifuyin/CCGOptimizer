@@ -20,6 +20,17 @@
 #include "RuneInventory.h"
 
 /////////////////////////////////////////////////////////////////////////////////
+// RuneQueryMap Comparator
+Int RuneQueryMap_Compare( const RuneQuery & rLeft, const RuneQuery & rRight, Void * pUserData )
+{
+    if ( rLeft < rRight )
+        return +1;
+    if ( rLeft > rRight )
+        return +1;
+    return 0;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
 // RuneInventory implementation
 RuneInventory::RuneInventory():
     m_mapRuneInventory()
@@ -86,20 +97,26 @@ Void RuneInventory::FilterSearch( Array<RuneID> * outResults, const RuneQueryMap
         // Filter Excluded
         if ( arrExcluded != NULL ) {
             Assert( arrExcluded->IsCreated() );
-            if ( arrExcluded->Search(iRuneID) != INVALID_OFFSET )
+            if ( arrExcluded->Search(iRuneID) != INVALID_OFFSET ) {
+                ++itRune;
                 continue;
+            }
         }
 
         // Filter Locked
         if ( !bAllowLocked ) {
-            if ( pRune->IsLocked() )
+            if ( pRune->IsLocked() ) {
+                ++itRune;
                 continue;
+            }
         }
 
         // Filter Equipped
         if ( !bAllowEquipped ) {
-            if ( pRune->IsEquipped() )
+            if ( pRune->IsEquipped() ) {
+                ++itRune;
                 continue;
+            }
         }
 
         // Filter Slot
@@ -113,8 +130,10 @@ Void RuneInventory::FilterSearch( Array<RuneID> * outResults, const RuneQueryMap
                     break;
                 }
             }
-            if ( bFilterOut )
+            if ( bFilterOut ) {
+                ++itRune;
                 continue;
+            }
         }
 
         // Filter Set
@@ -128,8 +147,10 @@ Void RuneInventory::FilterSearch( Array<RuneID> * outResults, const RuneQueryMap
                     break;
                 }
             }
-            if ( bFilterOut )
+            if ( bFilterOut ) {
+                ++itRune;
                 continue;
+            }
         }
 
         // Filter MainStat
@@ -143,8 +164,10 @@ Void RuneInventory::FilterSearch( Array<RuneID> * outResults, const RuneQueryMap
                     break;
                 }
             }
-            if ( bFilterOut )
+            if ( bFilterOut ) {
+                ++itRune;
                 continue;
+            }
         }
 
         // Filter SubStats
@@ -179,26 +202,34 @@ Void RuneInventory::FilterSearch( Array<RuneID> * outResults, const RuneQueryMap
                     }
                 }
             }
-            if ( bFilterOut )
+            if ( bFilterOut ) {
+                ++itRune;
                 continue;
+            }
         }
 
         // Filter Efficiency
         if ( mapQueries.Contains(RUNE_QUERY_EFFICIENCY) ) {
-            if ( pRune->GetScoreEfficiency() < mapQueries[RUNE_QUERY_EFFICIENCY].hQueryEfficiency.fThreshold )
+            if ( pRune->GetScoreEfficiency() < mapQueries[RUNE_QUERY_EFFICIENCY].hQueryEfficiency.fThreshold ) {
+                ++itRune;
                 continue;
+            }
         }
 
         // Filter Damage
         if ( mapQueries.Contains(RUNE_QUERY_DAMAGE) ) {
-            if ( pRune->GetScoreDamage() < mapQueries[RUNE_QUERY_DAMAGE].hQueryDamage.fThreshold )
+            if ( pRune->GetScoreDamage() < mapQueries[RUNE_QUERY_DAMAGE].hQueryDamage.fThreshold ) {
+                ++itRune;
                 continue;
+            }
         }
 
         // Filter Tanking
         if ( mapQueries.Contains(RUNE_QUERY_TANKING) ) {
-            if ( pRune->GetScoreTanking() < mapQueries[RUNE_QUERY_TANKING].hQueryTanking.fThreshold )
+            if ( pRune->GetScoreTanking() < mapQueries[RUNE_QUERY_TANKING].hQueryTanking.fThreshold ) {
+                ++itRune;
                 continue;
+            }
         }
 
         // Passed all filters, Collect
