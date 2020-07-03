@@ -31,6 +31,9 @@
 enum RuneQuery {
     RUNE_QUERY_SLOT = 0,
     RUNE_QUERY_SET,
+    RUNE_QUERY_RANK,
+    RUNE_QUERY_QUALITY,
+    RUNE_QUERY_LEVEL,
     RUNE_QUERY_MAINSTAT,
     RUNE_QUERY_SUBSTATS,
     RUNE_QUERY_EFFICIENCY,
@@ -50,6 +53,24 @@ typedef union _rune_query_parameter {
         UInt iSetCount;
         RuneSet arrSets[RUNE_SET_COUNT];
     } hQuerySet;
+
+    // RUNE_QUERY_RANK
+    struct _query_rank {
+        UInt iRankCount;
+        RuneRank arrRanks[RUNE_RANK_COUNT];
+    } hQueryRank;
+
+    // RUNE_QUERY_QUALITY
+    struct _query_quality {
+        UInt iQualityCount;
+        RuneQuality arrQualities[RUNE_QUALITY_COUNT];
+    } hQueryQuality;
+
+    // RUNE_QUERY_LEVEL
+    struct _query_level {
+        UInt iLevelCount;
+        UInt arrLevels[RUNE_MAX_LEVEL+1];
+    } hQueryLevel;
 
     // RUNE_QUERY_MAINSTAT
     struct _query_mainstat {

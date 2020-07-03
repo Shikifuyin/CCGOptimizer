@@ -403,8 +403,8 @@ Void HeroCreationEvolvedModel::Initialize( CCGOPGUI * pGUI )
 
 	StringFn->NCopy( m_hCreationParameters.strLabel, TEXT("Evolved"), 63 );
 
-	m_hCreationParameters.bEnableNotify = false;
 	m_hCreationParameters.bEnableTabStop = true;
+	m_hCreationParameters.bEnableNotify = false;
 }
 
 const WinGUILayout * HeroCreationEvolvedModel::GetLayout() const

@@ -153,6 +153,57 @@ Void RuneInventory::FilterSearch( Array<RuneID> * outResults, const RuneQueryMap
             }
         }
 
+        // Filter Rank
+        if ( mapQueries.Contains(RUNE_QUERY_RANK) ) {
+            Bool bFilterOut = true;
+            iCount = mapQueries[RUNE_QUERY_RANK].hQueryRank.iRankCount;
+            for( i = 0; i < iCount; ++i ) {
+                RuneRank iRank = mapQueries[RUNE_QUERY_RANK].hQueryRank.arrRanks[i];
+                if ( pRune->GetRank() == iRank ) {
+                    bFilterOut = false;
+                    break;
+                }
+            }
+            if ( bFilterOut ) {
+                ++itRune;
+                continue;
+            }
+        }
+
+        // Filter Quality
+        if ( mapQueries.Contains(RUNE_QUERY_QUALITY) ) {
+            Bool bFilterOut = true;
+            iCount = mapQueries[RUNE_QUERY_QUALITY].hQueryQuality.iQualityCount;
+            for( i = 0; i < iCount; ++i ) {
+                RuneQuality iQuality = mapQueries[RUNE_QUERY_QUALITY].hQueryQuality.arrQualities[i];
+                if ( pRune->GetQuality() == iQuality ) {
+                    bFilterOut = false;
+                    break;
+                }
+            }
+            if ( bFilterOut ) {
+                ++itRune;
+                continue;
+            }
+        }
+
+        // Filter Level
+        if ( mapQueries.Contains(RUNE_QUERY_LEVEL) ) {
+            Bool bFilterOut = true;
+            iCount = mapQueries[RUNE_QUERY_LEVEL].hQueryLevel.iLevelCount;
+            for( i = 0; i < iCount; ++i ) {
+                UInt iLevel = mapQueries[RUNE_QUERY_LEVEL].hQueryLevel.arrLevels[i];
+                if ( pRune->GetLevel() == iLevel ) {
+                    bFilterOut = false;
+                    break;
+                }
+            }
+            if ( bFilterOut ) {
+                ++itRune;
+                continue;
+            }
+        }
+
         // Filter MainStat
         if ( mapQueries.Contains(RUNE_QUERY_MAINSTAT) ) {
             Bool bFilterOut = true;

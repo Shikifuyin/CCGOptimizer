@@ -207,54 +207,75 @@ private:
 	RuneStat m_arrExcludedStats[2+RUNE_RANDOM_STAT_COUNT];
 };
 
-///////////////////////////////////////////////////////////////////////////////////
-//// The RuneSearchRandomStatModel class
-//class RuneSearchRandomStatModel : public WinGUIComboBoxModel
-//{
-//public:
-//	RuneSearchRandomStatModel();
-//	~RuneSearchRandomStatModel();
-//
-//	// Initialization / Update
-//	Void Initialize( CCGOPGUI * pGUI, UInt iIndex );
-//	Void Update( RuneStat * arrExcludedStats, UInt iExcludedStatsCount );
-//
-//	// Layout
-//	virtual const WinGUILayout * GetLayout() const;
-//
-//	// Events
-//	virtual Bool OnSelectionOK();
-//
-//	// Item Callback Events
-//	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
-//
-//private:
-//	CCGOPGUI * m_pGUI;
-//	UInt m_iIndex;
-//
-//	UInt m_iExcludedStatsCount;
-//	RuneStat m_arrExcludedStats[2+RUNE_RANDOM_STAT_COUNT];
-//};
-//
-///////////////////////////////////////////////////////////////////////////////////
-//// The RuneSearchRandomStatValueModel class
-//class RuneSearchRandomStatValueModel : public WinGUITextEditModel
-//{
-//public:
-//	RuneSearchRandomStatValueModel();
-//	~RuneSearchRandomStatValueModel();
-//
-//	// Initialization
-//	Void Initialize( CCGOPGUI * pGUI, UInt iIndex );
-//	Void Update();
-//
-//	// Layout
-//	virtual const WinGUILayout * GetLayout() const;
-//
-//private:
-//	CCGOPGUI * m_pGUI;
-//	UInt m_iIndex;
-//};
+/////////////////////////////////////////////////////////////////////////////////
+// The RuneSearchSubStatsModeModel class
+class RuneSearchSubStatsModeModel : public WinGUICheckBoxModel
+{
+public:
+	RuneSearchSubStatsModeModel();
+	~RuneSearchSubStatsModeModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The RuneSearchSubStatModel class
+class RuneSearchSubStatModel : public WinGUIComboBoxModel
+{
+public:
+	RuneSearchSubStatModel();
+	~RuneSearchSubStatModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI, UInt iIndex );
+	Void Update( RuneStat * arrExcludedStats, UInt iExcludedStatsCount );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnSelectionOK();
+
+	// Item Callback Events
+	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
+
+private:
+	CCGOPGUI * m_pGUI;
+	UInt m_iIndex;
+
+	UInt m_iExcludedStatsCount;
+	RuneStat m_arrExcludedStats[2+RUNE_RANDOM_STAT_COUNT];
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The RuneSearchSubStatValueModel class
+class RuneSearchSubStatValueModel : public WinGUITextEditModel
+{
+public:
+	RuneSearchSubStatValueModel();
+	~RuneSearchSubStatValueModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI, UInt iIndex );
+	Void Update();
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+private:
+	CCGOPGUI * m_pGUI;
+	UInt m_iIndex;
+};
 
 /////////////////////////////////////////////////////////////////////////////////
 // The RuneSearchIndicatorModel class
@@ -335,16 +356,16 @@ private:
 	friend class RuneSearchQualityModel;
 	friend class RuneSearchLevelModel;
 	friend class RuneSearchMainStatModel;
-	friend class RuneSearchInnateStatModel;
-	friend class RuneSearchInnateStatValueModel;
-	friend class RuneSearchRandomStatModel;
-	friend class RuneSearchRandomStatValueModel;
+	friend class RuneSearchSubStatsModeModel;
+	friend class RuneSearchSubStatModel;
+	friend class RuneSearchSubStatValueModel;
 	friend class RuneSearchIndicatorModel;
 	friend class RuneSearchClearModel;
 	friend class RuneSearchApplyModel;
 
 	// Helpers
 	Void _UpdateAvailableMainStats();
+	Void _ExcludeRuneStats( WinGUIComboBox * pJustSelected );
 
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
@@ -372,12 +393,15 @@ private:
 	RuneSearchMainStatModel m_hMainStatModel;
 	WinGUIComboBox * m_pMainStat;
 
-	//struct _sub_stats {
-	//	RuneSearchRandomStatModel m_hRandomStatModel;
-	//	WinGUIComboBox * m_pRandomStat;
-	//	RuneSearchRandomStatValueModel m_hRandomStatValueModel;
-	//	WinGUITextEdit * m_pRandomStatValue;
-	//} m_arrSubStats[RUNE_RANDOM_STAT_COUNT];
+	RuneSearchSubStatsModeModel m_hSubStatsModeModel;
+	WinGUICheckBox * m_pSubStatsMode;
+
+	struct _sub_stats {
+		RuneSearchSubStatModel m_hSubStatModel;
+		WinGUIComboBox * m_pSubStat;
+		RuneSearchSubStatValueModel m_hSubStatValueModel;
+		WinGUITextEdit * m_pSubStatValue;
+	} m_arrSubStats[RUNE_RANDOM_STAT_COUNT];
 
 	RuneSearchIndicatorModel m_hIndicatorModel;
 	WinGUIStatic * m_pIndicator;

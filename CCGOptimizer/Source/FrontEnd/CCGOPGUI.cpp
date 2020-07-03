@@ -395,6 +395,10 @@ Bool CCGOPFileLoadModel::OnClick()
 	GChar strFileName[256];
 	pTextEdit->GetText( strFileName, 255 );
 
+	// Append ".xml"
+	UInt iLength = StringFn->Length(strFileName);
+	StringFn->NCopy( strFileName + iLength, TEXT(".xml"), 255 - iLength );
+
 	// Try to open the file
 	HFile hFile = SystemFn->OpenFile( strFileName, FILE_READ );
 	if ( !(hFile.IsValid()) ) {
@@ -487,6 +491,10 @@ Bool CCGOPFileSaveModel::OnClick()
 	WinGUITextEdit * pTextEdit = m_pGUI->m_arrTabCopies[m_iMainMenuTab].m_pFileName;
 	GChar strFileName[256];
 	pTextEdit->GetText( strFileName, 255 );
+
+	// Append ".xml"
+	UInt iLength = StringFn->Length(strFileName);
+	StringFn->NCopy( strFileName + iLength, TEXT(".xml"), 255 - iLength );
 
 	// Try to open the file
 	HFile hFile = SystemFn->OpenFile( strFileName, FILE_WRITE );
