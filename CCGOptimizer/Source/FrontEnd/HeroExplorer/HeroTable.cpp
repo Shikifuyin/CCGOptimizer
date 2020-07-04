@@ -46,9 +46,10 @@ HeroTableModel::HeroTableModel():
 	StringFn->Copy( m_arrColumnNames[CCGOP_HEROTABLE_COLUMN_HIT],        TEXT("HIT") );
 	StringFn->Copy( m_arrColumnNames[CCGOP_HEROTABLE_COLUMN_RES],        TEXT("RES") );
 
-	UInt iNameWidth = (2 * CCGOP_LAYOUT_TABLE_WIDTH) / CCGOP_HEROTABLE_COLUMN_COUNT;
-	UInt iAvgWidth = (CCGOP_LAYOUT_TABLE_WIDTH - iNameWidth) / (CCGOP_HEROTABLE_COLUMN_COUNT - 1);
-	iNameWidth = ( CCGOP_LAYOUT_TABLE_WIDTH - iAvgWidth * (CCGOP_HEROTABLE_COLUMN_COUNT - 1) );
+	UInt iWidthWithScrollBar = ( CCGOP_LAYOUT_TABLE_WIDTH - 18 );
+	UInt iNameWidth = (2 * iWidthWithScrollBar) / CCGOP_HEROTABLE_COLUMN_COUNT;
+	UInt iAvgWidth = (iWidthWithScrollBar - iNameWidth) / (CCGOP_HEROTABLE_COLUMN_COUNT - 1);
+	iNameWidth = ( iWidthWithScrollBar - iAvgWidth * (CCGOP_HEROTABLE_COLUMN_COUNT - 1) );
 
 	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_NAME]       = iNameWidth;
 	m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_ID]         = iAvgWidth;

@@ -83,16 +83,106 @@
 		</rune>
 	</inventory_runes>
 	<inventory_heroes>
-		<hero evolved="true" gearset_selected="4294967295" hero_id="0" level="40" name="AbyssLord" rank="5" sanctify="1">
+		<hero evolved="true" gearset_selected="4294967295" hero_id="0" level="40" name="AbyssLord" rank="5" sanctify="0">
 			<attached_gearsets count="0"/>
 		</hero>
-		<hero evolved="true" gearset_selected="4294967295" hero_id="1" level="40" name="Archmage" rank="5" sanctify="2">
+		<hero evolved="true" gearset_selected="4294967295" hero_id="1" level="40" name="Archmage" rank="5" sanctify="0">
 			<attached_gearsets count="0"/>
 		</hero>
 		<hero evolved="true" gearset_selected="4294967295" hero_id="2" level="40" name="Valkyrie" rank="5" sanctify="0">
 			<attached_gearsets count="0"/>
 		</hero>
 		<hero evolved="true" gearset_selected="4294967295" hero_id="3" level="40" name="Loki" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="4" level="40" name="Asura" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="5" level="40" name="Athena" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="6" level="40" name="BoneKing" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="7" level="40" name="DaoLord" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="8" level="40" name="DestructionIdol" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="9" level="40" name="DraconianPrincess" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="10" level="40" name="Dragoon" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="11" level="40" name="ElvenQueen" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="12" level="40" name="Enchantress" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="13" level="40" name="Eve" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="14" level="40" name="FallenAngel" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="15" level="40" name="Garuda" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="16" level="40" name="Genie" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="17" level="40" name="IronHeart" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="18" level="40" name="LichKing" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="19" level="40" name="Lucifer" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="20" level="40" name="MasterTao" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="21" level="40" name="Medusa" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="22" level="40" name="Mikhael" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="23" level="40" name="MonkeyKing" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="24" level="40" name="MountainKing" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="25" level="40" name="Necromancer" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="26" level="40" name="Noctura" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="27" level="40" name="Popo" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="28" level="40" name="Poseidon" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="29" level="40" name="Selene" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="30" level="40" name="Shaman" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="31" level="40" name="SpiderQueen" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="32" level="40" name="Succubus" rank="5" sanctify="0">
+			<attached_gearsets count="0"/>
+		</hero>
+		<hero evolved="true" gearset_selected="4294967295" hero_id="33" level="40" name="Zeus" rank="5" sanctify="0">
 			<attached_gearsets count="0"/>
 		</hero>
 	</inventory_heroes>
