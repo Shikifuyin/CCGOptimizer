@@ -169,6 +169,7 @@
     <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroTable.cpp" />
     <ClCompile Include="Source\FrontEnd\RuneExplorer.cpp" />
     <ClCompile Include="Source\FrontEnd\RuneExplorer\RuneCreation.cpp" />
+    <ClCompile Include="Source\FrontEnd\RuneExplorer\RuneOptions.cpp" />
     <ClCompile Include="Source\FrontEnd\RuneExplorer\RuneSearch.cpp" />
     <ClCompile Include="Source\FrontEnd\RuneExplorer\RuneTable.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="Source\FrontEnd\ResourceIDs.h" />
     <ClInclude Include="Source\FrontEnd\RuneExplorer.h" />
     <ClInclude Include="Source\FrontEnd\RuneExplorer\RuneCreation.h" />
+    <ClInclude Include="Source\FrontEnd\RuneExplorer\RuneOptions.h" />
     <ClInclude Include="Source\FrontEnd\RuneExplorer\RuneSearch.h" />
     <ClInclude Include="Source\FrontEnd\RuneExplorer\RuneTable.h" />
     <ClInclude Include="Source\Main.h" />
@@ -217,6 +219,7 @@
     <None Include="Source\FrontEnd\HeroExplorer\HeroTable.inl" />
     <None Include="Source\FrontEnd\RuneExplorer.inl" />
     <None Include="Source\FrontEnd\RuneExplorer\RuneCreation.inl" />
+    <None Include="Source\FrontEnd\RuneExplorer\RuneOptions.inl" />
     <None Include="Source\FrontEnd\RuneExplorer\RuneSearch.inl" />
     <None Include="Source\FrontEnd\RuneExplorer\RuneTable.inl" />
   </ItemGroup>

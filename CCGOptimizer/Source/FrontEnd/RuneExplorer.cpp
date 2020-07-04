@@ -26,8 +26,8 @@
 RuneExplorer::RuneExplorer( CCGOPGUI * pGUI ):
 	m_hRuneTable( pGUI ),
 	m_hRuneCreation( pGUI ),
+	m_hRuneOptions( pGUI ),
 	m_hRuneSearch( pGUI )
-	//m_hRuneOptions( pGUI ),
 {
 	m_pGUI = pGUI;
 	m_pRoot = NULL;
@@ -49,7 +49,7 @@ Void RuneExplorer::Initialize()
 	m_hRuneCreation.Initialize();
 
 	// Build Rune Options UI
-	//m_hRuneOptions.Initialize();
+	m_hRuneOptions.Initialize();
 
 	// Build Rune Search UI
 	m_hRuneSearch.Initialize();
@@ -60,7 +60,7 @@ Void RuneExplorer::Cleanup()
 	m_hRuneSearch.Cleanup();
 
 	// Cleanup Rune Options UI
-	//m_hRuneOptions.Cleanup();
+	m_hRuneOptions.Cleanup();
 
 	// Cleanup Rune Creation UI
 	m_hRuneCreation.Cleanup();

@@ -210,16 +210,22 @@ private:
 	// Hero Options UI
 	HeroOptionsGroupModel m_hGroupModel;
 	WinGUIGroupBox * m_pGroup;
+
 	HeroOptionsMaxRankModel m_hMaxRankModel;
 	WinGUIButton * m_pMaxRank;
+
 	HeroOptionsMaxLevelModel m_hMaxLevelModel;
 	WinGUIButton * m_pMaxLevel;
+
 	HeroOptionsEvolveModel m_hEvolveModel;
 	WinGUIButton * m_pEvolve;
+
 	HeroOptionsSanctifyChoiceModel m_hSanctifyChoiceModel;
 	WinGUIComboBox * m_pSanctifyChoice;
+
 	HeroOptionsSanctifyModel m_hSanctifyModel;
 	WinGUIButton * m_pSanctify;
+
 	HeroOptionsDeleteModel m_hDeleteModel;
 	WinGUIButton * m_pDelete;
 };

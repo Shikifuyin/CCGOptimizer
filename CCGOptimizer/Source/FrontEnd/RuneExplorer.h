@@ -31,6 +31,7 @@
 
 #include "RuneExplorer/RuneTable.h"
 #include "RuneExplorer/RuneCreation.h"
+#include "RuneExplorer/RuneOptions.h"
 #include "RuneExplorer/RuneSearch.h"
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -54,6 +55,7 @@ public:
 	// Access for delegates
 	inline RuneTable * GetRuneTable();
 	inline RuneCreation * GetRuneCreation();
+	inline RuneOptions * GetRuneOptions();
 	inline RuneSearch * GetRuneSearch();
 
 private:
@@ -66,6 +68,9 @@ private:
 
 	// Rune Creation UI
 	RuneCreation m_hRuneCreation;
+
+	// Rune Options UI
+	RuneOptions m_hRuneOptions;
 
 	// Rune Filter Search UI
 	RuneSearch m_hRuneSearch;

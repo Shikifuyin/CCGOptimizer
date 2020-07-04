@@ -64,6 +64,9 @@ class CCGOPGUI;
 
 class RuneCreationButtonModel;
 
+class RuneOptionsLockModel;
+class RuneOptionsDeleteModel;
+
 class RuneSearchClearModel;
 class RuneSearchApplyModel;
 
@@ -291,6 +294,9 @@ private:
 	friend class RuneTableUncheckSelectedModel;
 
 	friend class RuneCreationButtonModel;
+
+	friend class RuneOptionsLockModel;
+	friend class RuneOptionsDeleteModel;
 
 	friend class RuneSearchClearModel;
 	friend class RuneSearchApplyModel;
