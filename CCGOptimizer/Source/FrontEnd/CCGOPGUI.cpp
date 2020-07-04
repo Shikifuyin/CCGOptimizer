@@ -300,6 +300,14 @@ const WinGUILayout * CCGOPFileNameModel::GetLayout() const
 	return &hLayout;
 }
 
+Void CCGOPFileNameModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUITextEdit * pTextEdit = m_pGUI->m_arrTabCopies[m_iMainMenuTab].m_pFileName;
+
+	if ( iKey == KEYCODE_MOUSERIGHT )
+		pTextEdit->SetText( TEXT("") );
+}
+
 Bool CCGOPFileNameModel::OnTextChange()
 {
 	static Bool s_bUpdatingTabs = false;

@@ -126,6 +126,20 @@ const WinGUILayout * HeroCreationNameModel::GetLayout() const
 	return &hLayout;
 }
 
+Void HeroCreationNameModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT ) {
+		pController->SelectItem( INVALID_OFFSET );
+
+		// Ensure subsequent choices are consistent
+		m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableRanks();
+		m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableLevels();
+		m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableSanctify();
+	}
+}
+
 Bool HeroCreationNameModel::OnSelectionOK()
 {
 	// Ensure subsequent choices are consistent
@@ -206,6 +220,19 @@ const WinGUILayout * HeroCreationRankModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
 	return &hLayout;
+}
+
+Void HeroCreationRankModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT ) {
+		pController->SelectItem( INVALID_OFFSET );
+
+		// Ensure subsequent choices are consistent
+		m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableLevels();
+		m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableSanctify();
+	}
 }
 
 Bool HeroCreationRankModel::OnSelectionOK()
@@ -289,6 +316,18 @@ const WinGUILayout * HeroCreationLevelModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
 	return &hLayout;
+}
+
+Void HeroCreationLevelModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT ) {
+		pController->SelectItem( INVALID_OFFSET );
+
+		// Ensure subsequent choices are consistent
+		m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableSanctify();
+	}
 }
 
 Bool HeroCreationLevelModel::OnSelectionOK()
@@ -376,6 +415,14 @@ const WinGUILayout * HeroCreationSanctifyModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
 	return &hLayout;
+}
+
+Void HeroCreationSanctifyModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT )
+		pController->SelectItem( INVALID_OFFSET );
 }
 
 Void HeroCreationSanctifyModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )

@@ -131,6 +131,9 @@ public:
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
 
+	// Events
+	virtual Void OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey );
+
 	// Item Callback Events
 	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
 

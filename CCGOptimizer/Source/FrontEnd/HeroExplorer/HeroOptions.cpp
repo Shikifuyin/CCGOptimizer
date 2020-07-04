@@ -338,6 +338,14 @@ const WinGUILayout * HeroOptionsSanctifyChoiceModel::GetLayout() const
 	return &hLayout;
 }
 
+Void HeroOptionsSanctifyChoiceModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT )
+		pController->SelectItem( INVALID_OFFSET );
+}
+
 Void HeroOptionsSanctifyChoiceModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < HERO_SANCTIFY_COUNT );

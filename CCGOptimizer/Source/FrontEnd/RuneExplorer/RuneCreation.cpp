@@ -118,6 +118,18 @@ const WinGUILayout * RuneCreationSlotModel::GetLayout() const
 	return &hLayout;
 }
 
+Void RuneCreationSlotModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT ) {
+		pController->SelectItem( INVALID_OFFSET );
+
+		// Ensure available MainStats are consistent
+		m_pGUI->GetRuneExplorer()->GetRuneCreation()->_UpdateAvailableMainStats();
+	}
+}
+
 Bool RuneCreationSlotModel::OnSelectionOK()
 {
 	// Ensure available MainStats are consistent
@@ -198,6 +210,14 @@ const WinGUILayout * RuneCreationSetModel::GetLayout() const
 	return &hLayout;
 }
 
+Void RuneCreationSetModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT )
+		pController->SelectItem( INVALID_OFFSET );
+}
+
 Bool RuneCreationSetModel::OnSelectionOK()
 {
 	// nothing to do
@@ -275,6 +295,14 @@ const WinGUILayout * RuneCreationRankModel::GetLayout() const
 	return &hLayout;
 }
 
+Void RuneCreationRankModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT )
+		pController->SelectItem( INVALID_OFFSET );
+}
+
 Bool RuneCreationRankModel::OnSelectionOK()
 {
 	// nothing to do
@@ -350,6 +378,18 @@ const WinGUILayout * RuneCreationQualityModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
 	return &hLayout;
+}
+
+Void RuneCreationQualityModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT ) {
+		pController->SelectItem( INVALID_OFFSET );
+
+		// Ensure available RandomStat Count is consistent
+		m_pGUI->GetRuneExplorer()->GetRuneCreation()->_UpdateRandomStatsCount();
+	}
 }
 
 Bool RuneCreationQualityModel::OnSelectionOK()
@@ -430,6 +470,18 @@ const WinGUILayout * RuneCreationLevelModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
 	return &hLayout;
+}
+
+Void RuneCreationLevelModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT ) {
+		pController->SelectItem( INVALID_OFFSET );
+
+		// Ensure available RandomStat Count is consistent
+		m_pGUI->GetRuneExplorer()->GetRuneCreation()->_UpdateRandomStatsCount();
+	}
 }
 
 Bool RuneCreationLevelModel::OnSelectionOK()
@@ -540,6 +592,18 @@ const WinGUILayout * RuneCreationMainStatModel::GetLayout() const
 	return &hLayout;
 }
 
+Void RuneCreationMainStatModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT ) {
+		pController->SelectItem( INVALID_OFFSET );
+
+		// Ensure RuneStat selection doesn't collide
+		m_pGUI->GetRuneExplorer()->GetRuneCreation()->_ExcludeRuneStats( pController );
+	}
+}
+
 Bool RuneCreationMainStatModel::OnSelectionOK()
 {
 	// Ensure RuneStat selection doesn't collide
@@ -642,6 +706,18 @@ const WinGUILayout * RuneCreationInnateStatModel::GetLayout() const
 	return &hLayout;
 }
 
+Void RuneCreationInnateStatModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT ) {
+		pController->SelectItem( INVALID_OFFSET );
+
+		// Ensure RuneStat selection doesn't collide
+		m_pGUI->GetRuneExplorer()->GetRuneCreation()->_ExcludeRuneStats( pController );
+	}
+}
+
 Bool RuneCreationInnateStatModel::OnSelectionOK()
 {
 	// Ensure RuneStat selection doesn't collide
@@ -713,6 +789,14 @@ const WinGUILayout * RuneCreationInnateStatValueModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_TEXTEDIT_HEIGHT;
 
 	return &hLayout;
+}
+
+Void RuneCreationInnateStatValueModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUITextEdit * pController = ((WinGUITextEdit*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT )
+		pController->SetText( TEXT("") );
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -800,6 +884,18 @@ const WinGUILayout * RuneCreationRandomStatModel::GetLayout() const
 	return &hLayout;
 }
 
+Void RuneCreationRandomStatModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT ) {
+		pController->SelectItem( INVALID_OFFSET );
+
+		// Ensure RuneStat selection doesn't collide
+		m_pGUI->GetRuneExplorer()->GetRuneCreation()->_ExcludeRuneStats( pController );
+	}
+}
+
 Bool RuneCreationRandomStatModel::OnSelectionOK()
 {
 	// Ensure RuneStat selection doesn't collide
@@ -873,6 +969,14 @@ const WinGUILayout * RuneCreationRandomStatValueModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_TEXTEDIT_HEIGHT;
 
 	return &hLayout;
+}
+
+Void RuneCreationRandomStatValueModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+{
+	WinGUITextEdit * pController = ((WinGUITextEdit*)m_pController);
+
+	if ( iKey == KEYCODE_MOUSERIGHT )
+		pController->SetText( TEXT("") );
 }
 
 /////////////////////////////////////////////////////////////////////////////////
