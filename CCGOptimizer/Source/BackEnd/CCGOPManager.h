@@ -87,6 +87,8 @@ public:
     inline const GearSet * GetGearSet( GearSetID iGearSetID ) const;
     inline GearSet * GetGearSet( GearSetID iGearSetID );
 
+    inline GearSetInventory::GearSetMap::Iterator EnumGearSets() const;
+
     inline GearSetID CreateGearSet( const GChar * strName );
     inline Void DestroyGearSet( GearSetID iGearSetID );
     inline Void DestroyAllGearSets();

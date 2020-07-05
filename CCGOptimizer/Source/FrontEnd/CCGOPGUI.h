@@ -31,6 +31,7 @@
 
 #include "HeroExplorer.h"
 #include "RuneExplorer.h"
+#include "GearSetExplorer.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
@@ -239,6 +240,7 @@ public:
 
 	inline HeroExplorer * GetHeroExplorer();
 	inline RuneExplorer * GetRuneExplorer();
+	inline GearSetExplorer * GetGearSetExplorer();
 
 private:
 	friend class CCGOPWindowModel;
@@ -291,6 +293,7 @@ private:
 	// Main Menu Delegates
 	HeroExplorer m_hHeroExplorer;
 	RuneExplorer m_hRuneExplorer;
+	GearSetExplorer m_hGearSetExplorer;
 };
 
 /////////////////////////////////////////////////////////////////////////////////

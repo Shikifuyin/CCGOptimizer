@@ -298,16 +298,22 @@ private:
 
 	HeroTableGroupModel m_hGroup;
 	WinGUIGroupBox * m_pGroup;
+
 	HeroTableSelectAllModel m_hSelectAll;
 	WinGUIButton * m_pSelectAll;
+
 	HeroTableUnselectAllModel m_hUnselectAll;
 	WinGUIButton * m_pUnselectAll;
+
 	HeroTableCheckAllModel m_hCheckAll;
 	WinGUIButton * m_pCheckAll;
+
 	HeroTableUncheckAllModel m_hUncheckAll;
 	WinGUIButton * m_pUncheckAll;
+
 	HeroTableCheckSelectedModel m_hCheckSelected;
 	WinGUIButton * m_pCheckSelected;
+
 	HeroTableUncheckSelectedModel m_hUncheckSelected;
 	WinGUIButton * m_pUncheckSelected;
 };

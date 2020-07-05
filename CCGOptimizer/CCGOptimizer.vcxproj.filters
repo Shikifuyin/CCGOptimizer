@@ -43,6 +43,12 @@
     <Filter Include="Source Files\FrontEnd\RuneExplorer">
       <UniqueIdentifier>{189209a1-8a10-4cf7-8c2d-d4b293109e9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FrontEnd\GearSetExplorer">
+      <UniqueIdentifier>{1d386693-cebe-46a5-940a-5e6f3dbc44fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FrontEnd\GearSetExplorer">
+      <UniqueIdentifier>{ad5f5bc8-e8bd-4144-8074-10ec05de12ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -110,6 +116,12 @@
     </ClCompile>
     <ClCompile Include="Source\FrontEnd\RuneExplorer\RuneOptions.cpp">
       <Filter>Source Files\FrontEnd\RuneExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FrontEnd\GearSetExplorer.cpp">
+      <Filter>Source Files\FrontEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetTable.cpp">
+      <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +197,12 @@
     <ClInclude Include="Source\FrontEnd\RuneExplorer\RuneOptions.h">
       <Filter>Header Files\FrontEnd\RuneExplorer</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FrontEnd\GearSetExplorer.h">
+      <Filter>Header Files\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetTable.h">
+      <Filter>Header Files\FrontEnd\GearSetExplorer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\BackEnd\GameData.inl">
@@ -249,6 +267,12 @@
     </None>
     <None Include="Source\FrontEnd\RuneExplorer\RuneOptions.inl">
       <Filter>Source Files\FrontEnd\RuneExplorer</Filter>
+    </None>
+    <None Include="Source\FrontEnd\GearSetExplorer.inl">
+      <Filter>Source Files\FrontEnd</Filter>
+    </None>
+    <None Include="Source\FrontEnd\GearSetExplorer\GearSetTable.inl">
+      <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -105,6 +105,10 @@ inline GearSet * CCGOPManager::GetGearSet( GearSetID iGearSetID ) {
     return m_hGearSetInventory.GetGearSet( iGearSetID );
 }
 
+inline GearSetInventory::GearSetMap::Iterator CCGOPManager::EnumGearSets() const {
+    return m_hGearSetInventory.m_mapGearSetInventory.Begin();
+}
+
 inline GearSetID CCGOPManager::CreateGearSet( const GChar * strName ) {
     return m_hGearSetInventory._CreateGearSet( strName );
 }

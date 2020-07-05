@@ -549,7 +549,8 @@ CCGOPGUI::CCGOPGUI( CCGOPApplication * pApplication ):
 	m_hTabPaneModelOptimizer(CCGOP_MAINMENU_OPTIMIZER),
 
 	m_hHeroExplorer(this),
-	m_hRuneExplorer(this)
+	m_hRuneExplorer(this),
+	m_hGearSetExplorer(this)
 {
 	m_pApplication = pApplication;
 
@@ -631,6 +632,7 @@ Void CCGOPGUI::Initialize()
 	// Build Delegates
 	m_hHeroExplorer.Initialize();
 	m_hRuneExplorer.Initialize();
+	m_hGearSetExplorer.Initialize();
 
 	// Initial Tab
 	m_pCCGOPTabs->SelectTab( CCGOP_MAINMENU_IMPORT );
@@ -642,6 +644,7 @@ Void CCGOPGUI::Initialize()
 Void CCGOPGUI::Cleanup()
 {
 	// Cleanup Delegates
+	m_hGearSetExplorer.Cleanup();
 	m_hRuneExplorer.Cleanup();
 	m_hHeroExplorer.Cleanup();
 }
