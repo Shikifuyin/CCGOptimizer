@@ -24,25 +24,25 @@
 #pragma warning(disable:4312) // Converting UInts to Void*
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneCreationGroupModel implementation
-RuneCreationGroupModel::RuneCreationGroupModel():
+// UIRuneCreationGroupModel implementation
+UIRuneCreationGroupModel::UIRuneCreationGroupModel():
 	WinGUIGroupBoxModel(CCGOP_RESID_RUNEEXPLORER_RUNECREATION_GROUP)
 {
 	m_pGUI = NULL;
 }
-RuneCreationGroupModel::~RuneCreationGroupModel()
+UIRuneCreationGroupModel::~UIRuneCreationGroupModel()
 {
 	// nothing to do
 }
 
-Void RuneCreationGroupModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneCreationGroupModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
 	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Rune Creation :") );
 }
 
-const WinGUILayout * RuneCreationGroupModel::GetLayout() const
+const WinGUILayout * UIRuneCreationGroupModel::GetLayout() const
 {
 	static WinGUIManualLayout hLayout;
 
@@ -58,18 +58,18 @@ const WinGUILayout * RuneCreationGroupModel::GetLayout() const
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneCreationSlotModel implementation
-RuneCreationSlotModel::RuneCreationSlotModel():
+// UIRuneCreationSlotModel implementation
+UIRuneCreationSlotModel::UIRuneCreationSlotModel():
 	WinGUIComboBoxModel(CCGOP_RESID_RUNEEXPLORER_RUNECREATION_SLOT)
 {
 	m_pGUI = NULL;
 }
-RuneCreationSlotModel::~RuneCreationSlotModel()
+UIRuneCreationSlotModel::~UIRuneCreationSlotModel()
 {
 	// nothing to do
 }
 
-Void RuneCreationSlotModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneCreationSlotModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -84,7 +84,7 @@ Void RuneCreationSlotModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void RuneCreationSlotModel::Update()
+Void UIRuneCreationSlotModel::Update()
 {
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	pController->RemoveAllItems();
@@ -97,28 +97,25 @@ Void RuneCreationSlotModel::Update()
 	pController->SetCueText( TEXT("Rune Slot ...") );
 }
 
-const WinGUILayout * RuneCreationSlotModel::GetLayout() const
+const WinGUILayout * UIRuneCreationSlotModel::GetLayout() const
 {
-	RuneCreation * pRuneCreation = m_pGUI->GetRuneExplorer()->GetRuneCreation();
-	WinGUIGroupBox * pGroupBox = pRuneCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft;
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Void RuneCreationSlotModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIRuneCreationSlotModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 
@@ -126,20 +123,20 @@ Void RuneCreationSlotModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iK
 		pController->SelectItem( INVALID_OFFSET );
 
 		// Ensure available MainStats are consistent
-		m_pGUI->GetRuneExplorer()->GetRuneCreation()->_UpdateAvailableMainStats();
+		m_pGUI->GetRuneExplorer()->GetRuneCreation()->UpdateAvailableMainStats();
 	}
 }
 
-Bool RuneCreationSlotModel::OnSelectionOK()
+Bool UIRuneCreationSlotModel::OnSelectionOK()
 {
 	// Ensure available MainStats are consistent
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->_UpdateAvailableMainStats();
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->UpdateAvailableMainStats();
 
 	// Done
 	return true;
 }
 
-Void RuneCreationSlotModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
+Void UIRuneCreationSlotModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < RUNE_SLOT_COUNT );
 
@@ -150,18 +147,18 @@ Void RuneCreationSlotModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLeng
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneCreationSetModel implementation
-RuneCreationSetModel::RuneCreationSetModel():
+// UIRuneCreationSetModel implementation
+UIRuneCreationSetModel::UIRuneCreationSetModel():
 	WinGUIComboBoxModel(CCGOP_RESID_RUNEEXPLORER_RUNECREATION_SET)
 {
 	m_pGUI = NULL;
 }
-RuneCreationSetModel::~RuneCreationSetModel()
+UIRuneCreationSetModel::~UIRuneCreationSetModel()
 {
 	// nothing to do
 }
 
-Void RuneCreationSetModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneCreationSetModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -176,7 +173,7 @@ Void RuneCreationSetModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void RuneCreationSetModel::Update()
+Void UIRuneCreationSetModel::Update()
 {
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	pController->RemoveAllItems();
@@ -189,28 +186,25 @@ Void RuneCreationSetModel::Update()
 	pController->SetCueText( TEXT("Rune Set ...") );
 }
 
-const WinGUILayout * RuneCreationSetModel::GetLayout() const
+const WinGUILayout * UIRuneCreationSetModel::GetLayout() const
 {
-	RuneCreation * pRuneCreation = m_pGUI->GetRuneExplorer()->GetRuneCreation();
-	WinGUIGroupBox * pGroupBox = pRuneCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,1,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,1,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Void RuneCreationSetModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIRuneCreationSetModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 
@@ -218,13 +212,13 @@ Void RuneCreationSetModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKe
 		pController->SelectItem( INVALID_OFFSET );
 }
 
-Bool RuneCreationSetModel::OnSelectionOK()
+Bool UIRuneCreationSetModel::OnSelectionOK()
 {
 	// nothing to do
 	return true;
 }
 
-Void RuneCreationSetModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
+Void UIRuneCreationSetModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < RUNE_SET_COUNT );
 
@@ -235,18 +229,18 @@ Void RuneCreationSetModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLengt
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneCreationRankModel implementation
-RuneCreationRankModel::RuneCreationRankModel():
+// UIRuneCreationRankModel implementation
+UIRuneCreationRankModel::UIRuneCreationRankModel():
 	WinGUIComboBoxModel(CCGOP_RESID_RUNEEXPLORER_RUNECREATION_RANK)
 {
 	m_pGUI = NULL;
 }
-RuneCreationRankModel::~RuneCreationRankModel()
+UIRuneCreationRankModel::~UIRuneCreationRankModel()
 {
 	// nothing to do
 }
 
-Void RuneCreationRankModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneCreationRankModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -261,7 +255,7 @@ Void RuneCreationRankModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void RuneCreationRankModel::Update()
+Void UIRuneCreationRankModel::Update()
 {
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	pController->RemoveAllItems();
@@ -274,28 +268,25 @@ Void RuneCreationRankModel::Update()
 	pController->SetCueText( TEXT("Rune Rank ...") );
 }
 
-const WinGUILayout * RuneCreationRankModel::GetLayout() const
+const WinGUILayout * UIRuneCreationRankModel::GetLayout() const
 {
-	RuneCreation * pRuneCreation = m_pGUI->GetRuneExplorer()->GetRuneCreation();
-	WinGUIGroupBox * pGroupBox = pRuneCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,2,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,2,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Void RuneCreationRankModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIRuneCreationRankModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 
@@ -303,13 +294,13 @@ Void RuneCreationRankModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iK
 		pController->SelectItem( INVALID_OFFSET );
 }
 
-Bool RuneCreationRankModel::OnSelectionOK()
+Bool UIRuneCreationRankModel::OnSelectionOK()
 {
 	// nothing to do
 	return true;
 }
 
-Void RuneCreationRankModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
+Void UIRuneCreationRankModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < RUNE_RANK_COUNT );
 
@@ -320,18 +311,18 @@ Void RuneCreationRankModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLeng
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneCreationQualityModel implementation
-RuneCreationQualityModel::RuneCreationQualityModel():
+// UIRuneCreationQualityModel implementation
+UIRuneCreationQualityModel::UIRuneCreationQualityModel():
 	WinGUIComboBoxModel(CCGOP_RESID_RUNEEXPLORER_RUNECREATION_QUALITY)
 {
 	m_pGUI = NULL;
 }
-RuneCreationQualityModel::~RuneCreationQualityModel()
+UIRuneCreationQualityModel::~UIRuneCreationQualityModel()
 {
 	// nothing to do
 }
 
-Void RuneCreationQualityModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneCreationQualityModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -346,7 +337,7 @@ Void RuneCreationQualityModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void RuneCreationQualityModel::Update()
+Void UIRuneCreationQualityModel::Update()
 {
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	pController->RemoveAllItems();
@@ -359,28 +350,25 @@ Void RuneCreationQualityModel::Update()
 	pController->SetCueText( TEXT("Rune Quality ...") );
 }
 
-const WinGUILayout * RuneCreationQualityModel::GetLayout() const
+const WinGUILayout * UIRuneCreationQualityModel::GetLayout() const
 {
-	RuneCreation * pRuneCreation = m_pGUI->GetRuneExplorer()->GetRuneCreation();
-	WinGUIGroupBox * pGroupBox = pRuneCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,0);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft;
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,0);
+
 	return &hLayout;
 }
 
-Void RuneCreationQualityModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIRuneCreationQualityModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 
@@ -388,20 +376,20 @@ Void RuneCreationQualityModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode
 		pController->SelectItem( INVALID_OFFSET );
 
 		// Ensure available RandomStat Count is consistent
-		m_pGUI->GetRuneExplorer()->GetRuneCreation()->_UpdateRandomStatsCount();
+		m_pGUI->GetRuneExplorer()->GetRuneCreation()->UpdateRandomStatsCount();
 	}
 }
 
-Bool RuneCreationQualityModel::OnSelectionOK()
+Bool UIRuneCreationQualityModel::OnSelectionOK()
 {
 	// Ensure available RandomStat Count is consistent
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->_UpdateRandomStatsCount();
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->UpdateRandomStatsCount();
 
 	// Done
 	return true;
 }
 
-Void RuneCreationQualityModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
+Void UIRuneCreationQualityModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < RUNE_QUALITY_COUNT );
 
@@ -412,18 +400,18 @@ Void RuneCreationQualityModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxL
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneCreationLevelModel implementation
-RuneCreationLevelModel::RuneCreationLevelModel():
+// UIRuneCreationLevelModel implementation
+UIRuneCreationLevelModel::UIRuneCreationLevelModel():
 	WinGUIComboBoxModel(CCGOP_RESID_RUNEEXPLORER_RUNECREATION_LEVEL)
 {
 	m_pGUI = NULL;
 }
-RuneCreationLevelModel::~RuneCreationLevelModel()
+UIRuneCreationLevelModel::~UIRuneCreationLevelModel()
 {
 	// nothing to do
 }
 
-Void RuneCreationLevelModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneCreationLevelModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -438,7 +426,7 @@ Void RuneCreationLevelModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void RuneCreationLevelModel::Update()
+Void UIRuneCreationLevelModel::Update()
 {
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	pController->RemoveAllItems();
@@ -451,28 +439,25 @@ Void RuneCreationLevelModel::Update()
 	pController->SetCueText( TEXT("Rune Level ...") );
 }
 
-const WinGUILayout * RuneCreationLevelModel::GetLayout() const
+const WinGUILayout * UIRuneCreationLevelModel::GetLayout() const
 {
-	RuneCreation * pRuneCreation = m_pGUI->GetRuneExplorer()->GetRuneCreation();
-	WinGUIGroupBox * pGroupBox = pRuneCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,1,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,0);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,1,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,0);
+
 	return &hLayout;
 }
 
-Void RuneCreationLevelModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIRuneCreationLevelModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 
@@ -480,20 +465,20 @@ Void RuneCreationLevelModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode i
 		pController->SelectItem( INVALID_OFFSET );
 
 		// Ensure available RandomStat Count is consistent
-		m_pGUI->GetRuneExplorer()->GetRuneCreation()->_UpdateRandomStatsCount();
+		m_pGUI->GetRuneExplorer()->GetRuneCreation()->UpdateRandomStatsCount();
 	}
 }
 
-Bool RuneCreationLevelModel::OnSelectionOK()
+Bool UIRuneCreationLevelModel::OnSelectionOK()
 {
 	// Ensure available RandomStat Count is consistent
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->_UpdateRandomStatsCount();
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->UpdateRandomStatsCount();
 
 	// Done
 	return true;
 }
 
-Void RuneCreationLevelModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
+Void UIRuneCreationLevelModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex <= RUNE_MAX_LEVEL );
 
@@ -504,8 +489,8 @@ Void RuneCreationLevelModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLen
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneCreationMainStatModel implementation
-RuneCreationMainStatModel::RuneCreationMainStatModel():
+// UIRuneCreationMainStatModel implementation
+UIRuneCreationMainStatModel::UIRuneCreationMainStatModel():
 	WinGUIComboBoxModel(CCGOP_RESID_RUNEEXPLORER_RUNECREATION_MAINSTAT)
 {
 	m_pGUI = NULL;
@@ -513,12 +498,12 @@ RuneCreationMainStatModel::RuneCreationMainStatModel():
 	m_iSelectedSlot = INVALID_OFFSET;
 	m_iExcludedStatsCount = 0;
 }
-RuneCreationMainStatModel::~RuneCreationMainStatModel()
+UIRuneCreationMainStatModel::~UIRuneCreationMainStatModel()
 {
 	// nothing to do
 }
 
-Void RuneCreationMainStatModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneCreationMainStatModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -533,7 +518,7 @@ Void RuneCreationMainStatModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void RuneCreationMainStatModel::Update( UInt iSelectedSlot, RuneStat * arrExcludedStats, UInt iExcludedStatsCount )
+Void UIRuneCreationMainStatModel::Update( UInt iSelectedSlot, RuneStat * arrExcludedStats, UInt iExcludedStatsCount )
 {
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	pController->RemoveAllItems();
@@ -571,28 +556,25 @@ Void RuneCreationMainStatModel::Update( UInt iSelectedSlot, RuneStat * arrExclud
 	pController->SetCueText( TEXT("Rune MainStat ...") );
 }
 
-const WinGUILayout * RuneCreationMainStatModel::GetLayout() const
+const WinGUILayout * UIRuneCreationMainStatModel::GetLayout() const
 {
-	RuneCreation * pRuneCreation = m_pGUI->GetRuneExplorer()->GetRuneCreation();
-	WinGUIGroupBox * pGroupBox = pRuneCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,2,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,0);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,2,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,0);
+
 	return &hLayout;
 }
 
-Void RuneCreationMainStatModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIRuneCreationMainStatModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 
@@ -600,20 +582,20 @@ Void RuneCreationMainStatModel::OnMousePress( const WinGUIPoint & hPoint, KeyCod
 		pController->SelectItem( INVALID_OFFSET );
 
 		// Ensure RuneStat selection doesn't collide
-		m_pGUI->GetRuneExplorer()->GetRuneCreation()->_ExcludeRuneStats( pController );
+		m_pGUI->GetRuneExplorer()->GetRuneCreation()->ExcludeRuneStats( pController );
 	}
 }
 
-Bool RuneCreationMainStatModel::OnSelectionOK()
+Bool UIRuneCreationMainStatModel::OnSelectionOK()
 {
 	// Ensure RuneStat selection doesn't collide
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->_ExcludeRuneStats( (WinGUIComboBox*)m_pController );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->ExcludeRuneStats( (WinGUIComboBox*)m_pController );
 
 	// Done
 	return true;
 }
 
-Void RuneCreationMainStatModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
+Void UIRuneCreationMainStatModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < RUNE_STAT_COUNT );
 
@@ -624,20 +606,20 @@ Void RuneCreationMainStatModel::OnRequestItemLabel( GChar * outBuffer, UInt iMax
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneCreationInnateStatModel implementation
-RuneCreationInnateStatModel::RuneCreationInnateStatModel():
+// UIRuneCreationInnateStatModel implementation
+UIRuneCreationInnateStatModel::UIRuneCreationInnateStatModel():
 	WinGUIComboBoxModel(CCGOP_RESID_RUNEEXPLORER_RUNECREATION_INNATESTAT)
 {
 	m_pGUI = NULL;
 
 	m_iExcludedStatsCount = 0;
 }
-RuneCreationInnateStatModel::~RuneCreationInnateStatModel()
+UIRuneCreationInnateStatModel::~UIRuneCreationInnateStatModel()
 {
 	// nothing to do
 }
 
-Void RuneCreationInnateStatModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneCreationInnateStatModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -652,7 +634,7 @@ Void RuneCreationInnateStatModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void RuneCreationInnateStatModel::Update( RuneStat * arrExcludedStats, UInt iExcludedStatsCount )
+Void UIRuneCreationInnateStatModel::Update( RuneStat * arrExcludedStats, UInt iExcludedStatsCount )
 {
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	pController->RemoveAllItems();
@@ -685,28 +667,25 @@ Void RuneCreationInnateStatModel::Update( RuneStat * arrExcludedStats, UInt iExc
 	pController->SetCueText( TEXT("InnateStat ...") );
 }
 
-const WinGUILayout * RuneCreationInnateStatModel::GetLayout() const
+const WinGUILayout * UIRuneCreationInnateStatModel::GetLayout() const
 {
-	RuneCreation * pRuneCreation = m_pGUI->GetRuneExplorer()->GetRuneCreation();
-	WinGUIGroupBox * pGroupBox = pRuneCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,3,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,3,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Void RuneCreationInnateStatModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIRuneCreationInnateStatModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 
@@ -714,20 +693,20 @@ Void RuneCreationInnateStatModel::OnMousePress( const WinGUIPoint & hPoint, KeyC
 		pController->SelectItem( INVALID_OFFSET );
 
 		// Ensure RuneStat selection doesn't collide
-		m_pGUI->GetRuneExplorer()->GetRuneCreation()->_ExcludeRuneStats( pController );
+		m_pGUI->GetRuneExplorer()->GetRuneCreation()->ExcludeRuneStats( pController );
 	}
 }
 
-Bool RuneCreationInnateStatModel::OnSelectionOK()
+Bool UIRuneCreationInnateStatModel::OnSelectionOK()
 {
 	// Ensure RuneStat selection doesn't collide
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->_ExcludeRuneStats( (WinGUIComboBox*)m_pController );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->ExcludeRuneStats( (WinGUIComboBox*)m_pController );
 
 	// Done
 	return true;
 }
 
-Void RuneCreationInnateStatModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
+Void UIRuneCreationInnateStatModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < RUNE_STAT_COUNT );
 
@@ -738,18 +717,18 @@ Void RuneCreationInnateStatModel::OnRequestItemLabel( GChar * outBuffer, UInt iM
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneCreationInnateStatValueModel implementation
-RuneCreationInnateStatValueModel::RuneCreationInnateStatValueModel():
+// UIRuneCreationInnateStatValueModel implementation
+UIRuneCreationInnateStatValueModel::UIRuneCreationInnateStatValueModel():
 	WinGUITextEditModel(CCGOP_RESID_RUNEEXPLORER_RUNECREATION_INNATESTATVALUE)
 {
 	m_pGUI = NULL;
 }
-RuneCreationInnateStatValueModel::~RuneCreationInnateStatValueModel()
+UIRuneCreationInnateStatValueModel::~UIRuneCreationInnateStatValueModel()
 {
 	// nothing to do
 }
 
-Void RuneCreationInnateStatValueModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneCreationInnateStatValueModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -762,7 +741,7 @@ Void RuneCreationInnateStatValueModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bReadOnly = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void RuneCreationInnateStatValueModel::Update()
+Void UIRuneCreationInnateStatValueModel::Update()
 {
 	WinGUITextEdit * pController = (WinGUITextEdit*)m_pController;
 	pController->SetText( TEXT("") );
@@ -770,28 +749,25 @@ Void RuneCreationInnateStatValueModel::Update()
 	pController->SetCueText( TEXT("InnateStat Value ..."), false );
 }
 
-const WinGUILayout * RuneCreationInnateStatValueModel::GetLayout() const
+const WinGUILayout * UIRuneCreationInnateStatValueModel::GetLayout() const
 {
-	RuneCreation * pRuneCreation = m_pGUI->GetRuneExplorer()->GetRuneCreation();
-	WinGUIGroupBox * pGroupBox = pRuneCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,3,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,0);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_TEXTEDIT_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_TEXTEDIT_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,3,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,0);
+
 	return &hLayout;
 }
 
-Void RuneCreationInnateStatValueModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIRuneCreationInnateStatValueModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUITextEdit * pController = ((WinGUITextEdit*)m_pController);
 
@@ -800,8 +776,8 @@ Void RuneCreationInnateStatValueModel::OnMousePress( const WinGUIPoint & hPoint,
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneCreationRandomStatModel implementation
-RuneCreationRandomStatModel::RuneCreationRandomStatModel():
+// UIRuneCreationRandomStatModel implementation
+UIRuneCreationRandomStatModel::UIRuneCreationRandomStatModel():
 	WinGUIComboBoxModel(CCGOP_RESID_RUNEEXPLORER_RUNECREATION_RANDOMSTAT)
 {
 	m_pGUI = NULL;
@@ -809,12 +785,12 @@ RuneCreationRandomStatModel::RuneCreationRandomStatModel():
 
 	m_iExcludedStatsCount = 0;
 }
-RuneCreationRandomStatModel::~RuneCreationRandomStatModel()
+UIRuneCreationRandomStatModel::~UIRuneCreationRandomStatModel()
 {
 	// nothing to do
 }
 
-Void RuneCreationRandomStatModel::Initialize( CCGOPGUI * pGUI, UInt iIndex )
+Void UIRuneCreationRandomStatModel::Initialize( CCGOPGUI * pGUI, UInt iIndex )
 {
 	m_pGUI = pGUI;
 	m_iIndex = iIndex;
@@ -830,7 +806,7 @@ Void RuneCreationRandomStatModel::Initialize( CCGOPGUI * pGUI, UInt iIndex )
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void RuneCreationRandomStatModel::Update( RuneStat * arrExcludedStats, UInt iExcludedStatsCount )
+Void UIRuneCreationRandomStatModel::Update( RuneStat * arrExcludedStats, UInt iExcludedStatsCount )
 {
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	pController->RemoveAllItems();
@@ -863,28 +839,25 @@ Void RuneCreationRandomStatModel::Update( RuneStat * arrExcludedStats, UInt iExc
 	pController->SetCueText( TEXT("RandomStat ...") );
 }
 
-const WinGUILayout * RuneCreationRandomStatModel::GetLayout() const
+const WinGUILayout * UIRuneCreationRandomStatModel::GetLayout() const
 {
-	RuneCreation * pRuneCreation = m_pGUI->GetRuneExplorer()->GetRuneCreation();
-	WinGUIGroupBox * pGroupBox = pRuneCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,m_iIndex,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,2,1);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,m_iIndex,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,2,1);
+
 	return &hLayout;
 }
 
-Void RuneCreationRandomStatModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIRuneCreationRandomStatModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 
@@ -892,20 +865,20 @@ Void RuneCreationRandomStatModel::OnMousePress( const WinGUIPoint & hPoint, KeyC
 		pController->SelectItem( INVALID_OFFSET );
 
 		// Ensure RuneStat selection doesn't collide
-		m_pGUI->GetRuneExplorer()->GetRuneCreation()->_ExcludeRuneStats( pController );
+		m_pGUI->GetRuneExplorer()->GetRuneCreation()->ExcludeRuneStats( pController );
 	}
 }
 
-Bool RuneCreationRandomStatModel::OnSelectionOK()
+Bool UIRuneCreationRandomStatModel::OnSelectionOK()
 {
 	// Ensure RuneStat selection doesn't collide
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->_ExcludeRuneStats( (WinGUIComboBox*)m_pController );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->ExcludeRuneStats( (WinGUIComboBox*)m_pController );
 	
 	// Done
 	return true;
 }
 
-Void RuneCreationRandomStatModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
+Void UIRuneCreationRandomStatModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < RUNE_STAT_COUNT );
 
@@ -916,19 +889,19 @@ Void RuneCreationRandomStatModel::OnRequestItemLabel( GChar * outBuffer, UInt iM
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneCreationRandomStatValueModel implementation
-RuneCreationRandomStatValueModel::RuneCreationRandomStatValueModel():
+// UIRuneCreationRandomStatValueModel implementation
+UIRuneCreationRandomStatValueModel::UIRuneCreationRandomStatValueModel():
 	WinGUITextEditModel(CCGOP_RESID_RUNEEXPLORER_RUNECREATION_RANDOMSTATVALUE)
 {
 	m_pGUI = NULL;
 	m_iIndex = INVALID_OFFSET;
 }
-RuneCreationRandomStatValueModel::~RuneCreationRandomStatValueModel()
+UIRuneCreationRandomStatValueModel::~UIRuneCreationRandomStatValueModel()
 {
 	// nothing to do
 }
 
-Void RuneCreationRandomStatValueModel::Initialize( CCGOPGUI * pGUI, UInt iIndex )
+Void UIRuneCreationRandomStatValueModel::Initialize( CCGOPGUI * pGUI, UInt iIndex )
 {
 	m_pGUI = pGUI;
 	m_iIndex = iIndex;
@@ -942,7 +915,7 @@ Void RuneCreationRandomStatValueModel::Initialize( CCGOPGUI * pGUI, UInt iIndex 
 	m_hCreationParameters.bReadOnly = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void RuneCreationRandomStatValueModel::Update()
+Void UIRuneCreationRandomStatValueModel::Update()
 {
 	WinGUITextEdit * pController = (WinGUITextEdit*)m_pController;
 	pController->SetText( TEXT("") );
@@ -950,28 +923,25 @@ Void RuneCreationRandomStatValueModel::Update()
 	pController->SetCueText( TEXT("RandomStat Value ..."), false );
 }
 
-const WinGUILayout * RuneCreationRandomStatValueModel::GetLayout() const
+const WinGUILayout * UIRuneCreationRandomStatValueModel::GetLayout() const
 {
-	RuneCreation * pRuneCreation = m_pGUI->GetRuneExplorer()->GetRuneCreation();
-	WinGUIGroupBox * pGroupBox = pRuneCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,m_iIndex,0,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,3,1);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_TEXTEDIT_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_TEXTEDIT_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,m_iIndex,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,3,1);
+
 	return &hLayout;
 }
 
-Void RuneCreationRandomStatValueModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIRuneCreationRandomStatValueModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUITextEdit * pController = ((WinGUITextEdit*)m_pController);
 
@@ -980,18 +950,18 @@ Void RuneCreationRandomStatValueModel::OnMousePress( const WinGUIPoint & hPoint,
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneCreationButtonModel implementation
-RuneCreationButtonModel::RuneCreationButtonModel():
+// UIRuneCreationButtonModel implementation
+UIRuneCreationButtonModel::UIRuneCreationButtonModel():
 	WinGUIButtonModel(CCGOP_RESID_RUNEEXPLORER_RUNECREATION_CREATE)
 {
 	m_pGUI = NULL;
 }
-RuneCreationButtonModel::~RuneCreationButtonModel()
+UIRuneCreationButtonModel::~UIRuneCreationButtonModel()
 {
 	// nothing to do
 }
 
-Void RuneCreationButtonModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneCreationButtonModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -1001,13 +971,10 @@ Void RuneCreationButtonModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * RuneCreationButtonModel::GetLayout() const
+const WinGUILayout * UIRuneCreationButtonModel::GetLayout() const
 {
-	RuneCreation * pRuneCreation = m_pGUI->GetRuneExplorer()->GetRuneCreation();
-	WinGUIGroupBox * pGroupBox = pRuneCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -1022,9 +989,9 @@ const WinGUILayout * RuneCreationButtonModel::GetLayout() const
 	return &hLayout;
 }
 
-Bool RuneCreationButtonModel::OnClick()
+Bool UIRuneCreationButtonModel::OnClick()
 {
-	RuneCreation * pRuneCreation = m_pGUI->GetRuneExplorer()->GetRuneCreation();
+	UIRuneCreation * pRuneCreation = m_pGUI->GetRuneExplorer()->GetRuneCreation();
 
 	// Error Message
 	WinGUIMessageBoxOptions hOptions;
@@ -1034,7 +1001,7 @@ Bool RuneCreationButtonModel::OnClick()
 	hOptions.bMustAnswer = true;
 
 	// Retrieve Rune Slot
-	WinGUIComboBox * pRuneSlot = pRuneCreation->m_pSlot;
+	WinGUIComboBox * pRuneSlot = pRuneCreation->GetSlot();
 	UInt iSelected = pRuneSlot->GetSelectedItem();
 	if ( iSelected == INVALID_OFFSET ) {
 		WinGUIFn->SpawnMessageBox( TEXT("Error !"), TEXT("Please select a Rune Slot !"), hOptions );
@@ -1044,7 +1011,7 @@ Bool RuneCreationButtonModel::OnClick()
 	UInt iSlot = (UInt)(UIntPtr)( pRuneSlot->GetItemData(iSelected) );
 
 	// Retrieve Rune Set
-	WinGUIComboBox * pRuneSet = pRuneCreation->m_pSet;
+	WinGUIComboBox * pRuneSet = pRuneCreation->GetSet();
 	iSelected = pRuneSet->GetSelectedItem();
 	if ( iSelected == INVALID_OFFSET ) {
 		WinGUIFn->SpawnMessageBox( TEXT("Error !"), TEXT("Please select a Rune Set !"), hOptions );
@@ -1054,7 +1021,7 @@ Bool RuneCreationButtonModel::OnClick()
 	RuneSet iSet = (RuneSet)(UIntPtr)( pRuneSet->GetItemData(iSelected) );
 
 	// Retrieve Rune Rank
-	WinGUIComboBox * pRuneRank = pRuneCreation->m_pRank;
+	WinGUIComboBox * pRuneRank = pRuneCreation->GetRank();
 	iSelected = pRuneRank->GetSelectedItem();
 	if ( iSelected == INVALID_OFFSET ) {
 		WinGUIFn->SpawnMessageBox( TEXT("Error !"), TEXT("Please select a Rune Rank !"), hOptions );
@@ -1064,7 +1031,7 @@ Bool RuneCreationButtonModel::OnClick()
 	RuneRank iRank = (RuneRank)(UIntPtr)( pRuneRank->GetItemData(iSelected) );
 
 	// Retrieve Rune Quality
-	WinGUIComboBox * pRuneQuality = pRuneCreation->m_pQuality;
+	WinGUIComboBox * pRuneQuality = pRuneCreation->GetQuality();
 	iSelected = pRuneQuality->GetSelectedItem();
 	if ( iSelected == INVALID_OFFSET ) {
 		WinGUIFn->SpawnMessageBox( TEXT("Error !"), TEXT("Please select a Rune Quality !"), hOptions );
@@ -1074,7 +1041,7 @@ Bool RuneCreationButtonModel::OnClick()
 	RuneQuality iQuality = (RuneQuality)(UIntPtr)( pRuneQuality->GetItemData(iSelected) );
 
 	// Retrieve Rune Level
-	WinGUIComboBox * pRuneLevel = pRuneCreation->m_pLevel;
+	WinGUIComboBox * pRuneLevel = pRuneCreation->GetLevel();
 	iSelected = pRuneLevel->GetSelectedItem();
 	if ( iSelected == INVALID_OFFSET ) {
 		WinGUIFn->SpawnMessageBox( TEXT("Error !"), TEXT("Please select a Rune Level !"), hOptions );
@@ -1084,7 +1051,7 @@ Bool RuneCreationButtonModel::OnClick()
 	UInt iLevel = (UInt)(UIntPtr)( pRuneLevel->GetItemData(iSelected) );
 
 	// Retrieve Rune MainStat
-	WinGUIComboBox * pRuneMainStat = pRuneCreation->m_pMainStat;
+	WinGUIComboBox * pRuneMainStat = pRuneCreation->GetMainStat();
 	iSelected = pRuneMainStat->GetSelectedItem();
 	if ( iSelected == INVALID_OFFSET ) {
 		WinGUIFn->SpawnMessageBox( TEXT("Error !"), TEXT("Please select a Main Stat !"), hOptions );
@@ -1094,7 +1061,7 @@ Bool RuneCreationButtonModel::OnClick()
 	RuneStat iMainStat = (RuneStat)(UIntPtr)( pRuneMainStat->GetItemData(iSelected) );
 
 	// Retrieve Rune InnateStat
-	WinGUIComboBox * pRuneInnateStat = pRuneCreation->m_pInnateStat;
+	WinGUIComboBox * pRuneInnateStat = pRuneCreation->GetInnateStat();
 	iSelected = pRuneInnateStat->GetSelectedItem();
 	
 	RuneStat iInnateStat = RUNE_STAT_COUNT;
@@ -1102,7 +1069,7 @@ Bool RuneCreationButtonModel::OnClick()
 		iInnateStat = (RuneStat)(UIntPtr)( pRuneInnateStat->GetItemData(iSelected) );
 
 	// Retrieve Rune InnateStat Value
-	WinGUITextEdit * pRuneInnateStatValue = pRuneCreation->m_pInnateStatValue;
+	WinGUITextEdit * pRuneInnateStatValue = pRuneCreation->GetInnateStatValue();
 
 	UInt iInnateStatValue = 0;
 	if ( iInnateStat != RUNE_STAT_COUNT ) {
@@ -1126,7 +1093,7 @@ Bool RuneCreationButtonModel::OnClick()
 
 	for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
 		// Retrieve Rune RandomStat
-		WinGUIComboBox * pRuneRandomStat = pRuneCreation->m_arrRandomStats[i].m_pRandomStat;
+		WinGUIComboBox * pRuneRandomStat = pRuneCreation->GetRandomStat( i );
 		iSelected = pRuneRandomStat->GetSelectedItem();
 		
 		arrRandomStats[iRandomStatsCount] = RUNE_STAT_COUNT;
@@ -1134,7 +1101,7 @@ Bool RuneCreationButtonModel::OnClick()
 			arrRandomStats[iRandomStatsCount] = (RuneStat)(UIntPtr)( pRuneRandomStat->GetItemData(iSelected) );
 
 		// Retrieve Rune RandomStat Value
-		WinGUITextEdit * pRuneRandomStatValue = pRuneCreation->m_arrRandomStats[i].m_pRandomStatValue;
+		WinGUITextEdit * pRuneRandomStatValue = pRuneCreation->GetRandomStatValue( i );
 
 		arrRandomStatsValues[iRandomStatsCount] = 0;
 		if ( arrRandomStats[iRandomStatsCount] != RUNE_STAT_COUNT ) {
@@ -1187,8 +1154,9 @@ Bool RuneCreationButtonModel::OnClick()
 										  iRandomStatsCount, arrRandomStats, arrRandomStatsValues );
 
 	// Update RuneTable
-	RuneTable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable();
-	pRuneTable->m_hRuneTableModel.UpdateAfterRuneCreation( iRuneID );
+	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->GetTable();
+	UIRuneTableModel * pModel = (UIRuneTableModel*)( pRuneTable->GetModel() );
+	pModel->UpdateAfterRuneCreation( iRuneID );
 
 	// Set Unsaved Changes Mark
 	m_pGUI->SetUnsavedChangesMark();
@@ -1198,8 +1166,8 @@ Bool RuneCreationButtonModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneCreation implementation
-RuneCreation::RuneCreation( CCGOPGUI * pGUI )
+// UIRuneCreation implementation
+UIRuneCreation::UIRuneCreation( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 	m_pRoot = NULL;
@@ -1214,20 +1182,20 @@ RuneCreation::RuneCreation( CCGOPGUI * pGUI )
 	m_pInnateStat = NULL;
 	m_pInnateStatValue = NULL;
 	for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		m_arrRandomStats[i].m_pRandomStat = NULL;
-		m_arrRandomStats[i].m_pRandomStatValue = NULL;
+		m_arrRandomStats[i].pStat = NULL;
+		m_arrRandomStats[i].pValue = NULL;
 	}
 	m_pButton = NULL;
 }
-RuneCreation::~RuneCreation()
+UIRuneCreation::~UIRuneCreation()
 {
 	// nothing to do
 }
 
-Void RuneCreation::Initialize()
+Void UIRuneCreation::Initialize()
 {
 	// Grab Root
-	m_pRoot = m_pGUI->GetRoot( CCGOP_MAINMENU_RUNE_EXPLORER );
+	m_pRoot = m_pGUI->GetTabPane( UI_MAINMENU_RUNE_EXPLORER );
 
 	// Build Hero Creation UI
 	m_hGroupModel.Initialize( m_pGUI );
@@ -1266,26 +1234,24 @@ Void RuneCreation::Initialize()
 	m_hInnateStatValueModel.Update();
 
 	for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		m_arrRandomStats[i].m_hRandomStatModel.Initialize( m_pGUI, i );
-		m_arrRandomStats[i].m_pRandomStat = WinGUIFn->CreateComboBox( m_pRoot, &(m_arrRandomStats[i].m_hRandomStatModel) );
-		m_arrRandomStats[i].m_hRandomStatModel.Update( NULL, 0 );
+		m_arrRandomStats[i].hStatModel.Initialize( m_pGUI, i );
+		m_arrRandomStats[i].pStat = WinGUIFn->CreateComboBox( m_pRoot, &(m_arrRandomStats[i].hStatModel) );
+		m_arrRandomStats[i].hStatModel.Update( NULL, 0 );
 
-		m_arrRandomStats[i].m_hRandomStatValueModel.Initialize( m_pGUI, i );
-		m_arrRandomStats[i].m_pRandomStatValue = WinGUIFn->CreateTextEdit( m_pRoot, &(m_arrRandomStats[i].m_hRandomStatValueModel) );
-		m_arrRandomStats[i].m_hRandomStatValueModel.Update();
+		m_arrRandomStats[i].hValueModel.Initialize( m_pGUI, i );
+		m_arrRandomStats[i].pValue = WinGUIFn->CreateTextEdit( m_pRoot, &(m_arrRandomStats[i].hValueModel) );
+		m_arrRandomStats[i].hValueModel.Update();
 	}
 
 	m_hButtonModel.Initialize( m_pGUI );
 	m_pButton = WinGUIFn->CreateButton( m_pRoot, &(m_hButtonModel) );
 }
-Void RuneCreation::Cleanup()
+Void UIRuneCreation::Cleanup()
 {
 	// nothing to do (for now)
 }
 
-/////////////////////////////////////////////////////////////////////////////////
-
-Void RuneCreation::_UpdateAvailableMainStats()
+Void UIRuneCreation::UpdateAvailableMainStats()
 {
 	// Retrieve Selected Slot
 	UInt iSelected = m_pSlot->GetSelectedItem();
@@ -1297,7 +1263,7 @@ Void RuneCreation::_UpdateAvailableMainStats()
 	// Update MainStatModel content
 	m_hMainStatModel.Update( iSlot, NULL, 0 );
 }
-Void RuneCreation::_UpdateRandomStatsCount()
+Void UIRuneCreation::UpdateRandomStatsCount()
 {
 	// Retrieve selected Quality
 	UInt iSelected = m_pQuality->GetSelectedItem();
@@ -1314,22 +1280,22 @@ Void RuneCreation::_UpdateRandomStatsCount()
 	
 	// Update RandomStat controllers
 	for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		WinGUIComboBox * pStat = m_arrRandomStats[i].m_pRandomStat;
-		WinGUITextEdit * pStatValue = m_arrRandomStats[i].m_pRandomStatValue;
+		WinGUIComboBox * pStat = m_arrRandomStats[i].pStat;
+		WinGUITextEdit * pStatValue = m_arrRandomStats[i].pValue;
 
 		if ( i < iAllowedRandomStats ) {
 			pStat->Enable();
 			pStatValue->Enable();
 		} else {
 			pStat->SelectItem( INVALID_OFFSET );
-			_ExcludeRuneStats( pStat );
+			ExcludeRuneStats( pStat );
 
 			pStat->Disable();
 			pStatValue->Disable();
 		}
 	}
 }
-Void RuneCreation::_ExcludeRuneStats( WinGUIComboBox * pJustSelected )
+Void UIRuneCreation::ExcludeRuneStats( WinGUIComboBox * pJustSelected )
 {
 	UInt i, iSelected, iSelectedStatsCount;
 	RuneStat arrSelectedStats[2+RUNE_RANDOM_STAT_COUNT];
@@ -1351,11 +1317,11 @@ Void RuneCreation::_ExcludeRuneStats( WinGUIComboBox * pJustSelected )
 	// Retrieve selected RandomStats
 	RuneStat arrRandomStats[RUNE_RANDOM_STAT_COUNT];
 	for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		iSelected = m_arrRandomStats[i].m_pRandomStat->GetSelectedItem();
+		iSelected = m_arrRandomStats[i].pStat->GetSelectedItem();
 
 		arrRandomStats[i] = RUNE_STAT_COUNT;
 		if ( iSelected != INVALID_OFFSET )
-			arrRandomStats[i] = (RuneStat)(UIntPtr)( m_arrRandomStats[i].m_pRandomStat->GetItemData(iSelected) );
+			arrRandomStats[i] = (RuneStat)(UIntPtr)( m_arrRandomStats[i].pStat->GetItemData(iSelected) );
 	}
 
 	// Update MainStat model
@@ -1409,7 +1375,7 @@ Void RuneCreation::_ExcludeRuneStats( WinGUIComboBox * pJustSelected )
 	arrSelectedStats[1] = iInnateStat;
 
 	for( i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		WinGUIComboBox * pStat = m_arrRandomStats[i].m_pRandomStat;
+		WinGUIComboBox * pStat = m_arrRandomStats[i].pStat;
 
 		if ( pStat == pJustSelected )
 			continue;
@@ -1422,7 +1388,7 @@ Void RuneCreation::_ExcludeRuneStats( WinGUIComboBox * pJustSelected )
 			}
 		}
 
-		m_arrRandomStats[i].m_hRandomStatModel.Update( arrSelectedStats, iSelectedStatsCount );
+		m_arrRandomStats[i].hStatModel.Update( arrSelectedStats, iSelectedStatsCount );
 
 		if ( arrRandomStats[i] != RUNE_STAT_COUNT ) {
 			UInt iIndex, iItemCount = pStat->GetItemCount();

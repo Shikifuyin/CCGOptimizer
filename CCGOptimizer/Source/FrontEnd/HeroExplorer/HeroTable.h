@@ -33,45 +33,35 @@
 // Constants definitions
 
 // Hero Table Columns
-enum CCGOPHeroTableColumn {
-	CCGOP_HEROTABLE_COLUMN_NAME = 0, // CheckBoxes
-	CCGOP_HEROTABLE_COLUMN_ID,
-	CCGOP_HEROTABLE_COLUMN_FACTION,
-	CCGOP_HEROTABLE_COLUMN_RANK,
-	CCGOP_HEROTABLE_COLUMN_LEVEL,
-	CCGOP_HEROTABLE_COLUMN_EVOLVED,
-	CCGOP_HEROTABLE_COLUMN_SANCTIFIED,
-	CCGOP_HEROTABLE_COLUMN_HP,
-	CCGOP_HEROTABLE_COLUMN_ATT,
-	CCGOP_HEROTABLE_COLUMN_DEF,
-	CCGOP_HEROTABLE_COLUMN_SPD,
-	CCGOP_HEROTABLE_COLUMN_CRITRATE,
-	CCGOP_HEROTABLE_COLUMN_CRITDMG,
-	CCGOP_HEROTABLE_COLUMN_HIT,
-	CCGOP_HEROTABLE_COLUMN_RES,
-	CCGOP_HEROTABLE_COLUMN_COUNT
+enum UIHeroTableColumn {
+	UI_HEROTABLE_COLUMN_NAME = 0, // CheckBoxes
+	UI_HEROTABLE_COLUMN_ID,
+	UI_HEROTABLE_COLUMN_FACTION,
+	UI_HEROTABLE_COLUMN_RANK,
+	UI_HEROTABLE_COLUMN_LEVEL,
+	UI_HEROTABLE_COLUMN_EVOLVED,
+	UI_HEROTABLE_COLUMN_SANCTIFIED,
+	UI_HEROTABLE_COLUMN_HP,
+	UI_HEROTABLE_COLUMN_ATT,
+	UI_HEROTABLE_COLUMN_DEF,
+	UI_HEROTABLE_COLUMN_SPD,
+	UI_HEROTABLE_COLUMN_CRITRATE,
+	UI_HEROTABLE_COLUMN_CRITDMG,
+	UI_HEROTABLE_COLUMN_HIT,
+	UI_HEROTABLE_COLUMN_RES,
+	UI_HEROTABLE_COLUMN_COUNT
 };
 
 // Prototypes
 class CCGOPGUI;
 
-class HeroCreationButtonModel;
-
-class HeroOptionsMaxRankModel;
-class HeroOptionsMaxLevelModel;
-class HeroOptionsEvolveModel;
-class HeroOptionsSanctifyModel;
-class HeroOptionsDeleteModel;
-
-class CCGOPFileLoadModel;
-
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroTableModel class
-class HeroTableModel : public WinGUITableModel
+// The UIHeroTableModel class
+class UIHeroTableModel : public WinGUITableModel
 {
 public:
-	HeroTableModel();
-	virtual ~HeroTableModel();
+	UIHeroTableModel();
+	virtual ~UIHeroTableModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -93,8 +83,8 @@ public:
 private:
 	CCGOPGUI * m_pGUI;
 
-	GChar m_arrColumnNames[CCGOP_HEROTABLE_COLUMN_COUNT][64];
-	UInt m_arrColumnWidths[CCGOP_HEROTABLE_COLUMN_COUNT];
+	GChar m_arrColumnNames[UI_HEROTABLE_COLUMN_COUNT][64];
+	UInt m_arrColumnWidths[UI_HEROTABLE_COLUMN_COUNT];
 
 	// Beware, those have reversed convention ...
 	static Int __stdcall _Compare_HeroName( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
@@ -115,12 +105,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroTableGroupModel class
-class HeroTableGroupModel : public WinGUIGroupBoxModel
+// The UIHeroTableGroupModel class
+class UIHeroTableGroupModel : public WinGUIGroupBoxModel
 {
 public:
-	HeroTableGroupModel();
-	virtual ~HeroTableGroupModel();
+	UIHeroTableGroupModel();
+	virtual ~UIHeroTableGroupModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -133,12 +123,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroTableSelectAllModel class
-class HeroTableSelectAllModel : public WinGUIButtonModel
+// The UIHeroTableSelectAllModel class
+class UIHeroTableSelectAllModel : public WinGUIButtonModel
 {
 public:
-	HeroTableSelectAllModel();
-	~HeroTableSelectAllModel();
+	UIHeroTableSelectAllModel();
+	virtual ~UIHeroTableSelectAllModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -154,12 +144,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroTableUnselectAllModel class
-class HeroTableUnselectAllModel : public WinGUIButtonModel
+// The UIHeroTableUnselectAllModel class
+class UIHeroTableUnselectAllModel : public WinGUIButtonModel
 {
 public:
-	HeroTableUnselectAllModel();
-	~HeroTableUnselectAllModel();
+	UIHeroTableUnselectAllModel();
+	virtual ~UIHeroTableUnselectAllModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -175,12 +165,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroTableCheckAllModel class
-class HeroTableCheckAllModel : public WinGUIButtonModel
+// The UIHeroTableCheckAllModel class
+class UIHeroTableCheckAllModel : public WinGUIButtonModel
 {
 public:
-	HeroTableCheckAllModel();
-	~HeroTableCheckAllModel();
+	UIHeroTableCheckAllModel();
+	virtual ~UIHeroTableCheckAllModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -196,12 +186,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroTableUncheckAllModel class
-class HeroTableUncheckAllModel : public WinGUIButtonModel
+// The UIHeroTableUncheckAllModel class
+class UIHeroTableUncheckAllModel : public WinGUIButtonModel
 {
 public:
-	HeroTableUncheckAllModel();
-	~HeroTableUncheckAllModel();
+	UIHeroTableUncheckAllModel();
+	virtual ~UIHeroTableUncheckAllModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -217,12 +207,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroTableCheckSelectedModel class
-class HeroTableCheckSelectedModel : public WinGUIButtonModel
+// The UIHeroTableCheckSelectedModel class
+class UIHeroTableCheckSelectedModel : public WinGUIButtonModel
 {
 public:
-	HeroTableCheckSelectedModel();
-	~HeroTableCheckSelectedModel();
+	UIHeroTableCheckSelectedModel();
+	virtual ~UIHeroTableCheckSelectedModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -238,12 +228,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroTableUncheckSelectedModel class
-class HeroTableUncheckSelectedModel : public WinGUIButtonModel
+// The UIHeroTableUncheckSelectedModel class
+class UIHeroTableUncheckSelectedModel : public WinGUIButtonModel
 {
 public:
-	HeroTableUncheckSelectedModel();
-	~HeroTableUncheckSelectedModel();
+	UIHeroTableUncheckSelectedModel();
+	virtual ~UIHeroTableUncheckSelectedModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -259,62 +249,51 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroTable class
-class HeroTable
+// The UIHeroTable class
+class UIHeroTable
 {
 public:
-	HeroTable( CCGOPGUI * pGUI );
-	~HeroTable();
+	UIHeroTable( CCGOPGUI * pGUI );
+	~UIHeroTable();
 
 	// Initialization / Cleanup
 	Void Initialize();
 	Void Cleanup();
 
+	// Table
+	inline WinGUITable * GetTable() const;
+
+	// Table Options
+	inline Void GetOptionsArea( WinGUIRectangle * outClientArea ) const;
+
 private:
-	friend class HeroTableSelectAllModel;
-	friend class HeroTableUnselectAllModel;
-	friend class HeroTableCheckAllModel;
-	friend class HeroTableUncheckAllModel;
-	friend class HeroTableCheckSelectedModel;
-	friend class HeroTableUncheckSelectedModel;
-
-	friend class HeroCreationButtonModel;
-
-	friend class HeroOptionsMaxRankModel;
-	friend class HeroOptionsMaxLevelModel;
-	friend class HeroOptionsEvolveModel;
-	friend class HeroOptionsSanctifyModel;
-	friend class HeroOptionsDeleteModel;
-
-	friend class CCGOPFileLoadModel;
-
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;
 
 	// Hero Table UI
-	HeroTableModel m_hHeroTableModel;
+	UIHeroTableModel m_hHeroTableModel;
 	WinGUITable * m_pHeroTable;
 
-	HeroTableGroupModel m_hGroup;
+	UIHeroTableGroupModel m_hGroup;
 	WinGUIGroupBox * m_pGroup;
 
-	HeroTableSelectAllModel m_hSelectAll;
+	UIHeroTableSelectAllModel m_hSelectAll;
 	WinGUIButton * m_pSelectAll;
 
-	HeroTableUnselectAllModel m_hUnselectAll;
+	UIHeroTableUnselectAllModel m_hUnselectAll;
 	WinGUIButton * m_pUnselectAll;
 
-	HeroTableCheckAllModel m_hCheckAll;
+	UIHeroTableCheckAllModel m_hCheckAll;
 	WinGUIButton * m_pCheckAll;
 
-	HeroTableUncheckAllModel m_hUncheckAll;
+	UIHeroTableUncheckAllModel m_hUncheckAll;
 	WinGUIButton * m_pUncheckAll;
 
-	HeroTableCheckSelectedModel m_hCheckSelected;
+	UIHeroTableCheckSelectedModel m_hCheckSelected;
 	WinGUIButton * m_pCheckSelected;
 
-	HeroTableUncheckSelectedModel m_hUncheckSelected;
+	UIHeroTableUncheckSelectedModel m_hUncheckSelected;
 	WinGUIButton * m_pUncheckSelected;
 };
 

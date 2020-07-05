@@ -52,9 +52,9 @@ public:
 	Void Cleanup();
 
 	// Access for delegates
-	inline HeroTable * GetHeroTable();
-	inline HeroCreation * GetHeroCreation();
-	inline HeroOptions * GetHeroOptions();
+	inline UIHeroTable * GetHeroTable();
+	inline UIHeroCreation * GetHeroCreation();
+	inline UIHeroOptions * GetHeroOptions();
 
 private:
 	// GUI Instance
@@ -62,13 +62,13 @@ private:
 	WinGUIContainer * m_pRoot;
 
 	// Table UI
-	HeroTable m_hHeroTable;
+	UIHeroTable m_hHeroTable;
 
 	// Hero Creation UI
-	HeroCreation m_hHeroCreation;
+	UIHeroCreation m_hHeroCreation;
 
 	// Hero Options UI
-	HeroOptions m_hHeroOptions;
+	UIHeroOptions m_hHeroOptions;
 
 	// Search UI
 

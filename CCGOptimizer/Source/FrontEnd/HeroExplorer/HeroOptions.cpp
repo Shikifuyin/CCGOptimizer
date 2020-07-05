@@ -24,25 +24,25 @@
 #pragma warning(disable:4312) // Converting UInts to Void*
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroOptionsGroupModel implementation
-HeroOptionsGroupModel::HeroOptionsGroupModel():
+// UIHeroOptionsGroupModel implementation
+UIHeroOptionsGroupModel::UIHeroOptionsGroupModel():
 	WinGUIGroupBoxModel(CCGOP_RESID_HEROEXPLORER_HEROOPTIONS_GROUP)
 {
 	m_pGUI = NULL;
 }
-HeroOptionsGroupModel::~HeroOptionsGroupModel()
+UIHeroOptionsGroupModel::~UIHeroOptionsGroupModel()
 {
 	// nothing to do
 }
 
-Void HeroOptionsGroupModel::Initialize( CCGOPGUI * pGUI )
+Void UIHeroOptionsGroupModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
 	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Hero Options :") );
 }
 
-const WinGUILayout * HeroOptionsGroupModel::GetLayout() const
+const WinGUILayout * UIHeroOptionsGroupModel::GetLayout() const
 {
 	static WinGUIManualLayout hLayout;
 
@@ -58,18 +58,18 @@ const WinGUILayout * HeroOptionsGroupModel::GetLayout() const
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroOptionsMaxRankModel implementation
-HeroOptionsMaxRankModel::HeroOptionsMaxRankModel():
+// UIHeroOptionsMaxRankModel implementation
+UIHeroOptionsMaxRankModel::UIHeroOptionsMaxRankModel():
 	WinGUIButtonModel(CCGOP_RESID_HEROEXPLORER_HEROOPTIONS_MAXRANK)
 {
 	m_pGUI = NULL;
 }
-HeroOptionsMaxRankModel::~HeroOptionsMaxRankModel()
+UIHeroOptionsMaxRankModel::~UIHeroOptionsMaxRankModel()
 {
 	// nothing to do
 }
 
-Void HeroOptionsMaxRankModel::Initialize( CCGOPGUI * pGUI )
+Void UIHeroOptionsMaxRankModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -79,31 +79,28 @@ Void HeroOptionsMaxRankModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * HeroOptionsMaxRankModel::GetLayout() const
+const WinGUILayout * UIHeroOptionsMaxRankModel::GetLayout() const
 {
-	HeroOptions * pHeroOptions = m_pGUI->GetHeroExplorer()->GetHeroOptions();
-	WinGUIGroupBox * pGroupBox = pHeroOptions->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft;
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool HeroOptionsMaxRankModel::OnClick()
+Bool UIHeroOptionsMaxRankModel::OnClick()
 {
 	// Retrieve Hero Table
-	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
+	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->GetTable();
 
 	// Find all checked elements
 	Bool bChanged = false;
@@ -131,18 +128,18 @@ Bool HeroOptionsMaxRankModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroOptionsMaxLevelModel implementation
-HeroOptionsMaxLevelModel::HeroOptionsMaxLevelModel():
+// UIHeroOptionsMaxLevelModel implementation
+UIHeroOptionsMaxLevelModel::UIHeroOptionsMaxLevelModel():
 	WinGUIButtonModel(CCGOP_RESID_HEROEXPLORER_HEROOPTIONS_MAXLEVEL)
 {
 	m_pGUI = NULL;
 }
-HeroOptionsMaxLevelModel::~HeroOptionsMaxLevelModel()
+UIHeroOptionsMaxLevelModel::~UIHeroOptionsMaxLevelModel()
 {
 	// nothing to do
 }
 
-Void HeroOptionsMaxLevelModel::Initialize( CCGOPGUI * pGUI )
+Void UIHeroOptionsMaxLevelModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -152,31 +149,28 @@ Void HeroOptionsMaxLevelModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * HeroOptionsMaxLevelModel::GetLayout() const
+const WinGUILayout * UIHeroOptionsMaxLevelModel::GetLayout() const
 {
-	HeroOptions * pHeroOptions = m_pGUI->GetHeroExplorer()->GetHeroOptions();
-	WinGUIGroupBox * pGroupBox = pHeroOptions->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool HeroOptionsMaxLevelModel::OnClick()
+Bool UIHeroOptionsMaxLevelModel::OnClick()
 {
 	// Retrieve Hero Table
-	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
+	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->GetTable();
 
 	// Find all checked elements
 	Bool bChanged = false;
@@ -204,18 +198,18 @@ Bool HeroOptionsMaxLevelModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroOptionsEvolveModel implementation
-HeroOptionsEvolveModel::HeroOptionsEvolveModel():
+// UIHeroOptionsEvolveModel implementation
+UIHeroOptionsEvolveModel::UIHeroOptionsEvolveModel():
 	WinGUIButtonModel(CCGOP_RESID_HEROEXPLORER_HEROOPTIONS_EVOLVED)
 {
 	m_pGUI = NULL;
 }
-HeroOptionsEvolveModel::~HeroOptionsEvolveModel()
+UIHeroOptionsEvolveModel::~UIHeroOptionsEvolveModel()
 {
 	// nothing to do
 }
 
-Void HeroOptionsEvolveModel::Initialize( CCGOPGUI * pGUI )
+Void UIHeroOptionsEvolveModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -225,31 +219,28 @@ Void HeroOptionsEvolveModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * HeroOptionsEvolveModel::GetLayout() const
+const WinGUILayout * UIHeroOptionsEvolveModel::GetLayout() const
 {
-	HeroOptions * pHeroOptions = m_pGUI->GetHeroExplorer()->GetHeroOptions();
-	WinGUIGroupBox * pGroupBox = pHeroOptions->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(2,0,0,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(2,0,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool HeroOptionsEvolveModel::OnClick()
+Bool UIHeroOptionsEvolveModel::OnClick()
 {
 	// Retrieve Hero Table
-	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
+	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->GetTable();
 
 	// Find all checked elements
 	Bool bChanged = false;
@@ -278,18 +269,18 @@ Bool HeroOptionsEvolveModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroOptionsSanctifyChoiceModel implementation
-HeroOptionsSanctifyChoiceModel::HeroOptionsSanctifyChoiceModel():
+// UIHeroOptionsSanctifyChoiceModel implementation
+UIHeroOptionsSanctifyChoiceModel::UIHeroOptionsSanctifyChoiceModel():
 	WinGUIComboBoxModel(CCGOP_RESID_HEROEXPLORER_HEROOPTIONS_SANCTIFYCHOICE)
 {
 	m_pGUI = NULL;
 }
-HeroOptionsSanctifyChoiceModel::~HeroOptionsSanctifyChoiceModel()
+UIHeroOptionsSanctifyChoiceModel::~UIHeroOptionsSanctifyChoiceModel()
 {
 	// nothing to do
 }
 
-Void HeroOptionsSanctifyChoiceModel::Initialize( CCGOPGUI * pGUI )
+Void UIHeroOptionsSanctifyChoiceModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -304,7 +295,7 @@ Void HeroOptionsSanctifyChoiceModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void HeroOptionsSanctifyChoiceModel::Update()
+Void UIHeroOptionsSanctifyChoiceModel::Update()
 {
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	pController->RemoveAllItems();
@@ -317,28 +308,25 @@ Void HeroOptionsSanctifyChoiceModel::Update()
 	pController->SetCueText( TEXT("Hero Sanctify ...") );
 }
 
-const WinGUILayout * HeroOptionsSanctifyChoiceModel::GetLayout() const
+const WinGUILayout * UIHeroOptionsSanctifyChoiceModel::GetLayout() const
 {
-	HeroOptions * pHeroOptions = m_pGUI->GetHeroExplorer()->GetHeroOptions();
-	WinGUIGroupBox * pGroupBox = pHeroOptions->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,0,0,1);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft;
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,0,0,1);
+
 	return &hLayout;
 }
 
-Void HeroOptionsSanctifyChoiceModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIHeroOptionsSanctifyChoiceModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 
@@ -346,26 +334,29 @@ Void HeroOptionsSanctifyChoiceModel::OnMousePress( const WinGUIPoint & hPoint, K
 		pController->SelectItem( INVALID_OFFSET );
 }
 
-Void HeroOptionsSanctifyChoiceModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
+Void UIHeroOptionsSanctifyChoiceModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < HERO_SANCTIFY_COUNT );
 
-	StringFn->NCopy( outBuffer, GameDataFn->GetHeroSanctifyName((HeroSanctify)iItemIndex), iMaxLength - 1 );
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+	HeroSanctify iSanctify = (HeroSanctify)(UIntPtr)( pController->GetItemData(iItemIndex) );
+
+	StringFn->NCopy( outBuffer, GameDataFn->GetHeroSanctifyName(iSanctify), iMaxLength - 1 );
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroOptionsSanctifyModel implementation
-HeroOptionsSanctifyModel::HeroOptionsSanctifyModel():
+// UIHeroOptionsSanctifyModel implementation
+UIHeroOptionsSanctifyModel::UIHeroOptionsSanctifyModel():
 	WinGUIButtonModel(CCGOP_RESID_HEROEXPLORER_HEROOPTIONS_SANCTIFY)
 {
 	m_pGUI = NULL;
 }
-HeroOptionsSanctifyModel::~HeroOptionsSanctifyModel()
+UIHeroOptionsSanctifyModel::~UIHeroOptionsSanctifyModel()
 {
 	// nothing to do
 }
 
-Void HeroOptionsSanctifyModel::Initialize( CCGOPGUI * pGUI )
+Void UIHeroOptionsSanctifyModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -375,35 +366,35 @@ Void HeroOptionsSanctifyModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * HeroOptionsSanctifyModel::GetLayout() const
+const WinGUILayout * UIHeroOptionsSanctifyModel::GetLayout() const
 {
-	HeroOptions * pHeroOptions = m_pGUI->GetHeroExplorer()->GetHeroOptions();
-	WinGUIGroupBox * pGroupBox = pHeroOptions->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,1,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,0,0,1);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,1,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,0,0,1);
+
 	return &hLayout;
 }
 
-Bool HeroOptionsSanctifyModel::OnClick()
+Bool UIHeroOptionsSanctifyModel::OnClick()
 {
 	// Retrieve Hero Table
-	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
+	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->GetTable();
 
 	// Retrieve Sanctify Choice
-	WinGUIComboBox * pSanctifyChoice = m_pGUI->GetHeroExplorer()->GetHeroOptions()->m_pSanctifyChoice;
+	WinGUIComboBox * pSanctifyChoice = m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetSanctifyChoice();
 	UInt iSelected = pSanctifyChoice->GetSelectedItem();
+	if ( iSelected == INVALID_OFFSET )
+		return true;
+
 	HeroSanctify iSanctify = (HeroSanctify)(UIntPtr)( pSanctifyChoice->GetItemData(iSelected) );
 
 	// Find all checked elements
@@ -437,18 +428,18 @@ Bool HeroOptionsSanctifyModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroOptionsDeleteModel implementation
-HeroOptionsDeleteModel::HeroOptionsDeleteModel():
+// UIHeroOptionsDeleteModel implementation
+UIHeroOptionsDeleteModel::UIHeroOptionsDeleteModel():
 	WinGUIButtonModel(CCGOP_RESID_HEROEXPLORER_HEROOPTIONS_DELETE)
 {
 	m_pGUI = NULL;
 }
-HeroOptionsDeleteModel::~HeroOptionsDeleteModel()
+UIHeroOptionsDeleteModel::~UIHeroOptionsDeleteModel()
 {
 	// nothing to do
 }
 
-Void HeroOptionsDeleteModel::Initialize( CCGOPGUI * pGUI )
+Void UIHeroOptionsDeleteModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -458,28 +449,25 @@ Void HeroOptionsDeleteModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * HeroOptionsDeleteModel::GetLayout() const
+const WinGUILayout * UIHeroOptionsDeleteModel::GetLayout() const
 {
-	HeroOptions * pHeroOptions = m_pGUI->GetHeroExplorer()->GetHeroOptions();
-	WinGUIGroupBox * pGroupBox = pHeroOptions->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,1,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,0,0,1);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,1,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,0,0,1);
+
 	return &hLayout;
 }
 
-Bool HeroOptionsDeleteModel::OnClick()
+Bool UIHeroOptionsDeleteModel::OnClick()
 {
 	// Confirmation Message
 	WinGUIMessageBoxOptions hOptions;
@@ -499,7 +487,7 @@ Bool HeroOptionsDeleteModel::OnClick()
 		return true;
 
 	// Retrieve Hero Table
-	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->m_pHeroTable;
+	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->GetTable();
 
 	// Delete all checked elements
 	Bool bChanged = false;
@@ -539,8 +527,8 @@ Bool HeroOptionsDeleteModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroOptions implementation
-HeroOptions::HeroOptions( CCGOPGUI * pGUI )
+// UIHeroOptions implementation
+UIHeroOptions::UIHeroOptions( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 	m_pRoot = NULL;
@@ -553,15 +541,15 @@ HeroOptions::HeroOptions( CCGOPGUI * pGUI )
 	m_pSanctify = NULL;
 	m_pDelete = NULL;
 }
-HeroOptions::~HeroOptions()
+UIHeroOptions::~UIHeroOptions()
 {
 	// nothing to do
 }
 
-Void HeroOptions::Initialize()
+Void UIHeroOptions::Initialize()
 {
 	// Grab Root
-	m_pRoot = m_pGUI->GetRoot( CCGOP_MAINMENU_HERO_EXPLORER );
+	m_pRoot = m_pGUI->GetTabPane( UI_MAINMENU_HERO_EXPLORER );
 
 	// Build Hero Options UI
 	m_hGroupModel.Initialize( m_pGUI );
@@ -586,7 +574,7 @@ Void HeroOptions::Initialize()
 	m_hDeleteModel.Initialize( m_pGUI );
 	m_pDelete = WinGUIFn->CreateButton( m_pRoot, &(m_hDeleteModel) );
 }
-Void HeroOptions::Cleanup()
+Void UIHeroOptions::Cleanup()
 {
 	// nothing to do (for now)
 }

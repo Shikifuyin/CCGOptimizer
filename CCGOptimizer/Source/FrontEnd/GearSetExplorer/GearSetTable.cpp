@@ -24,40 +24,40 @@
 #pragma warning(disable:4312) // Converting UInts to Void*
 
 /////////////////////////////////////////////////////////////////////////////////
-// GearSetTableModel implementation
-GearSetTableModel::GearSetTableModel():
+// UIGearSetTableModel implementation
+UIGearSetTableModel::UIGearSetTableModel():
 	WinGUITableModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETTABLE)
 {
 	m_pGUI = NULL;
 
-	StringFn->Copy( m_arrColumnNames[CCGOP_GEARSETTABLE_COLUMN_NAME],   TEXT("Name") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_GEARSETTABLE_COLUMN_ID],     TEXT("ID") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_GEARSETTABLE_COLUMN_RUNE_1], TEXT("Rune 1") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_GEARSETTABLE_COLUMN_RUNE_2], TEXT("Rune 2") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_GEARSETTABLE_COLUMN_RUNE_3], TEXT("Rune 3") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_GEARSETTABLE_COLUMN_RUNE_4], TEXT("Rune 4") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_GEARSETTABLE_COLUMN_RUNE_5], TEXT("Rune 5") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_GEARSETTABLE_COLUMN_RUNE_6], TEXT("Rune 6") );
+	StringFn->Copy( m_arrColumnNames[UI_GEARSETTABLE_COLUMN_NAME],   TEXT("Name") );
+	StringFn->Copy( m_arrColumnNames[UI_GEARSETTABLE_COLUMN_ID],     TEXT("ID") );
+	StringFn->Copy( m_arrColumnNames[UI_GEARSETTABLE_COLUMN_RUNE_1], TEXT("Rune 1") );
+	StringFn->Copy( m_arrColumnNames[UI_GEARSETTABLE_COLUMN_RUNE_2], TEXT("Rune 2") );
+	StringFn->Copy( m_arrColumnNames[UI_GEARSETTABLE_COLUMN_RUNE_3], TEXT("Rune 3") );
+	StringFn->Copy( m_arrColumnNames[UI_GEARSETTABLE_COLUMN_RUNE_4], TEXT("Rune 4") );
+	StringFn->Copy( m_arrColumnNames[UI_GEARSETTABLE_COLUMN_RUNE_5], TEXT("Rune 5") );
+	StringFn->Copy( m_arrColumnNames[UI_GEARSETTABLE_COLUMN_RUNE_6], TEXT("Rune 6") );
 
-	UInt iNameWidth = (2 * CCGOP_LAYOUT_TABLE_WIDTH_SMALL) / CCGOP_GEARSETTABLE_COLUMN_COUNT;
-	UInt iAvgWidth = (CCGOP_LAYOUT_TABLE_WIDTH_SMALL - iNameWidth) / (CCGOP_GEARSETTABLE_COLUMN_COUNT - 1);
-	iNameWidth = ( CCGOP_LAYOUT_TABLE_WIDTH_SMALL - iAvgWidth * (CCGOP_GEARSETTABLE_COLUMN_COUNT - 1) );
+	UInt iNameWidth = (2 * CCGOP_LAYOUT_TABLE_WIDTH_SMALL) / UI_GEARSETTABLE_COLUMN_COUNT;
+	UInt iAvgWidth = (CCGOP_LAYOUT_TABLE_WIDTH_SMALL - iNameWidth) / (UI_GEARSETTABLE_COLUMN_COUNT - 1);
+	iNameWidth = ( CCGOP_LAYOUT_TABLE_WIDTH_SMALL - iAvgWidth * (UI_GEARSETTABLE_COLUMN_COUNT - 1) );
 
-	m_arrColumnWidths[CCGOP_GEARSETTABLE_COLUMN_NAME]   = iNameWidth;
-	m_arrColumnWidths[CCGOP_GEARSETTABLE_COLUMN_ID]     = iAvgWidth;
-	m_arrColumnWidths[CCGOP_GEARSETTABLE_COLUMN_RUNE_1] = iAvgWidth;
-	m_arrColumnWidths[CCGOP_GEARSETTABLE_COLUMN_RUNE_2] = iAvgWidth;
-	m_arrColumnWidths[CCGOP_GEARSETTABLE_COLUMN_RUNE_3] = iAvgWidth;
-	m_arrColumnWidths[CCGOP_GEARSETTABLE_COLUMN_RUNE_4] = iAvgWidth;
-	m_arrColumnWidths[CCGOP_GEARSETTABLE_COLUMN_RUNE_5] = iAvgWidth;
-	m_arrColumnWidths[CCGOP_GEARSETTABLE_COLUMN_RUNE_6] = iAvgWidth;
+	m_arrColumnWidths[UI_GEARSETTABLE_COLUMN_NAME]   = iNameWidth;
+	m_arrColumnWidths[UI_GEARSETTABLE_COLUMN_ID]     = iAvgWidth;
+	m_arrColumnWidths[UI_GEARSETTABLE_COLUMN_RUNE_1] = iAvgWidth;
+	m_arrColumnWidths[UI_GEARSETTABLE_COLUMN_RUNE_2] = iAvgWidth;
+	m_arrColumnWidths[UI_GEARSETTABLE_COLUMN_RUNE_3] = iAvgWidth;
+	m_arrColumnWidths[UI_GEARSETTABLE_COLUMN_RUNE_4] = iAvgWidth;
+	m_arrColumnWidths[UI_GEARSETTABLE_COLUMN_RUNE_5] = iAvgWidth;
+	m_arrColumnWidths[UI_GEARSETTABLE_COLUMN_RUNE_6] = iAvgWidth;
 }
-GearSetTableModel::~GearSetTableModel()
+UIGearSetTableModel::~UIGearSetTableModel()
 {
 	// nothing to do
 }
 
-Void GearSetTableModel::Initialize( CCGOPGUI * pGUI )
+Void UIGearSetTableModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -95,7 +95,7 @@ Void GearSetTableModel::Initialize( CCGOPGUI * pGUI )
 
 	m_hCreationParameters.bHasInfoTips = true;
 }
-Void GearSetTableModel::CreateColumns()
+Void UIGearSetTableModel::CreateColumns()
 {
 	WinGUITable * pTable = (WinGUITable*)m_pController;
 
@@ -108,13 +108,13 @@ Void GearSetTableModel::CreateColumns()
 	pTable->ToggleFullRowSelection( true );
 
 	// Build Columns
-	for( UInt i = 0; i < CCGOP_GEARSETTABLE_COLUMN_COUNT; ++i ) {
+	for( UInt i = 0; i < UI_GEARSETTABLE_COLUMN_COUNT; ++i ) {
 		pTable->AddColumn( i, m_arrColumnNames[i], i, i, m_arrColumnWidths[i] );
 		pTable->SetColumnRowTextAlign( i, WINGUI_TABLE_TEXT_ALIGN_CENTER );
 	}
 }
 
-Void GearSetTableModel::UpdateAfterGearSetCreation( GearSetID iGearSetID )
+Void UIGearSetTableModel::UpdateAfterGearSetCreation( GearSetID iGearSetID )
 {
 	WinGUITable * pTable = (WinGUITable*)m_pController;
 
@@ -123,7 +123,7 @@ Void GearSetTableModel::UpdateAfterGearSetCreation( GearSetID iGearSetID )
 	pTable->AddItem( iIndex ); // Append
 	pTable->SetItemData( iIndex, (Void*)iGearSetID );
 }
-Void GearSetTableModel::UpdateAfterDataLoad()
+Void UIGearSetTableModel::UpdateAfterDataLoad()
 {
 	WinGUITable * pTable = (WinGUITable*)m_pController;
 	Assert( pTable->GetItemCount() == 0 );
@@ -140,48 +140,48 @@ Void GearSetTableModel::UpdateAfterDataLoad()
 	}
 }
 
-const WinGUILayout * GearSetTableModel::GetLayout() const
+const WinGUILayout * UIGearSetTableModel::GetLayout() const
 {
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = CCGOP_LAYOUT_SPACING_BORDER;
-	hLayout.FixedPosition.iY = CCGOP_LAYOUT_SPACING_BORDER;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_TABLE_WIDTH_SMALL;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_TABLE_HEIGHT_SMALL;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_SPACING_BORDER;
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_SPACING_BORDER;
+
 	return &hLayout;
 }
 
-Bool GearSetTableModel::OnColumnHeaderClick( UInt iIndex )
+Bool UIGearSetTableModel::OnColumnHeaderClick( UInt iIndex )
 {
-	static Bool arrToggles[CCGOP_GEARSETTABLE_COLUMN_COUNT] = {
+	static Bool arrToggles[UI_GEARSETTABLE_COLUMN_COUNT] = {
 		true, true, true, true, true, true, true, true
 	};
 
 	WinGUITable * pTable = (WinGUITable*)m_pController;
 
 	switch( iIndex ) {
-		case CCGOP_GEARSETTABLE_COLUMN_NAME:   pTable->SortItemsByData( _Compare_GearSetName,  arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_GEARSETTABLE_COLUMN_ID:     pTable->SortItemsByData( _Compare_GearSetID,    arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_GEARSETTABLE_COLUMN_RUNE_1: pTable->SortItemsByData( _Compare_GearSetRune1, arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_GEARSETTABLE_COLUMN_RUNE_2: pTable->SortItemsByData( _Compare_GearSetRune2, arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_GEARSETTABLE_COLUMN_RUNE_3: pTable->SortItemsByData( _Compare_GearSetRune3, arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_GEARSETTABLE_COLUMN_RUNE_4: pTable->SortItemsByData( _Compare_GearSetRune4, arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_GEARSETTABLE_COLUMN_RUNE_5: pTable->SortItemsByData( _Compare_GearSetRune5, arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_GEARSETTABLE_COLUMN_RUNE_6: pTable->SortItemsByData( _Compare_GearSetRune6, arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_GEARSETTABLE_COLUMN_NAME:   pTable->SortItemsByData( _Compare_GearSetName,  arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_GEARSETTABLE_COLUMN_ID:     pTable->SortItemsByData( _Compare_GearSetID,    arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_GEARSETTABLE_COLUMN_RUNE_1: pTable->SortItemsByData( _Compare_GearSetRune1, arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_GEARSETTABLE_COLUMN_RUNE_2: pTable->SortItemsByData( _Compare_GearSetRune2, arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_GEARSETTABLE_COLUMN_RUNE_3: pTable->SortItemsByData( _Compare_GearSetRune3, arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_GEARSETTABLE_COLUMN_RUNE_4: pTable->SortItemsByData( _Compare_GearSetRune4, arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_GEARSETTABLE_COLUMN_RUNE_5: pTable->SortItemsByData( _Compare_GearSetRune5, arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_GEARSETTABLE_COLUMN_RUNE_6: pTable->SortItemsByData( _Compare_GearSetRune6, arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
 		default: Assert(false); break;
 	}
 
 	return true;
 }
 
-GChar * GearSetTableModel::OnRequestItemLabel( UInt iItemIndex, UInt iSubItemIndex, Void * pItemData )
+GChar * UIGearSetTableModel::OnRequestItemLabel( UInt iItemIndex, UInt iSubItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < CCGOPFn->GetGearSetCount() );
-	Assert( iSubItemIndex < CCGOP_GEARSETTABLE_COLUMN_COUNT );
+	Assert( iSubItemIndex < UI_GEARSETTABLE_COLUMN_COUNT );
 
 	WinGUITable * pTable = (WinGUITable*)m_pController;
 
@@ -191,28 +191,28 @@ GChar * GearSetTableModel::OnRequestItemLabel( UInt iItemIndex, UInt iSubItemInd
 	const GearSet * pGearSet = CCGOPFn->GetGearSet( iGearSetID );
 
 	switch( iSubItemIndex ) {
-		case CCGOP_GEARSETTABLE_COLUMN_NAME:
+		case UI_GEARSETTABLE_COLUMN_NAME:
 			StringFn->NCopy( strBuffer, pGearSet->GetName(), 63 );
 			break;
-		case CCGOP_GEARSETTABLE_COLUMN_ID:
+		case UI_GEARSETTABLE_COLUMN_ID:
 			StringFn->FromUInt( strBuffer, pGearSet->GetID() );
 			break;
-		case CCGOP_GEARSETTABLE_COLUMN_RUNE_1:
+		case UI_GEARSETTABLE_COLUMN_RUNE_1:
 			StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(0) );
 			break;
-		case CCGOP_GEARSETTABLE_COLUMN_RUNE_2:
+		case UI_GEARSETTABLE_COLUMN_RUNE_2:
 			StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(1) );
 			break;
-		case CCGOP_GEARSETTABLE_COLUMN_RUNE_3:
+		case UI_GEARSETTABLE_COLUMN_RUNE_3:
 			StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(2) );
 			break;
-		case CCGOP_GEARSETTABLE_COLUMN_RUNE_4:
+		case UI_GEARSETTABLE_COLUMN_RUNE_4:
 			StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(3) );
 			break;
-		case CCGOP_GEARSETTABLE_COLUMN_RUNE_5:
+		case UI_GEARSETTABLE_COLUMN_RUNE_5:
 			StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(4) );
 			break;
-		case CCGOP_GEARSETTABLE_COLUMN_RUNE_6:
+		case UI_GEARSETTABLE_COLUMN_RUNE_6:
 			StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(5) );
 			break;
 		default: Assert(false); break;
@@ -223,7 +223,7 @@ GChar * GearSetTableModel::OnRequestItemLabel( UInt iItemIndex, UInt iSubItemInd
 
 /////////////////////////////////////////////////////////////////////////////////
 
-Int __stdcall GearSetTableModel::_Compare_GearSetName( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIGearSetTableModel::_Compare_GearSetName( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	GearSetID iGearSetA = (GearSetID)(IntPtr)pItemDataA;
 	GearSetID iGearSetB = (GearSetID)(IntPtr)pItemDataB;
@@ -232,7 +232,7 @@ Int __stdcall GearSetTableModel::_Compare_GearSetName( Void * pItemDataA, Void *
 	Int iRes = StringFn->NCmp(strNameA, strNameB, GAMEDATA_NAMES_MAX_LENGTH - 1);
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall GearSetTableModel::_Compare_GearSetID( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIGearSetTableModel::_Compare_GearSetID( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	GearSetID iGearSetA = (GearSetID)(IntPtr)pItemDataA;
 	GearSetID iGearSetB = (GearSetID)(IntPtr)pItemDataB;
@@ -241,7 +241,7 @@ Int __stdcall GearSetTableModel::_Compare_GearSetID( Void * pItemDataA, Void * p
 	else if ( iGearSetA > iGearSetB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall GearSetTableModel::_Compare_GearSetRune1( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIGearSetTableModel::_Compare_GearSetRune1( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	GearSetID iGearSetA = (GearSetID)(IntPtr)pItemDataA;
 	GearSetID iGearSetB = (GearSetID)(IntPtr)pItemDataB;
@@ -252,7 +252,7 @@ Int __stdcall GearSetTableModel::_Compare_GearSetRune1( Void * pItemDataA, Void 
 	else if ( iRuneA > iRuneB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall GearSetTableModel::_Compare_GearSetRune2( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIGearSetTableModel::_Compare_GearSetRune2( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	GearSetID iGearSetA = (GearSetID)(IntPtr)pItemDataA;
 	GearSetID iGearSetB = (GearSetID)(IntPtr)pItemDataB;
@@ -263,7 +263,7 @@ Int __stdcall GearSetTableModel::_Compare_GearSetRune2( Void * pItemDataA, Void 
 	else if ( iRuneA > iRuneB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall GearSetTableModel::_Compare_GearSetRune3( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIGearSetTableModel::_Compare_GearSetRune3( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	GearSetID iGearSetA = (GearSetID)(IntPtr)pItemDataA;
 	GearSetID iGearSetB = (GearSetID)(IntPtr)pItemDataB;
@@ -274,7 +274,7 @@ Int __stdcall GearSetTableModel::_Compare_GearSetRune3( Void * pItemDataA, Void 
 	else if ( iRuneA > iRuneB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall GearSetTableModel::_Compare_GearSetRune4( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIGearSetTableModel::_Compare_GearSetRune4( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	GearSetID iGearSetA = (GearSetID)(IntPtr)pItemDataA;
 	GearSetID iGearSetB = (GearSetID)(IntPtr)pItemDataB;
@@ -285,7 +285,7 @@ Int __stdcall GearSetTableModel::_Compare_GearSetRune4( Void * pItemDataA, Void 
 	else if ( iRuneA > iRuneB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall GearSetTableModel::_Compare_GearSetRune5( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIGearSetTableModel::_Compare_GearSetRune5( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	GearSetID iGearSetA = (GearSetID)(IntPtr)pItemDataA;
 	GearSetID iGearSetB = (GearSetID)(IntPtr)pItemDataB;
@@ -296,7 +296,7 @@ Int __stdcall GearSetTableModel::_Compare_GearSetRune5( Void * pItemDataA, Void 
 	else if ( iRuneA > iRuneB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall GearSetTableModel::_Compare_GearSetRune6( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIGearSetTableModel::_Compare_GearSetRune6( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	GearSetID iGearSetA = (GearSetID)(IntPtr)pItemDataA;
 	GearSetID iGearSetB = (GearSetID)(IntPtr)pItemDataB;
@@ -309,25 +309,25 @@ Int __stdcall GearSetTableModel::_Compare_GearSetRune6( Void * pItemDataA, Void 
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// GearSetTableGroupModel implementation
-GearSetTableGroupModel::GearSetTableGroupModel():
+// UIGearSetTableGroupModel implementation
+UIGearSetTableGroupModel::UIGearSetTableGroupModel():
 	WinGUIGroupBoxModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETTABLE_GROUP)
 {
 	m_pGUI = NULL;
 }
-GearSetTableGroupModel::~GearSetTableGroupModel()
+UIGearSetTableGroupModel::~UIGearSetTableGroupModel()
 {
 	// nothing to do
 }
 
-Void GearSetTableGroupModel::Initialize( CCGOPGUI * pGUI )
+Void UIGearSetTableGroupModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
 	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Table Options :") );
 }
 
-const WinGUILayout * GearSetTableGroupModel::GetLayout() const
+const WinGUILayout * UIGearSetTableGroupModel::GetLayout() const
 {
 	static WinGUIManualLayout hLayout;
 
@@ -343,18 +343,18 @@ const WinGUILayout * GearSetTableGroupModel::GetLayout() const
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// GearSetTableSelectAllModel implementation
-GearSetTableSelectAllModel::GearSetTableSelectAllModel():
+// UIGearSetTableSelectAllModel implementation
+UIGearSetTableSelectAllModel::UIGearSetTableSelectAllModel():
 	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETTABLE_SELECTALL)
 {
 	m_pGUI = NULL;
 }
-GearSetTableSelectAllModel::~GearSetTableSelectAllModel()
+UIGearSetTableSelectAllModel::~UIGearSetTableSelectAllModel()
 {
 	// nothing to do
 }
 
-Void GearSetTableSelectAllModel::Initialize( CCGOPGUI * pGUI )
+Void UIGearSetTableSelectAllModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -364,30 +364,27 @@ Void GearSetTableSelectAllModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * GearSetTableSelectAllModel::GetLayout() const
+const WinGUILayout * UIGearSetTableSelectAllModel::GetLayout() const
 {
-	GearSetTable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable();
-	WinGUIGroupBox * pGroupBox = pGearSetTable->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft;
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool GearSetTableSelectAllModel::OnClick()
+Bool UIGearSetTableSelectAllModel::OnClick()
 {
-	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->m_pGearSetTable;
+	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
 
 	UInt iItemCount = pGearSetTable->GetItemCount();
 	for( UInt i = 0; i < iItemCount; ++i ) {
@@ -400,18 +397,18 @@ Bool GearSetTableSelectAllModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// GearSetTableUnselectAllModel implementation
-GearSetTableUnselectAllModel::GearSetTableUnselectAllModel():
+// UIGearSetTableUnselectAllModel implementation
+UIGearSetTableUnselectAllModel::UIGearSetTableUnselectAllModel():
 	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETTABLE_UNSELECTALL)
 {
 	m_pGUI = NULL;
 }
-GearSetTableUnselectAllModel::~GearSetTableUnselectAllModel()
+UIGearSetTableUnselectAllModel::~UIGearSetTableUnselectAllModel()
 {
 	// nothing to do
 }
 
-Void GearSetTableUnselectAllModel::Initialize( CCGOPGUI * pGUI )
+Void UIGearSetTableUnselectAllModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -421,30 +418,27 @@ Void GearSetTableUnselectAllModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * GearSetTableUnselectAllModel::GetLayout() const
+const WinGUILayout * UIGearSetTableUnselectAllModel::GetLayout() const
 {
-	GearSetTable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable();
-	WinGUIGroupBox * pGroupBox = pGearSetTable->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool GearSetTableUnselectAllModel::OnClick()
+Bool UIGearSetTableUnselectAllModel::OnClick()
 {
-	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->m_pGearSetTable;
+	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
 
 	UInt iItemCount = pGearSetTable->GetItemCount();
 	for( UInt i = 0; i < iItemCount; ++i ) {
@@ -457,18 +451,18 @@ Bool GearSetTableUnselectAllModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// GearSetTableCheckAllModel implementation
-GearSetTableCheckAllModel::GearSetTableCheckAllModel():
+// UIGearSetTableCheckAllModel implementation
+UIGearSetTableCheckAllModel::UIGearSetTableCheckAllModel():
 	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETTABLE_CHECKALL)
 {
 	m_pGUI = NULL;
 }
-GearSetTableCheckAllModel::~GearSetTableCheckAllModel()
+UIGearSetTableCheckAllModel::~UIGearSetTableCheckAllModel()
 {
 	// nothing to do
 }
 
-Void GearSetTableCheckAllModel::Initialize( CCGOPGUI * pGUI )
+Void UIGearSetTableCheckAllModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -478,30 +472,27 @@ Void GearSetTableCheckAllModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * GearSetTableCheckAllModel::GetLayout() const
+const WinGUILayout * UIGearSetTableCheckAllModel::GetLayout() const
 {
-	GearSetTable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable();
-	WinGUIGroupBox * pGroupBox = pGearSetTable->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(2,0,0,1);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(2,0,0,1);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool GearSetTableCheckAllModel::OnClick()
+Bool UIGearSetTableCheckAllModel::OnClick()
 {
-	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->m_pGearSetTable;
+	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
 
 	UInt iItemCount = pGearSetTable->GetItemCount();
 	for( UInt i = 0; i < iItemCount; ++i ) {
@@ -514,18 +505,18 @@ Bool GearSetTableCheckAllModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// GearSetTableUncheckAllModel implementation
-GearSetTableUncheckAllModel::GearSetTableUncheckAllModel():
+// UIGearSetTableUncheckAllModel implementation
+UIGearSetTableUncheckAllModel::UIGearSetTableUncheckAllModel():
 	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETTABLE_UNCHECKALL)
 {
 	m_pGUI = NULL;
 }
-GearSetTableUncheckAllModel::~GearSetTableUncheckAllModel()
+UIGearSetTableUncheckAllModel::~UIGearSetTableUncheckAllModel()
 {
 	// nothing to do
 }
 
-Void GearSetTableUncheckAllModel::Initialize( CCGOPGUI * pGUI )
+Void UIGearSetTableUncheckAllModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -535,30 +526,27 @@ Void GearSetTableUncheckAllModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * GearSetTableUncheckAllModel::GetLayout() const
+const WinGUILayout * UIGearSetTableUncheckAllModel::GetLayout() const
 {
-	GearSetTable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable();
-	WinGUIGroupBox * pGroupBox = pGearSetTable->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(3,0,0,1);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(3,0,0,1);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool GearSetTableUncheckAllModel::OnClick()
+Bool UIGearSetTableUncheckAllModel::OnClick()
 {
-	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->m_pGearSetTable;
+	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
 
 	UInt iItemCount = pGearSetTable->GetItemCount();
 	for( UInt i = 0; i < iItemCount; ++i ) {
@@ -571,18 +559,18 @@ Bool GearSetTableUncheckAllModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// GearSetTableCheckSelectedModel implementation
-GearSetTableCheckSelectedModel::GearSetTableCheckSelectedModel():
+// UIGearSetTableCheckSelectedModel implementation
+UIGearSetTableCheckSelectedModel::UIGearSetTableCheckSelectedModel():
 	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETTABLE_CHECKSELECTED)
 {
 	m_pGUI = NULL;
 }
-GearSetTableCheckSelectedModel::~GearSetTableCheckSelectedModel()
+UIGearSetTableCheckSelectedModel::~UIGearSetTableCheckSelectedModel()
 {
 	// nothing to do
 }
 
-Void GearSetTableCheckSelectedModel::Initialize( CCGOPGUI * pGUI )
+Void UIGearSetTableCheckSelectedModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -592,30 +580,27 @@ Void GearSetTableCheckSelectedModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * GearSetTableCheckSelectedModel::GetLayout() const
+const WinGUILayout * UIGearSetTableCheckSelectedModel::GetLayout() const
 {
-	GearSetTable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable();
-	WinGUIGroupBox * pGroupBox = pGearSetTable->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(4,0,0,2);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(4,0,0,2);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool GearSetTableCheckSelectedModel::OnClick()
+Bool UIGearSetTableCheckSelectedModel::OnClick()
 {
-	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->m_pGearSetTable;
+	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
 
 	UInt iItemCount = pGearSetTable->GetItemCount();
 	for( UInt i = 0; i < iItemCount; ++i ) {
@@ -629,18 +614,18 @@ Bool GearSetTableCheckSelectedModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// GearSetTableUncheckSelectedModel implementation
-GearSetTableUncheckSelectedModel::GearSetTableUncheckSelectedModel():
+// UIGearSetTableUncheckSelectedModel implementation
+UIGearSetTableUncheckSelectedModel::UIGearSetTableUncheckSelectedModel():
 	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETTABLE_UNCHECKSELECTED)
 {
 	m_pGUI = NULL;
 }
-GearSetTableUncheckSelectedModel::~GearSetTableUncheckSelectedModel()
+UIGearSetTableUncheckSelectedModel::~UIGearSetTableUncheckSelectedModel()
 {
 	// nothing to do
 }
 
-Void GearSetTableUncheckSelectedModel::Initialize( CCGOPGUI * pGUI )
+Void UIGearSetTableUncheckSelectedModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -650,30 +635,27 @@ Void GearSetTableUncheckSelectedModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * GearSetTableUncheckSelectedModel::GetLayout() const
+const WinGUILayout * UIGearSetTableUncheckSelectedModel::GetLayout() const
 {
-	GearSetTable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable();
-	WinGUIGroupBox * pGroupBox = pGearSetTable->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(5,0,0,2);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(5,0,0,2);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool GearSetTableUncheckSelectedModel::OnClick()
+Bool UIGearSetTableUncheckSelectedModel::OnClick()
 {
-	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->m_pGearSetTable;
+	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
 
 	UInt iItemCount = pGearSetTable->GetItemCount();
 	for( UInt i = 0; i < iItemCount; ++i ) {
@@ -687,8 +669,8 @@ Bool GearSetTableUncheckSelectedModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// GearSetTable implementation
-GearSetTable::GearSetTable( CCGOPGUI * pGUI )
+// UIGearSetTable implementation
+UIGearSetTable::UIGearSetTable( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 	m_pRoot = NULL;
@@ -703,15 +685,15 @@ GearSetTable::GearSetTable( CCGOPGUI * pGUI )
 	m_pCheckSelected = NULL;
 	m_pUncheckSelected = NULL;
 }
-GearSetTable::~GearSetTable()
+UIGearSetTable::~UIGearSetTable()
 {
 	// nothing to do
 }
 
-Void GearSetTable::Initialize()
+Void UIGearSetTable::Initialize()
 {
 	// Grab Root
-	m_pRoot = m_pGUI->GetRoot( CCGOP_MAINMENU_GEARSET_EXPLORER );
+	m_pRoot = m_pGUI->GetTabPane( UI_MAINMENU_GEARSET_EXPLORER );
 
 	// Build GearSet Table UI
 	m_hGearSetTableModel.Initialize( m_pGUI );
@@ -739,7 +721,7 @@ Void GearSetTable::Initialize()
 	m_hUncheckSelected.Initialize( m_pGUI );
 	m_pUncheckSelected = WinGUIFn->CreateButton( m_pRoot, &m_hUncheckSelected );
 }
-Void GearSetTable::Cleanup()
+Void UIGearSetTable::Cleanup()
 {
 	// nothing to do
 }

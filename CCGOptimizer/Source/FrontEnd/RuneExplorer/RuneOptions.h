@@ -36,12 +36,12 @@
 class CCGOPGUI;
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneOptionsGroupModel class
-class RuneOptionsGroupModel : public WinGUIGroupBoxModel
+// The UIRuneOptionsGroupModel class
+class UIRuneOptionsGroupModel : public WinGUIGroupBoxModel
 {
 public:
-	RuneOptionsGroupModel();
-	virtual ~RuneOptionsGroupModel();
+	UIRuneOptionsGroupModel();
+	virtual ~UIRuneOptionsGroupModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -54,12 +54,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneOptionsLockModel class
-class RuneOptionsLockModel : public WinGUIButtonModel
+// The UIRuneOptionsLockModel class
+class UIRuneOptionsLockModel : public WinGUIButtonModel
 {
 public:
-	RuneOptionsLockModel();
-	~RuneOptionsLockModel();
+	UIRuneOptionsLockModel();
+	virtual ~UIRuneOptionsLockModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -75,12 +75,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneOptionsDeleteModel class
-class RuneOptionsDeleteModel : public WinGUIButtonModel
+// The UIRuneOptionsDeleteModel class
+class UIRuneOptionsDeleteModel : public WinGUIButtonModel
 {
 public:
-	RuneOptionsDeleteModel();
-	~RuneOptionsDeleteModel();
+	UIRuneOptionsDeleteModel();
+	virtual ~UIRuneOptionsDeleteModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -96,33 +96,33 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneOptions class
-class RuneOptions
+// The UIRuneOptions class
+class UIRuneOptions
 {
 public:
-	RuneOptions( CCGOPGUI * pGUI );
-	~RuneOptions();
+	UIRuneOptions( CCGOPGUI * pGUI );
+	~UIRuneOptions();
 
 	// Initialization / Cleanup
 	Void Initialize();
 	Void Cleanup();
 
-private:
-	friend class RuneOptionsLockModel;
-	friend class RuneOptionsDeleteModel;
+	// Rune Options
+	inline Void GetOptionsArea( WinGUIRectangle * outClientArea ) const;
 
+private:
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;
 
 	// Hero Options UI
-	RuneOptionsGroupModel m_hGroupModel;
+	UIRuneOptionsGroupModel m_hGroupModel;
 	WinGUIGroupBox * m_pGroup;
 
-	RuneOptionsLockModel m_hLockModel;
+	UIRuneOptionsLockModel m_hLockModel;
 	WinGUIButton * m_pLock;
 
-	RuneOptionsDeleteModel m_hDeleteModel;
+	UIRuneOptionsDeleteModel m_hDeleteModel;
 	WinGUIButton * m_pDelete;
 };
 

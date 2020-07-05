@@ -36,12 +36,12 @@
 class CCGOPGUI;
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroOptionsGroupModel class
-class HeroOptionsGroupModel : public WinGUIGroupBoxModel
+// The UIHeroOptionsGroupModel class
+class UIHeroOptionsGroupModel : public WinGUIGroupBoxModel
 {
 public:
-	HeroOptionsGroupModel();
-	virtual ~HeroOptionsGroupModel();
+	UIHeroOptionsGroupModel();
+	virtual ~UIHeroOptionsGroupModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -54,12 +54,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroOptionsMaxRankModel class
-class HeroOptionsMaxRankModel : public WinGUIButtonModel
+// The UIHeroOptionsMaxRankModel class
+class UIHeroOptionsMaxRankModel : public WinGUIButtonModel
 {
 public:
-	HeroOptionsMaxRankModel();
-	~HeroOptionsMaxRankModel();
+	UIHeroOptionsMaxRankModel();
+	virtual ~UIHeroOptionsMaxRankModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -75,12 +75,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroOptionsMaxLevelModel class
-class HeroOptionsMaxLevelModel : public WinGUIButtonModel
+// The UIHeroOptionsMaxLevelModel class
+class UIHeroOptionsMaxLevelModel : public WinGUIButtonModel
 {
 public:
-	HeroOptionsMaxLevelModel();
-	~HeroOptionsMaxLevelModel();
+	UIHeroOptionsMaxLevelModel();
+	virtual ~UIHeroOptionsMaxLevelModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -96,12 +96,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroOptionsEvolveModel class
-class HeroOptionsEvolveModel : public WinGUIButtonModel
+// The UIHeroOptionsEvolveModel class
+class UIHeroOptionsEvolveModel : public WinGUIButtonModel
 {
 public:
-	HeroOptionsEvolveModel();
-	~HeroOptionsEvolveModel();
+	UIHeroOptionsEvolveModel();
+	virtual ~UIHeroOptionsEvolveModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -117,12 +117,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroOptionsSanctifyChoiceModel class
-class HeroOptionsSanctifyChoiceModel : public WinGUIComboBoxModel
+// The UIHeroOptionsSanctifyChoiceModel class
+class UIHeroOptionsSanctifyChoiceModel : public WinGUIComboBoxModel
 {
 public:
-	HeroOptionsSanctifyChoiceModel();
-	~HeroOptionsSanctifyChoiceModel();
+	UIHeroOptionsSanctifyChoiceModel();
+	virtual ~UIHeroOptionsSanctifyChoiceModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -142,12 +142,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroOptionsSanctifyModel class
-class HeroOptionsSanctifyModel : public WinGUIButtonModel
+// The UIHeroOptionsSanctifyModel class
+class UIHeroOptionsSanctifyModel : public WinGUIButtonModel
 {
 public:
-	HeroOptionsSanctifyModel();
-	~HeroOptionsSanctifyModel();
+	UIHeroOptionsSanctifyModel();
+	virtual ~UIHeroOptionsSanctifyModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -163,12 +163,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroOptionsDeleteModel class
-class HeroOptionsDeleteModel : public WinGUIButtonModel
+// The UIHeroOptionsDeleteModel class
+class UIHeroOptionsDeleteModel : public WinGUIButtonModel
 {
 public:
-	HeroOptionsDeleteModel();
-	~HeroOptionsDeleteModel();
+	UIHeroOptionsDeleteModel();
+	virtual ~UIHeroOptionsDeleteModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -184,49 +184,47 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroOptions class
-class HeroOptions
+// The UIHeroOptions class
+class UIHeroOptions
 {
 public:
-	HeroOptions( CCGOPGUI * pGUI );
-	~HeroOptions();
+	UIHeroOptions( CCGOPGUI * pGUI );
+	~UIHeroOptions();
 
 	// Initialization / Cleanup
 	Void Initialize();
 	Void Cleanup();
 
-private:
-	friend class HeroOptionsMaxRankModel;
-	friend class HeroOptionsMaxLevelModel;
-	friend class HeroOptionsEvolveModel;
-	friend class HeroOptionsSanctifyChoiceModel;
-	friend class HeroOptionsSanctifyModel;
-	friend class HeroOptionsDeleteModel;
+	// Hero Options
+	inline Void GetOptionsArea( WinGUIRectangle * outClientArea ) const;
 
+	inline WinGUIComboBox * GetSanctifyChoice() const;
+
+private:
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;
 
 	// Hero Options UI
-	HeroOptionsGroupModel m_hGroupModel;
+	UIHeroOptionsGroupModel m_hGroupModel;
 	WinGUIGroupBox * m_pGroup;
 
-	HeroOptionsMaxRankModel m_hMaxRankModel;
+	UIHeroOptionsMaxRankModel m_hMaxRankModel;
 	WinGUIButton * m_pMaxRank;
 
-	HeroOptionsMaxLevelModel m_hMaxLevelModel;
+	UIHeroOptionsMaxLevelModel m_hMaxLevelModel;
 	WinGUIButton * m_pMaxLevel;
 
-	HeroOptionsEvolveModel m_hEvolveModel;
+	UIHeroOptionsEvolveModel m_hEvolveModel;
 	WinGUIButton * m_pEvolve;
 
-	HeroOptionsSanctifyChoiceModel m_hSanctifyChoiceModel;
+	UIHeroOptionsSanctifyChoiceModel m_hSanctifyChoiceModel;
 	WinGUIComboBox * m_pSanctifyChoice;
 
-	HeroOptionsSanctifyModel m_hSanctifyModel;
+	UIHeroOptionsSanctifyModel m_hSanctifyModel;
 	WinGUIButton * m_pSanctify;
 
-	HeroOptionsDeleteModel m_hDeleteModel;
+	UIHeroOptionsDeleteModel m_hDeleteModel;
 	WinGUIButton * m_pDelete;
 };
 

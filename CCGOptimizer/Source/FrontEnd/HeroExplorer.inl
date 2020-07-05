@@ -17,12 +17,12 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // HeroExplorer implementation
-inline HeroTable * HeroExplorer::GetHeroTable() {
+inline UIHeroTable * HeroExplorer::GetHeroTable() {
 	return &m_hHeroTable;
 }
-inline HeroCreation * HeroExplorer::GetHeroCreation() {
+inline UIHeroCreation * HeroExplorer::GetHeroCreation() {
 	return &m_hHeroCreation;
 }
-inline HeroOptions * HeroExplorer::GetHeroOptions() {
+inline UIHeroOptions * HeroExplorer::GetHeroOptions() {
 	return &m_hHeroOptions;
 }

@@ -36,12 +36,12 @@
 class CCGOPGUI;
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneCreationGroupModel class
-class RuneCreationGroupModel : public WinGUIGroupBoxModel
+// The UIRuneCreationGroupModel class
+class UIRuneCreationGroupModel : public WinGUIGroupBoxModel
 {
 public:
-	RuneCreationGroupModel();
-	virtual ~RuneCreationGroupModel();
+	UIRuneCreationGroupModel();
+	virtual ~UIRuneCreationGroupModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -54,12 +54,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneCreationSlotModel class
-class RuneCreationSlotModel : public WinGUIComboBoxModel
+// The UIRuneCreationSlotModel class
+class UIRuneCreationSlotModel : public WinGUIComboBoxModel
 {
 public:
-	RuneCreationSlotModel();
-	~RuneCreationSlotModel();
+	UIRuneCreationSlotModel();
+	virtual ~UIRuneCreationSlotModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -81,12 +81,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneCreationSetModel class
-class RuneCreationSetModel : public WinGUIComboBoxModel
+// The UIRuneCreationSetModel class
+class UIRuneCreationSetModel : public WinGUIComboBoxModel
 {
 public:
-	RuneCreationSetModel();
-	~RuneCreationSetModel();
+	UIRuneCreationSetModel();
+	virtual ~UIRuneCreationSetModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -108,12 +108,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneCreationRankModel class
-class RuneCreationRankModel : public WinGUIComboBoxModel
+// The UIRuneCreationRankModel class
+class UIRuneCreationRankModel : public WinGUIComboBoxModel
 {
 public:
-	RuneCreationRankModel();
-	~RuneCreationRankModel();
+	UIRuneCreationRankModel();
+	virtual ~UIRuneCreationRankModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -135,12 +135,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneCreationQualityModel class
-class RuneCreationQualityModel : public WinGUIComboBoxModel
+// The UIRuneCreationQualityModel class
+class UIRuneCreationQualityModel : public WinGUIComboBoxModel
 {
 public:
-	RuneCreationQualityModel();
-	~RuneCreationQualityModel();
+	UIRuneCreationQualityModel();
+	virtual ~UIRuneCreationQualityModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -162,12 +162,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneCreationLevelModel class
-class RuneCreationLevelModel : public WinGUIComboBoxModel
+// The UIRuneCreationLevelModel class
+class UIRuneCreationLevelModel : public WinGUIComboBoxModel
 {
 public:
-	RuneCreationLevelModel();
-	~RuneCreationLevelModel();
+	UIRuneCreationLevelModel();
+	virtual ~UIRuneCreationLevelModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -189,12 +189,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneCreationMainStatModel class
-class RuneCreationMainStatModel : public WinGUIComboBoxModel
+// The UIRuneCreationMainStatModel class
+class UIRuneCreationMainStatModel : public WinGUIComboBoxModel
 {
 public:
-	RuneCreationMainStatModel();
-	~RuneCreationMainStatModel();
+	UIRuneCreationMainStatModel();
+	virtual ~UIRuneCreationMainStatModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -220,12 +220,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneCreationInnateStatModel class
-class RuneCreationInnateStatModel : public WinGUIComboBoxModel
+// The UIRuneCreationInnateStatModel class
+class UIRuneCreationInnateStatModel : public WinGUIComboBoxModel
 {
 public:
-	RuneCreationInnateStatModel();
-	~RuneCreationInnateStatModel();
+	UIRuneCreationInnateStatModel();
+	virtual ~UIRuneCreationInnateStatModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -250,12 +250,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneCreationInnateStatValueModel class
-class RuneCreationInnateStatValueModel : public WinGUITextEditModel
+// The UIRuneCreationInnateStatValueModel class
+class UIRuneCreationInnateStatValueModel : public WinGUITextEditModel
 {
 public:
-	RuneCreationInnateStatValueModel();
-	~RuneCreationInnateStatValueModel();
+	UIRuneCreationInnateStatValueModel();
+	virtual ~UIRuneCreationInnateStatValueModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -272,12 +272,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneCreationRandomStatModel class
-class RuneCreationRandomStatModel : public WinGUIComboBoxModel
+// The UIRuneCreationRandomStatModel class
+class UIRuneCreationRandomStatModel : public WinGUIComboBoxModel
 {
 public:
-	RuneCreationRandomStatModel();
-	~RuneCreationRandomStatModel();
+	UIRuneCreationRandomStatModel();
+	virtual ~UIRuneCreationRandomStatModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI, UInt iIndex );
@@ -303,12 +303,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneCreationRandomStatValueModel class
-class RuneCreationRandomStatValueModel : public WinGUITextEditModel
+// The UIRuneCreationRandomStatValueModel class
+class UIRuneCreationRandomStatValueModel : public WinGUITextEditModel
 {
 public:
-	RuneCreationRandomStatValueModel();
-	~RuneCreationRandomStatValueModel();
+	UIRuneCreationRandomStatValueModel();
+	virtual ~UIRuneCreationRandomStatValueModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI, UInt iIndex );
@@ -326,12 +326,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneCreationButtonModel class
-class RuneCreationButtonModel : public WinGUIButtonModel
+// The UIRuneCreationButtonModel class
+class UIRuneCreationButtonModel : public WinGUIButtonModel
 {
 public:
-	RuneCreationButtonModel();
-	~RuneCreationButtonModel();
+	UIRuneCreationButtonModel();
+	virtual ~UIRuneCreationButtonModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -347,75 +347,77 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneCreation class
-class RuneCreation
+// The UIRuneCreation class
+class UIRuneCreation
 {
 public:
-	RuneCreation( CCGOPGUI * pGUI );
-	~RuneCreation();
+	UIRuneCreation( CCGOPGUI * pGUI );
+	~UIRuneCreation();
 
 	// Initialization / Cleanup
 	Void Initialize();
 	Void Cleanup();
 
-private:
-	friend class RuneCreationSlotModel;
-	friend class RuneCreationSetModel;
-	friend class RuneCreationRankModel;
-	friend class RuneCreationQualityModel;
-	friend class RuneCreationLevelModel;
-	friend class RuneCreationMainStatModel;
-	friend class RuneCreationInnateStatModel;
-	friend class RuneCreationInnateStatValueModel;
-	friend class RuneCreationRandomStatModel;
-	friend class RuneCreationRandomStatValueModel;
-	friend class RuneCreationButtonModel;
+	// Rune Creation
+	inline Void GetCreationArea( WinGUIRectangle * outClientArea ) const;
+
+	inline WinGUIComboBox * GetSlot() const;
+	inline WinGUIComboBox * GetSet() const;
+	inline WinGUIComboBox * GetRank() const;
+	inline WinGUIComboBox * GetQuality() const;
+	inline WinGUIComboBox * GetLevel() const;
+	inline WinGUIComboBox * GetMainStat() const;
+	inline WinGUIComboBox * GetInnateStat() const;
+	inline WinGUITextEdit * GetInnateStatValue() const;
+	inline WinGUIComboBox * GetRandomStat( UInt iIndex ) const;
+	inline WinGUITextEdit * GetRandomStatValue( UInt iIndex ) const;
 
 	// Helpers
-	Void _UpdateAvailableMainStats();
-	Void _UpdateRandomStatsCount();
-	Void _ExcludeRuneStats( WinGUIComboBox * pJustSelected );
+	Void UpdateAvailableMainStats();
+	Void UpdateRandomStatsCount();
+	Void ExcludeRuneStats( WinGUIComboBox * pJustSelected );
 
+private:
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;
 
 	// Rune Creation UI
-	RuneCreationGroupModel m_hGroupModel;
+	UIRuneCreationGroupModel m_hGroupModel;
 	WinGUIGroupBox * m_pGroup;
 
-	RuneCreationSlotModel m_hSlotModel;
+	UIRuneCreationSlotModel m_hSlotModel;
 	WinGUIComboBox * m_pSlot;
 
-	RuneCreationSetModel m_hSetModel;
+	UIRuneCreationSetModel m_hSetModel;
 	WinGUIComboBox * m_pSet;
 
-	RuneCreationRankModel m_hRankModel;
+	UIRuneCreationRankModel m_hRankModel;
 	WinGUIComboBox * m_pRank;
 
-	RuneCreationQualityModel m_hQualityModel;
+	UIRuneCreationQualityModel m_hQualityModel;
 	WinGUIComboBox * m_pQuality;
 
-	RuneCreationLevelModel m_hLevelModel;
+	UIRuneCreationLevelModel m_hLevelModel;
 	WinGUIComboBox * m_pLevel;
 
-	RuneCreationMainStatModel m_hMainStatModel;
+	UIRuneCreationMainStatModel m_hMainStatModel;
 	WinGUIComboBox * m_pMainStat;
 
-	RuneCreationInnateStatModel m_hInnateStatModel;
+	UIRuneCreationInnateStatModel m_hInnateStatModel;
 	WinGUIComboBox * m_pInnateStat;
 
-	RuneCreationInnateStatValueModel m_hInnateStatValueModel;
+	UIRuneCreationInnateStatValueModel m_hInnateStatValueModel;
 	WinGUITextEdit * m_pInnateStatValue;
 
 	struct _random_stats {
-		RuneCreationRandomStatModel m_hRandomStatModel;
-		WinGUIComboBox * m_pRandomStat;
-		RuneCreationRandomStatValueModel m_hRandomStatValueModel;
-		WinGUITextEdit * m_pRandomStatValue;
+		UIRuneCreationRandomStatModel hStatModel;
+		WinGUIComboBox * pStat;
+		UIRuneCreationRandomStatValueModel hValueModel;
+		WinGUITextEdit * pValue;
 	} m_arrRandomStats[RUNE_RANDOM_STAT_COUNT];
 
-	RuneCreationButtonModel m_hButtonModel;
+	UIRuneCreationButtonModel m_hButtonModel;
 	WinGUIButton * m_pButton;
 };
 

@@ -24,25 +24,25 @@
 #pragma warning(disable:4312) // Converting UInts to Void*
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneOptionsGroupModel implementation
-RuneOptionsGroupModel::RuneOptionsGroupModel():
+// UIRuneOptionsGroupModel implementation
+UIRuneOptionsGroupModel::UIRuneOptionsGroupModel():
 	WinGUIGroupBoxModel(CCGOP_RESID_RUNEEXPLORER_RUNEOPTIONS_GROUP)
 {
 	m_pGUI = NULL;
 }
-RuneOptionsGroupModel::~RuneOptionsGroupModel()
+UIRuneOptionsGroupModel::~UIRuneOptionsGroupModel()
 {
 	// nothing to do
 }
 
-Void RuneOptionsGroupModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneOptionsGroupModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
 	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Rune Options :") );
 }
 
-const WinGUILayout * RuneOptionsGroupModel::GetLayout() const
+const WinGUILayout * UIRuneOptionsGroupModel::GetLayout() const
 {
 	static WinGUIManualLayout hLayout;
 
@@ -58,18 +58,18 @@ const WinGUILayout * RuneOptionsGroupModel::GetLayout() const
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneOptionsLockModel implementation
-RuneOptionsLockModel::RuneOptionsLockModel():
+// UIRuneOptionsLockModel implementation
+UIRuneOptionsLockModel::UIRuneOptionsLockModel():
 	WinGUIButtonModel(CCGOP_RESID_RUNEEXPLORER_RUNEOPTIONS_LOCK)
 {
 	m_pGUI = NULL;
 }
-RuneOptionsLockModel::~RuneOptionsLockModel()
+UIRuneOptionsLockModel::~UIRuneOptionsLockModel()
 {
 	// nothing to do
 }
 
-Void RuneOptionsLockModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneOptionsLockModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -79,31 +79,28 @@ Void RuneOptionsLockModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * RuneOptionsLockModel::GetLayout() const
+const WinGUILayout * UIRuneOptionsLockModel::GetLayout() const
 {
-	RuneOptions * pRuneOptions = m_pGUI->GetRuneExplorer()->GetRuneOptions();
-	WinGUIGroupBox * pGroupBox = pRuneOptions->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneOptions()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft;
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool RuneOptionsLockModel::OnClick()
+Bool UIRuneOptionsLockModel::OnClick()
 {
 	// Retrieve Rune Table
-	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->m_pRuneTable;
+	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->GetTable();
 
 	// Find all checked elements
 	Bool bChanged = false;
@@ -134,18 +131,18 @@ Bool RuneOptionsLockModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneOptionsDeleteModel implementation
-RuneOptionsDeleteModel::RuneOptionsDeleteModel():
+// UIRuneOptionsDeleteModel implementation
+UIRuneOptionsDeleteModel::UIRuneOptionsDeleteModel():
 	WinGUIButtonModel(CCGOP_RESID_RUNEEXPLORER_RUNEOPTIONS_DELETE)
 {
 	m_pGUI = NULL;
 }
-RuneOptionsDeleteModel::~RuneOptionsDeleteModel()
+UIRuneOptionsDeleteModel::~UIRuneOptionsDeleteModel()
 {
 	// nothing to do
 }
 
-Void RuneOptionsDeleteModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneOptionsDeleteModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -155,28 +152,25 @@ Void RuneOptionsDeleteModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * RuneOptionsDeleteModel::GetLayout() const
+const WinGUILayout * UIRuneOptionsDeleteModel::GetLayout() const
 {
-	RuneOptions * pRuneOptions = m_pGUI->GetRuneExplorer()->GetRuneOptions();
-	WinGUIGroupBox * pGroupBox = pRuneOptions->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneOptions()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool RuneOptionsDeleteModel::OnClick()
+Bool UIRuneOptionsDeleteModel::OnClick()
 {
 	// Confirmation Message
 	WinGUIMessageBoxOptions hOptions;
@@ -196,7 +190,7 @@ Bool RuneOptionsDeleteModel::OnClick()
 		return true;
 
 	// Retrieve Rune Table
-	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->m_pRuneTable;
+	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->GetTable();
 
 	// Delete all checked elements
 	Bool bChanged = false;
@@ -236,8 +230,8 @@ Bool RuneOptionsDeleteModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneOptions implementation
-RuneOptions::RuneOptions( CCGOPGUI * pGUI )
+// UIRuneOptions implementation
+UIRuneOptions::UIRuneOptions( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 	m_pRoot = NULL;
@@ -245,15 +239,15 @@ RuneOptions::RuneOptions( CCGOPGUI * pGUI )
 	m_pGroup = NULL;
 	m_pDelete = NULL;
 }
-RuneOptions::~RuneOptions()
+UIRuneOptions::~UIRuneOptions()
 {
 	// nothing to do
 }
 
-Void RuneOptions::Initialize()
+Void UIRuneOptions::Initialize()
 {
 	// Grab Root
-	m_pRoot = m_pGUI->GetRoot( CCGOP_MAINMENU_RUNE_EXPLORER );
+	m_pRoot = m_pGUI->GetTabPane( UI_MAINMENU_RUNE_EXPLORER );
 
 	// Build Rune Options UI
 	m_hGroupModel.Initialize( m_pGUI );
@@ -265,7 +259,7 @@ Void RuneOptions::Initialize()
 	m_hDeleteModel.Initialize( m_pGUI );
 	m_pDelete = WinGUIFn->CreateButton( m_pRoot, &(m_hDeleteModel) );
 }
-Void RuneOptions::Cleanup()
+Void UIRuneOptions::Cleanup()
 {
 	// nothing to do (for now)
 }

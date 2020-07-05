@@ -24,66 +24,66 @@
 #pragma warning(disable:4312) // Converting UInts to Void*
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneTableModel implementation
-RuneTableModel::RuneTableModel():
+// UIRuneTableModel implementation
+UIRuneTableModel::UIRuneTableModel():
 	WinGUITableModel(CCGOP_RESID_RUNEEXPLORER_RUNETABLE_TABLE)
 {
 	m_pGUI = NULL;
 
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_ID],                  TEXT("ID") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_LOCKED],              TEXT("Locked") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_SLOT],                TEXT("Slot") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_SET],                 TEXT("Set") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_RANK],                TEXT("Rank") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_QUALITY],             TEXT("Quality") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_LEVEL],               TEXT("Level") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_MAINSTAT],            TEXT("MainStat") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_MAINSTAT_VALUE],      TEXT("MainStat Val") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_INNATESTAT],          TEXT("InnateStat") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_INNATESTAT_VALUE],    TEXT("InnateStat Val") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_PC],    TEXT("HP%") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_FLAT],  TEXT("HP") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_PC],   TEXT("ATT%") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_FLAT], TEXT("ATT") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_PC],   TEXT("DEF%") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_FLAT], TEXT("DEF") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_SPD],      TEXT("SPD") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITRATE], TEXT("CritRate") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITDMG],  TEXT("CritDmg") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HIT],      TEXT("HIT") );
-	StringFn->Copy( m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_RES],      TEXT("RES") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_ID],                  TEXT("ID") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_LOCKED],              TEXT("Locked") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_SLOT],                TEXT("Slot") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_SET],                 TEXT("Set") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_RANK],                TEXT("Rank") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_QUALITY],             TEXT("Quality") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_LEVEL],               TEXT("Level") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_MAINSTAT],            TEXT("MainStat") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_MAINSTAT_VALUE],      TEXT("MainStat Val") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_INNATESTAT],          TEXT("InnateStat") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_INNATESTAT_VALUE],    TEXT("InnateStat Val") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_RANDOMSTAT_HP_PC],    TEXT("HP%") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_RANDOMSTAT_HP_FLAT],  TEXT("HP") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_RANDOMSTAT_ATT_PC],   TEXT("ATT%") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_RANDOMSTAT_ATT_FLAT], TEXT("ATT") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_RANDOMSTAT_DEF_PC],   TEXT("DEF%") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_RANDOMSTAT_DEF_FLAT], TEXT("DEF") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_RANDOMSTAT_SPD],      TEXT("SPD") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_RANDOMSTAT_CRITRATE], TEXT("CritRate") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_RANDOMSTAT_CRITDMG],  TEXT("CritDmg") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_RANDOMSTAT_HIT],      TEXT("HIT") );
+	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_RANDOMSTAT_RES],      TEXT("RES") );
 
-	UInt iAvgWidth = ( CCGOP_LAYOUT_TABLE_WIDTH / CCGOP_RUNETABLE_COLUMN_COUNT );
+	UInt iAvgWidth = ( CCGOP_LAYOUT_TABLE_WIDTH / UI_RUNETABLE_COLUMN_COUNT );
 
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_ID]                  = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_LOCKED]              = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_SLOT]                = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_SET]                 = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANK]                = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_QUALITY]             = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_LEVEL]               = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_MAINSTAT]            = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_MAINSTAT_VALUE]      = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_INNATESTAT]          = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_INNATESTAT_VALUE]    = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_PC]    = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_FLAT]  = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_PC]   = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_FLAT] = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_PC]   = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_FLAT] = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_SPD]      = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITRATE] = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITDMG]  = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HIT]      = iAvgWidth;
-	m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_RES]      = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_ID]                  = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_LOCKED]              = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_SLOT]                = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_SET]                 = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_RANK]                = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_QUALITY]             = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_LEVEL]               = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_MAINSTAT]            = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_MAINSTAT_VALUE]      = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_INNATESTAT]          = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_INNATESTAT_VALUE]    = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_RANDOMSTAT_HP_PC]    = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_RANDOMSTAT_HP_FLAT]  = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_RANDOMSTAT_ATT_PC]   = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_RANDOMSTAT_ATT_FLAT] = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_RANDOMSTAT_DEF_PC]   = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_RANDOMSTAT_DEF_FLAT] = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_RANDOMSTAT_SPD]      = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_RANDOMSTAT_CRITRATE] = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_RANDOMSTAT_CRITDMG]  = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_RANDOMSTAT_HIT]      = iAvgWidth;
+	m_arrColumnWidths[UI_RUNETABLE_COLUMN_RANDOMSTAT_RES]      = iAvgWidth;
 }
-RuneTableModel::~RuneTableModel()
+UIRuneTableModel::~UIRuneTableModel()
 {
 	// nothing to do
 }
 
-Void RuneTableModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneTableModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -121,7 +121,7 @@ Void RuneTableModel::Initialize( CCGOPGUI * pGUI )
 
 	m_hCreationParameters.bHasInfoTips = true;
 }
-Void RuneTableModel::CreateColumns()
+Void UIRuneTableModel::CreateColumns()
 {
 	WinGUITable * pTable = (WinGUITable*)m_pController;
 
@@ -133,13 +133,13 @@ Void RuneTableModel::CreateColumns()
 	pTable->ToggleAlwaysShowSelection( true );
 
 	// Build Columns
-	for( UInt i = 0; i < CCGOP_RUNETABLE_COLUMN_COUNT; ++i ) {
+	for( UInt i = 0; i < UI_RUNETABLE_COLUMN_COUNT; ++i ) {
 		pTable->AddColumn( i, m_arrColumnNames[i], i, i, m_arrColumnWidths[i] );
 		pTable->SetColumnRowTextAlign( i, WINGUI_TABLE_TEXT_ALIGN_CENTER );
 	}
 }
 
-Void RuneTableModel::UpdateAfterRuneCreation( RuneID iRuneID )
+Void UIRuneTableModel::UpdateAfterRuneCreation( RuneID iRuneID )
 {
 	WinGUITable * pTable = (WinGUITable*)m_pController;
 
@@ -148,7 +148,7 @@ Void RuneTableModel::UpdateAfterRuneCreation( RuneID iRuneID )
 	pTable->AddItem( iIndex ); // Append
 	pTable->SetItemData( iIndex, (Void*)iRuneID );
 }
-Void RuneTableModel::UpdateAfterDataLoad()
+Void UIRuneTableModel::UpdateAfterDataLoad()
 {
 	WinGUITable * pTable = (WinGUITable*)m_pController;
 	Assert( pTable->GetItemCount() == 0 );
@@ -164,7 +164,7 @@ Void RuneTableModel::UpdateAfterDataLoad()
 		++itRune;
 	}
 }
-Void RuneTableModel::UpdateAfterFiltering( const Array<RuneID> & arrFilteredRunes )
+Void UIRuneTableModel::UpdateAfterFiltering( const Array<RuneID> & arrFilteredRunes )
 {
 	WinGUITable * pTable = (WinGUITable*)m_pController;
 	Assert( pTable->GetItemCount() == 0 );
@@ -176,7 +176,7 @@ Void RuneTableModel::UpdateAfterFiltering( const Array<RuneID> & arrFilteredRune
 	}
 }
 
-const WinGUILayout * RuneTableModel::GetLayout() const
+const WinGUILayout * UIRuneTableModel::GetLayout() const
 {
 	static WinGUIManualLayout hLayout;
 
@@ -191,9 +191,9 @@ const WinGUILayout * RuneTableModel::GetLayout() const
 	return &hLayout;
 }
 
-Bool RuneTableModel::OnColumnHeaderClick( UInt iIndex )
+Bool UIRuneTableModel::OnColumnHeaderClick( UInt iIndex )
 {
-	static Bool arrToggles[CCGOP_RUNETABLE_COLUMN_COUNT] = {
+	static Bool arrToggles[UI_RUNETABLE_COLUMN_COUNT] = {
 		true, true, true, true, true, true, true, true,
 		true, true, true, true, true, true, true, true,
 		true, true, true, true, true, true
@@ -202,38 +202,38 @@ Bool RuneTableModel::OnColumnHeaderClick( UInt iIndex )
 	WinGUITable * pTable = (WinGUITable*)m_pController;
 
 	switch( iIndex ) {
-		case CCGOP_RUNETABLE_COLUMN_ID:                  pTable->SortItemsByData( _Compare_RuneID,                 arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_LOCKED:              pTable->SortItemsByData( _Compare_RuneLocked,             arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_SLOT:                pTable->SortItemsByData( _Compare_RuneSlot,               arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_SET:                 pTable->SortItemsByData( _Compare_RuneSet,                arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_RANK:                pTable->SortItemsByData( _Compare_RuneRank,               arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_QUALITY:             pTable->SortItemsByData( _Compare_RuneQuality,            arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_LEVEL:               pTable->SortItemsByData( _Compare_RuneLevel,              arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_MAINSTAT:            pTable->SortItemsByData( _Compare_RuneMainStat,           arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_MAINSTAT_VALUE:      pTable->SortItemsByData( _Compare_RuneMainStatValue,      arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_INNATESTAT:          pTable->SortItemsByData( _Compare_RuneInnateStat,         arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_INNATESTAT_VALUE:    pTable->SortItemsByData( _Compare_RuneInnateStatValue,    arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_PC:    pTable->SortItemsByData( _Compare_RuneRandomStatHPPc,     arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_FLAT:  pTable->SortItemsByData( _Compare_RuneRandomStatHPFlat,   arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_PC:   pTable->SortItemsByData( _Compare_RuneRandomStatATTPc,    arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_FLAT: pTable->SortItemsByData( _Compare_RuneRandomStatATTFlat,  arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_PC:   pTable->SortItemsByData( _Compare_RuneRandomStatDEFPc,    arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_FLAT: pTable->SortItemsByData( _Compare_RuneRandomStatDEFFlat,  arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_SPD:      pTable->SortItemsByData( _Compare_RuneRandomStatSPD,      arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITRATE: pTable->SortItemsByData( _Compare_RuneRandomStatCritRate, arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITDMG:  pTable->SortItemsByData( _Compare_RuneRandomStatCritDmg,  arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HIT:      pTable->SortItemsByData( _Compare_RuneRandomStatHIT,      arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_RES:      pTable->SortItemsByData( _Compare_RuneRandomStatRES,      arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_ID:                  pTable->SortItemsByData( _Compare_RuneID,                 arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_LOCKED:              pTable->SortItemsByData( _Compare_RuneLocked,             arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_SLOT:                pTable->SortItemsByData( _Compare_RuneSlot,               arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_SET:                 pTable->SortItemsByData( _Compare_RuneSet,                arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_RANK:                pTable->SortItemsByData( _Compare_RuneRank,               arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_QUALITY:             pTable->SortItemsByData( _Compare_RuneQuality,            arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_LEVEL:               pTable->SortItemsByData( _Compare_RuneLevel,              arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_MAINSTAT:            pTable->SortItemsByData( _Compare_RuneMainStat,           arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_MAINSTAT_VALUE:      pTable->SortItemsByData( _Compare_RuneMainStatValue,      arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_INNATESTAT:          pTable->SortItemsByData( _Compare_RuneInnateStat,         arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_INNATESTAT_VALUE:    pTable->SortItemsByData( _Compare_RuneInnateStatValue,    arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_HP_PC:    pTable->SortItemsByData( _Compare_RuneRandomStatHPPc,     arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_HP_FLAT:  pTable->SortItemsByData( _Compare_RuneRandomStatHPFlat,   arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_ATT_PC:   pTable->SortItemsByData( _Compare_RuneRandomStatATTPc,    arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_ATT_FLAT: pTable->SortItemsByData( _Compare_RuneRandomStatATTFlat,  arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_DEF_PC:   pTable->SortItemsByData( _Compare_RuneRandomStatDEFPc,    arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_DEF_FLAT: pTable->SortItemsByData( _Compare_RuneRandomStatDEFFlat,  arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_SPD:      pTable->SortItemsByData( _Compare_RuneRandomStatSPD,      arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_CRITRATE: pTable->SortItemsByData( _Compare_RuneRandomStatCritRate, arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_CRITDMG:  pTable->SortItemsByData( _Compare_RuneRandomStatCritDmg,  arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_HIT:      pTable->SortItemsByData( _Compare_RuneRandomStatHIT,      arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_RES:      pTable->SortItemsByData( _Compare_RuneRandomStatRES,      arrToggles + iIndex ); arrToggles[iIndex] = !(arrToggles[iIndex]); break;
 		default: Assert(false); break;
 	}
 
 	return true;
 }
 
-GChar * RuneTableModel::OnRequestItemLabel( UInt iItemIndex, UInt iSubItemIndex, Void * pItemData )
+GChar * UIRuneTableModel::OnRequestItemLabel( UInt iItemIndex, UInt iSubItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < CCGOPFn->GetRuneCount() );
-	Assert( iSubItemIndex < CCGOP_RUNETABLE_COLUMN_COUNT );
+	Assert( iSubItemIndex < UI_RUNETABLE_COLUMN_COUNT );
 
 	WinGUITable * pTable = (WinGUITable*)m_pController;
 
@@ -243,106 +243,106 @@ GChar * RuneTableModel::OnRequestItemLabel( UInt iItemIndex, UInt iSubItemIndex,
 	const Rune * pRune = CCGOPFn->GetRune( iRuneID );
 
 	switch( iSubItemIndex ) {
-		case CCGOP_RUNETABLE_COLUMN_ID:
+		case UI_RUNETABLE_COLUMN_ID:
 			StringFn->FromUInt( strBuffer, pRune->GetID() );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_LOCKED:
+		case UI_RUNETABLE_COLUMN_LOCKED:
 			StringFn->NCopy( strBuffer, (pRune->IsLocked() ? TEXT("Yes") : TEXT("No")), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_SLOT:
+		case UI_RUNETABLE_COLUMN_SLOT:
 			StringFn->FromUInt( strBuffer, pRune->GetSlot() + 1 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_SET:
+		case UI_RUNETABLE_COLUMN_SET:
 			StringFn->NCopy( strBuffer, GameDataFn->GetRuneSetName(pRune->GetSet()), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_RANK:
+		case UI_RUNETABLE_COLUMN_RANK:
 			StringFn->NCopy( strBuffer, GameDataFn->GetRuneRankName(pRune->GetRank()), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_QUALITY:
+		case UI_RUNETABLE_COLUMN_QUALITY:
 			StringFn->NCopy( strBuffer, GameDataFn->GetRuneQualityName(pRune->GetQuality()), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_LEVEL:
+		case UI_RUNETABLE_COLUMN_LEVEL:
 			StringFn->FromUInt( strBuffer, pRune->GetLevel() );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_MAINSTAT:
+		case UI_RUNETABLE_COLUMN_MAINSTAT:
 			StringFn->NCopy( strBuffer, GameDataFn->GetRuneStatName(pRune->GetMainStat()), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_MAINSTAT_VALUE:
+		case UI_RUNETABLE_COLUMN_MAINSTAT_VALUE:
 			StringFn->FromUInt( strBuffer, pRune->GetMainStatValue() );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_INNATESTAT:
+		case UI_RUNETABLE_COLUMN_INNATESTAT:
 			if ( pRune->GetInnateStat() != RUNE_STAT_COUNT )
 				StringFn->NCopy( strBuffer, GameDataFn->GetRuneStatName(pRune->GetInnateStat()), 63 );
 			else
 				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_INNATESTAT_VALUE:
+		case UI_RUNETABLE_COLUMN_INNATESTAT_VALUE:
 			if ( pRune->GetInnateStat() != RUNE_STAT_COUNT )
 				StringFn->FromUInt( strBuffer, pRune->GetInnateStatValue() );
 			else
 				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_PC:
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_HP_PC:
 			if ( pRune->HasRandomStat(RUNE_STAT_HP_PERCENT) )
 				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_HP_PERCENT) );
 			else
 				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_FLAT:
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_HP_FLAT:
 			if ( pRune->HasRandomStat(RUNE_STAT_HP_FLAT) )
 				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_HP_FLAT) );
 			else
 				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_PC:
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_ATT_PC:
 			if ( pRune->HasRandomStat(RUNE_STAT_ATTACK_PERCENT) )
 				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_ATTACK_PERCENT) );
 			else
 				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_FLAT:
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_ATT_FLAT:
 			if ( pRune->HasRandomStat(RUNE_STAT_ATTACK_FLAT) )
 				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_ATTACK_FLAT) );
 			else
 				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_PC:
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_DEF_PC:
 			if ( pRune->HasRandomStat(RUNE_STAT_DEFENSE_PERCENT) )
 				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_DEFENSE_PERCENT) );
 			else
 				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_FLAT:
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_DEF_FLAT:
 			if ( pRune->HasRandomStat(RUNE_STAT_DEFENSE_FLAT) )
 				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_DEFENSE_FLAT) );
 			else
 				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_SPD:
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_SPD:
 			if ( pRune->HasRandomStat(RUNE_STAT_SPEED) )
 				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_SPEED) );
 			else
 				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITRATE:
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_CRITRATE:
 			if ( pRune->HasRandomStat(RUNE_STAT_CRIT_RATE) )
 				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_CRIT_RATE) );
 			else
 				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITDMG:
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_CRITDMG:
 			if ( pRune->HasRandomStat(RUNE_STAT_CRIT_DMG) )
 				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_CRIT_DMG) );
 			else
 				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HIT:
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_HIT:
 			if ( pRune->HasRandomStat(RUNE_STAT_HIT) )
 				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_HIT) );
 			else
 				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
 			break;
-		case CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_RES:
+		case UI_RUNETABLE_COLUMN_RANDOMSTAT_RES:
 			if ( pRune->HasRandomStat(RUNE_STAT_RESISTANCE) )
 				StringFn->FromUInt( strBuffer, pRune->GetRandomStatValue(RUNE_STAT_RESISTANCE) );
 			else
@@ -356,7 +356,7 @@ GChar * RuneTableModel::OnRequestItemLabel( UInt iItemIndex, UInt iSubItemIndex,
 
 /////////////////////////////////////////////////////////////////////////////////
 
-Int __stdcall RuneTableModel::_Compare_RuneID( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneID( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -365,7 +365,7 @@ Int __stdcall RuneTableModel::_Compare_RuneID( Void * pItemDataA, Void * pItemDa
 	else if ( iRuneA > iRuneB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneLocked( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneLocked( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -376,7 +376,7 @@ Int __stdcall RuneTableModel::_Compare_RuneLocked( Void * pItemDataA, Void * pIt
 	else if ( !bLockedA && bLockedB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneSlot( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneSlot( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -387,7 +387,7 @@ Int __stdcall RuneTableModel::_Compare_RuneSlot( Void * pItemDataA, Void * pItem
 	else if ( iSlotA > iSlotB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneSet( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneSet( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -398,7 +398,7 @@ Int __stdcall RuneTableModel::_Compare_RuneSet( Void * pItemDataA, Void * pItemD
 	else if ( iSetA > iSetB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneRank( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneRank( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -409,7 +409,7 @@ Int __stdcall RuneTableModel::_Compare_RuneRank( Void * pItemDataA, Void * pItem
 	else if ( iRankA > iRankB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneQuality( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneQuality( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -420,7 +420,7 @@ Int __stdcall RuneTableModel::_Compare_RuneQuality( Void * pItemDataA, Void * pI
 	else if ( iQualityA > iQualityB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneLevel( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneLevel( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -431,7 +431,7 @@ Int __stdcall RuneTableModel::_Compare_RuneLevel( Void * pItemDataA, Void * pIte
 	else if ( iLevelA > iLevelB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneMainStat( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneMainStat( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -442,7 +442,7 @@ Int __stdcall RuneTableModel::_Compare_RuneMainStat( Void * pItemDataA, Void * p
 	else if ( iMainStatA > iMainStatB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneMainStatValue( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneMainStatValue( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -453,7 +453,7 @@ Int __stdcall RuneTableModel::_Compare_RuneMainStatValue( Void * pItemDataA, Voi
 	else if ( iMainStatValueA > iMainStatValueB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneInnateStat( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneInnateStat( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -464,7 +464,7 @@ Int __stdcall RuneTableModel::_Compare_RuneInnateStat( Void * pItemDataA, Void *
 	else if ( iInnateStatA > iInnateStatB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneInnateStatValue( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneInnateStatValue( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -475,7 +475,7 @@ Int __stdcall RuneTableModel::_Compare_RuneInnateStatValue( Void * pItemDataA, V
 	else if ( iInnateStatValueA > iInnateStatValueB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneRandomStatHPPc( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneRandomStatHPPc( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -486,7 +486,7 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatHPPc( Void * pItemDataA, Vo
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneRandomStatHPFlat( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneRandomStatHPFlat( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -497,7 +497,7 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatHPFlat( Void * pItemDataA, 
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneRandomStatATTPc( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneRandomStatATTPc( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -508,7 +508,7 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatATTPc( Void * pItemDataA, V
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneRandomStatATTFlat( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneRandomStatATTFlat( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -519,7 +519,7 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatATTFlat( Void * pItemDataA,
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneRandomStatDEFPc( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneRandomStatDEFPc( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -530,7 +530,7 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatDEFPc( Void * pItemDataA, V
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneRandomStatDEFFlat( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneRandomStatDEFFlat( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -541,7 +541,7 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatDEFFlat( Void * pItemDataA,
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneRandomStatSPD( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneRandomStatSPD( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -552,7 +552,7 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatSPD( Void * pItemDataA, Voi
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneRandomStatCritRate( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneRandomStatCritRate( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -563,7 +563,7 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatCritRate( Void * pItemDataA
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneRandomStatCritDmg( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneRandomStatCritDmg( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -574,7 +574,7 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatCritDmg( Void * pItemDataA,
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneRandomStatHIT( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneRandomStatHIT( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -585,7 +585,7 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatHIT( Void * pItemDataA, Voi
 	else if ( iRandomStatValueA > iRandomStatValueB ) iRes = -1;
 	return ( bToggle ? iRes : -iRes );
 }
-Int __stdcall RuneTableModel::_Compare_RuneRandomStatRES( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
+Int __stdcall UIRuneTableModel::_Compare_RuneRandomStatRES( Void * pItemDataA, Void * pItemDataB, Void * pUserData ) {
 	Bool bToggle = *((Bool *)pUserData);
 	RuneID iRuneA = (RuneID)(IntPtr)pItemDataA;
 	RuneID iRuneB = (RuneID)(IntPtr)pItemDataB;
@@ -598,25 +598,25 @@ Int __stdcall RuneTableModel::_Compare_RuneRandomStatRES( Void * pItemDataA, Voi
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneTableGroupModel implementation
-RuneTableGroupModel::RuneTableGroupModel():
+// UIRuneTableGroupModel implementation
+UIRuneTableGroupModel::UIRuneTableGroupModel():
 	WinGUIGroupBoxModel(CCGOP_RESID_RUNEEXPLORER_RUNETABLE_GROUP)
 {
 	m_pGUI = NULL;
 }
-RuneTableGroupModel::~RuneTableGroupModel()
+UIRuneTableGroupModel::~UIRuneTableGroupModel()
 {
 	// nothing to do
 }
 
-Void RuneTableGroupModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneTableGroupModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
 	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Table Options :") );
 }
 
-const WinGUILayout * RuneTableGroupModel::GetLayout() const
+const WinGUILayout * UIRuneTableGroupModel::GetLayout() const
 {
 	static WinGUIManualLayout hLayout;
 
@@ -632,18 +632,18 @@ const WinGUILayout * RuneTableGroupModel::GetLayout() const
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneTableSelectAllModel implementation
-RuneTableSelectAllModel::RuneTableSelectAllModel():
+// UIRuneTableSelectAllModel implementation
+UIRuneTableSelectAllModel::UIRuneTableSelectAllModel():
 	WinGUIButtonModel(CCGOP_RESID_RUNEEXPLORER_RUNETABLE_SELECTALL)
 {
 	m_pGUI = NULL;
 }
-RuneTableSelectAllModel::~RuneTableSelectAllModel()
+UIRuneTableSelectAllModel::~UIRuneTableSelectAllModel()
 {
 	// nothing to do
 }
 
-Void RuneTableSelectAllModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneTableSelectAllModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -653,30 +653,27 @@ Void RuneTableSelectAllModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * RuneTableSelectAllModel::GetLayout() const
+const WinGUILayout * UIRuneTableSelectAllModel::GetLayout() const
 {
-	RuneTable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable();
-	WinGUIGroupBox * pGroupBox = pRuneTable->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneTable()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft;
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool RuneTableSelectAllModel::OnClick()
+Bool UIRuneTableSelectAllModel::OnClick()
 {
-	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->m_pRuneTable;
+	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->GetTable();
 
 	UInt iItemCount = pRuneTable->GetItemCount();
 	for( UInt i = 0; i < iItemCount; ++i ) {
@@ -689,18 +686,18 @@ Bool RuneTableSelectAllModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneTableUnselectAllModel implementation
-RuneTableUnselectAllModel::RuneTableUnselectAllModel():
+// UIRuneTableUnselectAllModel implementation
+UIRuneTableUnselectAllModel::UIRuneTableUnselectAllModel():
 	WinGUIButtonModel(CCGOP_RESID_RUNEEXPLORER_RUNETABLE_UNSELECTALL)
 {
 	m_pGUI = NULL;
 }
-RuneTableUnselectAllModel::~RuneTableUnselectAllModel()
+UIRuneTableUnselectAllModel::~UIRuneTableUnselectAllModel()
 {
 	// nothing to do
 }
 
-Void RuneTableUnselectAllModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneTableUnselectAllModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -710,30 +707,27 @@ Void RuneTableUnselectAllModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * RuneTableUnselectAllModel::GetLayout() const
+const WinGUILayout * UIRuneTableUnselectAllModel::GetLayout() const
 {
-	RuneTable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable();
-	WinGUIGroupBox * pGroupBox = pRuneTable->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneTable()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool RuneTableUnselectAllModel::OnClick()
+Bool UIRuneTableUnselectAllModel::OnClick()
 {
-	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->m_pRuneTable;
+	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->GetTable();
 
 	UInt iItemCount = pRuneTable->GetItemCount();
 	for( UInt i = 0; i < iItemCount; ++i ) {
@@ -746,18 +740,18 @@ Bool RuneTableUnselectAllModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneTableCheckAllModel implementation
-RuneTableCheckAllModel::RuneTableCheckAllModel():
+// UIRuneTableCheckAllModel implementation
+UIRuneTableCheckAllModel::UIRuneTableCheckAllModel():
 	WinGUIButtonModel(CCGOP_RESID_RUNEEXPLORER_RUNETABLE_CHECKALL)
 {
 	m_pGUI = NULL;
 }
-RuneTableCheckAllModel::~RuneTableCheckAllModel()
+UIRuneTableCheckAllModel::~UIRuneTableCheckAllModel()
 {
 	// nothing to do
 }
 
-Void RuneTableCheckAllModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneTableCheckAllModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -767,30 +761,27 @@ Void RuneTableCheckAllModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * RuneTableCheckAllModel::GetLayout() const
+const WinGUILayout * UIRuneTableCheckAllModel::GetLayout() const
 {
-	RuneTable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable();
-	WinGUIGroupBox * pGroupBox = pRuneTable->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneTable()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(2,0,0,1);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(2,0,0,1);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool RuneTableCheckAllModel::OnClick()
+Bool UIRuneTableCheckAllModel::OnClick()
 {
-	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->m_pRuneTable;
+	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->GetTable();
 
 	UInt iItemCount = pRuneTable->GetItemCount();
 	for( UInt i = 0; i < iItemCount; ++i ) {
@@ -803,18 +794,18 @@ Bool RuneTableCheckAllModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneTableUncheckAllModel implementation
-RuneTableUncheckAllModel::RuneTableUncheckAllModel():
+// UIRuneTableUncheckAllModel implementation
+UIRuneTableUncheckAllModel::UIRuneTableUncheckAllModel():
 	WinGUIButtonModel(CCGOP_RESID_RUNEEXPLORER_RUNETABLE_UNCHECKALL)
 {
 	m_pGUI = NULL;
 }
-RuneTableUncheckAllModel::~RuneTableUncheckAllModel()
+UIRuneTableUncheckAllModel::~UIRuneTableUncheckAllModel()
 {
 	// nothing to do
 }
 
-Void RuneTableUncheckAllModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneTableUncheckAllModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -824,30 +815,27 @@ Void RuneTableUncheckAllModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * RuneTableUncheckAllModel::GetLayout() const
+const WinGUILayout * UIRuneTableUncheckAllModel::GetLayout() const
 {
-	RuneTable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable();
-	WinGUIGroupBox * pGroupBox = pRuneTable->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneTable()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(3,0,0,1);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(3,0,0,1);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool RuneTableUncheckAllModel::OnClick()
+Bool UIRuneTableUncheckAllModel::OnClick()
 {
-	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->m_pRuneTable;
+	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->GetTable();
 
 	UInt iItemCount = pRuneTable->GetItemCount();
 	for( UInt i = 0; i < iItemCount; ++i ) {
@@ -860,18 +848,18 @@ Bool RuneTableUncheckAllModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneTableCheckSelectedModel implementation
-RuneTableCheckSelectedModel::RuneTableCheckSelectedModel():
+// UIRuneTableCheckSelectedModel implementation
+UIRuneTableCheckSelectedModel::UIRuneTableCheckSelectedModel():
 	WinGUIButtonModel(CCGOP_RESID_RUNEEXPLORER_RUNETABLE_CHECKSELECTED)
 {
 	m_pGUI = NULL;
 }
-RuneTableCheckSelectedModel::~RuneTableCheckSelectedModel()
+UIRuneTableCheckSelectedModel::~UIRuneTableCheckSelectedModel()
 {
 	// nothing to do
 }
 
-Void RuneTableCheckSelectedModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneTableCheckSelectedModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -881,30 +869,27 @@ Void RuneTableCheckSelectedModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * RuneTableCheckSelectedModel::GetLayout() const
+const WinGUILayout * UIRuneTableCheckSelectedModel::GetLayout() const
 {
-	RuneTable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable();
-	WinGUIGroupBox * pGroupBox = pRuneTable->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneTable()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(4,0,0,2);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(4,0,0,2);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool RuneTableCheckSelectedModel::OnClick()
+Bool UIRuneTableCheckSelectedModel::OnClick()
 {
-	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->m_pRuneTable;
+	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->GetTable();
 
 	UInt iItemCount = pRuneTable->GetItemCount();
 	for( UInt i = 0; i < iItemCount; ++i ) {
@@ -918,18 +903,18 @@ Bool RuneTableCheckSelectedModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneTableUncheckSelectedModel implementation
-RuneTableUncheckSelectedModel::RuneTableUncheckSelectedModel():
+// UIRuneTableUncheckSelectedModel implementation
+UIRuneTableUncheckSelectedModel::UIRuneTableUncheckSelectedModel():
 	WinGUIButtonModel(CCGOP_RESID_RUNEEXPLORER_RUNETABLE_UNCHECKSELECTED)
 {
 	m_pGUI = NULL;
 }
-RuneTableUncheckSelectedModel::~RuneTableUncheckSelectedModel()
+UIRuneTableUncheckSelectedModel::~UIRuneTableUncheckSelectedModel()
 {
 	// nothing to do
 }
 
-Void RuneTableUncheckSelectedModel::Initialize( CCGOPGUI * pGUI )
+Void UIRuneTableUncheckSelectedModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -939,30 +924,27 @@ Void RuneTableUncheckSelectedModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * RuneTableUncheckSelectedModel::GetLayout() const
+const WinGUILayout * UIRuneTableUncheckSelectedModel::GetLayout() const
 {
-	RuneTable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable();
-	WinGUIGroupBox * pGroupBox = pRuneTable->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetRuneExplorer()->GetRuneTable()->GetOptionsArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(5,0,0,2);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(5,0,0,2);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Bool RuneTableUncheckSelectedModel::OnClick()
+Bool UIRuneTableUncheckSelectedModel::OnClick()
 {
-	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->m_pRuneTable;
+	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->GetTable();
 
 	UInt iItemCount = pRuneTable->GetItemCount();
 	for( UInt i = 0; i < iItemCount; ++i ) {
@@ -976,8 +958,8 @@ Bool RuneTableUncheckSelectedModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// RuneTable implementation
-RuneTable::RuneTable( CCGOPGUI * pGUI )
+// UIRuneTable implementation
+UIRuneTable::UIRuneTable( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 	m_pRoot = NULL;
@@ -992,15 +974,15 @@ RuneTable::RuneTable( CCGOPGUI * pGUI )
 	m_pCheckSelected = NULL;
 	m_pUncheckSelected = NULL;
 }
-RuneTable::~RuneTable()
+UIRuneTable::~UIRuneTable()
 {
 	// nothing to do
 }
 
-Void RuneTable::Initialize()
+Void UIRuneTable::Initialize()
 {
 	// Grab Root
-	m_pRoot = m_pGUI->GetRoot( CCGOP_MAINMENU_RUNE_EXPLORER );
+	m_pRoot = m_pGUI->GetTabPane( UI_MAINMENU_RUNE_EXPLORER );
 
 	// Build Rune Table UI
 	m_hRuneTableModel.Initialize( m_pGUI );
@@ -1028,7 +1010,7 @@ Void RuneTable::Initialize()
 	m_hUncheckSelected.Initialize( m_pGUI );
 	m_pUncheckSelected = WinGUIFn->CreateButton( m_pRoot, &m_hUncheckSelected );
 }
-Void RuneTable::Cleanup()
+Void UIRuneTable::Cleanup()
 {
 	// nothing to do
 }

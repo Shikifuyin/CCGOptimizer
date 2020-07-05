@@ -73,13 +73,15 @@ int APIENTRY wWinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstanc
     // Initialize Memory Manager
     MemoryManager::Create();
 
+    // Initialize Application
     CCGOPApplication * pApplication = New() CCGOPApplication();
     pApplication->Initialize();
 
+    // Run Application
     Int iReturnCode = WinGUIFn->MessageLoop( CCGOPApplication::IdleTime, pApplication );
 
+    // Cleanup Application
     pApplication->Cleanup();
-
     Delete( pApplication );
     pApplication = NULL;
 

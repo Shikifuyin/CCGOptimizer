@@ -17,15 +17,15 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // RuneExplorer implementation
-inline RuneTable * RuneExplorer::GetRuneTable() {
+inline UIRuneTable * RuneExplorer::GetRuneTable() {
 	return &m_hRuneTable;
 }
-inline RuneCreation * RuneExplorer::GetRuneCreation() {
+inline UIRuneCreation * RuneExplorer::GetRuneCreation() {
 	return &m_hRuneCreation;
 }
-inline RuneOptions * RuneExplorer::GetRuneOptions() {
+inline UIRuneOptions * RuneExplorer::GetRuneOptions() {
 	return &m_hRuneOptions;
 }
-inline RuneSearch * RuneExplorer::GetRuneSearch() {
+inline UIRuneSearch * RuneExplorer::GetRuneSearch() {
 	return &m_hRuneSearch;
 }

@@ -39,7 +39,7 @@ HeroExplorer::~HeroExplorer()
 Void HeroExplorer::Initialize()
 {
 	// Grab Root
-	m_pRoot = m_pGUI->GetRoot( CCGOP_MAINMENU_HERO_EXPLORER );
+	m_pRoot = m_pGUI->GetTabPane( UI_MAINMENU_HERO_EXPLORER );
 
 	// Build Hero Table UI
 	m_hHeroTable.Initialize();

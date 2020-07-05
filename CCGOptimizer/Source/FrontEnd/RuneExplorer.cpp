@@ -40,7 +40,7 @@ RuneExplorer::~RuneExplorer()
 Void RuneExplorer::Initialize()
 {
 	// Grab Root
-	m_pRoot = m_pGUI->GetRoot( CCGOP_MAINMENU_RUNE_EXPLORER );
+	m_pRoot = m_pGUI->GetTabPane( UI_MAINMENU_RUNE_EXPLORER );
 
 	// Build Rune Table UI
 	m_hRuneTable.Initialize();

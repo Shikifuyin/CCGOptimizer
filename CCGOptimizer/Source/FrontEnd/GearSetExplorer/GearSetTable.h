@@ -33,30 +33,28 @@
 // Constants definitions
 
 // GearSet Table Columns
-enum CCGOPGearSetTableColumn {
-	CCGOP_GEARSETTABLE_COLUMN_NAME = 0, // CheckBoxes
-	CCGOP_GEARSETTABLE_COLUMN_ID,
-	CCGOP_GEARSETTABLE_COLUMN_RUNE_1,
-	CCGOP_GEARSETTABLE_COLUMN_RUNE_2,
-	CCGOP_GEARSETTABLE_COLUMN_RUNE_3,
-	CCGOP_GEARSETTABLE_COLUMN_RUNE_4,
-	CCGOP_GEARSETTABLE_COLUMN_RUNE_5,
-	CCGOP_GEARSETTABLE_COLUMN_RUNE_6,
-	CCGOP_GEARSETTABLE_COLUMN_COUNT
+enum UIGearSetTableColumn {
+	UI_GEARSETTABLE_COLUMN_NAME = 0, // CheckBoxes
+	UI_GEARSETTABLE_COLUMN_ID,
+	UI_GEARSETTABLE_COLUMN_RUNE_1,
+	UI_GEARSETTABLE_COLUMN_RUNE_2,
+	UI_GEARSETTABLE_COLUMN_RUNE_3,
+	UI_GEARSETTABLE_COLUMN_RUNE_4,
+	UI_GEARSETTABLE_COLUMN_RUNE_5,
+	UI_GEARSETTABLE_COLUMN_RUNE_6,
+	UI_GEARSETTABLE_COLUMN_COUNT
 };
 
 // Prototypes
 class CCGOPGUI;
 
-class CCGOPFileLoadModel;
-
 /////////////////////////////////////////////////////////////////////////////////
-// The GearSetTableModel class
-class GearSetTableModel : public WinGUITableModel
+// The UIGearSetTableModel class
+class UIGearSetTableModel : public WinGUITableModel
 {
 public:
-	GearSetTableModel();
-	virtual ~GearSetTableModel();
+	UIGearSetTableModel();
+	virtual ~UIGearSetTableModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -78,8 +76,8 @@ public:
 private:
 	CCGOPGUI * m_pGUI;
 
-	GChar m_arrColumnNames[CCGOP_GEARSETTABLE_COLUMN_COUNT][64];
-	UInt m_arrColumnWidths[CCGOP_GEARSETTABLE_COLUMN_COUNT];
+	GChar m_arrColumnNames[UI_GEARSETTABLE_COLUMN_COUNT][64];
+	UInt m_arrColumnWidths[UI_GEARSETTABLE_COLUMN_COUNT];
 
 	// Beware, those have reversed convention ...
 	static Int __stdcall _Compare_GearSetName( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
@@ -93,12 +91,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The GearSetTableGroupModel class
-class GearSetTableGroupModel : public WinGUIGroupBoxModel
+// The UIGearSetTableGroupModel class
+class UIGearSetTableGroupModel : public WinGUIGroupBoxModel
 {
 public:
-	GearSetTableGroupModel();
-	virtual ~GearSetTableGroupModel();
+	UIGearSetTableGroupModel();
+	virtual ~UIGearSetTableGroupModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -111,12 +109,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The GearSetTableSelectAllModel class
-class GearSetTableSelectAllModel : public WinGUIButtonModel
+// The UIGearSetTableSelectAllModel class
+class UIGearSetTableSelectAllModel : public WinGUIButtonModel
 {
 public:
-	GearSetTableSelectAllModel();
-	~GearSetTableSelectAllModel();
+	UIGearSetTableSelectAllModel();
+	virtual ~UIGearSetTableSelectAllModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -132,12 +130,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The GearSetTableUnselectAllModel class
-class GearSetTableUnselectAllModel : public WinGUIButtonModel
+// The UIGearSetTableUnselectAllModel class
+class UIGearSetTableUnselectAllModel : public WinGUIButtonModel
 {
 public:
-	GearSetTableUnselectAllModel();
-	~GearSetTableUnselectAllModel();
+	UIGearSetTableUnselectAllModel();
+	virtual ~UIGearSetTableUnselectAllModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -153,12 +151,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The GearSetTableCheckAllModel class
-class GearSetTableCheckAllModel : public WinGUIButtonModel
+// The UIGearSetTableCheckAllModel class
+class UIGearSetTableCheckAllModel : public WinGUIButtonModel
 {
 public:
-	GearSetTableCheckAllModel();
-	~GearSetTableCheckAllModel();
+	UIGearSetTableCheckAllModel();
+	virtual ~UIGearSetTableCheckAllModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -174,12 +172,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The GearSetTableUncheckAllModel class
-class GearSetTableUncheckAllModel : public WinGUIButtonModel
+// The UIGearSetTableUncheckAllModel class
+class UIGearSetTableUncheckAllModel : public WinGUIButtonModel
 {
 public:
-	GearSetTableUncheckAllModel();
-	~GearSetTableUncheckAllModel();
+	UIGearSetTableUncheckAllModel();
+	virtual ~UIGearSetTableUncheckAllModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -195,12 +193,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The GearSetTableCheckSelectedModel class
-class GearSetTableCheckSelectedModel : public WinGUIButtonModel
+// The UIGearSetTableCheckSelectedModel class
+class UIGearSetTableCheckSelectedModel : public WinGUIButtonModel
 {
 public:
-	GearSetTableCheckSelectedModel();
-	~GearSetTableCheckSelectedModel();
+	UIGearSetTableCheckSelectedModel();
+	virtual ~UIGearSetTableCheckSelectedModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -216,12 +214,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The GearSetTableUncheckSelectedModel class
-class GearSetTableUncheckSelectedModel : public WinGUIButtonModel
+// The UIGearSetTableUncheckSelectedModel class
+class UIGearSetTableUncheckSelectedModel : public WinGUIButtonModel
 {
 public:
-	GearSetTableUncheckSelectedModel();
-	~GearSetTableUncheckSelectedModel();
+	UIGearSetTableUncheckSelectedModel();
+	virtual ~UIGearSetTableUncheckSelectedModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -237,54 +235,51 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The GearSetTable class
-class GearSetTable
+// The UIGearSetTable class
+class UIGearSetTable
 {
 public:
-	GearSetTable( CCGOPGUI * pGUI );
-	~GearSetTable();
+	UIGearSetTable( CCGOPGUI * pGUI );
+	~UIGearSetTable();
 
 	// Initialization / Cleanup
 	Void Initialize();
 	Void Cleanup();
 
+	// Table
+	inline WinGUITable * GetTable() const;
+
+	// Table Options
+	inline Void GetOptionsArea( WinGUIRectangle * outClientArea ) const;
+
 private:
-	friend class GearSetTableSelectAllModel;
-	friend class GearSetTableUnselectAllModel;
-	friend class GearSetTableCheckAllModel;
-	friend class GearSetTableUncheckAllModel;
-	friend class GearSetTableCheckSelectedModel;
-	friend class GearSetTableUncheckSelectedModel;
-
-	friend class CCGOPFileLoadModel;
-
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;
 
 	// GearSet Table UI
-	GearSetTableModel m_hGearSetTableModel;
+	UIGearSetTableModel m_hGearSetTableModel;
 	WinGUITable * m_pGearSetTable;
 
-	GearSetTableGroupModel m_hGroup;
+	UIGearSetTableGroupModel m_hGroup;
 	WinGUIGroupBox * m_pGroup;
 
-	GearSetTableSelectAllModel m_hSelectAll;
+	UIGearSetTableSelectAllModel m_hSelectAll;
 	WinGUIButton * m_pSelectAll;
 
-	GearSetTableUnselectAllModel m_hUnselectAll;
+	UIGearSetTableUnselectAllModel m_hUnselectAll;
 	WinGUIButton * m_pUnselectAll;
 
-	GearSetTableCheckAllModel m_hCheckAll;
+	UIGearSetTableCheckAllModel m_hCheckAll;
 	WinGUIButton * m_pCheckAll;
 
-	GearSetTableUncheckAllModel m_hUncheckAll;
+	UIGearSetTableUncheckAllModel m_hUncheckAll;
 	WinGUIButton * m_pUncheckAll;
 
-	GearSetTableCheckSelectedModel m_hCheckSelected;
+	UIGearSetTableCheckSelectedModel m_hCheckSelected;
 	WinGUIButton * m_pCheckSelected;
 
-	GearSetTableUncheckSelectedModel m_hUncheckSelected;
+	UIGearSetTableUncheckSelectedModel m_hUncheckSelected;
 	WinGUIButton * m_pUncheckSelected;
 };
 

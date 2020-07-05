@@ -16,38 +16,31 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////
-// CCGOPWindowModel implementation
-
-/////////////////////////////////////////////////////////////////////////////////
-// CCGOPTabsModel implementation
-
-/////////////////////////////////////////////////////////////////////////////////
-// CCGOPTabPaneModel implementation
-
-/////////////////////////////////////////////////////////////////////////////////
-// CCGOPStatusBarModel implementation
-
-/////////////////////////////////////////////////////////////////////////////////
-// CCGOPFileGroupModel implementation
-
-/////////////////////////////////////////////////////////////////////////////////
-// CCGOPFileNameModel implementation
-
-/////////////////////////////////////////////////////////////////////////////////
-// CCGOPFileLoadModel implementation
-
-/////////////////////////////////////////////////////////////////////////////////
-// CCGOPFileSaveModel implementation
-
-/////////////////////////////////////////////////////////////////////////////////
 // CCGOPGUI implementation
-inline Bool CCGOPGUI::HasUnsavedChangesMark() const {
-	return m_bUnsavedChanges;
+inline WinGUITabs * CCGOPGUI::GetTabs() const {
+	return m_pTabs;
+}
+inline WinGUIContainer * CCGOPGUI::GetTabPane( UIMainMenuTabs iTabIndex ) const {
+	Assert( iTabIndex < UI_MAINMENU_COUNT );
+	return m_arrTabPanes[iTabIndex].pTabPane;
 }
 
-inline WinGUIContainer * CCGOPGUI::GetRoot( CCGOPMainMenuTabs iTabIndex ) const {
-	Assert( iTabIndex < CCGOP_MAINMENU_COUNT );
-	return m_arrCCGOPTabPanes[iTabIndex];
+inline WinGUIStatusBar * CCGOPGUI::GetStatusBar() const {
+	return m_pStatusBar;
+}
+
+inline Void CCGOPGUI::GetLoadSaveArea( WinGUIRectangle * outClientArea, UIMainMenuTabs iTabIndex ) const {
+	Assert( iTabIndex < UI_MAINMENU_COUNT );
+	m_arrLoadSave[iTabIndex].pGroup->ComputeClientArea( outClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+}
+
+inline WinGUITextEdit * CCGOPGUI::GetLoadSaveFileName( UIMainMenuTabs iTabIndex ) const {
+	Assert( iTabIndex < UI_MAINMENU_COUNT );
+	return m_arrLoadSave[iTabIndex].pFileName;
+}
+
+inline Bool CCGOPGUI::HasUnsavedChangesMark() const {
+	return m_bUnsavedChanges;
 }
 
 inline HeroExplorer * CCGOPGUI::GetHeroExplorer() {

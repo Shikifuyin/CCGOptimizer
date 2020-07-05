@@ -36,12 +36,12 @@
 class CCGOPGUI;
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroCreationGroupModel class
-class HeroCreationGroupModel : public WinGUIGroupBoxModel
+// The UIHeroCreationGroupModel class
+class UIHeroCreationGroupModel : public WinGUIGroupBoxModel
 {
 public:
-	HeroCreationGroupModel();
-	virtual ~HeroCreationGroupModel();
+	UIHeroCreationGroupModel();
+	virtual ~UIHeroCreationGroupModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -54,12 +54,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroCreationNameModel class
-class HeroCreationNameModel : public WinGUIComboBoxModel
+// The UIHeroCreationNameModel class
+class UIHeroCreationNameModel : public WinGUIComboBoxModel
 {
 public:
-	HeroCreationNameModel();
-	~HeroCreationNameModel();
+	UIHeroCreationNameModel();
+	virtual ~UIHeroCreationNameModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -84,12 +84,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroCreationRankModel class
-class HeroCreationRankModel : public WinGUIComboBoxModel
+// The UIHeroCreationRankModel class
+class UIHeroCreationRankModel : public WinGUIComboBoxModel
 {
 public:
-	HeroCreationRankModel();
-	~HeroCreationRankModel();
+	UIHeroCreationRankModel();
+	virtual ~UIHeroCreationRankModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -113,12 +113,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroCreationLevelModel class
-class HeroCreationLevelModel : public WinGUIComboBoxModel
+// The UIHeroCreationLevelModel class
+class UIHeroCreationLevelModel : public WinGUIComboBoxModel
 {
 public:
-	HeroCreationLevelModel();
-	~HeroCreationLevelModel();
+	UIHeroCreationLevelModel();
+	virtual ~UIHeroCreationLevelModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -143,12 +143,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroCreationSanctifyModel class
-class HeroCreationSanctifyModel : public WinGUIComboBoxModel
+// The UIHeroCreationSanctifyModel class
+class UIHeroCreationSanctifyModel : public WinGUIComboBoxModel
 {
 public:
-	HeroCreationSanctifyModel();
-	~HeroCreationSanctifyModel();
+	UIHeroCreationSanctifyModel();
+	virtual ~UIHeroCreationSanctifyModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -170,12 +170,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroCreationEvolvedModel class
-class HeroCreationEvolvedModel : public WinGUICheckBoxModel
+// The UIHeroCreationEvolvedModel class
+class UIHeroCreationEvolvedModel : public WinGUICheckBoxModel
 {
 public:
-	HeroCreationEvolvedModel();
-	~HeroCreationEvolvedModel();
+	UIHeroCreationEvolvedModel();
+	virtual ~UIHeroCreationEvolvedModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -188,12 +188,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroCreationButtonModel class
-class HeroCreationButtonModel : public WinGUIButtonModel
+// The UIHeroCreationButtonModel class
+class UIHeroCreationButtonModel : public WinGUIButtonModel
 {
 public:
-	HeroCreationButtonModel();
-	~HeroCreationButtonModel();
+	UIHeroCreationButtonModel();
+	virtual ~UIHeroCreationButtonModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -209,54 +209,56 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The HeroCreation class
-class HeroCreation
+// The UIHeroCreation class
+class UIHeroCreation
 {
 public:
-	HeroCreation( CCGOPGUI * pGUI );
-	~HeroCreation();
+	UIHeroCreation( CCGOPGUI * pGUI );
+	~UIHeroCreation();
 
 	// Initialization / Cleanup
 	Void Initialize();
 	Void Cleanup();
 
-private:
-	friend class HeroCreationNameModel;
-	friend class HeroCreationRankModel;
-	friend class HeroCreationLevelModel;
-	friend class HeroCreationSanctifyModel;
-	friend class HeroCreationEvolvedModel;
-	friend class HeroCreationButtonModel;
+	// Hero Creation
+	inline Void GetCreationArea( WinGUIRectangle * outClientArea ) const;
+
+	inline WinGUIComboBox * GetName() const;
+	inline WinGUIComboBox * GetRank() const;
+	inline WinGUIComboBox * GetLevel() const;
+	inline WinGUIComboBox * GetSanctify() const;
+	inline WinGUICheckBox * GetEvolved() const;
 
 	// Helpers
-	Void _UpdateAvailableRanks();
-	Void _UpdateAvailableLevels();
-	Void _UpdateAvailableSanctify();
+	Void UpdateAvailableRanks();
+	Void UpdateAvailableLevels();
+	Void UpdateAvailableSanctify();
 
+private:
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;
 
 	// Hero Creation UI
-	HeroCreationGroupModel m_hGroupModel;
+	UIHeroCreationGroupModel m_hGroupModel;
 	WinGUIGroupBox * m_pGroup;
 
-	HeroCreationNameModel m_hNameModel;
+	UIHeroCreationNameModel m_hNameModel;
 	WinGUIComboBox * m_pName;
 
-	HeroCreationRankModel m_hRankModel;
+	UIHeroCreationRankModel m_hRankModel;
 	WinGUIComboBox * m_pRank;
 
-	HeroCreationLevelModel m_hLevelModel;
+	UIHeroCreationLevelModel m_hLevelModel;
 	WinGUIComboBox * m_pLevel;
 
-	HeroCreationSanctifyModel m_hSanctifyModel;
+	UIHeroCreationSanctifyModel m_hSanctifyModel;
 	WinGUIComboBox * m_pSanctify;
 
-	HeroCreationEvolvedModel m_hEvolvedModel;
+	UIHeroCreationEvolvedModel m_hEvolvedModel;
 	WinGUICheckBox * m_pEvolved;
 
-	HeroCreationButtonModel m_hButtonModel;
+	UIHeroCreationButtonModel m_hButtonModel;
 	WinGUIButton * m_pButton;
 };
 

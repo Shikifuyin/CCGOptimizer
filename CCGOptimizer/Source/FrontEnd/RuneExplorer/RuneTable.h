@@ -33,52 +33,42 @@
 // Constants definitions
 
 // Rune Table Columns
-enum CCGOPRuneTableColumn {
-	CCGOP_RUNETABLE_COLUMN_ID, // CheckBoxes
-	CCGOP_RUNETABLE_COLUMN_LOCKED,
-	CCGOP_RUNETABLE_COLUMN_SLOT,
-	CCGOP_RUNETABLE_COLUMN_SET,
-	CCGOP_RUNETABLE_COLUMN_RANK,
-	CCGOP_RUNETABLE_COLUMN_QUALITY,
-	CCGOP_RUNETABLE_COLUMN_LEVEL,
-	CCGOP_RUNETABLE_COLUMN_MAINSTAT,
-	CCGOP_RUNETABLE_COLUMN_MAINSTAT_VALUE,
-	CCGOP_RUNETABLE_COLUMN_INNATESTAT,
-	CCGOP_RUNETABLE_COLUMN_INNATESTAT_VALUE,
-	CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_PC,
-	CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HP_FLAT,
-	CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_PC,
-	CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_ATT_FLAT,
-	CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_PC,
-	CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_DEF_FLAT,
-	CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_SPD,
-	CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITRATE,
-	CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_CRITDMG,
-	CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_HIT,
-	CCGOP_RUNETABLE_COLUMN_RANDOMSTAT_RES,
-	CCGOP_RUNETABLE_COLUMN_COUNT
+enum UIRuneTableColumn {
+	UI_RUNETABLE_COLUMN_ID, // CheckBoxes
+	UI_RUNETABLE_COLUMN_LOCKED,
+	UI_RUNETABLE_COLUMN_SLOT,
+	UI_RUNETABLE_COLUMN_SET,
+	UI_RUNETABLE_COLUMN_RANK,
+	UI_RUNETABLE_COLUMN_QUALITY,
+	UI_RUNETABLE_COLUMN_LEVEL,
+	UI_RUNETABLE_COLUMN_MAINSTAT,
+	UI_RUNETABLE_COLUMN_MAINSTAT_VALUE,
+	UI_RUNETABLE_COLUMN_INNATESTAT,
+	UI_RUNETABLE_COLUMN_INNATESTAT_VALUE,
+	UI_RUNETABLE_COLUMN_RANDOMSTAT_HP_PC,
+	UI_RUNETABLE_COLUMN_RANDOMSTAT_HP_FLAT,
+	UI_RUNETABLE_COLUMN_RANDOMSTAT_ATT_PC,
+	UI_RUNETABLE_COLUMN_RANDOMSTAT_ATT_FLAT,
+	UI_RUNETABLE_COLUMN_RANDOMSTAT_DEF_PC,
+	UI_RUNETABLE_COLUMN_RANDOMSTAT_DEF_FLAT,
+	UI_RUNETABLE_COLUMN_RANDOMSTAT_SPD,
+	UI_RUNETABLE_COLUMN_RANDOMSTAT_CRITRATE,
+	UI_RUNETABLE_COLUMN_RANDOMSTAT_CRITDMG,
+	UI_RUNETABLE_COLUMN_RANDOMSTAT_HIT,
+	UI_RUNETABLE_COLUMN_RANDOMSTAT_RES,
+	UI_RUNETABLE_COLUMN_COUNT
 };
 
 // Prototypes
 class CCGOPGUI;
 
-class RuneCreationButtonModel;
-
-class RuneOptionsLockModel;
-class RuneOptionsDeleteModel;
-
-class RuneSearchClearModel;
-class RuneSearchApplyModel;
-
-class CCGOPFileLoadModel;
-
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneTableModel class
-class RuneTableModel : public WinGUITableModel
+// The UIRuneTableModel class
+class UIRuneTableModel : public WinGUITableModel
 {
 public:
-	RuneTableModel();
-	virtual ~RuneTableModel();
+	UIRuneTableModel();
+	virtual ~UIRuneTableModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -101,8 +91,8 @@ public:
 private:
 	CCGOPGUI * m_pGUI;
 
-	GChar m_arrColumnNames[CCGOP_RUNETABLE_COLUMN_COUNT][64];
-	UInt m_arrColumnWidths[CCGOP_RUNETABLE_COLUMN_COUNT];
+	GChar m_arrColumnNames[UI_RUNETABLE_COLUMN_COUNT][64];
+	UInt m_arrColumnWidths[UI_RUNETABLE_COLUMN_COUNT];
 
 	// Beware, those have reversed convention ...
 	static Int __stdcall _Compare_RuneID( Void * pItemDataA, Void * pItemDataB, Void * pUserData );
@@ -130,12 +120,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneTableGroupModel class
-class RuneTableGroupModel : public WinGUIGroupBoxModel
+// The UIRuneTableGroupModel class
+class UIRuneTableGroupModel : public WinGUIGroupBoxModel
 {
 public:
-	RuneTableGroupModel();
-	virtual ~RuneTableGroupModel();
+	UIRuneTableGroupModel();
+	virtual ~UIRuneTableGroupModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -148,12 +138,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneTableSelectAllModel class
-class RuneTableSelectAllModel : public WinGUIButtonModel
+// The UIRuneTableSelectAllModel class
+class UIRuneTableSelectAllModel : public WinGUIButtonModel
 {
 public:
-	RuneTableSelectAllModel();
-	~RuneTableSelectAllModel();
+	UIRuneTableSelectAllModel();
+	virtual ~UIRuneTableSelectAllModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -169,12 +159,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneTableUnselectAllModel class
-class RuneTableUnselectAllModel : public WinGUIButtonModel
+// The UIRuneTableUnselectAllModel class
+class UIRuneTableUnselectAllModel : public WinGUIButtonModel
 {
 public:
-	RuneTableUnselectAllModel();
-	~RuneTableUnselectAllModel();
+	UIRuneTableUnselectAllModel();
+	virtual ~UIRuneTableUnselectAllModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -190,12 +180,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneTableCheckAllModel class
-class RuneTableCheckAllModel : public WinGUIButtonModel
+// The UIRuneTableCheckAllModel class
+class UIRuneTableCheckAllModel : public WinGUIButtonModel
 {
 public:
-	RuneTableCheckAllModel();
-	~RuneTableCheckAllModel();
+	UIRuneTableCheckAllModel();
+	virtual ~UIRuneTableCheckAllModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -211,12 +201,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneTableUncheckAllModel class
-class RuneTableUncheckAllModel : public WinGUIButtonModel
+// The UIRuneTableUncheckAllModel class
+class UIRuneTableUncheckAllModel : public WinGUIButtonModel
 {
 public:
-	RuneTableUncheckAllModel();
-	~RuneTableUncheckAllModel();
+	UIRuneTableUncheckAllModel();
+	virtual ~UIRuneTableUncheckAllModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -232,12 +222,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneTableCheckSelectedModel class
-class RuneTableCheckSelectedModel : public WinGUIButtonModel
+// The UIRuneTableCheckSelectedModel class
+class UIRuneTableCheckSelectedModel : public WinGUIButtonModel
 {
 public:
-	RuneTableCheckSelectedModel();
-	~RuneTableCheckSelectedModel();
+	UIRuneTableCheckSelectedModel();
+	virtual ~UIRuneTableCheckSelectedModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -253,12 +243,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneTableUncheckSelectedModel class
-class RuneTableUncheckSelectedModel : public WinGUIButtonModel
+// The UIRuneTableUncheckSelectedModel class
+class UIRuneTableUncheckSelectedModel : public WinGUIButtonModel
 {
 public:
-	RuneTableUncheckSelectedModel();
-	~RuneTableUncheckSelectedModel();
+	UIRuneTableUncheckSelectedModel();
+	virtual ~UIRuneTableUncheckSelectedModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -274,56 +264,51 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneTable class
-class RuneTable
+// The UIRuneTable class
+class UIRuneTable
 {
 public:
-	RuneTable( CCGOPGUI * pGUI );
-	~RuneTable();
+	UIRuneTable( CCGOPGUI * pGUI );
+	~UIRuneTable();
 
 	// Initialization / Cleanup
 	Void Initialize();
 	Void Cleanup();
 
+	// Table
+	inline WinGUITable * GetTable() const;
+
+	// Table Options
+	inline Void GetOptionsArea( WinGUIRectangle * outClientArea ) const;
+
 private:
-	friend class RuneTableSelectAllModel;
-	friend class RuneTableUnselectAllModel;
-	friend class RuneTableCheckAllModel;
-	friend class RuneTableUncheckAllModel;
-	friend class RuneTableCheckSelectedModel;
-	friend class RuneTableUncheckSelectedModel;
-
-	friend class RuneCreationButtonModel;
-
-	friend class RuneOptionsLockModel;
-	friend class RuneOptionsDeleteModel;
-
-	friend class RuneSearchClearModel;
-	friend class RuneSearchApplyModel;
-
-	friend class CCGOPFileLoadModel;
-
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;
 
 	// Rune Table UI
-	RuneTableModel m_hRuneTableModel;
+	UIRuneTableModel m_hRuneTableModel;
 	WinGUITable * m_pRuneTable;
 
-	RuneTableGroupModel m_hGroup;
+	UIRuneTableGroupModel m_hGroup;
 	WinGUIGroupBox * m_pGroup;
-	RuneTableSelectAllModel m_hSelectAll;
+
+	UIRuneTableSelectAllModel m_hSelectAll;
 	WinGUIButton * m_pSelectAll;
-	RuneTableUnselectAllModel m_hUnselectAll;
+
+	UIRuneTableUnselectAllModel m_hUnselectAll;
 	WinGUIButton * m_pUnselectAll;
-	RuneTableCheckAllModel m_hCheckAll;
+
+	UIRuneTableCheckAllModel m_hCheckAll;
 	WinGUIButton * m_pCheckAll;
-	RuneTableUncheckAllModel m_hUncheckAll;
+
+	UIRuneTableUncheckAllModel m_hUncheckAll;
 	WinGUIButton * m_pUncheckAll;
-	RuneTableCheckSelectedModel m_hCheckSelected;
+
+	UIRuneTableCheckSelectedModel m_hCheckSelected;
 	WinGUIButton * m_pCheckSelected;
-	RuneTableUncheckSelectedModel m_hUncheckSelected;
+
+	UIRuneTableUncheckSelectedModel m_hUncheckSelected;
 	WinGUIButton * m_pUncheckSelected;
 };
 

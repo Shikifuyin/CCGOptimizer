@@ -53,10 +53,10 @@ public:
 	Void Cleanup();
 
 	// Access for delegates
-	inline RuneTable * GetRuneTable();
-	inline RuneCreation * GetRuneCreation();
-	inline RuneOptions * GetRuneOptions();
-	inline RuneSearch * GetRuneSearch();
+	inline UIRuneTable * GetRuneTable();
+	inline UIRuneCreation * GetRuneCreation();
+	inline UIRuneOptions * GetRuneOptions();
+	inline UIRuneSearch * GetRuneSearch();
 
 private:
 	// GUI Instance
@@ -64,16 +64,16 @@ private:
 	WinGUIContainer * m_pRoot;
 
 	// Table UI
-	RuneTable m_hRuneTable;
+	UIRuneTable m_hRuneTable;
 
 	// Rune Creation UI
-	RuneCreation m_hRuneCreation;
+	UIRuneCreation m_hRuneCreation;
 
 	// Rune Options UI
-	RuneOptions m_hRuneOptions;
+	UIRuneOptions m_hRuneOptions;
 
 	// Rune Filter Search UI
-	RuneSearch m_hRuneSearch;
+	UIRuneSearch m_hRuneSearch;
 };
 
 /////////////////////////////////////////////////////////////////////////////////

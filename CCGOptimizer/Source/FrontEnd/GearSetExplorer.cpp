@@ -24,7 +24,8 @@
 /////////////////////////////////////////////////////////////////////////////////
 // GearSetExplorer implementation
 GearSetExplorer::GearSetExplorer( CCGOPGUI * pGUI ):
-	m_hGearSetTable( pGUI )
+	m_hGearSetTable( pGUI ),
+	m_hGearSetStats( pGUI )
 {
 	m_pGUI = pGUI;
 	m_pRoot = NULL;
@@ -37,13 +38,19 @@ GearSetExplorer::~GearSetExplorer()
 Void GearSetExplorer::Initialize()
 {
 	// Grab Root
-	m_pRoot = m_pGUI->GetRoot( CCGOP_MAINMENU_GEARSET_EXPLORER );
+	m_pRoot = m_pGUI->GetTabPane( UI_MAINMENU_GEARSET_EXPLORER );
 
 	// GearSet Table UI
 	m_hGearSetTable.Initialize();
+
+	// GearSet Stats UI
+	m_hGearSetStats.Initialize();
 }
 Void GearSetExplorer::Cleanup()
 {
+	// GearSet Stats UI
+	m_hGearSetStats.Cleanup();
+
 	// GearSet Table UI
 	m_hGearSetTable.Cleanup();
 }

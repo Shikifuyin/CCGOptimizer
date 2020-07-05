@@ -36,12 +36,12 @@
 class CCGOPGUI;
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneSearchGroupModel class
-class RuneSearchGroupModel : public WinGUIGroupBoxModel
+// The UIRuneSearchGroupModel class
+class UIRuneSearchGroupModel : public WinGUIGroupBoxModel
 {
 public:
-	RuneSearchGroupModel();
-	virtual ~RuneSearchGroupModel();
+	UIRuneSearchGroupModel();
+	virtual ~UIRuneSearchGroupModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -54,12 +54,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneSearchSlotModel class
-class RuneSearchSlotModel : public WinGUIComboBoxModel
+// The UIRuneSearchSlotModel class
+class UIRuneSearchSlotModel : public WinGUIComboBoxModel
 {
 public:
-	RuneSearchSlotModel();
-	~RuneSearchSlotModel();
+	UIRuneSearchSlotModel();
+	virtual ~UIRuneSearchSlotModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -81,12 +81,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneSearchSetModel class
-class RuneSearchSetModel : public WinGUIComboBoxModel
+// The UIRuneSearchSetModel class
+class UIRuneSearchSetModel : public WinGUIComboBoxModel
 {
 public:
-	RuneSearchSetModel();
-	~RuneSearchSetModel();
+	UIRuneSearchSetModel();
+	virtual ~UIRuneSearchSetModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -108,12 +108,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneSearchRankModel class
-class RuneSearchRankModel : public WinGUIComboBoxModel
+// The UIRuneSearchRankModel class
+class UIRuneSearchRankModel : public WinGUIComboBoxModel
 {
 public:
-	RuneSearchRankModel();
-	~RuneSearchRankModel();
+	UIRuneSearchRankModel();
+	virtual ~UIRuneSearchRankModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -135,12 +135,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneSearchQualityModel class
-class RuneSearchQualityModel : public WinGUIComboBoxModel
+// The UIRuneSearchQualityModel class
+class UIRuneSearchQualityModel : public WinGUIComboBoxModel
 {
 public:
-	RuneSearchQualityModel();
-	~RuneSearchQualityModel();
+	UIRuneSearchQualityModel();
+	virtual ~UIRuneSearchQualityModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -162,12 +162,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneSearchLevelModel class
-class RuneSearchLevelModel : public WinGUIComboBoxModel
+// The UIRuneSearchLevelModel class
+class UIRuneSearchLevelModel : public WinGUIComboBoxModel
 {
 public:
-	RuneSearchLevelModel();
-	~RuneSearchLevelModel();
+	UIRuneSearchLevelModel();
+	virtual ~UIRuneSearchLevelModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -189,12 +189,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneSearchMainStatModel class
-class RuneSearchMainStatModel : public WinGUIComboBoxModel
+// The UIRuneSearchMainStatModel class
+class UIRuneSearchMainStatModel : public WinGUIComboBoxModel
 {
 public:
-	RuneSearchMainStatModel();
-	~RuneSearchMainStatModel();
+	UIRuneSearchMainStatModel();
+	virtual ~UIRuneSearchMainStatModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -220,12 +220,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneSearchSubStatsModeModel class
-class RuneSearchSubStatsModeModel : public WinGUICheckBoxModel
+// The UIRuneSearchSubStatsModeModel class
+class UIRuneSearchSubStatsModeModel : public WinGUICheckBoxModel
 {
 public:
-	RuneSearchSubStatsModeModel();
-	~RuneSearchSubStatsModeModel();
+	UIRuneSearchSubStatsModeModel();
+	virtual ~UIRuneSearchSubStatsModeModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -241,12 +241,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneSearchSubStatModel class
-class RuneSearchSubStatModel : public WinGUIComboBoxModel
+// The UIRuneSearchSubStatModel class
+class UIRuneSearchSubStatModel : public WinGUIComboBoxModel
 {
 public:
-	RuneSearchSubStatModel();
-	~RuneSearchSubStatModel();
+	UIRuneSearchSubStatModel();
+	virtual ~UIRuneSearchSubStatModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI, UInt iIndex );
@@ -272,12 +272,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneSearchSubStatValueModel class
-class RuneSearchSubStatValueModel : public WinGUITextEditModel
+// The UIRuneSearchSubStatValueModel class
+class UIRuneSearchSubStatValueModel : public WinGUITextEditModel
 {
 public:
-	RuneSearchSubStatValueModel();
-	~RuneSearchSubStatValueModel();
+	UIRuneSearchSubStatValueModel();
+	virtual ~UIRuneSearchSubStatValueModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI, UInt iIndex );
@@ -295,12 +295,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneSearchIndicatorModel class
-class RuneSearchIndicatorModel : public WinGUIStaticModel
+// The UIRuneSearchIndicatorModel class
+class UIRuneSearchIndicatorModel : public WinGUIStaticModel
 {
 public:
-	RuneSearchIndicatorModel();
-	~RuneSearchIndicatorModel();
+	UIRuneSearchIndicatorModel();
+	virtual ~UIRuneSearchIndicatorModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -313,33 +313,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneSearchClearModel class
-class RuneSearchClearModel : public WinGUIButtonModel
+// The UIRuneSearchClearModel class
+class UIRuneSearchClearModel : public WinGUIButtonModel
 {
 public:
-	RuneSearchClearModel();
-	~RuneSearchClearModel();
-
-	// Initialization / Update
-	Void Initialize( CCGOPGUI * pGUI );
-
-	// Layout
-	virtual const WinGUILayout * GetLayout() const;
-
-	// Events
-	virtual Bool OnClick();
-
-private:
-	CCGOPGUI * m_pGUI;
-};
-
-/////////////////////////////////////////////////////////////////////////////////
-// The RuneSearchApplyModel class
-class RuneSearchApplyModel : public WinGUIButtonModel
-{
-public:
-	RuneSearchApplyModel();
-	~RuneSearchApplyModel();
+	UIRuneSearchClearModel();
+	virtual ~UIRuneSearchClearModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -355,78 +334,100 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The RuneSearch class
-class RuneSearch
+// The UIRuneSearchApplyModel class
+class UIRuneSearchApplyModel : public WinGUIButtonModel
 {
 public:
-	RuneSearch( CCGOPGUI * pGUI );
-	~RuneSearch();
+	UIRuneSearchApplyModel();
+	virtual ~UIRuneSearchApplyModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The UIRuneSearch class
+class UIRuneSearch
+{
+public:
+	UIRuneSearch( CCGOPGUI * pGUI );
+	~UIRuneSearch();
 
 	// Initialization / Cleanup
 	Void Initialize();
 	Void Cleanup();
 
-private:
-	friend class RuneSearchSlotModel;
-	friend class RuneSearchSetModel;
-	friend class RuneSearchRankModel;
-	friend class RuneSearchQualityModel;
-	friend class RuneSearchLevelModel;
-	friend class RuneSearchMainStatModel;
-	friend class RuneSearchSubStatsModeModel;
-	friend class RuneSearchSubStatModel;
-	friend class RuneSearchSubStatValueModel;
-	friend class RuneSearchIndicatorModel;
-	friend class RuneSearchClearModel;
-	friend class RuneSearchApplyModel;
+	// Rune Search
+	inline Void GetSearchArea( WinGUIRectangle * outClientArea ) const;
+
+	inline WinGUIComboBox * GetSlot() const;
+	inline WinGUIComboBox * GetSet() const;
+	inline WinGUIComboBox * GetRank() const;
+	inline WinGUIComboBox * GetQuality() const;
+	inline WinGUIComboBox * GetLevel() const;
+	inline WinGUIComboBox * GetMainStat() const;
+	inline WinGUICheckBox * GetSubStatsMode() const;
+	inline WinGUIComboBox * GetSubStat( UInt iIndex ) const;
+	inline WinGUITextEdit * GetSubStatValue( UInt iIndex ) const;
+	inline WinGUIStatic * GetIndicator() const;
 
 	// Helpers
-	Void _UpdateAvailableMainStats();
-	Void _ExcludeRuneStats( WinGUIComboBox * pJustSelected );
+	Void UpdateAvailableMainStats();
+	Void ExcludeRuneStats( WinGUIComboBox * pJustSelected );
 
+private:
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;
 
 	// Rune Search UI
-	RuneSearchGroupModel m_hGroupModel;
+	UIRuneSearchGroupModel m_hGroupModel;
 	WinGUIGroupBox * m_pGroup;
 
-	RuneSearchSlotModel m_hSlotModel;
+	UIRuneSearchSlotModel m_hSlotModel;
 	WinGUIComboBox * m_pSlot;
 
-	RuneSearchSetModel m_hSetModel;
+	UIRuneSearchSetModel m_hSetModel;
 	WinGUIComboBox * m_pSet;
 
-	RuneSearchRankModel m_hRankModel;
+	UIRuneSearchRankModel m_hRankModel;
 	WinGUIComboBox * m_pRank;
 
-	RuneSearchQualityModel m_hQualityModel;
+	UIRuneSearchQualityModel m_hQualityModel;
 	WinGUIComboBox * m_pQuality;
 
-	RuneSearchLevelModel m_hLevelModel;
+	UIRuneSearchLevelModel m_hLevelModel;
 	WinGUIComboBox * m_pLevel;
 
-	RuneSearchMainStatModel m_hMainStatModel;
+	UIRuneSearchMainStatModel m_hMainStatModel;
 	WinGUIComboBox * m_pMainStat;
 
-	RuneSearchSubStatsModeModel m_hSubStatsModeModel;
+	UIRuneSearchSubStatsModeModel m_hSubStatsModeModel;
 	WinGUICheckBox * m_pSubStatsMode;
 
 	struct _sub_stats {
-		RuneSearchSubStatModel m_hSubStatModel;
-		WinGUIComboBox * m_pSubStat;
-		RuneSearchSubStatValueModel m_hSubStatValueModel;
-		WinGUITextEdit * m_pSubStatValue;
+		UIRuneSearchSubStatModel hStatModel;
+		WinGUIComboBox * pStat;
+		UIRuneSearchSubStatValueModel hValueModel;
+		WinGUITextEdit * pValue;
 	} m_arrSubStats[RUNE_RANDOM_STAT_COUNT];
 
-	RuneSearchIndicatorModel m_hIndicatorModel;
+	UIRuneSearchIndicatorModel m_hIndicatorModel;
 	WinGUIStatic * m_pIndicator;
 
-	RuneSearchClearModel m_hClearModel;
+	UIRuneSearchClearModel m_hClearModel;
 	WinGUIButton * m_pClear;
 
-	RuneSearchApplyModel m_hApplyModel;
+	UIRuneSearchApplyModel m_hApplyModel;
 	WinGUIButton * m_pApply;
 };
 

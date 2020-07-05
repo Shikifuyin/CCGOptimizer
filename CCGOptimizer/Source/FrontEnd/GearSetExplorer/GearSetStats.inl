@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/GearSetExplorer.inl
+// File : Source/FrontEnd/GearSetExplorer/GearSetStats.inl
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : GearSetExplorer GUI
+// Description : GearSetExplorer GUI : GearSet Stats Display
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -16,11 +16,13 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////
-// GearSetExplorer implementation
-inline UIGearSetTable * GearSetExplorer::GetGearSetTable() {
-	return &m_hGearSetTable;
+// UIGearSetStats implementation
+inline Void UIGearSetStats::GetGearSetArea( WinGUIRectangle * outClientArea ) const {
+	m_pGroup->ComputeClientArea( outClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 }
-inline UIGearSetStats * GearSetExplorer::GetGearSetStats() {
-	return &m_hGearSetStats;
+
+inline Void UIGearSetStats::GetRuneArea( WinGUIRectangle * outClientArea, UInt iSlot ) const {
+	Assert( iSlot < RUNE_SLOT_COUNT );
+	m_arrRuneStats[iSlot].pGroup->ComputeClientArea( outClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 }
 

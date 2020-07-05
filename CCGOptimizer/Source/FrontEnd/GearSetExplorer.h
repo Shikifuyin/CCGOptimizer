@@ -30,6 +30,7 @@
 #include "Layout.h"
 
 #include "GearSetExplorer/GearSetTable.h"
+#include "GearSetExplorer/GearSetStats.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
@@ -50,7 +51,8 @@ public:
 	Void Cleanup();
 
 	// Access for delegates
-	inline GearSetTable * GetGearSetTable();
+	inline UIGearSetTable * GetGearSetTable();
+	inline UIGearSetStats * GetGearSetStats();
 
 private:
 	// GUI Instance
@@ -58,7 +60,10 @@ private:
 	WinGUIContainer * m_pRoot;
 
 	// GearSet Table UI
-	GearSetTable m_hGearSetTable;
+	UIGearSetTable m_hGearSetTable;
+
+	// GearSet Stats UI
+	UIGearSetStats m_hGearSetStats;
 };
 
 /////////////////////////////////////////////////////////////////////////////////

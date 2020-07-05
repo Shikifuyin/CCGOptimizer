@@ -24,25 +24,25 @@
 #pragma warning(disable:4312) // Converting UInts to Void*
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroCreationGroupModel implementation
-HeroCreationGroupModel::HeroCreationGroupModel():
+// UIHeroCreationGroupModel implementation
+UIHeroCreationGroupModel::UIHeroCreationGroupModel():
 	WinGUIGroupBoxModel(CCGOP_RESID_HEROEXPLORER_HEROCREATION_GROUP)
 {
 	m_pGUI = NULL;
 }
-HeroCreationGroupModel::~HeroCreationGroupModel()
+UIHeroCreationGroupModel::~UIHeroCreationGroupModel()
 {
 	// nothing to do
 }
 
-Void HeroCreationGroupModel::Initialize( CCGOPGUI * pGUI )
+Void UIHeroCreationGroupModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
 	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Hero Creation :") );
 }
 
-const WinGUILayout * HeroCreationGroupModel::GetLayout() const
+const WinGUILayout * UIHeroCreationGroupModel::GetLayout() const
 {
 	static WinGUIManualLayout hLayout;
 
@@ -58,20 +58,20 @@ const WinGUILayout * HeroCreationGroupModel::GetLayout() const
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroCreationNameModel implementation
-HeroCreationNameModel::HeroCreationNameModel():
+// UIHeroCreationNameModel implementation
+UIHeroCreationNameModel::UIHeroCreationNameModel():
 	WinGUIComboBoxModel(CCGOP_RESID_HEROEXPLORER_HEROCREATION_NAME),
 	m_arrHeroNames()
 {
 	m_pGUI = NULL;
 	m_arrHeroNames.Create();
 }
-HeroCreationNameModel::~HeroCreationNameModel()
+UIHeroCreationNameModel::~UIHeroCreationNameModel()
 {
 	m_arrHeroNames.Destroy();
 }
 
-Void HeroCreationNameModel::Initialize( CCGOPGUI * pGUI )
+Void UIHeroCreationNameModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -92,7 +92,7 @@ Void HeroCreationNameModel::Initialize( CCGOPGUI * pGUI )
 		++itHeroData;
 	}
 }
-Void HeroCreationNameModel::Update()
+Void UIHeroCreationNameModel::Update()
 {
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	pController->RemoveAllItems();
@@ -105,28 +105,25 @@ Void HeroCreationNameModel::Update()
 	pController->SetCueText( TEXT("Hero Name ...") );
 }
 
-const WinGUILayout * HeroCreationNameModel::GetLayout() const
+const WinGUILayout * UIHeroCreationNameModel::GetLayout() const
 {
-	HeroCreation * pHeroCreation = m_pGUI->GetHeroExplorer()->GetHeroCreation();
-	WinGUIGroupBox * pGroupBox = pHeroCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
 	hLayout.FixedSize.iY = (UInt)( 1.5f * (Float)CCGOP_LAYOUT_COMBOBOX_HEIGHT ); // Bigger for convenience !
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft;
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Void HeroCreationNameModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIHeroCreationNameModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 
@@ -134,44 +131,47 @@ Void HeroCreationNameModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iK
 		pController->SelectItem( INVALID_OFFSET );
 
 		// Ensure subsequent choices are consistent
-		m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableRanks();
-		m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableLevels();
-		m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableSanctify();
+		m_pGUI->GetHeroExplorer()->GetHeroCreation()->UpdateAvailableRanks();
+		m_pGUI->GetHeroExplorer()->GetHeroCreation()->UpdateAvailableLevels();
+		m_pGUI->GetHeroExplorer()->GetHeroCreation()->UpdateAvailableSanctify();
 	}
 }
 
-Bool HeroCreationNameModel::OnSelectionOK()
+Bool UIHeroCreationNameModel::OnSelectionOK()
 {
 	// Ensure subsequent choices are consistent
-	m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableRanks();
-	m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableLevels();
-	m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableSanctify();
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->UpdateAvailableRanks();
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->UpdateAvailableLevels();
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->UpdateAvailableSanctify();
 
 	return true;
 }
 
-Void HeroCreationNameModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
+Void UIHeroCreationNameModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < m_arrHeroNames.Count() );
 
-	StringFn->NCopy( outBuffer, m_arrHeroNames[iItemIndex], iMaxLength - 1 );
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+	const GChar * strName = (const GChar *)( pController->GetItemData(iItemIndex) );
+
+	StringFn->NCopy( outBuffer, strName, iMaxLength - 1 );
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroCreationRankModel implementation
-HeroCreationRankModel::HeroCreationRankModel():
+// UIHeroCreationRankModel implementation
+UIHeroCreationRankModel::UIHeroCreationRankModel():
 	WinGUIComboBoxModel(CCGOP_RESID_HEROEXPLORER_HEROCREATION_RANK)
 {
 	m_pGUI = NULL;
 
 	m_iFirstAvailableRank = HERO_RANK_1S;
 }
-HeroCreationRankModel::~HeroCreationRankModel()
+UIHeroCreationRankModel::~UIHeroCreationRankModel()
 {
 	// nothing to do
 }
 
-Void HeroCreationRankModel::Initialize( CCGOPGUI * pGUI )
+Void UIHeroCreationRankModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -186,7 +186,7 @@ Void HeroCreationRankModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void HeroCreationRankModel::Update( HeroRank iFirstAvailableRank )
+Void UIHeroCreationRankModel::Update( HeroRank iFirstAvailableRank )
 {
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	pController->RemoveAllItems();
@@ -201,28 +201,25 @@ Void HeroCreationRankModel::Update( HeroRank iFirstAvailableRank )
 	pController->SetCueText( TEXT("Hero Rank ...") );
 }
 
-const WinGUILayout * HeroCreationRankModel::GetLayout() const
+const WinGUILayout * UIHeroCreationRankModel::GetLayout() const
 {
-	HeroCreation * pHeroCreation = m_pGUI->GetHeroExplorer()->GetHeroCreation();
-	WinGUIGroupBox * pGroupBox = pHeroCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,1,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,1,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Void HeroCreationRankModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIHeroCreationRankModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 
@@ -230,30 +227,33 @@ Void HeroCreationRankModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iK
 		pController->SelectItem( INVALID_OFFSET );
 
 		// Ensure subsequent choices are consistent
-		m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableLevels();
-		m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableSanctify();
+		m_pGUI->GetHeroExplorer()->GetHeroCreation()->UpdateAvailableLevels();
+		m_pGUI->GetHeroExplorer()->GetHeroCreation()->UpdateAvailableSanctify();
 	}
 }
 
-Bool HeroCreationRankModel::OnSelectionOK()
+Bool UIHeroCreationRankModel::OnSelectionOK()
 {
 	// Ensure subsequent choices are consistent
-	m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableLevels();
-	m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableSanctify();
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->UpdateAvailableLevels();
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->UpdateAvailableSanctify();
 
 	return true;
 }
 
-Void HeroCreationRankModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
+Void UIHeroCreationRankModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < HERO_RANK_COUNT );
 
-	StringFn->NCopy( outBuffer, GameDataFn->GetHeroRankName((HeroRank)(m_iFirstAvailableRank + iItemIndex)), iMaxLength - 1 );
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+	HeroRank iRank = (HeroRank)(UIntPtr)( pController->GetItemData(iItemIndex) );
+
+	StringFn->NCopy( outBuffer, GameDataFn->GetHeroRankName(iRank), iMaxLength - 1 );
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroCreationLevelModel implementation
-HeroCreationLevelModel::HeroCreationLevelModel():
+// UIHeroCreationLevelModel implementation
+UIHeroCreationLevelModel::UIHeroCreationLevelModel():
 	WinGUIComboBoxModel(CCGOP_RESID_HEROEXPLORER_HEROCREATION_LEVEL)
 {
 	m_pGUI = NULL;
@@ -261,12 +261,12 @@ HeroCreationLevelModel::HeroCreationLevelModel():
 	m_iMinLevel = 1;
 	m_iMaxLevel = HERO_MAX_LEVEL;
 }
-HeroCreationLevelModel::~HeroCreationLevelModel()
+UIHeroCreationLevelModel::~UIHeroCreationLevelModel()
 {
 	// nothing to do
 }
 
-Void HeroCreationLevelModel::Initialize( CCGOPGUI * pGUI )
+Void UIHeroCreationLevelModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -281,7 +281,7 @@ Void HeroCreationLevelModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void HeroCreationLevelModel::Update( UInt iMinLevel, UInt iMaxLevel )
+Void UIHeroCreationLevelModel::Update( UInt iMinLevel, UInt iMaxLevel )
 {
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	pController->RemoveAllItems();
@@ -297,28 +297,25 @@ Void HeroCreationLevelModel::Update( UInt iMinLevel, UInt iMaxLevel )
 	pController->SetCueText( TEXT("Hero Level ...") );
 }
 
-const WinGUILayout * HeroCreationLevelModel::GetLayout() const
+const WinGUILayout * UIHeroCreationLevelModel::GetLayout() const
 {
-	HeroCreation * pHeroCreation = m_pGUI->GetHeroExplorer()->GetHeroCreation();
-	WinGUIGroupBox * pGroupBox = pHeroCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,2,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,2,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
 	return &hLayout;
 }
 
-Void HeroCreationLevelModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIHeroCreationLevelModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 
@@ -326,42 +323,45 @@ Void HeroCreationLevelModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode i
 		pController->SelectItem( INVALID_OFFSET );
 
 		// Ensure subsequent choices are consistent
-		m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableSanctify();
+		m_pGUI->GetHeroExplorer()->GetHeroCreation()->UpdateAvailableSanctify();
 	}
 }
 
-Bool HeroCreationLevelModel::OnSelectionOK()
+Bool UIHeroCreationLevelModel::OnSelectionOK()
 {
 	// Ensure subsequent choices are consistent
-	m_pGUI->GetHeroExplorer()->GetHeroCreation()->_UpdateAvailableSanctify();
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->UpdateAvailableSanctify();
 
 	return true;
 }
 
-Void HeroCreationLevelModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
+Void UIHeroCreationLevelModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	Assert( m_iMinLevel + iItemIndex <= HERO_MAX_LEVEL );
 
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+	UInt iLevel = (UInt)(UIntPtr)( pController->GetItemData(iItemIndex) );
+
 	GChar strBuffer[32];
-	StringFn->FromUInt( strBuffer, (m_iMinLevel + iItemIndex) );
+	StringFn->FromUInt( strBuffer, iLevel );
 	StringFn->NCopy( outBuffer, strBuffer, iMaxLength - 1 );
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroCreationSanctifyModel implementation
-HeroCreationSanctifyModel::HeroCreationSanctifyModel():
+// UIHeroCreationSanctifyModel implementation
+UIHeroCreationSanctifyModel::UIHeroCreationSanctifyModel():
 	WinGUIComboBoxModel(CCGOP_RESID_HEROEXPLORER_HEROCREATION_SANCTIFY)
 {
 	m_pGUI = NULL;
 
 	m_bSanctifyAllowed = false;
 }
-HeroCreationSanctifyModel::~HeroCreationSanctifyModel()
+UIHeroCreationSanctifyModel::~UIHeroCreationSanctifyModel()
 {
 	// nothing to do
 }
 
-Void HeroCreationSanctifyModel::Initialize( CCGOPGUI * pGUI )
+Void UIHeroCreationSanctifyModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -376,7 +376,7 @@ Void HeroCreationSanctifyModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void HeroCreationSanctifyModel::Update( Bool bSanctifyAllowed )
+Void UIHeroCreationSanctifyModel::Update( Bool bSanctifyAllowed )
 {
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	pController->RemoveAllItems();
@@ -396,28 +396,25 @@ Void HeroCreationSanctifyModel::Update( Bool bSanctifyAllowed )
 	pController->SetCueText( TEXT("Hero Sanctify ...") );
 }
 
-const WinGUILayout * HeroCreationSanctifyModel::GetLayout() const
+const WinGUILayout * UIHeroCreationSanctifyModel::GetLayout() const
 {
-	HeroCreation * pHeroCreation = m_pGUI->GetHeroExplorer()->GetHeroCreation();
-	WinGUIGroupBox * pGroupBox = pHeroCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,1);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_COMBOBOX_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_COMBOBOX_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft;
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,1);
+
 	return &hLayout;
 }
 
-Void HeroCreationSanctifyModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIHeroCreationSanctifyModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 
@@ -425,26 +422,29 @@ Void HeroCreationSanctifyModel::OnMousePress( const WinGUIPoint & hPoint, KeyCod
 		pController->SelectItem( INVALID_OFFSET );
 }
 
-Void HeroCreationSanctifyModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
+Void UIHeroCreationSanctifyModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < HERO_SANCTIFY_COUNT );
 
-	StringFn->NCopy( outBuffer, GameDataFn->GetHeroSanctifyName((HeroSanctify)iItemIndex), iMaxLength - 1 );
+	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
+	HeroSanctify iSanctify = (HeroSanctify)(UIntPtr)( pController->GetItemData(iItemIndex) );
+
+	StringFn->NCopy( outBuffer, GameDataFn->GetHeroSanctifyName(iSanctify), iMaxLength - 1 );
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroCreationEvolvedModel implementation
-HeroCreationEvolvedModel::HeroCreationEvolvedModel():
+// UIHeroCreationEvolvedModel implementation
+UIHeroCreationEvolvedModel::UIHeroCreationEvolvedModel():
 	WinGUICheckBoxModel(CCGOP_RESID_HEROEXPLORER_HEROCREATION_EVOLVED)
 {
 	m_pGUI = NULL;
 }
-HeroCreationEvolvedModel::~HeroCreationEvolvedModel()
+UIHeroCreationEvolvedModel::~UIHeroCreationEvolvedModel()
 {
 	// nothing to do
 }
 
-Void HeroCreationEvolvedModel::Initialize( CCGOPGUI * pGUI )
+Void UIHeroCreationEvolvedModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -454,40 +454,37 @@ Void HeroCreationEvolvedModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * HeroCreationEvolvedModel::GetLayout() const
+const WinGUILayout * UIHeroCreationEvolvedModel::GetLayout() const
 {
-	HeroCreation * pHeroCreation = m_pGUI->GetHeroExplorer()->GetHeroCreation();
-	WinGUIGroupBox * pGroupBox = pHeroCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,1,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,1);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_CHECKBOX_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_CHECKBOX_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,1,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,1);
+
 	return &hLayout;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroCreationButtonModel implementation
-HeroCreationButtonModel::HeroCreationButtonModel():
+// UIHeroCreationButtonModel implementation
+UIHeroCreationButtonModel::UIHeroCreationButtonModel():
 	WinGUIButtonModel(CCGOP_RESID_HEROEXPLORER_HEROCREATION_CREATE)
 {
 	m_pGUI = NULL;
 }
-HeroCreationButtonModel::~HeroCreationButtonModel()
+UIHeroCreationButtonModel::~UIHeroCreationButtonModel()
 {
 	// nothing to do
 }
 
-Void HeroCreationButtonModel::Initialize( CCGOPGUI * pGUI )
+Void UIHeroCreationButtonModel::Initialize( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 
@@ -497,30 +494,27 @@ Void HeroCreationButtonModel::Initialize( CCGOPGUI * pGUI )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * HeroCreationButtonModel::GetLayout() const
+const WinGUILayout * UIHeroCreationButtonModel::GetLayout() const
 {
-	HeroCreation * pHeroCreation = m_pGUI->GetHeroExplorer()->GetHeroCreation();
-	WinGUIGroupBox * pGroupBox = pHeroCreation->m_pGroup;
-
 	WinGUIRectangle hClientArea;
-	pGroupBox->ComputeClientArea( &hClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetCreationArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,2,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,1);
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,2,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,0,1,1);
+
 	return &hLayout;
 }
 
-Bool HeroCreationButtonModel::OnClick()
+Bool UIHeroCreationButtonModel::OnClick()
 {
-	HeroCreation * pHeroCreation = m_pGUI->GetHeroExplorer()->GetHeroCreation();
+	UIHeroCreation * pHeroCreation = m_pGUI->GetHeroExplorer()->GetHeroCreation();
 
 	// Error Message
 	WinGUIMessageBoxOptions hOptions;
@@ -530,7 +524,7 @@ Bool HeroCreationButtonModel::OnClick()
 	hOptions.bMustAnswer = true;
 
 	// Retrieve Hero Name
-	WinGUIComboBox * pHeroName = pHeroCreation->m_pName;
+	WinGUIComboBox * pHeroName = pHeroCreation->GetName();
 	UInt iSelected = pHeroName->GetSelectedItem();
 	if ( iSelected == INVALID_OFFSET ) {
 		WinGUIFn->SpawnMessageBox( TEXT("Error !"), TEXT("Please select a Hero Name !"), hOptions );
@@ -540,7 +534,7 @@ Bool HeroCreationButtonModel::OnClick()
 	const GChar * strName = (const GChar *)( pHeroName->GetItemData(iSelected) );
 
 	// Retrieve Hero Rank
-	WinGUIComboBox * pHeroRank = pHeroCreation->m_pRank;
+	WinGUIComboBox * pHeroRank = pHeroCreation->GetRank();
 	iSelected = pHeroRank->GetSelectedItem();
 	if ( iSelected == INVALID_OFFSET ) {
 		WinGUIFn->SpawnMessageBox( TEXT("Error !"), TEXT("Please select a Hero Rank !"), hOptions );
@@ -550,7 +544,7 @@ Bool HeroCreationButtonModel::OnClick()
 	HeroRank iRank = (HeroRank)(UIntPtr)( pHeroRank->GetItemData(iSelected) );
 
 	// Retrieve Hero Level
-	WinGUIComboBox * pHeroLevel = pHeroCreation->m_pLevel;
+	WinGUIComboBox * pHeroLevel = pHeroCreation->GetLevel();
 	iSelected = pHeroLevel->GetSelectedItem();
 	if ( iSelected == INVALID_OFFSET ) {
 		WinGUIFn->SpawnMessageBox( TEXT("Error !"), TEXT("Please select a Hero Level !"), hOptions );
@@ -560,7 +554,7 @@ Bool HeroCreationButtonModel::OnClick()
 	UInt iLevel = (UInt)(UIntPtr)( pHeroLevel->GetItemData(iSelected) );
 
 	// Retrieve Hero Sanctify
-	WinGUIComboBox * pHeroSanctify = pHeroCreation->m_pSanctify;
+	WinGUIComboBox * pHeroSanctify = pHeroCreation->GetSanctify();
 	iSelected = pHeroSanctify->GetSelectedItem();
 	if ( iSelected == INVALID_OFFSET ) {
 		WinGUIFn->SpawnMessageBox( TEXT("Error !"), TEXT("Please select a Hero Sanctification !"), hOptions );
@@ -570,7 +564,7 @@ Bool HeroCreationButtonModel::OnClick()
 	HeroSanctify iSanctify = (HeroSanctify)(UIntPtr)( pHeroSanctify->GetItemData(iSelected) );
 
 	// Retrieve Hero Evolved
-	WinGUICheckBox * pHeroEvolved = pHeroCreation->m_pEvolved;
+	WinGUICheckBox * pHeroEvolved = pHeroCreation->GetEvolved();
 	Bool bEvolved = pHeroEvolved->IsChecked();
 
 	// Confirmation Message
@@ -597,8 +591,9 @@ Bool HeroCreationButtonModel::OnClick()
 	HeroID iHeroID = CCGOPFn->CreateHero( strName, iRank, iLevel, bEvolved, iSanctify );
 
 	// Update HeroTable
-	HeroTable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable();
-	pHeroTable->m_hHeroTableModel.UpdateAfterHeroCreation( iHeroID );
+	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->GetTable();
+	UIHeroTableModel * pModel = (UIHeroTableModel*)( pHeroTable->GetModel() );
+	pModel->UpdateAfterHeroCreation( iHeroID );
 
 	// Set Unsaved Changes Mark
 	m_pGUI->SetUnsavedChangesMark();
@@ -608,8 +603,8 @@ Bool HeroCreationButtonModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// HeroCreation implementation
-HeroCreation::HeroCreation( CCGOPGUI * pGUI )
+// UIHeroCreation implementation
+UIHeroCreation::UIHeroCreation( CCGOPGUI * pGUI )
 {
 	m_pGUI = pGUI;
 	m_pRoot = NULL;
@@ -622,15 +617,15 @@ HeroCreation::HeroCreation( CCGOPGUI * pGUI )
 	m_pEvolved = NULL;
 	m_pButton = NULL;
 }
-HeroCreation::~HeroCreation()
+UIHeroCreation::~UIHeroCreation()
 {
 	// nothing to do
 }
 
-Void HeroCreation::Initialize()
+Void UIHeroCreation::Initialize()
 {
 	// Grab Root
-	m_pRoot = m_pGUI->GetRoot( CCGOP_MAINMENU_HERO_EXPLORER );
+	m_pRoot = m_pGUI->GetTabPane( UI_MAINMENU_HERO_EXPLORER );
 
 	// Build Hero Creation UI
 	m_hGroupModel.Initialize( m_pGUI );
@@ -659,14 +654,12 @@ Void HeroCreation::Initialize()
 	m_hButtonModel.Initialize( m_pGUI );
 	m_pButton = WinGUIFn->CreateButton( m_pRoot, &(m_hButtonModel) );
 }
-Void HeroCreation::Cleanup()
+Void UIHeroCreation::Cleanup()
 {
 	// nothing to do (for now)
 }
 
-/////////////////////////////////////////////////////////////////////////////////
-
-Void HeroCreation::_UpdateAvailableRanks()
+Void UIHeroCreation::UpdateAvailableRanks()
 {
 	// Retrieve selected Hero
 	UInt iSelected = m_pName->GetSelectedItem();
@@ -681,7 +674,7 @@ Void HeroCreation::_UpdateAvailableRanks()
 	// Update RankModel
 	m_hRankModel.Update( iNaturalRank );
 }
-Void HeroCreation::_UpdateAvailableLevels()
+Void UIHeroCreation::UpdateAvailableLevels()
 {
 	// Retrieve selected Hero
 	UInt iSelected = m_pName->GetSelectedItem();
@@ -708,7 +701,7 @@ Void HeroCreation::_UpdateAvailableLevels()
 	// Update LevelModel
 	m_hLevelModel.Update( iMinLevel, iMaxLevel );
 }
-Void HeroCreation::_UpdateAvailableSanctify()
+Void UIHeroCreation::UpdateAvailableSanctify()
 {
 	// Retrieve selected Level
 	UInt iSelected = m_pLevel->GetSelectedItem();
