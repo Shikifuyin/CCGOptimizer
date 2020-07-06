@@ -30,7 +30,7 @@
 #include "Layout.h"
 
 #include "GearSetExplorer/GearSetTable.h"
-#include "GearSetExplorer/GearSetStats.h"
+#include "GearSetExplorer/GearSetSlot.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
@@ -52,7 +52,7 @@ public:
 
 	// Access for delegates
 	inline UIGearSetTable * GetGearSetTable();
-	inline UIGearSetStats * GetGearSetStats();
+	inline UIGearSetSlot * GetGearSetSlot( UInt iSlot );
 
 private:
 	// GUI Instance
@@ -62,8 +62,8 @@ private:
 	// GearSet Table UI
 	UIGearSetTable m_hGearSetTable;
 
-	// GearSet Stats UI
-	UIGearSetStats m_hGearSetStats;
+	// GearSet Slots UI
+	UIGearSetSlot m_arrGearSetSlots[RUNE_SLOT_COUNT];
 };
 
 /////////////////////////////////////////////////////////////////////////////////

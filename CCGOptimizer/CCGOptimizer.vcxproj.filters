@@ -123,7 +123,7 @@
     <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetTable.cpp">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetStats.cpp">
+    <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.cpp">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </ClCompile>
   </ItemGroup>
@@ -206,7 +206,7 @@
     <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetTable.h">
       <Filter>Header Files\FrontEnd\GearSetExplorer</Filter>
     </ClInclude>
-    <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetStats.h">
+    <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.h">
       <Filter>Header Files\FrontEnd\GearSetExplorer</Filter>
     </ClInclude>
   </ItemGroup>
@@ -280,7 +280,7 @@
     <None Include="Source\FrontEnd\GearSetExplorer\GearSetTable.inl">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </None>
-    <None Include="Source\FrontEnd\GearSetExplorer\GearSetStats.inl">
+    <None Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.inl">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </None>
   </ItemGroup>

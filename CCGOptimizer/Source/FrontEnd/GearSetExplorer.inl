@@ -20,7 +20,8 @@
 inline UIGearSetTable * GearSetExplorer::GetGearSetTable() {
 	return &m_hGearSetTable;
 }
-inline UIGearSetStats * GearSetExplorer::GetGearSetStats() {
-	return &m_hGearSetStats;
+inline UIGearSetSlot * GearSetExplorer::GetGearSetSlot( UInt iSlot ) {
+	Assert( iSlot < RUNE_SLOT_COUNT );
+	return ( m_arrGearSetSlots + iSlot );
 }
 
