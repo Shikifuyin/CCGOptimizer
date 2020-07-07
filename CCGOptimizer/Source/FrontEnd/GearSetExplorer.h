@@ -31,7 +31,9 @@
 
 #include "GearSetExplorer/GearSetTable.h"
 #include "GearSetExplorer/GearSetSlot.h"
+#include "GearSetExplorer/GearSetStats.h"
 #include "GearSetExplorer/GearSetCreation.h"
+#include "GearSetExplorer/GearSetBuildSlot.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
@@ -54,7 +56,9 @@ public:
 	// Access for delegates
 	inline UIGearSetTable * GetGearSetTable();
 	inline UIGearSetSlot * GetGearSetSlot( UInt iSlot );
+	inline UIGearSetStats * GetGearSetStats();
 	inline UIGearSetCreation * GetGearSetCreation();
+	inline UIGearSetBuildSlot * GetGearSetBuildSlot( UInt iSlot );
 
 private:
 	// GUI Instance
@@ -67,8 +71,14 @@ private:
 	// GearSet Slots UI
 	UIGearSetSlot m_arrGearSetSlots[RUNE_SLOT_COUNT];
 
+	// GearSet Stats UI
+	UIGearSetStats m_hGearSetStats;
+
 	// GearSet Creation UI
 	UIGearSetCreation m_hGearSetCreation;
+
+	// GearSet Build Slots UI
+	UIGearSetBuildSlot m_arrGearSetBuildSlots[RUNE_SLOT_COUNT];
 };
 
 /////////////////////////////////////////////////////////////////////////////////

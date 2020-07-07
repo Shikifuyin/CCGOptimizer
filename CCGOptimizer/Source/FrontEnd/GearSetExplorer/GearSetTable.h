@@ -70,6 +70,10 @@ public:
 	// Events
 	virtual Bool OnColumnHeaderClick( UInt iIndex );
 
+	virtual Bool OnItemChanged( UInt iItemIndex, UInt iSubItemIndex, Void * pItemData,
+							    const WinGUITableItemState & hOldState, const WinGUITableItemState & hNewState,
+								const WinGUIPoint & hHotPoint );
+
 	// Callback Events
 	virtual GChar * OnRequestItemLabel( UInt iItemIndex, UInt iSubItemIndex, Void * pItemData );
 

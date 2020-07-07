@@ -621,8 +621,8 @@ const WinGUILayout * UIRuneSearchSubStatsModeModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_TEXTEDIT_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_TEXTEDIT_HEIGHT;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_CHECKBOX_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_CHECKBOX_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,3,0);
@@ -852,8 +852,8 @@ const WinGUILayout * UIRuneSearchIndicatorModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_STATICTEXT_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_STATICTEXT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(0,0,0,0);

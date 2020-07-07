@@ -75,6 +75,27 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
+// The UIRuneOptionsPoolModel class
+class UIRuneOptionsPoolModel : public WinGUIButtonModel
+{
+public:
+	UIRuneOptionsPoolModel();
+	virtual ~UIRuneOptionsPoolModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
 // The UIRuneOptionsDeleteModel class
 class UIRuneOptionsDeleteModel : public WinGUIButtonModel
 {
@@ -121,6 +142,9 @@ private:
 
 	UIRuneOptionsLockModel m_hLockModel;
 	WinGUIButton * m_pLock;
+
+	UIRuneOptionsPoolModel m_hPoolModel;
+	WinGUIButton * m_pPool;
 
 	UIRuneOptionsDeleteModel m_hDeleteModel;
 	WinGUIButton * m_pDelete;

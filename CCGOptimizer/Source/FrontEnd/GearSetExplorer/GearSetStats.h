@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/GearSetExplorer/GearSetCreation.h
+// File : Source/FrontEnd/GearSetExplorer/GearSetStats.h
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : GearSetExplorer GUI : GearSet Creation
+// Description : GearSetExplorer GUI : GearSet Stats Display
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -17,8 +17,8 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // Header prelude
-#ifndef CCGOP_FRONTEND_GEARSETEXPLORER_GEARSETCREATION_H
-#define CCGOP_FRONTEND_GEARSETEXPLORER_GEARSETCREATION_H
+#ifndef CCGOP_FRONTEND_GEARSETEXPLORER_GEARSETSTATS_H
+#define CCGOP_FRONTEND_GEARSETEXPLORER_GEARSETSTATS_H
 
 /////////////////////////////////////////////////////////////////////////////////
 // Includes
@@ -36,12 +36,12 @@
 class CCGOPGUI;
 
 /////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetCreationGroupModel class
-class UIGearSetCreationGroupModel : public WinGUIGroupBoxModel
+// The UIGearSetStatsGroupModel class
+class UIGearSetStatsGroupModel : public WinGUIGroupBoxModel
 {
 public:
-	UIGearSetCreationGroupModel();
-	virtual ~UIGearSetCreationGroupModel();
+	UIGearSetStatsGroupModel();
+	virtual ~UIGearSetStatsGroupModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
@@ -54,12 +54,32 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetCreationNameModel class
-class UIGearSetCreationNameModel : public WinGUITextEditModel
+// The UIGearSetStatsDisplayModel class
+class UIGearSetStatsDisplayModel : public WinGUIStaticModel
 {
 public:
-	UIGearSetCreationNameModel();
-	virtual ~UIGearSetCreationNameModel();
+	UIGearSetStatsDisplayModel();
+	virtual ~UIGearSetStatsDisplayModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI, HeroStat iHeroStat );
+	Void Update();
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+private:
+	CCGOPGUI * m_pGUI;
+	HeroStat m_iHeroStat;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The UIGearSetStatsSetBonusModel class
+class UIGearSetStatsSetBonusModel : public WinGUIStaticModel
+{
+public:
+	UIGearSetStatsSetBonusModel();
+	virtual ~UIGearSetStatsSetBonusModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -68,72 +88,51 @@ public:
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
 
-	// Events
-	virtual Void OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey );
-
 private:
 	CCGOPGUI * m_pGUI;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetCreationButtonModel class
-class UIGearSetCreationButtonModel : public WinGUIButtonModel
+// The UIGearSetStats class
+class UIGearSetStats
 {
 public:
-	UIGearSetCreationButtonModel();
-	virtual ~UIGearSetCreationButtonModel();
-
-	// Initialization / Update
-	Void Initialize( CCGOPGUI * pGUI );
-
-	// Layout
-	virtual const WinGUILayout * GetLayout() const;
-
-	// Events
-	virtual Bool OnClick();
-
-private:
-	CCGOPGUI * m_pGUI;
-};
-
-/////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetCreation class
-class UIGearSetCreation
-{
-public:
-	UIGearSetCreation( CCGOPGUI * pGUI );
-	~UIGearSetCreation();
+	UIGearSetStats( CCGOPGUI * pGUI );
+	~UIGearSetStats();
 
 	// Initialization / Cleanup
 	Void Initialize();
 	Void Cleanup();
 
-	// GearSet Creation
-	inline Void GetCreationArea( WinGUIRectangle * outClientArea ) const;
+	// GearSet Stats
+	inline Void GetStatsArea( WinGUIRectangle * outClientArea ) const;
 
-	inline WinGUITextEdit * GetName() const;
+	// Helpers
+	Void UpdateModels();
 
 private:
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;
 
-	// GearSet Creation UI
-	UIGearSetCreationGroupModel m_hGroupModel;
+	// GearSet Stats UI
+	UIGearSetStatsGroupModel m_hGroupModel;
 	WinGUIGroupBox * m_pGroup;
 
-	UIGearSetCreationNameModel m_hNameModel;
-	WinGUITextEdit * m_pName;
+	struct _hero_stats {
+		UIGearSetStatsDisplayModel hStatModel;
+		WinGUIStatic * pStat;
+	} m_arrHeroStats[HERO_STAT_COUNT];
 
-	UIGearSetCreationButtonModel m_hButtonModel;
-	WinGUIButton * m_pButton;
+	UIGearSetStatsSetBonusModel m_hSetBonusModel;
+	WinGUIStatic * m_pSetBonus;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
 // Backward Includes (Inlines & Templates)
-#include "GearSetCreation.inl"
+#include "GearSetStats.inl"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Header end
-#endif // CCGOP_FRONTEND_GEARSETEXPLORER_GEARSETCREATION_H
+#endif // CCGOP_FRONTEND_GEARSETEXPLORER_GEARSETSTATS_H
 

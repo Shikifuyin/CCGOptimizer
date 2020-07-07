@@ -47,7 +47,7 @@ const WinGUILayout * UIRuneOptionsGroupModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(2,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(3,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
@@ -131,6 +131,67 @@ Bool UIRuneOptionsLockModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
+// UIRuneOptionsPoolModel implementation
+UIRuneOptionsPoolModel::UIRuneOptionsPoolModel():
+	WinGUIButtonModel(CCGOP_RESID_RUNEEXPLORER_RUNEOPTIONS_POOL)
+{
+	m_pGUI = NULL;
+}
+UIRuneOptionsPoolModel::~UIRuneOptionsPoolModel()
+{
+	// nothing to do
+}
+
+Void UIRuneOptionsPoolModel::Initialize( CCGOPGUI * pGUI )
+{
+	m_pGUI = pGUI;
+
+	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Add to Build Pool") );
+	m_hCreationParameters.bCenterLabel = true;
+	m_hCreationParameters.bEnableTabStop = true;
+	m_hCreationParameters.bEnableNotify = false;
+}
+
+const WinGUILayout * UIRuneOptionsPoolModel::GetLayout() const
+{
+	WinGUIRectangle hClientArea;
+	m_pGUI->GetRuneExplorer()->GetRuneOptions()->GetOptionsArea( &hClientArea );
+
+	static WinGUIManualLayout hLayout;
+
+	hLayout.UseScalingSize = false;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop;
+
+	return &hLayout;
+}
+
+Bool UIRuneOptionsPoolModel::OnClick()
+{
+	// Retrieve Rune Table
+	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->GetTable();
+
+	// Find all checked elements
+	UInt iItemCount = pRuneTable->GetItemCount();
+	for ( UInt i = 0; i < iItemCount; ++i ) {
+		if ( pRuneTable->IsItemChecked(i) ) {
+			// Add to GearSet Build Pool
+			RuneID iRuneID = (RuneID)(UIntPtr)( pRuneTable->GetItemData(i) );
+			const Rune * pRune = CCGOPFn->GetRune( iRuneID );
+			UInt iSlot = pRune->GetSlot();
+			m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(iSlot)->AddPooledRune( iRuneID );
+		}
+	}
+
+	// Done
+	return true;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
 // UIRuneOptionsDeleteModel implementation
 UIRuneOptionsDeleteModel::UIRuneOptionsDeleteModel():
 	WinGUIButtonModel(CCGOP_RESID_RUNEEXPLORER_RUNEOPTIONS_DELETE)
@@ -164,7 +225,7 @@ const WinGUILayout * UIRuneOptionsDeleteModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(2,0,0,0);
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	return &hLayout;
@@ -237,6 +298,8 @@ UIRuneOptions::UIRuneOptions( CCGOPGUI * pGUI )
 	m_pRoot = NULL;
 
 	m_pGroup = NULL;
+	m_pLock = NULL;
+	m_pPool = NULL;
 	m_pDelete = NULL;
 }
 UIRuneOptions::~UIRuneOptions()
@@ -251,13 +314,16 @@ Void UIRuneOptions::Initialize()
 
 	// Build Rune Options UI
 	m_hGroupModel.Initialize( m_pGUI );
-	m_pGroup = WinGUIFn->CreateGroupBox( m_pRoot, &(m_hGroupModel) );
+	m_pGroup = WinGUIFn->CreateGroupBox( m_pRoot, &m_hGroupModel );
 
 	m_hLockModel.Initialize( m_pGUI );
-	m_pLock = WinGUIFn->CreateButton( m_pRoot, &(m_hLockModel) );
+	m_pLock = WinGUIFn->CreateButton( m_pRoot, &m_hLockModel );
+
+	m_hPoolModel.Initialize( m_pGUI );
+	m_pPool = WinGUIFn->CreateButton( m_pRoot, &m_hPoolModel );
 
 	m_hDeleteModel.Initialize( m_pGUI );
-	m_pDelete = WinGUIFn->CreateButton( m_pRoot, &(m_hDeleteModel) );
+	m_pDelete = WinGUIFn->CreateButton( m_pRoot, &m_hDeleteModel );
 }
 Void UIRuneOptions::Cleanup()
 {

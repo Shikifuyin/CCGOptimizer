@@ -82,6 +82,11 @@
 #define CCGOP_LAYOUT_TEXTEDIT_HEIGHT 20
 
 /////////////////////////////////////////////////////////////////////////////////
+// StaticText
+#define CCGOP_LAYOUT_STATICTEXT_WIDTH  CCGOP_LAYOUT_TEXTEDIT_WIDTH
+#define CCGOP_LAYOUT_STATICTEXT_HEIGHT CCGOP_LAYOUT_TEXTEDIT_HEIGHT
+
+/////////////////////////////////////////////////////////////////////////////////
 // ComboBoxes
 #define CCGOP_LAYOUT_COMBOBOX_WIDTH        CCGOP_LAYOUT_BUTTON_WIDTH
 #define CCGOP_LAYOUT_COMBOBOX_HEIGHT       160 // Fit the dropdown

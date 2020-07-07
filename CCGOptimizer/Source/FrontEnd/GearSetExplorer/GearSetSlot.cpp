@@ -139,8 +139,8 @@ const WinGUILayout * UIGearSetSlotHeadLineModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_TEXTEDIT_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_TEXTEDIT_HEIGHT;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_STATICTEXT_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_STATICTEXT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
@@ -224,8 +224,8 @@ const WinGUILayout * UIGearSetSlotMainStatModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_TEXTEDIT_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_TEXTEDIT_HEIGHT;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_STATICTEXT_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_STATICTEXT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
@@ -315,8 +315,8 @@ const WinGUILayout * UIGearSetSlotInnateStatModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_TEXTEDIT_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_TEXTEDIT_HEIGHT;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_STATICTEXT_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_STATICTEXT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
@@ -411,8 +411,8 @@ const WinGUILayout * UIGearSetSlotRandomStatModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_TEXTEDIT_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_TEXTEDIT_HEIGHT;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_STATICTEXT_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_STATICTEXT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
@@ -489,8 +489,8 @@ const WinGUILayout * UIGearSetSlotLockModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_TEXTEDIT_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_TEXTEDIT_HEIGHT;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_CHECKBOX_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_CHECKBOX_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;

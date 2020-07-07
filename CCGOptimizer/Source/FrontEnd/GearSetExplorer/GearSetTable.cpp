@@ -180,6 +180,24 @@ Bool UIGearSetTableModel::OnColumnHeaderClick( UInt iIndex )
 	return true;
 }
 
+Bool UIGearSetTableModel::OnItemChanged( UInt iItemIndex, UInt iSubItemIndex, Void * pItemData,
+										 const WinGUITableItemState & hOldState, const WinGUITableItemState & hNewState,
+										 const WinGUIPoint & hHotPoint )
+{
+	// Item Selection case
+	if ( iItemIndex != INVALID_OFFSET && iSubItemIndex == 0 && (hOldState.bSelected != hNewState.bSelected) ) {
+		// Update GearSet Slots Models
+		for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i )
+			m_pGUI->GetGearSetExplorer()->GetGearSetSlot(i)->UpdateModels();
+
+		// Update GearSet Stats Model
+		m_pGUI->GetGearSetExplorer()->GetGearSetStats()->UpdateModels();
+	}
+
+	// Done
+	return true;
+}
+
 GChar * UIGearSetTableModel::OnRequestItemLabel( UInt iItemIndex, UInt iSubItemIndex, Void * pItemData )
 {
 	Assert( iItemIndex < CCGOPFn->GetGearSetCount() );

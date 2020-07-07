@@ -164,8 +164,10 @@
     <ClCompile Include="Source\BackEnd\RuneInventory.cpp" />
     <ClCompile Include="Source\FrontEnd\CCGOPGUI.cpp" />
     <ClCompile Include="Source\FrontEnd\GearSetExplorer.cpp" />
+    <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetBuildSlot.cpp" />
     <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetCreation.cpp" />
     <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.cpp" />
+    <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetStats.cpp" />
     <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetTable.cpp" />
     <ClCompile Include="Source\FrontEnd\HeroExplorer.cpp" />
     <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroCreation.cpp" />
@@ -192,8 +194,10 @@
     <ClInclude Include="Source\BackEnd\RuneInventory.h" />
     <ClInclude Include="Source\FrontEnd\CCGOPGUI.h" />
     <ClInclude Include="Source\FrontEnd\GearSetExplorer.h" />
+    <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetBuildSlot.h" />
     <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetCreation.h" />
     <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.h" />
+    <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetStats.h" />
     <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetTable.h" />
     <ClInclude Include="Source\FrontEnd\HeroExplorer.h" />
     <ClInclude Include="Source\FrontEnd\HeroExplorer\HeroCreation.h" />
@@ -222,8 +226,10 @@
     <None Include="Source\BackEnd\RuneInventory.inl" />
     <None Include="Source\FrontEnd\CCGOPGUI.inl" />
     <None Include="Source\FrontEnd\GearSetExplorer.inl" />
+    <None Include="Source\FrontEnd\GearSetExplorer\GearSetBuildSlot.inl" />
     <None Include="Source\FrontEnd\GearSetExplorer\GearSetCreation.inl" />
     <None Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.inl" />
+    <None Include="Source\FrontEnd\GearSetExplorer\GearSetStats.inl" />
     <None Include="Source\FrontEnd\GearSetExplorer\GearSetTable.inl" />
     <None Include="Source\FrontEnd\HeroExplorer.inl" />
     <None Include="Source\FrontEnd\HeroExplorer\HeroCreation.inl" />
