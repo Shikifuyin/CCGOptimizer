@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/GearSetExplorer.inl
+// File : Source/FrontEnd/GearSetExplorer/GearSetCreation.inl
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : GearSetExplorer GUI
+// Description : GearSetExplorer GUI : GearSet Creation
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -16,15 +16,11 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////
-// GearSetExplorer implementation
-inline UIGearSetTable * GearSetExplorer::GetGearSetTable() {
-	return &m_hGearSetTable;
-}
-inline UIGearSetSlot * GearSetExplorer::GetGearSetSlot( UInt iSlot ) {
-	Assert( iSlot < RUNE_SLOT_COUNT );
-	return ( m_arrGearSetSlots + iSlot );
-}
-inline UIGearSetCreation * GearSetExplorer::GetGearSetCreation() {
-	return &m_hGearSetCreation;
+// UIGearSetCreation implementation
+inline Void UIGearSetCreation::GetCreationArea( WinGUIRectangle * outClientArea ) const {
+	m_pGroup->ComputeClientArea( outClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 }
 
+inline WinGUITextEdit * UIGearSetCreation::GetName() const {
+	return m_pName;
+}

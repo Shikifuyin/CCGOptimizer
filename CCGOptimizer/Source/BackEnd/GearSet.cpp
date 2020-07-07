@@ -90,7 +90,7 @@ Void GearSet::ImportFromXML( XMLNode * pNode )
     Assert( pAttribute != NULL );
     UInt iHeroCount = (UInt)( StringFn->ToUInt(pAttribute->GetValue()) );
 
-    for( i = 0; i < RUNE_SLOT_COUNT; ++i ) {
+    for( i = 0; i < iHeroCount; ++i ) {
         StringFn->Format( strNameBuffer, TEXT("hero_%d"), i );
         pAttribute = pSubNode->GetAttribute( strNameBuffer );
         Assert( pAttribute != NULL );

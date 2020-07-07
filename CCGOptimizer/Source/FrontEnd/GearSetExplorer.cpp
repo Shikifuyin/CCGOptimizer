@@ -24,7 +24,8 @@
 /////////////////////////////////////////////////////////////////////////////////
 // GearSetExplorer implementation
 GearSetExplorer::GearSetExplorer( CCGOPGUI * pGUI ):
-	m_hGearSetTable( pGUI )
+	m_hGearSetTable( pGUI ),
+	m_hGearSetCreation( pGUI )
 {
 	m_pGUI = pGUI;
 	m_pRoot = NULL;
@@ -45,9 +46,15 @@ Void GearSetExplorer::Initialize()
 	// GearSet Slots UI
 	for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i )
 		m_arrGearSetSlots[i].Initialize( m_pGUI, i );
+
+	// GearSet Creation UI
+	m_hGearSetCreation.Initialize();
 }
 Void GearSetExplorer::Cleanup()
 {
+	// GearSet Creation UI
+	m_hGearSetCreation.Cleanup();
+
 	// GearSet Slots UI
 	for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i )
 		m_arrGearSetSlots[i].Cleanup();

@@ -49,8 +49,8 @@ const WinGUILayout * UIGearSetSlotGroupModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = 180 + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
-	hLayout.FixedSize.iY = 180 + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(0,8,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iX, CCGOP_LAYOUT_CLIENT_WIDTH ) - CCGOP_LAYOUT_SPACING_BORDER
@@ -422,6 +422,119 @@ const WinGUILayout * UIGearSetSlotRandomStatModel::GetLayout() const
 }
 
 /////////////////////////////////////////////////////////////////////////////////
+// UIGearSetSlotLockModel implementation
+UIGearSetSlotLockModel::UIGearSetSlotLockModel():
+	WinGUICheckBoxModel(CCGOP_RESID_RUNEEXPLORER_RUNESEARCH_SUBSTATSMODE)
+{
+	m_pGUI = NULL;
+	m_iSlot = INVALID_OFFSET;
+}
+UIGearSetSlotLockModel::~UIGearSetSlotLockModel()
+{
+	// nothing to do
+}
+
+Void UIGearSetSlotLockModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
+{
+	m_pGUI = pGUI;
+	m_iSlot = iSlot;
+
+	StringFn->NCopy( m_hCreationParameters.strLabel, TEXT("Locked"), 63 );
+
+	m_hCreationParameters.bEnableTabStop = true;
+	m_hCreationParameters.bEnableNotify = false;
+}
+Void UIGearSetSlotLockModel::Update()
+{
+	WinGUICheckBox * pController = (WinGUICheckBox*)m_pController;
+
+	// Retrieve selected GearSet
+	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
+	UInt iSelected = INVALID_OFFSET;
+	pGearSetTable->GetSelectedItems( &iSelected, 1 );
+
+	// Nothing selected case
+	if ( iSelected == INVALID_OFFSET ) {
+		pController->Disable();
+		return;
+	}
+
+	// Retrieve GearSet
+	GearSetID iGearSetID = (GearSetID)(UIntPtr)( pGearSetTable->GetItemData(iSelected) );
+	const GearSet * pGearSet = CCGOPFn->GetGearSet( iGearSetID );
+
+	// No Rune Equipped case
+	RuneID iRuneID = pGearSet->GetEquippedRune( m_iSlot );
+	if ( iRuneID == INVALID_OFFSET ) {
+		pController->Disable();
+		return;
+	}
+
+	// Retrieve Rune
+	const Rune * pRune = CCGOPFn->GetRune( iRuneID );
+
+	// Done
+	pController->Enable();
+	if ( pRune->IsLocked() )
+		pController->Check();
+	else
+		pController->Uncheck();
+}
+
+const WinGUILayout * UIGearSetSlotLockModel::GetLayout() const
+{
+	WinGUIRectangle hClientArea;
+	m_pGUI->GetGearSetExplorer()->GetGearSetSlot(m_iSlot)->GetSlotArea( &hClientArea );
+
+	static WinGUIManualLayout hLayout;
+
+	hLayout.UseScalingSize = false;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_TEXTEDIT_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_TEXTEDIT_HEIGHT;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft;
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,7,0,0);
+
+	return &hLayout;
+}
+
+Bool UIGearSetSlotLockModel::OnClick()
+{
+	WinGUICheckBox * pController = (WinGUICheckBox*)m_pController;
+
+	// Retrieve selected GearSet
+	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
+	UInt iSelected = INVALID_OFFSET;
+	pGearSetTable->GetSelectedItems( &iSelected, 1 );
+
+	// Nothing selected case
+	if ( iSelected == INVALID_OFFSET )
+		return true;
+
+	// Retrieve GearSet
+	GearSetID iGearSetID = (GearSetID)(UIntPtr)( pGearSetTable->GetItemData(iSelected) );
+	const GearSet * pGearSet = CCGOPFn->GetGearSet( iGearSetID );
+
+	// No Rune Equipped case
+	RuneID iRuneID = pGearSet->GetEquippedRune( m_iSlot );
+	if ( iRuneID == INVALID_OFFSET )
+		return true;
+
+	// Retrieve Rune
+	Rune * pRune = CCGOPFn->GetRune( iRuneID );
+
+	// Update Rune State
+	if ( pController->IsChecked() )
+		pRune->Lock();
+	else
+		pRune->Unlock();
+
+	// Done
+	return true;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
 // UIGearSetSlot implementation
 UIGearSetSlot::UIGearSetSlot()
 {
@@ -435,6 +548,7 @@ UIGearSetSlot::UIGearSetSlot()
 	m_pInnateStat = NULL;
 	for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i )
 		m_arrRandomStats[i].pStat = NULL;
+	m_pLock = NULL;
 }
 UIGearSetSlot::~UIGearSetSlot()
 {
@@ -450,24 +564,38 @@ Void UIGearSetSlot::Initialize( CCGOPGUI * pGUI, UInt iSlot )
 	m_pRoot = m_pGUI->GetTabPane( UI_MAINMENU_GEARSET_EXPLORER );
 
 	// Build GearSet Stats UI
-	m_hGroup.Initialize( m_pGUI, m_iSlot );
-	m_pGroup = WinGUIFn->CreateGroupBox( m_pRoot, &m_hGroup );
+	m_hGroupModel.Initialize( m_pGUI, m_iSlot );
+	m_pGroup = WinGUIFn->CreateGroupBox( m_pRoot, &m_hGroupModel );
 
-	m_hHeadLine.Initialize( m_pGUI, m_iSlot );
-	m_pHeadLine = WinGUIFn->CreateStatic( m_pRoot, &m_hHeadLine );
+	m_hHeadLineModel.Initialize( m_pGUI, m_iSlot );
+	m_pHeadLine = WinGUIFn->CreateStatic( m_pRoot, &m_hHeadLineModel );
 
-	m_hMainStat.Initialize( m_pGUI, m_iSlot );
-	m_pMainStat = WinGUIFn->CreateStatic( m_pRoot, &m_hMainStat );
+	m_hMainStatModel.Initialize( m_pGUI, m_iSlot );
+	m_pMainStat = WinGUIFn->CreateStatic( m_pRoot, &m_hMainStatModel );
 
-	m_hInnateStat.Initialize( m_pGUI, m_iSlot );
-	m_pInnateStat = WinGUIFn->CreateStatic( m_pRoot, &m_hInnateStat );
+	m_hInnateStatModel.Initialize( m_pGUI, m_iSlot );
+	m_pInnateStat = WinGUIFn->CreateStatic( m_pRoot, &m_hInnateStatModel );
 
 	for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		m_arrRandomStats[i].hStat.Initialize( m_pGUI, m_iSlot, i );
-		m_arrRandomStats[i].pStat = WinGUIFn->CreateStatic( m_pRoot, &(m_arrRandomStats[i].hStat) );
+		m_arrRandomStats[i].hStatModel.Initialize( m_pGUI, m_iSlot, i );
+		m_arrRandomStats[i].pStat = WinGUIFn->CreateStatic( m_pRoot, &(m_arrRandomStats[i].hStatModel) );
 	}
+
+	m_hLockModel.Initialize( m_pGUI, m_iSlot );
+	m_pLock = WinGUIFn->CreateCheckBox( m_pRoot, &m_hLockModel );
+	m_hLockModel.Update();
 }
 Void UIGearSetSlot::Cleanup()
 {
 	// nothing to do
+}
+
+Void UIGearSetSlot::UpdateModels()
+{
+	m_hHeadLineModel.Update();
+	m_hMainStatModel.Update();
+	m_hInnateStatModel.Update();
+	for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i )
+		m_arrRandomStats[i].hStatModel.Update();
+	m_hLockModel.Update();
 }

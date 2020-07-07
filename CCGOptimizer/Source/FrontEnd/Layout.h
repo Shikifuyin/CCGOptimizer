@@ -99,9 +99,6 @@
 #define CCGOP_LAYOUT_TABLE_WIDTH  (CCGOP_LAYOUT_CLIENT_WIDTH - 2 * CCGOP_LAYOUT_SPACING_BORDER)
 #define CCGOP_LAYOUT_TABLE_HEIGHT (CCGOP_LAYOUT_CLIENT_HEIGHT - 2 * CCGOP_LAYOUT_SPACING_BORDER - CCGOP_LAYOUT_ROOM_HEIGHT)
 
-#define CCGOP_LAYOUT_TABLE_WIDTH_SMALL  800
-#define CCGOP_LAYOUT_TABLE_HEIGHT_SMALL 400
-
 /////////////////////////////////////////////////////////////////////////////////
 // Shift Macros
 #define CCGOP_LAYOUT_SHIFT_HORIZ( _num_buttons, _num_textedits, _num_combos, _num_gaps ) ( \

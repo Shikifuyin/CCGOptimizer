@@ -39,9 +39,10 @@ UIGearSetTableModel::UIGearSetTableModel():
 	StringFn->Copy( m_arrColumnNames[UI_GEARSETTABLE_COLUMN_RUNE_5], TEXT("Rune 5") );
 	StringFn->Copy( m_arrColumnNames[UI_GEARSETTABLE_COLUMN_RUNE_6], TEXT("Rune 6") );
 
-	UInt iNameWidth = (2 * CCGOP_LAYOUT_TABLE_WIDTH_SMALL) / UI_GEARSETTABLE_COLUMN_COUNT;
-	UInt iAvgWidth = (CCGOP_LAYOUT_TABLE_WIDTH_SMALL - iNameWidth) / (UI_GEARSETTABLE_COLUMN_COUNT - 1);
-	iNameWidth = ( CCGOP_LAYOUT_TABLE_WIDTH_SMALL - iAvgWidth * (UI_GEARSETTABLE_COLUMN_COUNT - 1) );
+	UInt iTableWidth = (CCGOP_LAYOUT_TABLE_WIDTH >> 1);
+	UInt iNameWidth = (2 * iTableWidth) / UI_GEARSETTABLE_COLUMN_COUNT;
+	UInt iAvgWidth = (iTableWidth - iNameWidth) / (UI_GEARSETTABLE_COLUMN_COUNT - 1);
+	iNameWidth = ( iTableWidth - iAvgWidth * (UI_GEARSETTABLE_COLUMN_COUNT - 1) );
 
 	m_arrColumnWidths[UI_GEARSETTABLE_COLUMN_NAME]   = iNameWidth;
 	m_arrColumnWidths[UI_GEARSETTABLE_COLUMN_ID]     = iAvgWidth;
@@ -104,6 +105,7 @@ Void UIGearSetTableModel::CreateColumns()
 	pTable->SetTextBackgroundColor( 0x00d0d0d0 );
 	pTable->ShowGridLines( true );
 
+	pTable->ToggleSingleItemSelection( true );
 	pTable->ToggleAlwaysShowSelection( true );
 	pTable->ToggleFullRowSelection( true );
 
@@ -145,8 +147,8 @@ const WinGUILayout * UIGearSetTableModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_TABLE_WIDTH_SMALL;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_TABLE_HEIGHT_SMALL;
+	hLayout.FixedSize.iX = ( CCGOP_LAYOUT_TABLE_WIDTH >> 1 );
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_TABLE_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = CCGOP_LAYOUT_SPACING_BORDER;
@@ -198,22 +200,40 @@ GChar * UIGearSetTableModel::OnRequestItemLabel( UInt iItemIndex, UInt iSubItemI
 			StringFn->FromUInt( strBuffer, pGearSet->GetID() );
 			break;
 		case UI_GEARSETTABLE_COLUMN_RUNE_1:
-			StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(0) );
+			if ( pGearSet->GetEquippedRune(0) == INVALID_OFFSET )
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
+			else
+				StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(0) );
 			break;
 		case UI_GEARSETTABLE_COLUMN_RUNE_2:
-			StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(1) );
+			if ( pGearSet->GetEquippedRune(1) == INVALID_OFFSET )
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
+			else
+				StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(1) );
 			break;
 		case UI_GEARSETTABLE_COLUMN_RUNE_3:
-			StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(2) );
+			if ( pGearSet->GetEquippedRune(2) == INVALID_OFFSET )
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
+			else
+				StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(2) );
 			break;
 		case UI_GEARSETTABLE_COLUMN_RUNE_4:
-			StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(3) );
+			if ( pGearSet->GetEquippedRune(3) == INVALID_OFFSET )
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
+			else
+				StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(3) );
 			break;
 		case UI_GEARSETTABLE_COLUMN_RUNE_5:
-			StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(4) );
+			if ( pGearSet->GetEquippedRune(4) == INVALID_OFFSET )
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
+			else
+				StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(4) );
 			break;
 		case UI_GEARSETTABLE_COLUMN_RUNE_6:
-			StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(5) );
+			if ( pGearSet->GetEquippedRune(5) == INVALID_OFFSET )
+				StringFn->NCopy( strBuffer, TEXT("---"), 63 );
+			else
+				StringFn->FromUInt( strBuffer, pGearSet->GetEquippedRune(5) );
 			break;
 		default: Assert(false); break;
 	}

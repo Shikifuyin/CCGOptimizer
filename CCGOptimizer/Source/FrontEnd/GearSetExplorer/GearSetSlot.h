@@ -136,6 +136,29 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
+// The UIGearSetSlotLockModel class
+class UIGearSetSlotLockModel : public WinGUICheckBoxModel
+{
+public:
+	UIGearSetSlotLockModel();
+	virtual ~UIGearSetSlotLockModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI, UInt iSlot );
+	Void Update();
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+	UInt m_iSlot;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
 // The UIGearSetSlot class
 class UIGearSetSlot
 {
@@ -150,6 +173,9 @@ public:
 	// GearSet Slot
 	inline Void GetSlotArea( WinGUIRectangle * outClientArea ) const;
 
+	// Helpers
+	Void UpdateModels();
+
 private:
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
@@ -157,24 +183,25 @@ private:
 	WinGUIContainer * m_pRoot;
 
 	// GearSet Slot UI
-	UIGearSetSlotGroupModel m_hGroup;
+	UIGearSetSlotGroupModel m_hGroupModel;
 	WinGUIGroupBox * m_pGroup;
 
-	UIGearSetSlotHeadLineModel m_hHeadLine; // Set, Rank, Quality, Level
+	UIGearSetSlotHeadLineModel m_hHeadLineModel; // Set, Rank, Quality, Level
 	WinGUIStatic * m_pHeadLine;
 
-	UIGearSetSlotMainStatModel m_hMainStat;
+	UIGearSetSlotMainStatModel m_hMainStatModel;
 	WinGUIStatic * m_pMainStat;
 
-	UIGearSetSlotInnateStatModel m_hInnateStat;
+	UIGearSetSlotInnateStatModel m_hInnateStatModel;
 	WinGUIStatic * m_pInnateStat;
 
 	struct _random_stats {
-		UIGearSetSlotRandomStatModel hStat;
+		UIGearSetSlotRandomStatModel hStatModel;
 		WinGUIStatic * pStat;
 	} m_arrRandomStats[RUNE_RANDOM_STAT_COUNT];
 
-
+	UIGearSetSlotLockModel m_hLockModel;
+	WinGUICheckBox * m_pLock;
 };
 
 /////////////////////////////////////////////////////////////////////////////////

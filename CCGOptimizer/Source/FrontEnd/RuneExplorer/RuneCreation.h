@@ -257,7 +257,7 @@ public:
 	UIRuneCreationInnateStatValueModel();
 	virtual ~UIRuneCreationInnateStatValueModel();
 
-	// Initialization
+	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
 	Void Update();
 
@@ -310,7 +310,7 @@ public:
 	UIRuneCreationRandomStatValueModel();
 	virtual ~UIRuneCreationRandomStatValueModel();
 
-	// Initialization
+	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI, UInt iIndex );
 	Void Update();
 
@@ -333,7 +333,7 @@ public:
 	UIRuneCreationButtonModel();
 	virtual ~UIRuneCreationButtonModel();
 
-	// Initialization / Update
+	// Initialization
 	Void Initialize( CCGOPGUI * pGUI );
 
 	// Layout

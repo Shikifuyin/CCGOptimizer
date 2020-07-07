@@ -186,5 +186,12 @@
 			<attached_gearsets count="0"/>
 		</hero>
 	</inventory_heroes>
-	<inventory_gearsets></inventory_gearsets>
+	<inventory_gearsets>
+		<gearset gearset_id="1" name="MyBuild" rune_slot_0="4294967295" rune_slot_1="4294967295" rune_slot_2="4294967295" rune_slot_3="4294967295" rune_slot_4="4294967295" rune_slot_5="4294967295">
+			<attached_heroes count="0"/>
+		</gearset>
+		<gearset gearset_id="2" name="AnotherBuild" rune_slot_0="4294967295" rune_slot_1="4294967295" rune_slot_2="4294967295" rune_slot_3="4294967295" rune_slot_4="4294967295" rune_slot_5="4294967295">
+			<attached_heroes count="0"/>
+		</gearset>
+	</inventory_gearsets>
 </ccgop_data>

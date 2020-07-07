@@ -126,6 +126,9 @@
     <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.cpp">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </ClCompile>
+    <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetCreation.cpp">
+      <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BackEnd\GameData.h">
@@ -209,6 +212,9 @@
     <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.h">
       <Filter>Header Files\FrontEnd\GearSetExplorer</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetCreation.h">
+      <Filter>Header Files\FrontEnd\GearSetExplorer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\BackEnd\GameData.inl">
@@ -281,6 +287,9 @@
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </None>
     <None Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.inl">
+      <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
+    </None>
+    <None Include="Source\FrontEnd\GearSetExplorer\GearSetCreation.inl">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </None>
   </ItemGroup>
