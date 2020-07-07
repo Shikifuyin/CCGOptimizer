@@ -136,7 +136,7 @@ private:
 	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;
 
-	// Hero Options UI
+	// Rune Options UI
 	UIRuneOptionsGroupModel m_hGroupModel;
 	WinGUIGroupBox * m_pGroup;
 

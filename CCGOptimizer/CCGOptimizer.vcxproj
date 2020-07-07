@@ -166,6 +166,7 @@
     <ClCompile Include="Source\FrontEnd\GearSetExplorer.cpp" />
     <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetBuildSlot.cpp" />
     <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetCreation.cpp" />
+    <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetOptions.cpp" />
     <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.cpp" />
     <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetStats.cpp" />
     <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetTable.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Source\FrontEnd\GearSetExplorer.h" />
     <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetBuildSlot.h" />
     <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetCreation.h" />
+    <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetOptions.h" />
     <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.h" />
     <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetStats.h" />
     <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetTable.h" />
@@ -228,6 +230,7 @@
     <None Include="Source\FrontEnd\GearSetExplorer.inl" />
     <None Include="Source\FrontEnd\GearSetExplorer\GearSetBuildSlot.inl" />
     <None Include="Source\FrontEnd\GearSetExplorer\GearSetCreation.inl" />
+    <None Include="Source\FrontEnd\GearSetExplorer\GearSetOptions.inl" />
     <None Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.inl" />
     <None Include="Source\FrontEnd\GearSetExplorer\GearSetStats.inl" />
     <None Include="Source\FrontEnd\GearSetExplorer\GearSetTable.inl" />

@@ -50,7 +50,7 @@ const WinGUILayout * UIGearSetBuildSlotGroupModel::GetLayout() const
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(2,7,1,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(2,8,1,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ROOM_LEFT + CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iX, CCGOP_LAYOUT_ROOM_WIDTH )
@@ -81,7 +81,7 @@ Void UIGearSetBuildSlotHeadLineModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
 	m_hCreationParameters.iType = WINGUI_STATIC_TEXT;
 	m_hCreationParameters.bAddSunkenBorder = false;
 
-	StringFn->Copy( m_hCreationParameters.hText.strLabel, TEXT("Rune : ---") );
+	StringFn->Copy( m_hCreationParameters.hText.strLabel, TEXT("---") );
 	m_hCreationParameters.hText.iAlign = WINGUI_STATIC_TEXT_ALIGN_LEFT;
 	m_hCreationParameters.hText.iEllipsis = WINGUI_STATIC_TEXT_ELLIPSIS_NONE;
 
@@ -97,7 +97,7 @@ Void UIGearSetBuildSlotHeadLineModel::Update()
 
 	// Nothing selected case
 	if ( iSelected == INVALID_OFFSET ) {
-		pController->SetText( TEXT("Rune : ---") );
+		pController->SetText( TEXT("---") );
 		return;
 	}
 
@@ -107,7 +107,7 @@ Void UIGearSetBuildSlotHeadLineModel::Update()
 
 	// Build HeadLine
 	GChar strHeadLine[64];
-	StringFn->Format( strHeadLine, TEXT("Rune (%d) : %s %s %s +%d"),
+	StringFn->Format( strHeadLine, TEXT("(%d) %s %s %s +%d"),
 		iRuneID,
 		GameDataFn->GetRuneRankName( pRune->GetRank() ),
 		GameDataFn->GetRuneQualityName( pRune->GetQuality() ),
@@ -128,7 +128,7 @@ const WinGUILayout * UIGearSetBuildSlotHeadLineModel::GetLayout() const
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_STATICTEXT_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_STATICTEXT_HEIGHT;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_STATICTEXT_HEIGHT << 1;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
@@ -158,7 +158,7 @@ Void UIGearSetBuildSlotMainStatModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
 	m_hCreationParameters.iType = WINGUI_STATIC_TEXT;
 	m_hCreationParameters.bAddSunkenBorder = false;
 
-	StringFn->Copy( m_hCreationParameters.hText.strLabel, TEXT("Main Stat : ---") );
+	StringFn->Copy( m_hCreationParameters.hText.strLabel, TEXT("") );
 	m_hCreationParameters.hText.iAlign = WINGUI_STATIC_TEXT_ALIGN_LEFT;
 	m_hCreationParameters.hText.iEllipsis = WINGUI_STATIC_TEXT_ELLIPSIS_NONE;
 
@@ -174,7 +174,7 @@ Void UIGearSetBuildSlotMainStatModel::Update()
 
 	// Nothing selected case
 	if ( iSelected == INVALID_OFFSET ) {
-		pController->SetText( TEXT("Main Stat : ---") );
+		pController->SetText( TEXT("") );
 		return;
 	}
 
@@ -184,7 +184,7 @@ Void UIGearSetBuildSlotMainStatModel::Update()
 
 	// Build Main Stat String
 	GChar strMainStat[64];
-	StringFn->Format( strMainStat, TEXT("Main Stat : %s %d"),
+	StringFn->Format( strMainStat, TEXT("(Main) %s %d"),
 		GameDataFn->GetRuneStatName( pRune->GetMainStat() ),
 		pRune->GetMainStatValue()
 	);
@@ -206,7 +206,7 @@ const WinGUILayout * UIGearSetBuildSlotMainStatModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,1,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,2,0,0);
 
 	return &hLayout;
 }
@@ -232,7 +232,7 @@ Void UIGearSetBuildSlotInnateStatModel::Initialize( CCGOPGUI * pGUI, UInt iSlot 
 	m_hCreationParameters.iType = WINGUI_STATIC_TEXT;
 	m_hCreationParameters.bAddSunkenBorder = false;
 
-	StringFn->Copy( m_hCreationParameters.hText.strLabel, TEXT("Innate Stat : ---") );
+	StringFn->Copy( m_hCreationParameters.hText.strLabel, TEXT("") );
 	m_hCreationParameters.hText.iAlign = WINGUI_STATIC_TEXT_ALIGN_LEFT;
 	m_hCreationParameters.hText.iEllipsis = WINGUI_STATIC_TEXT_ELLIPSIS_NONE;
 
@@ -248,7 +248,7 @@ Void UIGearSetBuildSlotInnateStatModel::Update()
 
 	// Nothing selected case
 	if ( iSelected == INVALID_OFFSET ) {
-		pController->SetText( TEXT("Innate Stat : ---") );
+		pController->SetText( TEXT("") );
 		return;
 	}
 
@@ -258,13 +258,13 @@ Void UIGearSetBuildSlotInnateStatModel::Update()
 
 	// No Innate Stat case
 	if ( pRune->GetInnateStat() == RUNE_STAT_COUNT ) {
-		pController->SetText( TEXT("Innate Stat : ---") );
+		pController->SetText( TEXT("") );
 		return;
 	}
 
 	// Build Innate Stat String
 	GChar strInnateStat[64];
-	StringFn->Format( strInnateStat, TEXT("Innate Stat : %s %d"),
+	StringFn->Format( strInnateStat, TEXT("(Innate) %s %d"),
 		GameDataFn->GetRuneStatName( pRune->GetInnateStat() ),
 		pRune->GetInnateStatValue()
 	);
@@ -286,7 +286,7 @@ const WinGUILayout * UIGearSetBuildSlotInnateStatModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,2,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,3,0,0);
 
 	return &hLayout;
 }
@@ -314,7 +314,7 @@ Void UIGearSetBuildSlotRandomStatModel::Initialize( CCGOPGUI * pGUI, UInt iSlot,
 	m_hCreationParameters.iType = WINGUI_STATIC_TEXT;
 	m_hCreationParameters.bAddSunkenBorder = false;
 
-	StringFn->Copy( m_hCreationParameters.hText.strLabel, TEXT("Random Stat : ---") );
+	StringFn->Copy( m_hCreationParameters.hText.strLabel, TEXT("") );
 	m_hCreationParameters.hText.iAlign = WINGUI_STATIC_TEXT_ALIGN_LEFT;
 	m_hCreationParameters.hText.iEllipsis = WINGUI_STATIC_TEXT_ELLIPSIS_NONE;
 
@@ -330,7 +330,7 @@ Void UIGearSetBuildSlotRandomStatModel::Update()
 
 	// Nothing selected case
 	if ( iSelected == INVALID_OFFSET ) {
-		pController->SetText( TEXT("Random Stat : ---") );
+		pController->SetText( TEXT("") );
 		return;
 	}
 
@@ -340,7 +340,7 @@ Void UIGearSetBuildSlotRandomStatModel::Update()
 
 	// No Random Stat case
 	if ( pRune->GetRandomStatCount() <= m_iIndex ) {
-		pController->SetText( TEXT("Random Stat : ---") );
+		pController->SetText( TEXT("") );
 		return;
 	}
 
@@ -349,7 +349,7 @@ Void UIGearSetBuildSlotRandomStatModel::Update()
 
 	// Build Random Stat String
 	GChar strRandomStat[64];
-	StringFn->Format( strRandomStat, TEXT("Random Stat : %s %d"),
+	StringFn->Format( strRandomStat, TEXT("%s %d"),
 		GameDataFn->GetRuneStatName( iRuneStat ),
 		pRune->GetRandomStatValue( iRuneStat )
 	);
@@ -371,7 +371,7 @@ const WinGUILayout * UIGearSetBuildSlotRandomStatModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,3 + m_iIndex,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,4 + m_iIndex,0,0);
 
 	return &hLayout;
 }
@@ -426,7 +426,7 @@ const WinGUILayout * UIGearSetBuildSlotRuneModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,3 + RUNE_RANDOM_STAT_COUNT,0,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,4 + RUNE_RANDOM_STAT_COUNT,0,0);
 
 	return &hLayout;
 }
@@ -496,7 +496,7 @@ const WinGUILayout * UIGearSetBuildSlotRuneRemoveModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,3 + RUNE_RANDOM_STAT_COUNT,1,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,4 + RUNE_RANDOM_STAT_COUNT,1,0);
 
 	return &hLayout;
 }
@@ -557,7 +557,7 @@ const WinGUILayout * UIGearSetBuildSlotRuneEquipModel::GetLayout() const
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,3 + RUNE_RANDOM_STAT_COUNT,1,0);
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,4 + RUNE_RANDOM_STAT_COUNT,1,0);
 
 	return &hLayout;
 }

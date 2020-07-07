@@ -370,122 +370,14 @@ const WinGUILayout * UIGearSetTableGroupModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(6,0,0,2) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(2,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ROOM_LEFT;
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ROOM_LEFT + 400;
 	hLayout.FixedPosition.iY = CCGOP_LAYOUT_ROOM_TOP;
 
 	return &hLayout;
-}
-
-/////////////////////////////////////////////////////////////////////////////////
-// UIGearSetTableSelectAllModel implementation
-UIGearSetTableSelectAllModel::UIGearSetTableSelectAllModel():
-	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETTABLE_SELECTALL)
-{
-	m_pGUI = NULL;
-}
-UIGearSetTableSelectAllModel::~UIGearSetTableSelectAllModel()
-{
-	// nothing to do
-}
-
-Void UIGearSetTableSelectAllModel::Initialize( CCGOPGUI * pGUI )
-{
-	m_pGUI = pGUI;
-
-	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Select All") );
-	m_hCreationParameters.bCenterLabel = true;
-	m_hCreationParameters.bEnableTabStop = true;
-	m_hCreationParameters.bEnableNotify = false;
-}
-
-const WinGUILayout * UIGearSetTableSelectAllModel::GetLayout() const
-{
-	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetOptionsArea( &hClientArea );
-
-	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop;
-
-	return &hLayout;
-}
-
-Bool UIGearSetTableSelectAllModel::OnClick()
-{
-	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
-
-	UInt iItemCount = pGearSetTable->GetItemCount();
-	for( UInt i = 0; i < iItemCount; ++i ) {
-		pGearSetTable->SelectItem( i, true );
-	}
-
-	pGearSetTable->GiveFocus();
-
-	return true;
-}
-
-/////////////////////////////////////////////////////////////////////////////////
-// UIGearSetTableUnselectAllModel implementation
-UIGearSetTableUnselectAllModel::UIGearSetTableUnselectAllModel():
-	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETTABLE_UNSELECTALL)
-{
-	m_pGUI = NULL;
-}
-UIGearSetTableUnselectAllModel::~UIGearSetTableUnselectAllModel()
-{
-	// nothing to do
-}
-
-Void UIGearSetTableUnselectAllModel::Initialize( CCGOPGUI * pGUI )
-{
-	m_pGUI = pGUI;
-
-	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Unselect All") );
-	m_hCreationParameters.bCenterLabel = true;
-	m_hCreationParameters.bEnableTabStop = true;
-	m_hCreationParameters.bEnableNotify = false;
-}
-
-const WinGUILayout * UIGearSetTableUnselectAllModel::GetLayout() const
-{
-	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetOptionsArea( &hClientArea );
-
-	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
-
-	return &hLayout;
-}
-
-Bool UIGearSetTableUnselectAllModel::OnClick()
-{
-	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
-
-	UInt iItemCount = pGearSetTable->GetItemCount();
-	for( UInt i = 0; i < iItemCount; ++i ) {
-		pGearSetTable->SelectItem( i, false );
-	}
-
-	pGearSetTable->GiveFocus();
-
-	return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -522,7 +414,7 @@ const WinGUILayout * UIGearSetTableCheckAllModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(2,0,0,1);
+	hLayout.FixedPosition.iX = hClientArea.iLeft;
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	return &hLayout;
@@ -576,7 +468,7 @@ const WinGUILayout * UIGearSetTableUncheckAllModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(3,0,0,1);
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
 	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	return &hLayout;
@@ -597,116 +489,6 @@ Bool UIGearSetTableUncheckAllModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// UIGearSetTableCheckSelectedModel implementation
-UIGearSetTableCheckSelectedModel::UIGearSetTableCheckSelectedModel():
-	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETTABLE_CHECKSELECTED)
-{
-	m_pGUI = NULL;
-}
-UIGearSetTableCheckSelectedModel::~UIGearSetTableCheckSelectedModel()
-{
-	// nothing to do
-}
-
-Void UIGearSetTableCheckSelectedModel::Initialize( CCGOPGUI * pGUI )
-{
-	m_pGUI = pGUI;
-
-	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Check Selected") );
-	m_hCreationParameters.bCenterLabel = true;
-	m_hCreationParameters.bEnableTabStop = true;
-	m_hCreationParameters.bEnableNotify = false;
-}
-
-const WinGUILayout * UIGearSetTableCheckSelectedModel::GetLayout() const
-{
-	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetOptionsArea( &hClientArea );
-
-	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(4,0,0,2);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
-
-	return &hLayout;
-}
-
-Bool UIGearSetTableCheckSelectedModel::OnClick()
-{
-	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
-
-	UInt iItemCount = pGearSetTable->GetItemCount();
-	for( UInt i = 0; i < iItemCount; ++i ) {
-		if ( pGearSetTable->IsItemSelected(i) )
-			pGearSetTable->CheckItem( i, true );
-	}
-
-	pGearSetTable->GiveFocus();
-
-	return true;
-}
-
-/////////////////////////////////////////////////////////////////////////////////
-// UIGearSetTableUncheckSelectedModel implementation
-UIGearSetTableUncheckSelectedModel::UIGearSetTableUncheckSelectedModel():
-	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETTABLE_UNCHECKSELECTED)
-{
-	m_pGUI = NULL;
-}
-UIGearSetTableUncheckSelectedModel::~UIGearSetTableUncheckSelectedModel()
-{
-	// nothing to do
-}
-
-Void UIGearSetTableUncheckSelectedModel::Initialize( CCGOPGUI * pGUI )
-{
-	m_pGUI = pGUI;
-
-	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Uncheck Selected") );
-	m_hCreationParameters.bCenterLabel = true;
-	m_hCreationParameters.bEnableTabStop = true;
-	m_hCreationParameters.bEnableNotify = false;
-}
-
-const WinGUILayout * UIGearSetTableUncheckSelectedModel::GetLayout() const
-{
-	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetOptionsArea( &hClientArea );
-
-	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(5,0,0,2);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
-
-	return &hLayout;
-}
-
-Bool UIGearSetTableUncheckSelectedModel::OnClick()
-{
-	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
-
-	UInt iItemCount = pGearSetTable->GetItemCount();
-	for( UInt i = 0; i < iItemCount; ++i ) {
-		if ( pGearSetTable->IsItemSelected(i) )
-			pGearSetTable->CheckItem( i, false );
-	}
-
-	pGearSetTable->GiveFocus();
-
-	return true;
-}
-
-/////////////////////////////////////////////////////////////////////////////////
 // UIGearSetTable implementation
 UIGearSetTable::UIGearSetTable( CCGOPGUI * pGUI )
 {
@@ -716,12 +498,8 @@ UIGearSetTable::UIGearSetTable( CCGOPGUI * pGUI )
 	m_pGearSetTable = NULL;
 
 	m_pGroup = NULL;
-	m_pSelectAll = NULL;
-	m_pUnselectAll = NULL;
 	m_pCheckAll = NULL;
 	m_pUncheckAll = NULL;
-	m_pCheckSelected = NULL;
-	m_pUncheckSelected = NULL;
 }
 UIGearSetTable::~UIGearSetTable()
 {
@@ -741,23 +519,11 @@ Void UIGearSetTable::Initialize()
 	m_hGroup.Initialize( m_pGUI );
 	m_pGroup = WinGUIFn->CreateGroupBox( m_pRoot, &m_hGroup );
 
-	m_hSelectAll.Initialize( m_pGUI );
-	m_pSelectAll = WinGUIFn->CreateButton( m_pRoot, &m_hSelectAll );
-
-	m_hUnselectAll.Initialize( m_pGUI );
-	m_pUnselectAll = WinGUIFn->CreateButton( m_pRoot, &m_hUnselectAll );
-
 	m_hCheckAll.Initialize( m_pGUI );
 	m_pCheckAll = WinGUIFn->CreateButton( m_pRoot, &m_hCheckAll );
 
 	m_hUncheckAll.Initialize( m_pGUI );
 	m_pUncheckAll = WinGUIFn->CreateButton( m_pRoot, &m_hUncheckAll );
-
-	m_hCheckSelected.Initialize( m_pGUI );
-	m_pCheckSelected = WinGUIFn->CreateButton( m_pRoot, &m_hCheckSelected );
-
-	m_hUncheckSelected.Initialize( m_pGUI );
-	m_pUncheckSelected = WinGUIFn->CreateButton( m_pRoot, &m_hUncheckSelected );
 }
 Void UIGearSetTable::Cleanup()
 {

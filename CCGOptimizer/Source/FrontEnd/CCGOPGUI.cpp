@@ -70,7 +70,7 @@ Bool UIWindowModel::OnClose()
 
 		WinGUIMessageBoxResponse iResponse = WinGUIFn->SpawnMessageBox(
 			TEXT("Warning !"),
-			TEXT("You are about to leave while there are unsaved changes ! Are you sure you want to quit ?"),
+			TEXT("You are about to leave while there are unsaved changes !\nAre you sure you want to quit ?"),
 			hOptions
 		);
 

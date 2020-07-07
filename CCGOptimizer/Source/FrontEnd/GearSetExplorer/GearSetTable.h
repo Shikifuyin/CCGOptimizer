@@ -113,48 +113,6 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetTableSelectAllModel class
-class UIGearSetTableSelectAllModel : public WinGUIButtonModel
-{
-public:
-	UIGearSetTableSelectAllModel();
-	virtual ~UIGearSetTableSelectAllModel();
-
-	// Initialization / Update
-	Void Initialize( CCGOPGUI * pGUI );
-
-	// Layout
-	virtual const WinGUILayout * GetLayout() const;
-
-	// Events
-	virtual Bool OnClick();
-
-private:
-	CCGOPGUI * m_pGUI;
-};
-
-/////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetTableUnselectAllModel class
-class UIGearSetTableUnselectAllModel : public WinGUIButtonModel
-{
-public:
-	UIGearSetTableUnselectAllModel();
-	virtual ~UIGearSetTableUnselectAllModel();
-
-	// Initialization / Update
-	Void Initialize( CCGOPGUI * pGUI );
-
-	// Layout
-	virtual const WinGUILayout * GetLayout() const;
-
-	// Events
-	virtual Bool OnClick();
-
-private:
-	CCGOPGUI * m_pGUI;
-};
-
-/////////////////////////////////////////////////////////////////////////////////
 // The UIGearSetTableCheckAllModel class
 class UIGearSetTableCheckAllModel : public WinGUIButtonModel
 {
@@ -182,48 +140,6 @@ class UIGearSetTableUncheckAllModel : public WinGUIButtonModel
 public:
 	UIGearSetTableUncheckAllModel();
 	virtual ~UIGearSetTableUncheckAllModel();
-
-	// Initialization / Update
-	Void Initialize( CCGOPGUI * pGUI );
-
-	// Layout
-	virtual const WinGUILayout * GetLayout() const;
-
-	// Events
-	virtual Bool OnClick();
-
-private:
-	CCGOPGUI * m_pGUI;
-};
-
-/////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetTableCheckSelectedModel class
-class UIGearSetTableCheckSelectedModel : public WinGUIButtonModel
-{
-public:
-	UIGearSetTableCheckSelectedModel();
-	virtual ~UIGearSetTableCheckSelectedModel();
-
-	// Initialization / Update
-	Void Initialize( CCGOPGUI * pGUI );
-
-	// Layout
-	virtual const WinGUILayout * GetLayout() const;
-
-	// Events
-	virtual Bool OnClick();
-
-private:
-	CCGOPGUI * m_pGUI;
-};
-
-/////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetTableUncheckSelectedModel class
-class UIGearSetTableUncheckSelectedModel : public WinGUIButtonModel
-{
-public:
-	UIGearSetTableUncheckSelectedModel();
-	virtual ~UIGearSetTableUncheckSelectedModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
@@ -268,23 +184,11 @@ private:
 	UIGearSetTableGroupModel m_hGroup;
 	WinGUIGroupBox * m_pGroup;
 
-	UIGearSetTableSelectAllModel m_hSelectAll;
-	WinGUIButton * m_pSelectAll;
-
-	UIGearSetTableUnselectAllModel m_hUnselectAll;
-	WinGUIButton * m_pUnselectAll;
-
 	UIGearSetTableCheckAllModel m_hCheckAll;
 	WinGUIButton * m_pCheckAll;
 
 	UIGearSetTableUncheckAllModel m_hUncheckAll;
 	WinGUIButton * m_pUncheckAll;
-
-	UIGearSetTableCheckSelectedModel m_hCheckSelected;
-	WinGUIButton * m_pCheckSelected;
-
-	UIGearSetTableUncheckSelectedModel m_hUncheckSelected;
-	WinGUIButton * m_pUncheckSelected;
 };
 
 /////////////////////////////////////////////////////////////////////////////////

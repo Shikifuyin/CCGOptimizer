@@ -24,6 +24,9 @@ inline GearSetID GearSet::GetID() const {
 inline const GChar * GearSet::GetName() const {
 	return m_strName;
 }
+inline Void GearSet::SetName( const GChar * strName ) {
+    StringFn->NCopy( m_strName, strName, GAMEDATA_NAMES_MAX_LENGTH - 1 );
+}
 
 inline RuneID GearSet::GetEquippedRune( UInt iSlot ) const {
     Assert( iSlot < RUNE_SLOT_COUNT );

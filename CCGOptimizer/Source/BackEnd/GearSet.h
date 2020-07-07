@@ -53,6 +53,7 @@ public:
 
 	// Name
     inline const GChar * GetName() const;
+    inline Void SetName( const GChar * strName );
 
     // Rune Equip
     inline RuneID GetEquippedRune( UInt iSlot ) const;

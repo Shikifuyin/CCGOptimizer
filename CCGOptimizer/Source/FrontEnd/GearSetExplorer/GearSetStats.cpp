@@ -47,7 +47,7 @@ const WinGUILayout * UIGearSetStatsGroupModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(0,1,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(0,1.5f,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(0,HERO_STAT_COUNT+1,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
@@ -290,7 +290,7 @@ const WinGUILayout * UIGearSetStatsDisplayModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_STATICTEXT_WIDTH;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_STATICTEXT_WIDTH * 1.5f;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_STATICTEXT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
@@ -395,7 +395,7 @@ const WinGUILayout * UIGearSetStatsSetBonusModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_STATICTEXT_WIDTH;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_STATICTEXT_WIDTH * 1.5f;
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_STATICTEXT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;

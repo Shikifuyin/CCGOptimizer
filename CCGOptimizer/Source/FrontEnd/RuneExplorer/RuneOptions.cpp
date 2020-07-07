@@ -263,10 +263,10 @@ Bool UIRuneOptionsDeleteModel::OnClick()
 			if ( pRuneTable->IsItemChecked(i) ) {
 				RuneID iRuneID = (RuneID)(UIntPtr)( pRuneTable->GetItemData(i) );
 
-				// Remove from HeroTable
+				// Remove from RuneTable
 				pRuneTable->RemoveItem( i );
 
-				// Delete Hero
+				// Delete Rune
 				CCGOPFn->DestroyRune( iRuneID );
 
 				bChanged = true;

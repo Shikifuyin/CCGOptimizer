@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/GearSetExplorer.inl
+// File : Source/FrontEnd/GearSetExplorer/GearSetOptions.inl
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : GearSetExplorer GUI
+// Description : GearSetExplorer GUI : GearSet Options
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -16,25 +16,11 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////
-// GearSetExplorer implementation
-inline UIGearSetTable * GearSetExplorer::GetGearSetTable() {
-	return &m_hGearSetTable;
-}
-inline UIGearSetSlot * GearSetExplorer::GetGearSetSlot( UInt iSlot ) {
-	Assert( iSlot < RUNE_SLOT_COUNT );
-	return ( m_arrGearSetSlots + iSlot );
-}
-inline UIGearSetStats * GearSetExplorer::GetGearSetStats() {
-	return &m_hGearSetStats;
-}
-inline UIGearSetCreation * GearSetExplorer::GetGearSetCreation() {
-	return &m_hGearSetCreation;
-}
-inline UIGearSetOptions * GearSetExplorer::GetGearSetOptions() {
-	return &m_hGearSetOptions;
-}
-inline UIGearSetBuildSlot * GearSetExplorer::GetGearSetBuildSlot( UInt iSlot ) {
-	Assert( iSlot < RUNE_SLOT_COUNT );
-	return ( m_arrGearSetBuildSlots + iSlot );
+// UIGearSetOptions implementation
+inline Void UIGearSetOptions::GetOptionsArea( WinGUIRectangle * outClientArea ) const {
+	m_pGroup->ComputeClientArea( outClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 }
 
+inline WinGUITextEdit * UIGearSetOptions::GetName() const {
+	return m_pName;
+}

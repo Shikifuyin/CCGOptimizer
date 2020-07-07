@@ -33,6 +33,7 @@
 #include "GearSetExplorer/GearSetSlot.h"
 #include "GearSetExplorer/GearSetStats.h"
 #include "GearSetExplorer/GearSetCreation.h"
+#include "GearSetExplorer/GearSetOptions.h"
 #include "GearSetExplorer/GearSetBuildSlot.h"
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -58,6 +59,7 @@ public:
 	inline UIGearSetSlot * GetGearSetSlot( UInt iSlot );
 	inline UIGearSetStats * GetGearSetStats();
 	inline UIGearSetCreation * GetGearSetCreation();
+	inline UIGearSetOptions * GetGearSetOptions();
 	inline UIGearSetBuildSlot * GetGearSetBuildSlot( UInt iSlot );
 
 private:
@@ -76,6 +78,9 @@ private:
 
 	// GearSet Creation UI
 	UIGearSetCreation m_hGearSetCreation;
+
+	// GearSet Options UI
+	UIGearSetOptions m_hGearSetOptions;
 
 	// GearSet Build Slots UI
 	UIGearSetBuildSlot m_arrGearSetBuildSlots[RUNE_SLOT_COUNT];
