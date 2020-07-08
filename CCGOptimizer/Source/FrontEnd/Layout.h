@@ -4,7 +4,7 @@
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : CCGOP GUI : Layout
+// Description : CCGOP GUI : Global Layout
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -51,17 +51,6 @@
 #define CCGOP_LAYOUT_CLIENT_HEIGHT (CCGOP_LAYOUT_WINDOW_HEIGHT - CCGOP_LAYOUT_TABS_HEIGHT - CCGOP_LAYOUT_STATUSBAR_HEIGHT - 4)
 
 /////////////////////////////////////////////////////////////////////////////////
-// Available Room (Client Area - Table)
-#define CCGOP_LAYOUT_ROOM_WIDTH  (CCGOP_LAYOUT_CLIENT_WIDTH - 2*CCGOP_LAYOUT_SPACING_BORDER)
-#define CCGOP_LAYOUT_ROOM_HEIGHT 410 // This one is a choice (setup for 24 item rows in the table)
-
-#define CCGOP_LAYOUT_ROOM_LEFT  CCGOP_LAYOUT_SPACING_BORDER
-#define CCGOP_LAYOUT_ROOM_RIGHT (CCGOP_LAYOUT_ROOM_LEFT + CCGOP_LAYOUT_ROOM_WIDTH)
-
-#define CCGOP_LAYOUT_ROOM_BOTTOM (CCGOP_LAYOUT_CLIENT_HEIGHT - CCGOP_LAYOUT_SPACING_BORDER)
-#define CCGOP_LAYOUT_ROOM_TOP    (CCGOP_LAYOUT_ROOM_BOTTOM - CCGOP_LAYOUT_ROOM_HEIGHT)
-
-/////////////////////////////////////////////////////////////////////////////////
 // Buttons
 #define CCGOP_LAYOUT_BUTTON_WIDTH  120
 #define CCGOP_LAYOUT_BUTTON_HEIGHT 24
@@ -72,7 +61,7 @@
 #define CCGOP_LAYOUT_CHECKBOX_HEIGHT CCGOP_LAYOUT_BUTTON_HEIGHT
 
 /////////////////////////////////////////////////////////////////////////////////
-// Radio Buttons
+// RadioButtons
 #define CCGOP_LAYOUT_RADIOBUTTON_WIDTH  CCGOP_LAYOUT_BUTTON_WIDTH
 #define CCGOP_LAYOUT_RADIOBUTTON_HEIGHT CCGOP_LAYOUT_BUTTON_HEIGHT
 
@@ -100,22 +89,22 @@
 #define CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT 20
 
 /////////////////////////////////////////////////////////////////////////////////
-// Tables
-#define CCGOP_LAYOUT_TABLE_WIDTH  (CCGOP_LAYOUT_CLIENT_WIDTH - 2 * CCGOP_LAYOUT_SPACING_BORDER)
-#define CCGOP_LAYOUT_TABLE_HEIGHT (CCGOP_LAYOUT_CLIENT_HEIGHT - 2 * CCGOP_LAYOUT_SPACING_BORDER - CCGOP_LAYOUT_ROOM_HEIGHT)
+// ScrollBars
+#define CCGOP_LAYOUT_SCROLLBAR_WIDTH  18
+#define CCGOP_LAYOUT_SCROLLBAR_HEIGHT 18
 
 /////////////////////////////////////////////////////////////////////////////////
 // Shift Macros
-#define CCGOP_LAYOUT_SHIFT_HORIZ( _num_buttons, _num_textedits, _num_combos, _num_gaps ) ( \
+#define CCGOP_LAYOUT_SHIFT_HORIZ( _num_buttons, _num_texts, _num_combos, _num_gaps ) ( \
 	(CCGOP_LAYOUT_BUTTON_WIDTH + CCGOP_LAYOUT_SPACING_HORIZ)   * (_num_buttons) + \
-	(CCGOP_LAYOUT_TEXTEDIT_WIDTH + CCGOP_LAYOUT_SPACING_HORIZ) * (_num_textedits) + \
+	(CCGOP_LAYOUT_TEXTEDIT_WIDTH + CCGOP_LAYOUT_SPACING_HORIZ) * (_num_texts) + \
 	(CCGOP_LAYOUT_COMBOBOX_WIDTH + CCGOP_LAYOUT_SPACING_HORIZ) * (_num_combos) + \
 	CCGOP_LAYOUT_SPACING_GAP_HORIZ                             * (_num_gaps) \
 )
 
-#define CCGOP_LAYOUT_SHIFT_VERT( _num_buttons, _num_textedits, _num_combos, _num_gaps ) ( \
+#define CCGOP_LAYOUT_SHIFT_VERT( _num_buttons, _num_texts, _num_combos, _num_gaps ) ( \
 	(CCGOP_LAYOUT_BUTTON_HEIGHT + CCGOP_LAYOUT_SPACING_VERT)         * (_num_buttons) + \
-	(CCGOP_LAYOUT_TEXTEDIT_HEIGHT + CCGOP_LAYOUT_SPACING_VERT)       * (_num_textedits) + \
+	(CCGOP_LAYOUT_TEXTEDIT_HEIGHT + CCGOP_LAYOUT_SPACING_VERT)       * (_num_texts) + \
 	(CCGOP_LAYOUT_COMBOBOX_BUTTONHEIGHT + CCGOP_LAYOUT_SPACING_VERT) * (_num_combos) + \
 	CCGOP_LAYOUT_SPACING_GAP_VERT                                    * (_num_gaps) \
 )

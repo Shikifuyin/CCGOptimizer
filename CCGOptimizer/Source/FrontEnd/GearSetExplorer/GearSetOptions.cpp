@@ -51,8 +51,8 @@ const WinGUILayout * UIGearSetOptionsGroupModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(2,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ROOM_LEFT;
-	hLayout.FixedPosition.iY = CCGOP_LAYOUT_ROOM_TOP;
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_GEARSETEXPLORER_ROOM_LEFT + CCGOP_LAYOUT_CENTER( hLayout.FixedSize.iX, CCGOP_LAYOUT_GEARSETEXPLORER_ROOM_WIDTH );
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_GEARSETEXPLORER_ROOM_TOP;
 
 	return &hLayout;
 }
@@ -183,7 +183,7 @@ Bool UIGearSetOptionsReNameModel::OnClick()
 	pGearSetTable->UpdateItem( iSelected );
 
 	// Set Unsaved Changes Mark
-	m_pGUI->SetUnsavedChangesMark();
+	m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
 
 	// Done
 	return true;
@@ -267,7 +267,7 @@ Bool UIGearSetOptionsCloneModel::OnClick()
 	pModel->UpdateAfterGearSetCreation( iCloneID );
 
 	// Set Unsaved Changes Mark
-	m_pGUI->SetUnsavedChangesMark();
+	m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
 
 	// Done
 	return true;
@@ -345,11 +345,11 @@ Bool UIGearSetOptionsLockModel::OnClick()
 
 	// Update Models
 	for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i )
-		m_pGUI->GetGearSetExplorer()->GetGearSetSlot(i)->UpdateModels();
+		m_pGUI->GetGearSetExplorer()->GetGearSetDetails()->UpdateModels( i );
 
 	// Set Unsaved Changes Mark
 	if ( bChanged )
-		m_pGUI->SetUnsavedChangesMark();
+		m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
 
 	// Done
 	return true;
@@ -415,7 +415,7 @@ Bool UIGearSetOptionsUnequipModel::OnClick()
 
 	// Update Models
 	for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i )
-		m_pGUI->GetGearSetExplorer()->GetGearSetSlot(i)->UpdateModels();
+		m_pGUI->GetGearSetExplorer()->GetGearSetDetails()->UpdateModels( i );
 	m_pGUI->GetGearSetExplorer()->GetGearSetStats()->UpdateModels();
 
 	// Done
@@ -497,7 +497,7 @@ Bool UIGearSetOptionsDeleteModel::OnClick()
 				// Remove from GearSetTable
 				pGearSetTable->RemoveItem( i );
 
-				// Delete GearSet
+				// Destroy GearSet
 				CCGOPFn->DestroyGearSet( iGearSetID );
 
 				bChanged = true;
@@ -515,12 +515,12 @@ Bool UIGearSetOptionsDeleteModel::OnClick()
 
 	// Update Models
 	for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i )
-		m_pGUI->GetGearSetExplorer()->GetGearSetSlot(i)->UpdateModels();
+		m_pGUI->GetGearSetExplorer()->GetGearSetDetails()->UpdateModels( i );
 	m_pGUI->GetGearSetExplorer()->GetGearSetStats()->UpdateModels();
 
 	// Set Unsaved Changes Mark
 	if ( bChanged )
-		m_pGUI->SetUnsavedChangesMark();
+		m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
 
 	// Done
 	return true;

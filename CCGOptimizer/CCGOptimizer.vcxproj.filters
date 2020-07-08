@@ -49,6 +49,12 @@
     <Filter Include="Source Files\FrontEnd\GearSetExplorer">
       <UniqueIdentifier>{ad5f5bc8-e8bd-4144-8074-10ec05de12ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FrontEnd\ImportExport">
+      <UniqueIdentifier>{8a678ca1-ac23-4ac9-9c47-1cc9864128ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FrontEnd\ImportExport">
+      <UniqueIdentifier>{846c5854-dfef-4ce3-9710-4740d775d29e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -123,19 +129,25 @@
     <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetTable.cpp">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.cpp">
-      <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
-    </ClCompile>
     <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetCreation.cpp">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </ClCompile>
     <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetStats.cpp">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetBuildSlot.cpp">
+    <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetOptions.cpp">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetOptions.cpp">
+    <ClCompile Include="Source\FrontEnd\ImportExport.cpp">
+      <Filter>Source Files\FrontEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FrontEnd\ImportExport\LoadSave.cpp">
+      <Filter>Source Files\FrontEnd\ImportExport</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetBuild.cpp">
+      <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FrontEnd\GearSetExplorer\GearSetDetails.cpp">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </ClCompile>
   </ItemGroup>
@@ -218,19 +230,34 @@
     <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetTable.h">
       <Filter>Header Files\FrontEnd\GearSetExplorer</Filter>
     </ClInclude>
-    <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.h">
-      <Filter>Header Files\FrontEnd\GearSetExplorer</Filter>
-    </ClInclude>
     <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetCreation.h">
       <Filter>Header Files\FrontEnd\GearSetExplorer</Filter>
     </ClInclude>
     <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetStats.h">
       <Filter>Header Files\FrontEnd\GearSetExplorer</Filter>
     </ClInclude>
-    <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetBuildSlot.h">
+    <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetOptions.h">
       <Filter>Header Files\FrontEnd\GearSetExplorer</Filter>
     </ClInclude>
-    <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetOptions.h">
+    <ClInclude Include="Source\FrontEnd\ImportExport.h">
+      <Filter>Header Files\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FrontEnd\ImportExport\LoadSave.h">
+      <Filter>Header Files\FrontEnd\ImportExport</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FrontEnd\HeroExplorer\Layout.h">
+      <Filter>Header Files\FrontEnd\HeroExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FrontEnd\RuneExplorer\Layout.h">
+      <Filter>Header Files\FrontEnd\RuneExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FrontEnd\GearSetExplorer\Layout.h">
+      <Filter>Header Files\FrontEnd\GearSetExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetBuild.h">
+      <Filter>Header Files\FrontEnd\GearSetExplorer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FrontEnd\GearSetExplorer\GearSetDetails.h">
       <Filter>Header Files\FrontEnd\GearSetExplorer</Filter>
     </ClInclude>
   </ItemGroup>
@@ -304,19 +331,25 @@
     <None Include="Source\FrontEnd\GearSetExplorer\GearSetTable.inl">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </None>
-    <None Include="Source\FrontEnd\GearSetExplorer\GearSetSlot.inl">
-      <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
-    </None>
     <None Include="Source\FrontEnd\GearSetExplorer\GearSetCreation.inl">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </None>
     <None Include="Source\FrontEnd\GearSetExplorer\GearSetStats.inl">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </None>
-    <None Include="Source\FrontEnd\GearSetExplorer\GearSetBuildSlot.inl">
+    <None Include="Source\FrontEnd\GearSetExplorer\GearSetOptions.inl">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </None>
-    <None Include="Source\FrontEnd\GearSetExplorer\GearSetOptions.inl">
+    <None Include="Source\FrontEnd\ImportExport.inl">
+      <Filter>Source Files\FrontEnd</Filter>
+    </None>
+    <None Include="Source\FrontEnd\ImportExport\LoadSave.inl">
+      <Filter>Source Files\FrontEnd\ImportExport</Filter>
+    </None>
+    <None Include="Source\FrontEnd\GearSetExplorer\GearSetBuild.inl">
+      <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
+    </None>
+    <None Include="Source\FrontEnd\GearSetExplorer\GearSetDetails.inl">
       <Filter>Source Files\FrontEnd\GearSetExplorer</Filter>
     </None>
   </ItemGroup>

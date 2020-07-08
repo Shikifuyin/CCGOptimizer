@@ -46,10 +46,10 @@ UIHeroTableModel::UIHeroTableModel():
 	StringFn->Copy( m_arrColumnNames[UI_HEROTABLE_COLUMN_HIT],        TEXT("HIT") );
 	StringFn->Copy( m_arrColumnNames[UI_HEROTABLE_COLUMN_RES],        TEXT("RES") );
 
-	UInt iWidthWithScrollBar = ( CCGOP_LAYOUT_TABLE_WIDTH - 18 );
-	UInt iNameWidth = (2 * iWidthWithScrollBar) / UI_HEROTABLE_COLUMN_COUNT;
-	UInt iAvgWidth = (iWidthWithScrollBar - iNameWidth) / (UI_HEROTABLE_COLUMN_COUNT - 1);
-	iNameWidth = ( iWidthWithScrollBar - iAvgWidth * (UI_HEROTABLE_COLUMN_COUNT - 1) );
+	UInt iTableWidth = ( CCGOP_LAYOUT_HEROEXPLORER_TABLE_WIDTH - CCGOP_LAYOUT_SCROLLBAR_WIDTH );
+	UInt iNameWidth = (2 * iTableWidth) / UI_HEROTABLE_COLUMN_COUNT;
+	UInt iAvgWidth = (iTableWidth - iNameWidth) / (UI_HEROTABLE_COLUMN_COUNT - 1);
+	iNameWidth = ( iTableWidth - iAvgWidth * (UI_HEROTABLE_COLUMN_COUNT - 1) );
 
 	m_arrColumnWidths[UI_HEROTABLE_COLUMN_NAME]       = iNameWidth;
 	m_arrColumnWidths[UI_HEROTABLE_COLUMN_ID]         = iAvgWidth;
@@ -160,8 +160,8 @@ const WinGUILayout * UIHeroTableModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_TABLE_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_TABLE_HEIGHT;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_HEROEXPLORER_TABLE_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_HEROEXPLORER_TABLE_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = CCGOP_LAYOUT_SPACING_BORDER;
@@ -498,8 +498,8 @@ const WinGUILayout * UIHeroTableGroupModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iX, CCGOP_LAYOUT_ROOM_WIDTH );
-	hLayout.FixedPosition.iY = CCGOP_LAYOUT_ROOM_TOP;
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_HEROEXPLORER_ROOM_LEFT + CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iX, CCGOP_LAYOUT_HEROEXPLORER_ROOM_WIDTH );
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_HEROEXPLORER_ROOM_TOP;
 
 	return &hLayout;
 }

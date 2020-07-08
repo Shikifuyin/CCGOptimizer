@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/GearSetExplorer/GearSetSlot.inl
+// File : Source/FrontEnd/ImportExport.cpp
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : GearSetExplorer GUI : GearSet Slots Display
+// Description : Import / Export GUI
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -16,9 +16,34 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////
-// UIGearSetSlot implementation
-inline Void UIGearSetSlot::GetSlotArea( WinGUIRectangle * outClientArea ) const {
-	m_pGroup->ComputeClientArea( outClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+// Includes
+#include "ImportExport.h"
+
+#include "CCGOPGUI.h"
+
+/////////////////////////////////////////////////////////////////////////////////
+// ImportExport implementation
+ImportExport::ImportExport( CCGOPGUI * pGUI ):
+	m_hLoadSave( pGUI )
+{
+	m_pGUI = pGUI;
+	m_pRoot = NULL;
+}
+ImportExport::~ImportExport()
+{
+	// nothing to do
 }
 
+Void ImportExport::Initialize()
+{
+	// Grab Root
+	m_pRoot = m_pGUI->GetTabPane( UI_MAINMENU_IMPORTEXPORT );
 
+	// Load / Save UI
+	m_hLoadSave.Initialize();
+}
+Void ImportExport::Cleanup()
+{
+	// Load / Save UI
+	m_hLoadSave.Cleanup();
+}

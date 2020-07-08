@@ -51,8 +51,8 @@ const WinGUILayout * UIRuneSearchGroupModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(1,1,3,2) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ROOM_LEFT + CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iX, CCGOP_LAYOUT_ROOM_WIDTH );
-	hLayout.FixedPosition.iY = CCGOP_LAYOUT_ROOM_TOP + CCGOP_LAYOUT_CENTER( hLayout.FixedSize.iY, CCGOP_LAYOUT_ROOM_HEIGHT );
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_RUNEEXPLORER_ROOM_LEFT + CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iX, CCGOP_LAYOUT_RUNEEXPLORER_ROOM_WIDTH );
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_RUNEEXPLORER_ROOM_TOP + CCGOP_LAYOUT_CENTER( hLayout.FixedSize.iY, CCGOP_LAYOUT_RUNEEXPLORER_ROOM_HEIGHT );
 
 	return &hLayout;
 }

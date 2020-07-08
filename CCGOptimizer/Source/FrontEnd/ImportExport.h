@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/GearSetExplorer.h
+// File : Source/FrontEnd/ImportExport.h
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : GearSetExplorer GUI
+// Description : Import / Export GUI
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -17,8 +17,8 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // Header prelude
-#ifndef CCGOP_FRONTEND_GEARSETEXPLORER_H
-#define CCGOP_FRONTEND_GEARSETEXPLORER_H
+#ifndef CCGOP_FRONTEND_IMPORTEXPORT_H
+#define CCGOP_FRONTEND_IMPORTEXPORT_H
 
 /////////////////////////////////////////////////////////////////////////////////
 // Includes
@@ -29,12 +29,7 @@
 #include "ResourceIDs.h"
 #include "Layout.h"
 
-#include "GearSetExplorer/GearSetTable.h"
-#include "GearSetExplorer/GearSetDetails.h"
-#include "GearSetExplorer/GearSetStats.h"
-#include "GearSetExplorer/GearSetCreation.h"
-#include "GearSetExplorer/GearSetOptions.h"
-#include "GearSetExplorer/GearSetBuild.h"
+#include "ImportExport/LoadSave.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
@@ -43,54 +38,34 @@
 class CCGOPGUI;
 
 /////////////////////////////////////////////////////////////////////////////////
-// The GearSetExplorer class
-class GearSetExplorer
+// The ImportExport class
+class ImportExport
 {
 public:
-	GearSetExplorer( CCGOPGUI * pGUI );
-	~GearSetExplorer();
+	ImportExport( CCGOPGUI * pGUI );
+	~ImportExport();
 
 	// Initialization / Cleanup
 	Void Initialize();
 	Void Cleanup();
 
 	// Access for delegates
-	inline UIGearSetTable * GetGearSetTable();
-	inline UIGearSetDetails * GetGearSetDetails();
-	inline UIGearSetStats * GetGearSetStats();
-	inline UIGearSetCreation * GetGearSetCreation();
-	inline UIGearSetOptions * GetGearSetOptions();
-	inline UIGearSetBuild * GetGearSetBuild();
-
+	inline UILoadSave * GetLoadSave();
+	
 private:
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
 	WinGUIContainer * m_pRoot;
 
-	// GearSet Table UI
-	UIGearSetTable m_hGearSetTable;
-
-	// GearSet Slots UI
-	UIGearSetDetails m_hGearSetDetails;
-
-	// GearSet Stats UI
-	UIGearSetStats m_hGearSetStats;
-
-	// GearSet Creation UI
-	UIGearSetCreation m_hGearSetCreation;
-
-	// GearSet Options UI
-	UIGearSetOptions m_hGearSetOptions;
-
-	// GearSet Build Slots UI
-	UIGearSetBuild m_hGearSetBuild;
+	// Load / Save UI
+	UILoadSave m_hLoadSave;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
 // Backward Includes (Inlines & Templates)
-#include "GearSetExplorer.inl"
+#include "ImportExport.inl"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Header end
-#endif // CCGOP_FRONTEND_GEARSETEXPLORER_H
+#endif // CCGOP_FRONTEND_IMPORTEXPORT_H
 

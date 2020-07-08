@@ -53,7 +53,8 @@ UIRuneTableModel::UIRuneTableModel():
 	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_RANDOMSTAT_HIT],      TEXT("HIT") );
 	StringFn->Copy( m_arrColumnNames[UI_RUNETABLE_COLUMN_RANDOMSTAT_RES],      TEXT("RES") );
 
-	UInt iAvgWidth = ( CCGOP_LAYOUT_TABLE_WIDTH / UI_RUNETABLE_COLUMN_COUNT );
+	UInt iTableWidth = ( CCGOP_LAYOUT_RUNEEXPLORER_TABLE_WIDTH - CCGOP_LAYOUT_SCROLLBAR_WIDTH );
+	UInt iAvgWidth = ( iTableWidth / UI_RUNETABLE_COLUMN_COUNT );
 
 	m_arrColumnWidths[UI_RUNETABLE_COLUMN_ID]                  = iAvgWidth;
 	m_arrColumnWidths[UI_RUNETABLE_COLUMN_LOCKED]              = iAvgWidth;
@@ -185,8 +186,8 @@ const WinGUILayout * UIRuneTableModel::GetLayout() const
 	hLayout.FixedPosition.iY = CCGOP_LAYOUT_SPACING_BORDER;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_TABLE_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_TABLE_HEIGHT;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_RUNEEXPLORER_TABLE_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_RUNEEXPLORER_TABLE_HEIGHT;
 
 	return &hLayout;
 }
@@ -625,8 +626,8 @@ const WinGUILayout * UIRuneTableGroupModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iX, CCGOP_LAYOUT_ROOM_WIDTH );
-	hLayout.FixedPosition.iY = CCGOP_LAYOUT_ROOM_TOP;
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_RUNEEXPLORER_ROOM_LEFT + CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iX, CCGOP_LAYOUT_RUNEEXPLORER_ROOM_WIDTH );
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_RUNEEXPLORER_ROOM_TOP;
 
 	return &hLayout;
 }

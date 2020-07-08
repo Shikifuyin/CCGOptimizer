@@ -39,7 +39,7 @@ UIGearSetTableModel::UIGearSetTableModel():
 	StringFn->Copy( m_arrColumnNames[UI_GEARSETTABLE_COLUMN_RUNE_5], TEXT("Rune 5") );
 	StringFn->Copy( m_arrColumnNames[UI_GEARSETTABLE_COLUMN_RUNE_6], TEXT("Rune 6") );
 
-	UInt iTableWidth = (CCGOP_LAYOUT_TABLE_WIDTH >> 1);
+	UInt iTableWidth = ( CCGOP_LAYOUT_GEARSETEXPLORER_TABLE_WIDTH - CCGOP_LAYOUT_SCROLLBAR_WIDTH );
 	UInt iNameWidth = (2 * iTableWidth) / UI_GEARSETTABLE_COLUMN_COUNT;
 	UInt iAvgWidth = (iTableWidth - iNameWidth) / (UI_GEARSETTABLE_COLUMN_COUNT - 1);
 	iNameWidth = ( iTableWidth - iAvgWidth * (UI_GEARSETTABLE_COLUMN_COUNT - 1) );
@@ -147,8 +147,8 @@ const WinGUILayout * UIGearSetTableModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = ( CCGOP_LAYOUT_TABLE_WIDTH >> 1 );
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_TABLE_HEIGHT;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_GEARSETEXPLORER_TABLE_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_GEARSETEXPLORER_TABLE_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = CCGOP_LAYOUT_SPACING_BORDER;
@@ -186,9 +186,9 @@ Bool UIGearSetTableModel::OnItemChanged( UInt iItemIndex, UInt iSubItemIndex, Vo
 {
 	// Item Selection case
 	if ( iItemIndex != INVALID_OFFSET && iSubItemIndex == 0 && (hOldState.bSelected != hNewState.bSelected) ) {
-		// Update GearSet Slots Models
+		// Update GearSet Details Models
 		for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i )
-			m_pGUI->GetGearSetExplorer()->GetGearSetSlot(i)->UpdateModels();
+			m_pGUI->GetGearSetExplorer()->GetGearSetDetails()->UpdateModels( i );
 
 		// Update GearSet Stats Model
 		m_pGUI->GetGearSetExplorer()->GetGearSetStats()->UpdateModels();
@@ -370,12 +370,12 @@ const WinGUILayout * UIGearSetTableGroupModel::GetLayout() const
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(2,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(2,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ROOM_LEFT + 400;
-	hLayout.FixedPosition.iY = CCGOP_LAYOUT_ROOM_TOP;
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_GEARSETEXPLORER_ROOM_LEFT + CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iX, CCGOP_LAYOUT_GEARSETEXPLORER_ROOM_WIDTH );
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_GEARSETEXPLORER_ROOM_TOP;
 
 	return &hLayout;
 }
@@ -468,8 +468,8 @@ const WinGUILayout * UIGearSetTableUncheckAllModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop;
+	hLayout.FixedPosition.iX = hClientArea.iLeft;
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,0,0,0);
 
 	return &hLayout;
 }

@@ -48,11 +48,11 @@ const WinGUILayout * UIGearSetCreationGroupModel::GetLayout() const
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(1,1,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(2,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ROOM_LEFT;
-	hLayout.FixedPosition.iY = CCGOP_LAYOUT_ROOM_TOP + CCGOP_LAYOUT_CENTER( hLayout.FixedSize.iY, CCGOP_LAYOUT_ROOM_HEIGHT );
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_GEARSETEXPLORER_ROOM_LEFT;
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_GEARSETEXPLORER_ROOM_TOP;
 
 	return &hLayout;
 }
@@ -201,7 +201,7 @@ Bool UIGearSetCreationButtonModel::OnClick()
 	pModel->UpdateAfterGearSetCreation( iGearSetID );
 
 	// Set Unsaved Changes Mark
-	m_pGUI->SetUnsavedChangesMark();
+	m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
 
 	// Done
 	return true;

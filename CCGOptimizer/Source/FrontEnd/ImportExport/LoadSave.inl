@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/GearSetExplorer.inl
+// File : Source/FrontEnd/ImportExport/LoadSave.inl
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : GearSetExplorer GUI
+// Description : Import / Export GUI : Load & Save from/to XML
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -16,23 +16,15 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////
-// GearSetExplorer implementation
-inline UIGearSetTable * GearSetExplorer::GetGearSetTable() {
-	return &m_hGearSetTable;
-}
-inline UIGearSetDetails * GearSetExplorer::GetGearSetDetails() {
-	return &m_hGearSetDetails;
-}
-inline UIGearSetStats * GearSetExplorer::GetGearSetStats() {
-	return &m_hGearSetStats;
-}
-inline UIGearSetCreation * GearSetExplorer::GetGearSetCreation() {
-	return &m_hGearSetCreation;
-}
-inline UIGearSetOptions * GearSetExplorer::GetGearSetOptions() {
-	return &m_hGearSetOptions;
-}
-inline UIGearSetBuild * GearSetExplorer::GetGearSetBuild() {
-	return &m_hGearSetBuild;
+// UILoadSave implementation
+inline Void UILoadSave::GetArea( WinGUIRectangle * outClientArea ) const {
+	m_pGroup->ComputeClientArea( outClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 }
 
+inline WinGUITextEdit * UILoadSave::GetFileName() const {
+	return m_pFileName;
+}
+
+inline Bool UILoadSave::HasUnsavedChangesMark() const {
+	return m_bUnsavedChanges;
+}

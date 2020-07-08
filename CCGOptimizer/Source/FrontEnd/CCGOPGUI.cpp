@@ -61,7 +61,7 @@ const WinGUILayout * UIWindowModel::GetLayout() const
 Bool UIWindowModel::OnClose()
 {
 	// Check for Unsaved Changes
-	if ( m_pGUI->HasUnsavedChangesMark() ) {
+	if ( m_pGUI->GetImportExport()->GetLoadSave()->HasUnsavedChangesMark() ) {
 		WinGUIMessageBoxOptions hOptions;
 		hOptions.iType = WINGUI_MESSAGEBOX_YESNO;
 		hOptions.iIcon = WINGUI_MESSAGEBOX_ICON_WARNING;
@@ -86,7 +86,7 @@ Bool UIWindowModel::OnClose()
 /////////////////////////////////////////////////////////////////////////////////
 // UITabsModel implementation
 const GChar * UITabsModel::sm_arrMenuNames[UI_MAINMENU_COUNT] = {
-	TEXT("Import"),
+	TEXT("Import / Export"),
 	TEXT("Hero Explorer"),
 	TEXT("Rune Explorer"),
 	TEXT("GearSet Explorer"),
@@ -215,336 +215,9 @@ const WinGUILayout * UIStatusBarModel::GetLayout() const
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// UIFileGroupModel implementation
-UIFileGroupModel::UIFileGroupModel():
-	WinGUIGroupBoxModel(CCGOP_RESID_LOADSAVE_GROUP)
-{
-	m_pGUI = NULL;
-	m_iMainMenuTab = UI_MAINMENU_COUNT;
-}
-UIFileGroupModel::~UIFileGroupModel()
-{
-	// nothing to do
-}
-
-Void UIFileGroupModel::Initialize( CCGOPGUI * pGUI, UIMainMenuTabs iMainMenuTab )
-{
-	m_pGUI = pGUI;
-	m_iMainMenuTab = iMainMenuTab;
-
-	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Load / Save :") );
-}
-
-const WinGUILayout * UIFileGroupModel::GetLayout() const
-{
-	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(2,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(1,1,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iX, CCGOP_LAYOUT_CLIENT_WIDTH );
-	hLayout.FixedPosition.iY = CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iY, CCGOP_LAYOUT_CLIENT_HEIGHT );
-
-	return &hLayout;
-}
-
-/////////////////////////////////////////////////////////////////////////////////
-// UIFileNameModel implementation
-UIFileNameModel::UIFileNameModel():
-	WinGUITextEditModel(CCGOP_RESID_LOADSAVE_FILENAME)
-{
-	m_pGUI = NULL;
-	m_iMainMenuTab = UI_MAINMENU_COUNT;
-}
-UIFileNameModel::~UIFileNameModel()
-{
-	// nothing to do
-}
-
-Void UIFileNameModel::Initialize( CCGOPGUI * pGUI, UIMainMenuTabs iMainMenuTab )
-{
-	m_pGUI = pGUI;
-	m_iMainMenuTab = iMainMenuTab;
-
-	StringFn->Copy( m_hCreationParameters.strInitialText, TEXT("") );
-	m_hCreationParameters.iAlign = WINGUI_TEXTEDIT_ALIGN_LEFT;
-	m_hCreationParameters.iCase = WINGUI_TEXTEDIT_CASE_BOTH;
-	m_hCreationParameters.iMode = WINGUI_TEXTEDIT_MODE_TEXT;
-	m_hCreationParameters.bAllowHorizontalScroll = true;
-	m_hCreationParameters.bDontHideSelection = false;
-	m_hCreationParameters.bReadOnly = false;
-	m_hCreationParameters.bEnableTabStop = true;
-}
-Void UIFileNameModel::Update()
-{
-	WinGUITextEdit * pController = (WinGUITextEdit*)m_pController;
-
-	pController->SetCueText( TEXT("Enter a File Name ..."), false );
-}
-
-const WinGUILayout * UIFileNameModel::GetLayout() const
-{
-	WinGUIRectangle hClientArea;
-	m_pGUI->GetLoadSaveArea( &hClientArea, m_iMainMenuTab );
-
-	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH * 2 + CCGOP_LAYOUT_SPACING_HORIZ;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_TEXTEDIT_HEIGHT;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop;
-
-	return &hLayout;
-}
-
-Void UIFileNameModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
-{
-	WinGUITextEdit * pController = (WinGUITextEdit*)m_pController;
-
-	if ( iKey == KEYCODE_MOUSERIGHT )
-		pController->SetText( TEXT("") );
-}
-
-Bool UIFileNameModel::OnTextChange()
-{
-	static Bool s_bUpdatingTabs = false;
-
-	if ( s_bUpdatingTabs )
-		return true; // Prevent infinite loop !
-	s_bUpdatingTabs = true;
-
-	// Retrieve Text
-	WinGUITextEdit * pController = (WinGUITextEdit*)m_pController;
-	GChar strText[256];
-	pController->GetText( strText, 255 );
-
-	// Copy accross all tabs
-	for( UInt i = 0; i < UI_MAINMENU_COUNT; ++i ) {
-		if ( i == m_iMainMenuTab )
-			continue;
-
-		WinGUITextEdit * pFileName = m_pGUI->GetLoadSaveFileName( (UIMainMenuTabs)i );
-		pFileName->SetText( strText );
-	}
-
-	s_bUpdatingTabs = false;
-
-	// Done
-	return true;
-}
-
-/////////////////////////////////////////////////////////////////////////////////
-// UIFileLoadModel implementation
-UIFileLoadModel::UIFileLoadModel():
-	WinGUIButtonModel(CCGOP_RESID_LOADSAVE_LOAD)
-{
-	m_pGUI = NULL;
-	m_iMainMenuTab = UI_MAINMENU_COUNT;
-}
-UIFileLoadModel::~UIFileLoadModel()
-{
-	// nothing to do
-}
-
-Void UIFileLoadModel::Initialize( CCGOPGUI * pGUI, UIMainMenuTabs iMainMenuTab )
-{
-	m_pGUI = pGUI;
-	m_iMainMenuTab = iMainMenuTab;
-
-	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("LOAD") );
-	m_hCreationParameters.bCenterLabel = true;
-	m_hCreationParameters.bEnableTabStop = true;
-	m_hCreationParameters.bEnableNotify = false;
-}
-
-const WinGUILayout * UIFileLoadModel::GetLayout() const
-{
-	WinGUIRectangle hClientArea;
-	m_pGUI->GetLoadSaveArea( &hClientArea, m_iMainMenuTab );
-
-	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft;
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,1,0,0);
-
-	return &hLayout;
-}
-
-Bool UIFileLoadModel::OnClick()
-{
-	// Confirmation Message
-	WinGUIMessageBoxOptions hOptions;
-	hOptions.iType = WINGUI_MESSAGEBOX_OKCANCEL;
-	hOptions.iIcon = WINGUI_MESSAGEBOX_ICON_WARNING;
-	hOptions.iDefaultResponse = WINGUI_MESSAGEBOX_RESPONSE_CANCEL;
-	hOptions.bMustAnswer = true;
-
-	WinGUIMessageBoxResponse iResponse = WinGUIFn->SpawnMessageBox(
-		TEXT("Confirmation"),
-		TEXT("You are about to load data from a file, ANY UNSAVED DATA WILL BE LOST !!!\nAre you sure you want to continue ?"),
-		hOptions
-	);
-
-	// Abort
-	if ( iResponse != WINGUI_MESSAGEBOX_RESPONSE_OK )
-		return true;
-	
-	// Retrieve FileName
-	WinGUITextEdit * pFileName = m_pGUI->GetLoadSaveFileName( m_iMainMenuTab );
-	GChar strFileName[256];
-	pFileName->GetText( strFileName, 255 );
-
-	// Append ".xml"
-	UInt iLength = StringFn->Length(strFileName);
-	StringFn->NCopy( strFileName + iLength, TEXT(".xml"), 255 - iLength );
-
-	// Try to open the file
-	HFile hFile = SystemFn->OpenFile( strFileName, FILE_READ );
-	if ( !(hFile.IsValid()) ) {
-		hOptions.iType = WINGUI_MESSAGEBOX_OK;
-		hOptions.iIcon = WINGUI_MESSAGEBOX_ICON_ERROR;
-		hOptions.iDefaultResponse = WINGUI_MESSAGEBOX_RESPONSE_OK;
-		hOptions.bMustAnswer = true;
-
-		WinGUIFn->SpawnMessageBox(
-			TEXT("Error"),
-			TEXT("Couldn't open file !"),
-			hOptions
-		);
-
-		return true;
-	}
-	hFile.Close();
-
-	// Retrieve All Tables
-	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->GetTable();
-	WinGUITable * pRuneTable = m_pGUI->GetRuneExplorer()->GetRuneTable()->GetTable();
-	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
-
-	// Destroy all existing data
-	pGearSetTable->RemoveAllItems();
-	pRuneTable->RemoveAllItems();
-	pHeroTable->RemoveAllItems();
-	CCGOPFn->DestroyAllGearSets();
-	CCGOPFn->DestroyAllRunes();
-	CCGOPFn->DestroyAllHeroes();
-
-	// Load from XML
-	CCGOPFn->ImportFromXML( strFileName );
-	
-	// Update All Tables
-	( (UIHeroTableModel*)(pHeroTable->GetModel()) )->UpdateAfterDataLoad();
-	( (UIRuneTableModel*)(pRuneTable->GetModel()) )->UpdateAfterDataLoad();
-	( (UIGearSetTableModel*)(pGearSetTable->GetModel()) )->UpdateAfterDataLoad();
-
-	// Clear Unsaved Changes Mark
-	m_pGUI->ClearUnsavedChangesMark();
-
-	// Done
-	return true;
-}
-
-/////////////////////////////////////////////////////////////////////////////////
-// UIFileSaveModel implementation
-UIFileSaveModel::UIFileSaveModel():
-	WinGUIButtonModel(CCGOP_RESID_LOADSAVE_SAVE)
-{
-	m_pGUI = NULL;
-	m_iMainMenuTab = UI_MAINMENU_COUNT;
-}
-UIFileSaveModel::~UIFileSaveModel()
-{
-	// nothing to do
-}
-
-Void UIFileSaveModel::Initialize( CCGOPGUI * pGUI, UIMainMenuTabs iMainMenuTab )
-{
-	m_pGUI = pGUI;
-	m_iMainMenuTab = iMainMenuTab;
-
-	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("SAVE") );
-	m_hCreationParameters.bCenterLabel = true;
-	m_hCreationParameters.bEnableTabStop = true;
-	m_hCreationParameters.bEnableNotify = false;
-}
-
-const WinGUILayout * UIFileSaveModel::GetLayout() const
-{
-	WinGUIRectangle hClientArea;
-	m_pGUI->GetLoadSaveArea( &hClientArea, m_iMainMenuTab );
-
-	static WinGUIManualLayout hLayout;
-
-	hLayout.UseScalingSize = false;
-	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
-
-	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0);
-	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(0,1,0,0);
-
-	return &hLayout;
-}
-
-Bool UIFileSaveModel::OnClick()
-{
-	// Retrieve FileName
-	WinGUITextEdit * pFileName = m_pGUI->GetLoadSaveFileName( m_iMainMenuTab );
-	GChar strFileName[256];
-	pFileName->GetText( strFileName, 255 );
-
-	// Append ".xml"
-	UInt iLength = StringFn->Length(strFileName);
-	StringFn->NCopy( strFileName + iLength, TEXT(".xml"), 255 - iLength );
-
-	// Try to open the file
-	HFile hFile = SystemFn->OpenFile( strFileName, FILE_WRITE );
-	if ( hFile.IsValid() ) {
-		WinGUIMessageBoxOptions hOptions;
-		hOptions.iType = WINGUI_MESSAGEBOX_OKCANCEL;
-		hOptions.iIcon = WINGUI_MESSAGEBOX_ICON_WARNING;
-		hOptions.iDefaultResponse = WINGUI_MESSAGEBOX_RESPONSE_CANCEL;
-		hOptions.bMustAnswer = true;
-
-		WinGUIMessageBoxResponse iResponse = WinGUIFn->SpawnMessageBox(
-			TEXT("Warning"),
-			TEXT("File already exists ! Do you want to overwrite ?"),
-			hOptions
-		);
-
-		// Abort
-		if ( iResponse != WINGUI_MESSAGEBOX_RESPONSE_OK )
-			return true;
-
-		// Delete the file
-		hFile.Close();
-		SystemFn->DestroyFile( strFileName );
-	}
-
-	// Save to XML
-	CCGOPFn->ExportToXML( strFileName );
-	
-	// Clear Unsaved Changes Mark
-	m_pGUI->ClearUnsavedChangesMark();
-
-	// Done
-	hFile.Close();
-	return true;
-}
-
-/////////////////////////////////////////////////////////////////////////////////
 // CCGOPGUI implementation
 CCGOPGUI::CCGOPGUI( CCGOPApplication * pApplication ):
+	m_hImportExport(this),
 	m_hHeroExplorer(this),
 	m_hRuneExplorer(this),
 	m_hGearSetExplorer(this)
@@ -560,14 +233,6 @@ CCGOPGUI::CCGOPGUI( CCGOPApplication * pApplication ):
 		m_arrTabPanes[i].pTabPane = NULL;
 
 	m_pStatusBar = NULL;
-
-	for( i = 0; i < UI_MAINMENU_COUNT; ++i ) {
-		m_arrLoadSave[i].pGroup = NULL;
-		m_arrLoadSave[i].pFileName = NULL;
-		m_arrLoadSave[i].pLoad = NULL;
-		m_arrLoadSave[i].pSave = NULL;
-	}
-	m_bUnsavedChanges = false;
 }
 CCGOPGUI::~CCGOPGUI()
 {
@@ -604,32 +269,15 @@ Void CCGOPGUI::Initialize()
 	m_pStatusBar->SetPartText( 1, TEXT("No Data has been Loaded Yet !"), WINGUI_STATUSBAR_DRAW_SINKBORDER );
 	m_pStatusBar->SetPartTipText( 1, TEXT("Not much more Here !") );
 
-	// Build Load/Save
-	for( i = 0; i < UI_MAINMENU_COUNT; ++i ) {
-		WinGUIContainer * pRoot = m_arrTabPanes[i].pTabPane;
-
-		m_arrLoadSave[i].hGroupModel.Initialize( this, (UIMainMenuTabs)i );
-		m_arrLoadSave[i].pGroup = WinGUIFn->CreateGroupBox( pRoot, &(m_arrLoadSave[i].hGroupModel) );
-
-		m_arrLoadSave[i].hFileNameModel.Initialize( this, (UIMainMenuTabs)i );
-		m_arrLoadSave[i].pFileName = WinGUIFn->CreateTextEdit( pRoot, &(m_arrLoadSave[i].hFileNameModel) );
-		m_arrLoadSave[i].hFileNameModel.Update();
-
-		m_arrLoadSave[i].hLoadModel.Initialize( this, (UIMainMenuTabs)i );
-		m_arrLoadSave[i].pLoad = WinGUIFn->CreateButton( pRoot, &(m_arrLoadSave[i].hLoadModel) );
-
-		m_arrLoadSave[i].hSaveModel.Initialize( this, (UIMainMenuTabs)i );
-		m_arrLoadSave[i].pSave = WinGUIFn->CreateButton( pRoot, &(m_arrLoadSave[i].hSaveModel) );
-	}
-
 	// Build Delegates
+	m_hImportExport.Initialize();
 	m_hHeroExplorer.Initialize();
 	m_hRuneExplorer.Initialize();
 	m_hGearSetExplorer.Initialize();
 
 	// Initial Tab
-	m_pTabs->SelectTab( UI_MAINMENU_IMPORT );
-	m_pTabs->SwitchSelectedTabPane( m_arrTabPanes[UI_MAINMENU_IMPORT].pTabPane );
+	m_pTabs->SelectTab( UI_MAINMENU_IMPORTEXPORT );
+	m_pTabs->SwitchSelectedTabPane( m_arrTabPanes[UI_MAINMENU_IMPORTEXPORT].pTabPane );
 
 	// Done
 	m_pAppWindow->SetVisible( true );
@@ -640,19 +288,8 @@ Void CCGOPGUI::Cleanup()
 	m_hGearSetExplorer.Cleanup();
 	m_hRuneExplorer.Cleanup();
 	m_hHeroExplorer.Cleanup();
+	m_hImportExport.Cleanup();
 }
 
-Void CCGOPGUI::SetUnsavedChangesMark()
-{
-	m_pStatusBar->SetPartText( 1, TEXT("Unsaved Changes are Pending !"), WINGUI_STATUSBAR_DRAW_SINKBORDER );
-
-	m_bUnsavedChanges = true;
-}
-Void CCGOPGUI::ClearUnsavedChangesMark()
-{
-	m_pStatusBar->SetPartText( 1, TEXT("All Changes have been Saved !"), WINGUI_STATUSBAR_DRAW_SINKBORDER );
-
-	m_bUnsavedChanges = false;
-}
 
 

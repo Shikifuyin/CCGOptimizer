@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/GearSetExplorer/GearSetBuildSlot.cpp
+// File : Source/FrontEnd/GearSetExplorer/GearSetBuild.cpp
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : GearSetExplorer GUI : GearSet Build Slots
+// Description : GearSetExplorer GUI : GearSet Builder
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -17,16 +17,50 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // Includes
-#include "GearSetBuildSlot.h"
+#include "GearSetBuild.h"
 
 #include "../CCGOPGUI.h"
 
 #pragma warning(disable:4312) // Converting UInts to Void*
 
 /////////////////////////////////////////////////////////////////////////////////
+// UIGearSetBuildGroupModel implementation
+UIGearSetBuildGroupModel::UIGearSetBuildGroupModel():
+	WinGUIGroupBoxModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD_GROUP)
+{
+	m_pGUI = NULL;
+}
+UIGearSetBuildGroupModel::~UIGearSetBuildGroupModel()
+{
+	// nothing to do
+}
+
+Void UIGearSetBuildGroupModel::Initialize( CCGOPGUI * pGUI )
+{
+	m_pGUI = pGUI;
+
+	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("GearSet Builder :") );
+}
+
+const WinGUILayout * UIGearSetBuildGroupModel::GetLayout() const
+{
+	static WinGUIManualLayout hLayout;
+
+	hLayout.UseScalingSize = false;
+	hLayout.FixedSize.iX = ( CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH + CCGOP_LAYOUT_SPACING_GAP_HORIZ ) * RUNE_SLOT_COUNT + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(2,8,1,0) + CCGOP_LAYOUT_SPACING_GAP_VERT + 2 * CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_GEARSETEXPLORER_ROOM_LEFT;
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_GEARSETEXPLORER_ROOM_TOP + CCGOP_LAYOUT_CENTER( hLayout.FixedSize.iY, CCGOP_LAYOUT_GEARSETEXPLORER_ROOM_HEIGHT );
+
+	return &hLayout;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
 // UIGearSetBuildSlotGroupModel implementation
 UIGearSetBuildSlotGroupModel::UIGearSetBuildSlotGroupModel():
-	WinGUIGroupBoxModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILDSLOT_GROUP)
+	WinGUIGroupBoxModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD_SLOTGROUP)
 {
 	m_pGUI = NULL;
 	m_iSlot = INVALID_OFFSET;
@@ -46,6 +80,9 @@ Void UIGearSetBuildSlotGroupModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
 
 const WinGUILayout * UIGearSetBuildSlotGroupModel::GetLayout() const
 {
+	WinGUIRectangle hClientArea;
+	m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetArea( &hClientArea );
+
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
@@ -53,27 +90,26 @@ const WinGUILayout * UIGearSetBuildSlotGroupModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(2,8,1,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ROOM_LEFT + CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iX, CCGOP_LAYOUT_ROOM_WIDTH )
-							 - ( (RUNE_SLOT_COUNT - m_iSlot) * (hLayout.FixedSize.iX + CCGOP_LAYOUT_SPACING_GAP_HORIZ) );
-	hLayout.FixedPosition.iY = CCGOP_LAYOUT_ROOM_TOP + CCGOP_LAYOUT_CENTER( hLayout.FixedSize.iY, CCGOP_LAYOUT_ROOM_HEIGHT );
+	hLayout.FixedPosition.iX = hClientArea.iLeft + ( m_iSlot * (hLayout.FixedSize.iX + CCGOP_LAYOUT_SPACING_GAP_HORIZ) );
+	hLayout.FixedPosition.iY = hClientArea.iTop;
 
 	return &hLayout;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// UIGearSetBuildSlotHeadLineModel implementation
-UIGearSetBuildSlotHeadLineModel::UIGearSetBuildSlotHeadLineModel():
-	WinGUIStaticModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILDSLOT_HEADLINE)
+// UIGearSetBuildHeadLineModel implementation
+UIGearSetBuildHeadLineModel::UIGearSetBuildHeadLineModel():
+	WinGUIStaticModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD_HEADLINE)
 {
 	m_pGUI = NULL;
 	m_iSlot = INVALID_OFFSET;
 }
-UIGearSetBuildSlotHeadLineModel::~UIGearSetBuildSlotHeadLineModel()
+UIGearSetBuildHeadLineModel::~UIGearSetBuildHeadLineModel()
 {
 	// nothing to do
 }
 
-Void UIGearSetBuildSlotHeadLineModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
+Void UIGearSetBuildHeadLineModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
 {
 	m_pGUI = pGUI;
 	m_iSlot = iSlot;
@@ -87,13 +123,13 @@ Void UIGearSetBuildSlotHeadLineModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
 
 	m_hCreationParameters.bEnableNotify = false;
 }
-Void UIGearSetBuildSlotHeadLineModel::Update()
+Void UIGearSetBuildHeadLineModel::Update()
 {
 	WinGUIStatic * pController = (WinGUIStatic*)m_pController;
 
 	// Retrieve selected Rune
-	WinGUIComboBox * pRuneBox = m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->GetRune();
-	UInt iSelected = pRuneBox->GetSelectedItem();
+	WinGUIComboBox * pRunePool = m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetRunePool( m_iSlot );
+	UInt iSelected = pRunePool->GetSelectedItem();
 
 	// Nothing selected case
 	if ( iSelected == INVALID_OFFSET ) {
@@ -102,7 +138,7 @@ Void UIGearSetBuildSlotHeadLineModel::Update()
 	}
 
 	// Retrieve Rune
-	RuneID iRuneID = (RuneID)(UIntPtr)( pRuneBox->GetItemData(iSelected) );
+	RuneID iRuneID = (RuneID)(UIntPtr)( pRunePool->GetItemData(iSelected) );
 	const Rune * pRune = CCGOPFn->GetRune( iRuneID );
 
 	// Build HeadLine
@@ -119,16 +155,16 @@ Void UIGearSetBuildSlotHeadLineModel::Update()
 	pController->SetText( strHeadLine );
 }
 
-const WinGUILayout * UIGearSetBuildSlotHeadLineModel::GetLayout() const
+const WinGUILayout * UIGearSetBuildHeadLineModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->GetSlotArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetSlotArea( &hClientArea, m_iSlot );
 
 	static WinGUIManualLayout hLayout;
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_STATICTEXT_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_STATICTEXT_HEIGHT << 1;
+	hLayout.FixedSize.iY = ( CCGOP_LAYOUT_STATICTEXT_HEIGHT << 1 );
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft;
@@ -138,19 +174,19 @@ const WinGUILayout * UIGearSetBuildSlotHeadLineModel::GetLayout() const
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// UIGearSetBuildSlotMainStatModel implementation
-UIGearSetBuildSlotMainStatModel::UIGearSetBuildSlotMainStatModel():
-	WinGUIStaticModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILDSLOT_MAINSTAT)
+// UIGearSetBuildMainStatModel implementation
+UIGearSetBuildMainStatModel::UIGearSetBuildMainStatModel():
+	WinGUIStaticModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD_MAINSTAT)
 {
 	m_pGUI = NULL;
 	m_iSlot = INVALID_OFFSET;
 }
-UIGearSetBuildSlotMainStatModel::~UIGearSetBuildSlotMainStatModel()
+UIGearSetBuildMainStatModel::~UIGearSetBuildMainStatModel()
 {
 	// nothing to do
 }
 
-Void UIGearSetBuildSlotMainStatModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
+Void UIGearSetBuildMainStatModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
 {
 	m_pGUI = pGUI;
 	m_iSlot = iSlot;
@@ -164,13 +200,13 @@ Void UIGearSetBuildSlotMainStatModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
 
 	m_hCreationParameters.bEnableNotify = false;
 }
-Void UIGearSetBuildSlotMainStatModel::Update()
+Void UIGearSetBuildMainStatModel::Update()
 {
 	WinGUIStatic * pController = (WinGUIStatic*)m_pController;
 
 	// Retrieve selected Rune
-	WinGUIComboBox * pRuneBox = m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->GetRune();
-	UInt iSelected = pRuneBox->GetSelectedItem();
+	WinGUIComboBox * pRunePool = m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetRunePool( m_iSlot );
+	UInt iSelected = pRunePool->GetSelectedItem();
 
 	// Nothing selected case
 	if ( iSelected == INVALID_OFFSET ) {
@@ -179,7 +215,7 @@ Void UIGearSetBuildSlotMainStatModel::Update()
 	}
 
 	// Retrieve Rune
-	RuneID iRuneID = (RuneID)(UIntPtr)( pRuneBox->GetItemData(iSelected) );
+	RuneID iRuneID = (RuneID)(UIntPtr)( pRunePool->GetItemData(iSelected) );
 	const Rune * pRune = CCGOPFn->GetRune( iRuneID );
 
 	// Build Main Stat String
@@ -193,10 +229,10 @@ Void UIGearSetBuildSlotMainStatModel::Update()
 	pController->SetText( strMainStat );
 }
 
-const WinGUILayout * UIGearSetBuildSlotMainStatModel::GetLayout() const
+const WinGUILayout * UIGearSetBuildMainStatModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->GetSlotArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetSlotArea( &hClientArea, m_iSlot );
 
 	static WinGUIManualLayout hLayout;
 
@@ -212,19 +248,19 @@ const WinGUILayout * UIGearSetBuildSlotMainStatModel::GetLayout() const
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// UIGearSetBuildSlotInnateStatModel implementation
-UIGearSetBuildSlotInnateStatModel::UIGearSetBuildSlotInnateStatModel():
-	WinGUIStaticModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILDSLOT_INNATESTAT)
+// UIGearSetBuildInnateStatModel implementation
+UIGearSetBuildInnateStatModel::UIGearSetBuildInnateStatModel():
+	WinGUIStaticModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD_INNATESTAT)
 {
 	m_pGUI = NULL;
 	m_iSlot = INVALID_OFFSET;
 }
-UIGearSetBuildSlotInnateStatModel::~UIGearSetBuildSlotInnateStatModel()
+UIGearSetBuildInnateStatModel::~UIGearSetBuildInnateStatModel()
 {
 	// nothing to do
 }
 
-Void UIGearSetBuildSlotInnateStatModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
+Void UIGearSetBuildInnateStatModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
 {
 	m_pGUI = pGUI;
 	m_iSlot = iSlot;
@@ -238,13 +274,13 @@ Void UIGearSetBuildSlotInnateStatModel::Initialize( CCGOPGUI * pGUI, UInt iSlot 
 
 	m_hCreationParameters.bEnableNotify = false;
 }
-Void UIGearSetBuildSlotInnateStatModel::Update()
+Void UIGearSetBuildInnateStatModel::Update()
 {
 	WinGUIStatic * pController = (WinGUIStatic*)m_pController;
 
 	// Retrieve selected Rune
-	WinGUIComboBox * pRuneBox = m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->GetRune();
-	UInt iSelected = pRuneBox->GetSelectedItem();
+	WinGUIComboBox * pRunePool = m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetRunePool( m_iSlot );
+	UInt iSelected = pRunePool->GetSelectedItem();
 
 	// Nothing selected case
 	if ( iSelected == INVALID_OFFSET ) {
@@ -253,7 +289,7 @@ Void UIGearSetBuildSlotInnateStatModel::Update()
 	}
 
 	// Retrieve Rune
-	RuneID iRuneID = (RuneID)(UIntPtr)( pRuneBox->GetItemData(iSelected) );
+	RuneID iRuneID = (RuneID)(UIntPtr)( pRunePool->GetItemData(iSelected) );
 	const Rune * pRune = CCGOPFn->GetRune( iRuneID );
 
 	// No Innate Stat case
@@ -273,10 +309,10 @@ Void UIGearSetBuildSlotInnateStatModel::Update()
 	pController->SetText( strInnateStat );
 }
 
-const WinGUILayout * UIGearSetBuildSlotInnateStatModel::GetLayout() const
+const WinGUILayout * UIGearSetBuildInnateStatModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->GetSlotArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetSlotArea( &hClientArea, m_iSlot );
 
 	static WinGUIManualLayout hLayout;
 
@@ -292,20 +328,20 @@ const WinGUILayout * UIGearSetBuildSlotInnateStatModel::GetLayout() const
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// UIGearSetBuildSlotRandomStatModel implementation
-UIGearSetBuildSlotRandomStatModel::UIGearSetBuildSlotRandomStatModel():
-	WinGUIStaticModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILDSLOT_RANDOMSTAT)
+// UIGearSetBuildRandomStatModel implementation
+UIGearSetBuildRandomStatModel::UIGearSetBuildRandomStatModel():
+	WinGUIStaticModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD_RANDOMSTAT)
 {
 	m_pGUI = NULL;
 	m_iSlot = INVALID_OFFSET;
 	m_iIndex = INVALID_OFFSET;
 }
-UIGearSetBuildSlotRandomStatModel::~UIGearSetBuildSlotRandomStatModel()
+UIGearSetBuildRandomStatModel::~UIGearSetBuildRandomStatModel()
 {
 	// nothing to do
 }
 
-Void UIGearSetBuildSlotRandomStatModel::Initialize( CCGOPGUI * pGUI, UInt iSlot, UInt iIndex )
+Void UIGearSetBuildRandomStatModel::Initialize( CCGOPGUI * pGUI, UInt iSlot, UInt iIndex )
 {
 	m_pGUI = pGUI;
 	m_iSlot = iSlot;
@@ -320,13 +356,13 @@ Void UIGearSetBuildSlotRandomStatModel::Initialize( CCGOPGUI * pGUI, UInt iSlot,
 
 	m_hCreationParameters.bEnableNotify = false;
 }
-Void UIGearSetBuildSlotRandomStatModel::Update()
+Void UIGearSetBuildRandomStatModel::Update()
 {
 	WinGUIStatic * pController = (WinGUIStatic*)m_pController;
 
 	// Retrieve selected Rune
-	WinGUIComboBox * pRuneBox = m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->GetRune();
-	UInt iSelected = pRuneBox->GetSelectedItem();
+	WinGUIComboBox * pRunePool = m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetRunePool( m_iSlot );
+	UInt iSelected = pRunePool->GetSelectedItem();
 
 	// Nothing selected case
 	if ( iSelected == INVALID_OFFSET ) {
@@ -335,7 +371,7 @@ Void UIGearSetBuildSlotRandomStatModel::Update()
 	}
 
 	// Retrieve Rune
-	RuneID iRuneID = (RuneID)(UIntPtr)( pRuneBox->GetItemData(iSelected) );
+	RuneID iRuneID = (RuneID)(UIntPtr)( pRunePool->GetItemData(iSelected) );
 	const Rune * pRune = CCGOPFn->GetRune( iRuneID );
 
 	// No Random Stat case
@@ -358,10 +394,10 @@ Void UIGearSetBuildSlotRandomStatModel::Update()
 	pController->SetText( strRandomStat );
 }
 
-const WinGUILayout * UIGearSetBuildSlotRandomStatModel::GetLayout() const
+const WinGUILayout * UIGearSetBuildRandomStatModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->GetSlotArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetSlotArea( &hClientArea, m_iSlot );
 
 	static WinGUIManualLayout hLayout;
 
@@ -377,19 +413,19 @@ const WinGUILayout * UIGearSetBuildSlotRandomStatModel::GetLayout() const
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// UIGearSetBuildSlotRuneModel implementation
-UIGearSetBuildSlotRuneModel::UIGearSetBuildSlotRuneModel():
-	WinGUIComboBoxModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILDSLOT_RUNE)
+// UIGearSetBuildRunePoolModel implementation
+UIGearSetBuildRunePoolModel::UIGearSetBuildRunePoolModel():
+	WinGUIComboBoxModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD_RUNE)
 {
 	m_pGUI = NULL;
 	m_iSlot = INVALID_OFFSET;
 }
-UIGearSetBuildSlotRuneModel::~UIGearSetBuildSlotRuneModel()
+UIGearSetBuildRunePoolModel::~UIGearSetBuildRunePoolModel()
 {
 	// nothing to do
 }
 
-Void UIGearSetBuildSlotRuneModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
+Void UIGearSetBuildRunePoolModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
 {
 	m_pGUI = pGUI;
 	m_iSlot = iSlot;
@@ -405,7 +441,7 @@ Void UIGearSetBuildSlotRuneModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
 	m_hCreationParameters.bAutoSort = false;
 	m_hCreationParameters.bEnableTabStop = true;
 }
-Void UIGearSetBuildSlotRuneModel::Update()
+Void UIGearSetBuildRunePoolModel::Update()
 {
 	WinGUIComboBox * pController = (WinGUIComboBox*)m_pController;
 	pController->RemoveAllItems();
@@ -413,10 +449,10 @@ Void UIGearSetBuildSlotRuneModel::Update()
 	pController->SetCueText( TEXT("Pooled Runes ...") );
 }
 
-const WinGUILayout * UIGearSetBuildSlotRuneModel::GetLayout() const
+const WinGUILayout * UIGearSetBuildRunePoolModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->GetSlotArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetSlotArea( &hClientArea, m_iSlot );
 
 	static WinGUIManualLayout hLayout;
 
@@ -431,7 +467,7 @@ const WinGUILayout * UIGearSetBuildSlotRuneModel::GetLayout() const
 	return &hLayout;
 }
 
-Void UIGearSetBuildSlotRuneModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
+Void UIGearSetBuildRunePoolModel::OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 
@@ -439,19 +475,19 @@ Void UIGearSetBuildSlotRuneModel::OnMousePress( const WinGUIPoint & hPoint, KeyC
 		pController->SelectItem( INVALID_OFFSET );
 
 		// Update Models
-		m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->UpdateModels();
+		m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->UpdateModels( m_iSlot );
 	}
 }
 
-Bool UIGearSetBuildSlotRuneModel::OnSelectionOK()
+Bool UIGearSetBuildRunePoolModel::OnSelectionOK()
 {
 	// Update Models
-	m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->UpdateModels();
+	m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->UpdateModels( m_iSlot );
 
 	return true;
 }
 
-Void UIGearSetBuildSlotRuneModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
+Void UIGearSetBuildRunePoolModel::OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData )
 {
 	WinGUIComboBox * pController = ((WinGUIComboBox*)m_pController);
 	RuneID iRuneID = (RuneID)(UIntPtr)( pController->GetItemData(iItemIndex) );
@@ -460,19 +496,19 @@ Void UIGearSetBuildSlotRuneModel::OnRequestItemLabel( GChar * outBuffer, UInt iM
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// UIGearSetBuildSlotRuneRemoveModel implementation
-UIGearSetBuildSlotRuneRemoveModel::UIGearSetBuildSlotRuneRemoveModel():
-	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILDSLOT_RUNEREMOVE)
+// UIGearSetBuildRuneRemoveModel implementation
+UIGearSetBuildRuneRemoveModel::UIGearSetBuildRuneRemoveModel():
+	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD_RUNEREMOVE)
 {
 	m_pGUI = NULL;
 	m_iSlot = INVALID_OFFSET;
 }
-UIGearSetBuildSlotRuneRemoveModel::~UIGearSetBuildSlotRuneRemoveModel()
+UIGearSetBuildRuneRemoveModel::~UIGearSetBuildRuneRemoveModel()
 {
 	// nothing to do
 }
 
-Void UIGearSetBuildSlotRuneRemoveModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
+Void UIGearSetBuildRuneRemoveModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
 {
 	m_pGUI = pGUI;
 	m_iSlot = iSlot;
@@ -483,10 +519,10 @@ Void UIGearSetBuildSlotRuneRemoveModel::Initialize( CCGOPGUI * pGUI, UInt iSlot 
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * UIGearSetBuildSlotRuneRemoveModel::GetLayout() const
+const WinGUILayout * UIGearSetBuildRuneRemoveModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->GetSlotArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetSlotArea( &hClientArea, m_iSlot );
 
 	static WinGUIManualLayout hLayout;
 
@@ -501,39 +537,39 @@ const WinGUILayout * UIGearSetBuildSlotRuneRemoveModel::GetLayout() const
 	return &hLayout;
 }
 
-Bool UIGearSetBuildSlotRuneRemoveModel::OnClick()
+Bool UIGearSetBuildRuneRemoveModel::OnClick()
 {
 	// Retrieve selected Rune
-	WinGUIComboBox * pRuneBox = m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->GetRune();
-	UInt iSelected = pRuneBox->GetSelectedItem();
+	WinGUIComboBox * pRunePool = m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetRunePool( m_iSlot );
+	UInt iSelected = pRunePool->GetSelectedItem();
 	if ( iSelected == INVALID_OFFSET )
 		return true;
 
 	// Remove from pool
-	pRuneBox->RemoveItem( iSelected );
-	pRuneBox->SelectItem( INVALID_OFFSET );
+	pRunePool->RemoveItem( iSelected );
+	pRunePool->SelectItem( INVALID_OFFSET );
 
 	// Update Models
-	m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->UpdateModels();
+	m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->UpdateModels( m_iSlot );
 
 	// Done
 	return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// UIGearSetBuildSlotRuneEquipModel implementation
-UIGearSetBuildSlotRuneEquipModel::UIGearSetBuildSlotRuneEquipModel():
-	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILDSLOT_RUNEEQUIP)
+// UIGearSetBuildRuneEquipModel implementation
+UIGearSetBuildRuneEquipModel::UIGearSetBuildRuneEquipModel():
+	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD_RUNEEQUIP)
 {
 	m_pGUI = NULL;
 	m_iSlot = INVALID_OFFSET;
 }
-UIGearSetBuildSlotRuneEquipModel::~UIGearSetBuildSlotRuneEquipModel()
+UIGearSetBuildRuneEquipModel::~UIGearSetBuildRuneEquipModel()
 {
 	// nothing to do
 }
 
-Void UIGearSetBuildSlotRuneEquipModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
+Void UIGearSetBuildRuneEquipModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
 {
 	m_pGUI = pGUI;
 	m_iSlot = iSlot;
@@ -544,10 +580,10 @@ Void UIGearSetBuildSlotRuneEquipModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
 	m_hCreationParameters.bEnableNotify = false;
 }
 
-const WinGUILayout * UIGearSetBuildSlotRuneEquipModel::GetLayout() const
+const WinGUILayout * UIGearSetBuildRuneEquipModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->GetSlotArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetSlotArea( &hClientArea, m_iSlot );
 
 	static WinGUIManualLayout hLayout;
 
@@ -562,7 +598,7 @@ const WinGUILayout * UIGearSetBuildSlotRuneEquipModel::GetLayout() const
 	return &hLayout;
 }
 
-Bool UIGearSetBuildSlotRuneEquipModel::OnClick()
+Bool UIGearSetBuildRuneEquipModel::OnClick()
 {
 	// Retrieve selected GearSet
 	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
@@ -575,113 +611,139 @@ Bool UIGearSetBuildSlotRuneEquipModel::OnClick()
 	GearSetID iGearSetID = (GearSetID)(UIntPtr)( pGearSetTable->GetItemData(iSelectedGearSet) );
 
 	// Retrieve selected Rune
-	WinGUIComboBox * pRuneBox = m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(m_iSlot)->GetRune();
-	UInt iSelectedRune = pRuneBox->GetSelectedItem();
+	WinGUIComboBox * pRunePool = m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetRunePool( m_iSlot );
+	UInt iSelectedRune = pRunePool->GetSelectedItem();
 
 	if ( iSelectedRune == INVALID_OFFSET )
 		return true;
 
-	RuneID iRuneID = (RuneID)(UIntPtr)( pRuneBox->GetItemData(iSelectedRune) );
+	RuneID iRuneID = (RuneID)(UIntPtr)( pRunePool->GetItemData(iSelectedRune) );
 
 	// Equip the rune
 	CCGOPFn->EquipRuneToGearSet( iRuneID, iGearSetID );
 
 	// Update Models
 	pGearSetTable->UpdateItem( iSelectedGearSet );
-	m_pGUI->GetGearSetExplorer()->GetGearSetSlot(m_iSlot)->UpdateModels();
+	m_pGUI->GetGearSetExplorer()->GetGearSetDetails()->UpdateModels( m_iSlot );
 	m_pGUI->GetGearSetExplorer()->GetGearSetStats()->UpdateModels();
 
 	// Set Unsaved Changes Mark
-	m_pGUI->SetUnsavedChangesMark();
+	m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
 
 	// Done
 	return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// UIGearSetBuildSlot implementation
-UIGearSetBuildSlot::UIGearSetBuildSlot()
+// UIGearSetBuild implementation
+UIGearSetBuild::UIGearSetBuild( CCGOPGUI * pGUI )
 {
-	m_pGUI = NULL;
-	m_iSlot = INVALID_OFFSET;
+	m_pGUI = pGUI;
 	m_pRoot = NULL;
 
 	m_pGroup = NULL;
-	m_pHeadLine = NULL;
-	m_pMainStat = NULL;
-	m_pInnateStat = NULL;
-	for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i )
-		m_arrRandomStats[i].pStat = NULL;
 
-	m_pRune = NULL;
-	m_pRuneRemove = NULL;
+	for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i ) {
+		m_arrBuildSlots[i].pSlotGroup = NULL;
+		m_arrBuildSlots[i].pHeadLine = NULL;
+		m_arrBuildSlots[i].pMainStat = NULL;
+		m_arrBuildSlots[i].pInnateStat = NULL;
+		for( UInt j = 0; j < RUNE_RANDOM_STAT_COUNT; ++j )
+			m_arrBuildSlots[i].arrRandomStats[j].pStat = NULL;
+
+		m_arrBuildSlots[i].pRunePool = NULL;
+		m_arrBuildSlots[i].pRuneRemove = NULL;
+		m_arrBuildSlots[i].pRuneEquip = NULL;
+	}
 }
-UIGearSetBuildSlot::~UIGearSetBuildSlot()
+UIGearSetBuild::~UIGearSetBuild()
 {
 	// nothing to do
 }
 
-Void UIGearSetBuildSlot::Initialize( CCGOPGUI * pGUI, UInt iSlot )
+Void UIGearSetBuild::Initialize()
 {
-	m_pGUI = pGUI;
-	m_iSlot = iSlot;
-
 	// Grab Root
 	m_pRoot = m_pGUI->GetTabPane( UI_MAINMENU_GEARSET_EXPLORER );
 
-	// Build GearSet Stats UI
-	m_hGroupModel.Initialize( m_pGUI, m_iSlot );
+	// Build GearSet Build UI
+	m_hGroupModel.Initialize( m_pGUI );
 	m_pGroup = WinGUIFn->CreateGroupBox( m_pRoot, &m_hGroupModel );
 
-	m_hHeadLineModel.Initialize( m_pGUI, m_iSlot );
-	m_pHeadLine = WinGUIFn->CreateStatic( m_pRoot, &m_hHeadLineModel );
+	for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i ) {
+		m_arrBuildSlots[i].hSlotGroupModel.Initialize( m_pGUI, i );
+		m_arrBuildSlots[i].pSlotGroup = WinGUIFn->CreateGroupBox( m_pRoot, &(m_arrBuildSlots[i].hSlotGroupModel) );
 
-	m_hMainStatModel.Initialize( m_pGUI, m_iSlot );
-	m_pMainStat = WinGUIFn->CreateStatic( m_pRoot, &m_hMainStatModel );
+		m_arrBuildSlots[i].hHeadLineModel.Initialize( m_pGUI, i );
+		m_arrBuildSlots[i].pHeadLine = WinGUIFn->CreateStatic( m_pRoot, &(m_arrBuildSlots[i].hHeadLineModel) );
 
-	m_hInnateStatModel.Initialize( m_pGUI, m_iSlot );
-	m_pInnateStat = WinGUIFn->CreateStatic( m_pRoot, &m_hInnateStatModel );
+		m_arrBuildSlots[i].hMainStatModel.Initialize( m_pGUI, i );
+		m_arrBuildSlots[i].pMainStat = WinGUIFn->CreateStatic( m_pRoot, &(m_arrBuildSlots[i].hMainStatModel) );
 
-	for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i ) {
-		m_arrRandomStats[i].hStatModel.Initialize( m_pGUI, m_iSlot, i );
-		m_arrRandomStats[i].pStat = WinGUIFn->CreateStatic( m_pRoot, &(m_arrRandomStats[i].hStatModel) );
+		m_arrBuildSlots[i].hInnateStatModel.Initialize( m_pGUI, i );
+		m_arrBuildSlots[i].pInnateStat = WinGUIFn->CreateStatic( m_pRoot, &(m_arrBuildSlots[i].hInnateStatModel) );
+
+		for( UInt j = 0; j < RUNE_RANDOM_STAT_COUNT; ++j ) {
+			m_arrBuildSlots[i].arrRandomStats[j].hStatModel.Initialize( m_pGUI, i, j );
+			m_arrBuildSlots[i].arrRandomStats[j].pStat = WinGUIFn->CreateStatic( m_pRoot, &(m_arrBuildSlots[i].arrRandomStats[j].hStatModel) );
+		}
+
+		m_arrBuildSlots[i].hRunePoolModel.Initialize( m_pGUI, i );
+		m_arrBuildSlots[i].pRunePool = WinGUIFn->CreateComboBox( m_pRoot, &(m_arrBuildSlots[i].hRunePoolModel) );
+		m_arrBuildSlots[i].hRunePoolModel.Update();
+
+		m_arrBuildSlots[i].hRuneRemoveModel.Initialize( m_pGUI, i );
+		m_arrBuildSlots[i].pRuneRemove = WinGUIFn->CreateButton( m_pRoot, &(m_arrBuildSlots[i].hRuneRemoveModel) );
+
+		m_arrBuildSlots[i].hRuneEquipModel.Initialize( m_pGUI, i );
+		m_arrBuildSlots[i].pRuneEquip = WinGUIFn->CreateButton( m_pRoot, &(m_arrBuildSlots[i].hRuneEquipModel) );
 	}
-
-	m_hRuneModel.Initialize( m_pGUI, m_iSlot );
-	m_pRune = WinGUIFn->CreateComboBox( m_pRoot, &m_hRuneModel );
-	m_hRuneModel.Update();
-
-	m_hRuneRemoveModel.Initialize( m_pGUI, m_iSlot );
-	m_pRuneRemove = WinGUIFn->CreateButton( m_pRoot, &m_hRuneRemoveModel );
-
-	m_hRuneEquipModel.Initialize( m_pGUI, m_iSlot );
-	m_pRuneEquip = WinGUIFn->CreateButton( m_pRoot, &m_hRuneEquipModel );
 }
-Void UIGearSetBuildSlot::Cleanup()
+Void UIGearSetBuild::Cleanup()
 {
-	// nothing to do
+	// nothing to do (for now)
 }
 
-Void UIGearSetBuildSlot::UpdateModels()
+Void UIGearSetBuild::UpdateModels( UInt iSlot )
 {
-	m_hHeadLineModel.Update();
-	m_hMainStatModel.Update();
-	m_hInnateStatModel.Update();
+	Assert( iSlot < RUNE_SLOT_COUNT );
+
+	m_arrBuildSlots[iSlot].hHeadLineModel.Update();
+	m_arrBuildSlots[iSlot].hMainStatModel.Update();
+	m_arrBuildSlots[iSlot].hInnateStatModel.Update();
 	for( UInt i = 0; i < RUNE_RANDOM_STAT_COUNT; ++i )
-		m_arrRandomStats[i].hStatModel.Update();
+		m_arrBuildSlots[iSlot].arrRandomStats[i].hStatModel.Update();
 }
-Void UIGearSetBuildSlot::AddPooledRune( RuneID iRuneID )
+Void UIGearSetBuild::AddPooledRune( RuneID iRuneID )
 {
 	const Rune * pRune = CCGOPFn->GetRune( iRuneID );
-	Assert( pRune->GetSlot() == m_iSlot );
+	UInt iSlot = pRune->GetSlot();
 
-	UInt iItemCount = m_pRune->GetItemCount();
+	WinGUIComboBox * pRunePool = m_arrBuildSlots[iSlot].pRunePool;
+
+	UInt iItemCount = pRunePool->GetItemCount();
 	for ( UInt i = 0; i < iItemCount; ++i ) {
-		RuneID iAlreadyPooled = (RuneID)(UIntPtr)( m_pRune->GetItemData(i) );
+		RuneID iAlreadyPooled = (RuneID)(UIntPtr)( pRunePool->GetItemData(i) );
 		if ( iAlreadyPooled == iRuneID )
 			return;
 	}
 
-	m_pRune->AddItem( iItemCount );
-	m_pRune->SetItemData( iItemCount, (Void*)iRuneID );
+	pRunePool->AddItem( iItemCount );
+	pRunePool->SetItemData( iItemCount, (Void*)iRuneID );
+}
+Void UIGearSetBuild::RemovePooledRune( RuneID iRuneID )
+{
+	const Rune * pRune = CCGOPFn->GetRune( iRuneID );
+	UInt iSlot = pRune->GetSlot();
+
+	WinGUIComboBox * pRunePool = m_arrBuildSlots[iSlot].pRunePool;
+
+	UInt iItemCount = pRunePool->GetItemCount();
+	for ( UInt i = 0; i < iItemCount; ++i ) {
+		RuneID iPooledRuneID = (RuneID)(UIntPtr)( pRunePool->GetItemData(i) );
+		if ( iPooledRuneID == iRuneID ) {
+			pRunePool->RemoveItem( i );
+			return;
+		}
+	}
 }

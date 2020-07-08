@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/GearSetExplorer.inl
+// File : Source/FrontEnd/ImportExport.inl
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : GearSetExplorer GUI
+// Description : Import / Export GUI
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -16,23 +16,8 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////
-// GearSetExplorer implementation
-inline UIGearSetTable * GearSetExplorer::GetGearSetTable() {
-	return &m_hGearSetTable;
-}
-inline UIGearSetDetails * GearSetExplorer::GetGearSetDetails() {
-	return &m_hGearSetDetails;
-}
-inline UIGearSetStats * GearSetExplorer::GetGearSetStats() {
-	return &m_hGearSetStats;
-}
-inline UIGearSetCreation * GearSetExplorer::GetGearSetCreation() {
-	return &m_hGearSetCreation;
-}
-inline UIGearSetOptions * GearSetExplorer::GetGearSetOptions() {
-	return &m_hGearSetOptions;
-}
-inline UIGearSetBuild * GearSetExplorer::GetGearSetBuild() {
-	return &m_hGearSetBuild;
+// ImportExport implementation
+inline UILoadSave * ImportExport::GetLoadSave() {
+	return &m_hLoadSave;
 }
 

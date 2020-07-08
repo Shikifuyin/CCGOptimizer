@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/CCGOPGUI.h
+// File : Source/FrontEnd/ImportExport/LoadSave.h
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : CCGOP GUI
+// Description : Import / Export GUI : Load & Save from/to XML
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -17,180 +17,153 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // Header prelude
-#ifndef CCGOP_FRONTEND_CCGOPGUI_H
-#define CCGOP_FRONTEND_CCGOPGUI_H
+#ifndef CCGOP_FRONTEND_IMPORTEXPORT_LOADSAVE_H
+#define CCGOP_FRONTEND_IMPORTEXPORT_LOADSAVE_H
 
 /////////////////////////////////////////////////////////////////////////////////
 // Includes
 #include "ThirdParty/WinGUI/WinGUI.h"
 
-#include "../BackEnd/CCGOPManager.h"
+#include "../../BackEnd/CCGOPManager.h"
 
-#include "ResourceIDs.h"
-#include "Layout.h"
-
-#include "ImportExport.h"
-#include "HeroExplorer.h"
-#include "RuneExplorer.h"
-#include "GearSetExplorer.h"
+#include "../ResourceIDs.h"
+#include "../Layout.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
 
-// Main Menu Tabs
-enum UIMainMenuTabs {
-	UI_MAINMENU_IMPORTEXPORT = 0,
-	UI_MAINMENU_HERO_EXPLORER,
-	UI_MAINMENU_RUNE_EXPLORER,
-	UI_MAINMENU_GEARSET_EXPLORER,
-	UI_MAINMENU_OPTIMIZER,
-	UI_MAINMENU_COUNT,
-};
-
 // Prototypes
 class CCGOPGUI;
 
-class CCGOPApplication;
-
 /////////////////////////////////////////////////////////////////////////////////
-// The UIWindowModel class
-class UIWindowModel : public WinGUIWindowModel
+// The UIFileGroupModel class
+class UIFileGroupModel : public WinGUIGroupBoxModel
 {
 public:
-	UIWindowModel();
-	virtual ~UIWindowModel();
+	UIFileGroupModel();
+	virtual ~UIFileGroupModel();
 
 	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The UIFileNameModel class
+class UIFileNameModel : public WinGUITextEditModel
+{
+public:
+	UIFileNameModel();
+	virtual ~UIFileNameModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
+	Void Update();
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Void OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey );
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The UIFileLoadModel class
+class UIFileLoadModel : public WinGUIButtonModel
+{
+public:
+	UIFileLoadModel();
+	virtual ~UIFileLoadModel();
+
+	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
 
 	// Events
-	virtual Bool OnClose();
+	virtual Bool OnClick();
 
 private:
 	CCGOPGUI * m_pGUI;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The UITabsModel class
-class UITabsModel : public WinGUITabsModel
+// The UIFileSaveModel class
+class UIFileSaveModel : public WinGUIButtonModel
 {
 public:
-	UITabsModel();
-	virtual ~UITabsModel();
+	UIFileSaveModel();
+	virtual ~UIFileSaveModel();
 
-	// Initialization
+	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI );
 
 	// Layout
 	virtual const WinGUILayout * GetLayout() const;
 
 	// Events
-	virtual Bool OnSelect();
-
-private:
-	CCGOPGUI * m_pGUI;
-	static const GChar * sm_arrMenuNames[UI_MAINMENU_COUNT];
-};
-
-/////////////////////////////////////////////////////////////////////////////////
-// The UITabPaneModel class
-class UITabPaneModel : public WinGUIContainerModel
-{
-public:
-	UITabPaneModel();
-	virtual ~UITabPaneModel();
-
-	// Initialization
-	Void Initialize( CCGOPGUI * pGUI, UIMainMenuTabs iTabIndex );
-
-	// Layout
-	virtual const WinGUILayout * GetLayout() const;
-
-private:
-	CCGOPGUI * m_pGUI;
-	UIMainMenuTabs m_iMainMenuTab;
-};
-
-/////////////////////////////////////////////////////////////////////////////////
-// The UIStatusBarModel class
-class UIStatusBarModel : public WinGUIStatusBarModel
-{
-public:
-	UIStatusBarModel();
-	virtual ~UIStatusBarModel();
-
-	// Initialization
-	Void Initialize( CCGOPGUI * pGUI );
-
-	// Layout
-	virtual const WinGUILayout * GetLayout() const;
+	virtual Bool OnClick();
 
 private:
 	CCGOPGUI * m_pGUI;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The CCGOPGUI class
-class CCGOPGUI
+// The UILoadSave class
+class UILoadSave
 {
 public:
-	CCGOPGUI( CCGOPApplication * pApplication );
-	~CCGOPGUI();
+	UILoadSave( CCGOPGUI * pGUI );
+	~UILoadSave();
 
 	// Initialization / Cleanup
 	Void Initialize();
 	Void Cleanup();
 
-	// Tabs / TabPanes
-	inline WinGUITabs * GetTabs() const;
-	inline WinGUIContainer * GetTabPane( UIMainMenuTabs iTabIndex ) const;
+	// Load / Save
+	inline Void GetArea( WinGUIRectangle * outClientArea ) const;
 
-	// Status Bar
-	inline WinGUIStatusBar * GetStatusBar() const;
+	inline WinGUITextEdit * GetFileName() const;
 
-	// Delegates
-	inline ImportExport * GetImportExport();
-	inline HeroExplorer * GetHeroExplorer();
-	inline RuneExplorer * GetRuneExplorer();
-	inline GearSetExplorer * GetGearSetExplorer();
+	inline Bool HasUnsavedChangesMark() const;
+	Void SetUnsavedChangesMark();
+	Void ClearUnsavedChangesMark();
 
 private:
-	// Application Instance
-	CCGOPApplication * m_pApplication;
+	// GUI Instance
+	CCGOPGUI * m_pGUI;
+	WinGUIContainer * m_pRoot;
 
-	// Main Application Window
-	UIWindowModel m_hAppWindowModel;
-	WinGUIWindow * m_pAppWindow;
+	// Load/Save UI
+	UIFileGroupModel m_hGroupModel;
+	WinGUIGroupBox * m_pGroup;
 
-	// Main Tab Menu
-	UITabsModel m_hTabsModel;
-	WinGUITabs * m_pTabs;
+	UIFileNameModel m_hFileNameModel;
+	WinGUITextEdit * m_pFileName;
 
-	// Main Tab Panes
-	struct _tab_panes {
-		UITabPaneModel hTabPaneModel;
-		WinGUIContainer * pTabPane;
-	} m_arrTabPanes[UI_MAINMENU_COUNT];
+	UIFileLoadModel m_hLoadModel;
+	WinGUIButton * m_pLoad;
 
-	// Status Bar
-	UIStatusBarModel m_hStatusBarModel;
-	WinGUIStatusBar * m_pStatusBar;
+	UIFileSaveModel m_hSaveModel;
+	WinGUIButton * m_pSave;
 
-	// Delegates
-	ImportExport m_hImportExport;
-	HeroExplorer m_hHeroExplorer;
-	RuneExplorer m_hRuneExplorer;
-	GearSetExplorer m_hGearSetExplorer;
+	Bool m_bUnsavedChanges;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
 // Backward Includes (Inlines & Templates)
-#include "CCGOPGUI.inl"
+#include "LoadSave.inl"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Header end
-#endif // CCGOP_FRONTEND_CCGOPGUI_H
+#endif // CCGOP_FRONTEND_IMPORTEXPORT_LOADSAVE_H
 

@@ -51,8 +51,8 @@ const WinGUILayout * UIRuneOptionsGroupModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ROOM_LEFT;
-	hLayout.FixedPosition.iY = CCGOP_LAYOUT_ROOM_TOP;
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_RUNEEXPLORER_ROOM_LEFT;
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_RUNEEXPLORER_ROOM_TOP;
 
 	return &hLayout;
 }
@@ -110,6 +110,8 @@ Bool UIRuneOptionsLockModel::OnClick()
 			// Toggle Rune Lock
 			RuneID iRuneID = (RuneID)(UIntPtr)( pRuneTable->GetItemData(i) );
 			Rune * pRune = CCGOPFn->GetRune( iRuneID );
+			UInt iSlot = pRune->GetSlot();
+
 			if ( pRune->IsLocked() )
 				pRune->Unlock();
 			else
@@ -118,13 +120,16 @@ Bool UIRuneOptionsLockModel::OnClick()
 			// Update HeroTable
 			pRuneTable->UpdateItem( i );
 
+			// Update GearSet Details
+			m_pGUI->GetGearSetExplorer()->GetGearSetDetails()->UpdateModels( iSlot );
+
 			bChanged = true;
 		}
 	}
 	
 	// Set Unsaved Changes Mark
 	if ( bChanged )
-		m_pGUI->SetUnsavedChangesMark();
+		m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
 
 	// Done
 	return true;
@@ -181,9 +186,7 @@ Bool UIRuneOptionsPoolModel::OnClick()
 		if ( pRuneTable->IsItemChecked(i) ) {
 			// Add to GearSet Build Pool
 			RuneID iRuneID = (RuneID)(UIntPtr)( pRuneTable->GetItemData(i) );
-			const Rune * pRune = CCGOPFn->GetRune( iRuneID );
-			UInt iSlot = pRune->GetSlot();
-			m_pGUI->GetGearSetExplorer()->GetGearSetBuildSlot(iSlot)->AddPooledRune( iRuneID );
+			m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->AddPooledRune( iRuneID );
 		}
 	}
 
@@ -262,12 +265,22 @@ Bool UIRuneOptionsDeleteModel::OnClick()
 		for( UInt i = 0; i < iItemCount; ++i ) {
 			if ( pRuneTable->IsItemChecked(i) ) {
 				RuneID iRuneID = (RuneID)(UIntPtr)( pRuneTable->GetItemData(i) );
+				const Rune * pRune = CCGOPFn->GetRune( iRuneID );
+				UInt iSlot = pRune->GetSlot();
+
+				// Remove from GearSet Build
+				m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->RemovePooledRune( iRuneID );
+				m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->UpdateModels( iSlot );
 
 				// Remove from RuneTable
 				pRuneTable->RemoveItem( i );
 
-				// Delete Rune
+				// Destroy Rune
 				CCGOPFn->DestroyRune( iRuneID );
+
+				// Update GearSet Stats & Details
+				m_pGUI->GetGearSetExplorer()->GetGearSetStats()->UpdateModels();
+				m_pGUI->GetGearSetExplorer()->GetGearSetDetails()->UpdateModels( iSlot );
 
 				bChanged = true;
 
@@ -284,7 +297,7 @@ Bool UIRuneOptionsDeleteModel::OnClick()
 
 	// Set Unsaved Changes Mark
 	if ( bChanged )
-		m_pGUI->SetUnsavedChangesMark();
+		m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
 
 	// Done
 	return true;

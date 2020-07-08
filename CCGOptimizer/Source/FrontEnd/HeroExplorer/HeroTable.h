@@ -27,7 +27,7 @@
 #include "../../BackEnd/CCGOPManager.h"
 
 #include "../ResourceIDs.h"
-#include "../Layout.h"
+#include "Layout.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions

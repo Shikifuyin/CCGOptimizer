@@ -51,8 +51,8 @@ const WinGUILayout * UIHeroOptionsGroupModel::GetLayout() const
 	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(2,0,0,1) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
-	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ROOM_LEFT;
-	hLayout.FixedPosition.iY = CCGOP_LAYOUT_ROOM_TOP;
+	hLayout.FixedPosition.iX = CCGOP_LAYOUT_HEROEXPLORER_ROOM_LEFT;
+	hLayout.FixedPosition.iY = CCGOP_LAYOUT_HEROEXPLORER_ROOM_TOP;
 
 	return &hLayout;
 }
@@ -121,7 +121,7 @@ Bool UIHeroOptionsMaxRankModel::OnClick()
 
 	// Set Unsaved Changes Mark
 	if ( bChanged )
-		m_pGUI->SetUnsavedChangesMark();
+		m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
 	
 	// Done
 	return true;
@@ -191,7 +191,7 @@ Bool UIHeroOptionsMaxLevelModel::OnClick()
 	
 	// Set Unsaved Changes Mark
 	if ( bChanged )
-		m_pGUI->SetUnsavedChangesMark();
+		m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
 
 	// Done
 	return true;
@@ -262,7 +262,7 @@ Bool UIHeroOptionsEvolveModel::OnClick()
 
 	// Set Unsaved Changes Mark
 	if ( bChanged )
-		m_pGUI->SetUnsavedChangesMark();
+		m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
 	
 	// Done
 	return true;
@@ -421,7 +421,7 @@ Bool UIHeroOptionsSanctifyModel::OnClick()
 
 	// Set Unsaved Changes Mark
 	if ( bChanged )
-		m_pGUI->SetUnsavedChangesMark();
+		m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
 	
 	// Done
 	return true;
@@ -520,7 +520,7 @@ Bool UIHeroOptionsDeleteModel::OnClick()
 
 	// Set Unsaved Changes Mark
 	if ( bChanged )
-		m_pGUI->SetUnsavedChangesMark();
+		m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
 
 	// Done
 	return true;

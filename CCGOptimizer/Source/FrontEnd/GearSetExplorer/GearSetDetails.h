@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/GearSetExplorer/GearSetSlot.h
+// File : Source/FrontEnd/GearSetExplorer/GearSetDetails.h
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : GearSetExplorer GUI : GearSet Slots Display
+// Description : GearSetExplorer GUI : GearSet Runes Display
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -17,8 +17,8 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // Header prelude
-#ifndef CCGOP_FRONTEND_GEARSETEXPLORER_GEARSETSLOT_H
-#define CCGOP_FRONTEND_GEARSETEXPLORER_GEARSETSLOT_H
+#ifndef CCGOP_FRONTEND_GEARSETEXPLORER_GEARSETDETAILS_H
+#define CCGOP_FRONTEND_GEARSETEXPLORER_GEARSETDETAILS_H
 
 /////////////////////////////////////////////////////////////////////////////////
 // Includes
@@ -27,7 +27,7 @@
 #include "../../BackEnd/CCGOPManager.h"
 
 #include "../ResourceIDs.h"
-#include "../Layout.h"
+#include "Layout.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
@@ -36,12 +36,30 @@
 class CCGOPGUI;
 
 /////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetSlotGroupModel class
-class UIGearSetSlotGroupModel : public WinGUIGroupBoxModel
+// The UIGearSetDetailsGroupModel class
+class UIGearSetDetailsGroupModel : public WinGUIGroupBoxModel
 {
 public:
-	UIGearSetSlotGroupModel();
-	virtual ~UIGearSetSlotGroupModel();
+	UIGearSetDetailsGroupModel();
+	virtual ~UIGearSetDetailsGroupModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+private:
+	CCGOPGUI * m_pGUI;
+
+};
+/////////////////////////////////////////////////////////////////////////////////
+// The UIGearSetDetailsSlotGroupModel class
+class UIGearSetDetailsSlotGroupModel : public WinGUIGroupBoxModel
+{
+public:
+	UIGearSetDetailsSlotGroupModel();
+	virtual ~UIGearSetDetailsSlotGroupModel();
 
 	// Initialization
 	Void Initialize( CCGOPGUI * pGUI, UInt iSlot );
@@ -55,12 +73,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetSlotHeadLineModel class
-class UIGearSetSlotHeadLineModel : public WinGUIStaticModel
+// The UIGearSetDetailsHeadLineModel class
+class UIGearSetDetailsHeadLineModel : public WinGUIStaticModel
 {
 public:
-	UIGearSetSlotHeadLineModel();
-	virtual ~UIGearSetSlotHeadLineModel();
+	UIGearSetDetailsHeadLineModel();
+	virtual ~UIGearSetDetailsHeadLineModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI, UInt iSlot );
@@ -75,12 +93,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetSlotMainStatModel class
-class UIGearSetSlotMainStatModel : public WinGUIStaticModel
+// The UIGearSetDetailsMainStatModel class
+class UIGearSetDetailsMainStatModel : public WinGUIStaticModel
 {
 public:
-	UIGearSetSlotMainStatModel();
-	virtual ~UIGearSetSlotMainStatModel();
+	UIGearSetDetailsMainStatModel();
+	virtual ~UIGearSetDetailsMainStatModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI, UInt iSlot );
@@ -95,12 +113,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetSlotInnateStatModel class
-class UIGearSetSlotInnateStatModel : public WinGUIStaticModel
+// The UIGearSetDetailsInnateStatModel class
+class UIGearSetDetailsInnateStatModel : public WinGUIStaticModel
 {
 public:
-	UIGearSetSlotInnateStatModel();
-	virtual ~UIGearSetSlotInnateStatModel();
+	UIGearSetDetailsInnateStatModel();
+	virtual ~UIGearSetDetailsInnateStatModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI, UInt iSlot );
@@ -115,12 +133,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetSlotRandomStatModel class
-class UIGearSetSlotRandomStatModel : public WinGUIStaticModel
+// The UIGearSetDetailsRandomStatModel class
+class UIGearSetDetailsRandomStatModel : public WinGUIStaticModel
 {
 public:
-	UIGearSetSlotRandomStatModel();
-	virtual ~UIGearSetSlotRandomStatModel();
+	UIGearSetDetailsRandomStatModel();
+	virtual ~UIGearSetDetailsRandomStatModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI, UInt iSlot, UInt iIndex );
@@ -136,12 +154,12 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetSlotLockModel class
-class UIGearSetSlotLockModel : public WinGUICheckBoxModel
+// The UIGearSetDetailsLockModel class
+class UIGearSetDetailsLockModel : public WinGUICheckBoxModel
 {
 public:
-	UIGearSetSlotLockModel();
-	virtual ~UIGearSetSlotLockModel();
+	UIGearSetDetailsLockModel();
+	virtual ~UIGearSetDetailsLockModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI, UInt iSlot );
@@ -159,56 +177,63 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetSlot class
-class UIGearSetSlot
+// The UIGearSetDetails class
+class UIGearSetDetails
 {
 public:
-	UIGearSetSlot();
-	~UIGearSetSlot();
+	UIGearSetDetails( CCGOPGUI * pGUI );
+	~UIGearSetDetails();
 
 	// Initialization / Cleanup
-	Void Initialize( CCGOPGUI * pGUI, UInt iSlot );
+	Void Initialize();
 	Void Cleanup();
 
-	// GearSet Slot
-	inline Void GetSlotArea( WinGUIRectangle * outClientArea ) const;
+	// GearSet Details
+	inline Void GetArea( WinGUIRectangle * outClientArea ) const;
+
+	// GearSet Details Slot
+	inline Void GetSlotArea( WinGUIRectangle * outClientArea, UInt iSlot ) const;
 
 	// Helpers
-	Void UpdateModels();
+	Void UpdateModels( UInt iSlot );
 
 private:
 	// GUI Instance
 	CCGOPGUI * m_pGUI;
-	UInt m_iSlot;
 	WinGUIContainer * m_pRoot;
 
 	// GearSet Slot UI
-	UIGearSetSlotGroupModel m_hGroupModel;
+	UIGearSetDetailsGroupModel m_hGroupModel;
 	WinGUIGroupBox * m_pGroup;
 
-	UIGearSetSlotHeadLineModel m_hHeadLineModel; // Set, Rank, Quality, Level
-	WinGUIStatic * m_pHeadLine;
+	struct _details_slot {
+		UIGearSetDetailsSlotGroupModel hSlotGroupModel;
+		WinGUIGroupBox * pSlotGroup;
 
-	UIGearSetSlotMainStatModel m_hMainStatModel;
-	WinGUIStatic * m_pMainStat;
+		UIGearSetDetailsHeadLineModel hHeadLineModel; // Set, Rank, Quality, Level
+		WinGUIStatic * pHeadLine;
 
-	UIGearSetSlotInnateStatModel m_hInnateStatModel;
-	WinGUIStatic * m_pInnateStat;
+		UIGearSetDetailsMainStatModel hMainStatModel;
+		WinGUIStatic * pMainStat;
 
-	struct _random_stats {
-		UIGearSetSlotRandomStatModel hStatModel;
-		WinGUIStatic * pStat;
-	} m_arrRandomStats[RUNE_RANDOM_STAT_COUNT];
+		UIGearSetDetailsInnateStatModel hInnateStatModel;
+		WinGUIStatic * pInnateStat;
 
-	UIGearSetSlotLockModel m_hLockModel;
-	WinGUICheckBox * m_pLock;
+		struct _random_stats {
+			UIGearSetDetailsRandomStatModel hStatModel;
+			WinGUIStatic * pStat;
+		} arrRandomStats[RUNE_RANDOM_STAT_COUNT];
+
+		UIGearSetDetailsLockModel hLockModel;
+		WinGUICheckBox * pLock;
+	} m_arrDetailsSlots[RUNE_SLOT_COUNT];
 };
 
 /////////////////////////////////////////////////////////////////////////////////
 // Backward Includes (Inlines & Templates)
-#include "GearSetSlot.inl"
+#include "GearSetDetails.inl"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Header end
-#endif // CCGOP_FRONTEND_GEARSETEXPLORER_GEARSETSLOT_H
+#endif // CCGOP_FRONTEND_GEARSETEXPLORER_GEARSETDETAILS_H
 
