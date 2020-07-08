@@ -220,6 +220,9 @@ Bool UIFileLoadModel::OnClick()
 	( (UIRuneTableModel*)(pRuneTable->GetModel()) )->UpdateAfterDataLoad();
 	( (UIGearSetTableModel*)(pGearSetTable->GetModel()) )->UpdateAfterDataLoad();
 
+	// Update GearSetStats HeroView List
+	m_pGUI->GetGearSetExplorer()->GetGearSetStats()->UpdateHeroViewList();
+
 	// Clear Unsaved Changes Mark
 	m_pGUI->GetImportExport()->GetLoadSave()->ClearUnsavedChangesMark();
 
@@ -342,6 +345,7 @@ Void UILoadSave::Initialize()
 
 	m_hFileNameModel.Initialize( m_pGUI );
 	m_pFileName = WinGUIFn->CreateTextEdit( m_pRoot, &m_hFileNameModel );
+	m_hFileNameModel.Update();
 
 	m_hLoadModel.Initialize( m_pGUI );
 	m_pLoad = WinGUIFn->CreateButton( m_pRoot, &m_hLoadModel );

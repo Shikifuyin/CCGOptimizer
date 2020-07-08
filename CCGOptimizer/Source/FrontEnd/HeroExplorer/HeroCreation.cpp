@@ -108,7 +108,7 @@ Void UIHeroCreationNameModel::Update()
 const WinGUILayout * UIHeroCreationNameModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -204,7 +204,7 @@ Void UIHeroCreationRankModel::Update( HeroRank iFirstAvailableRank )
 const WinGUILayout * UIHeroCreationRankModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -300,7 +300,7 @@ Void UIHeroCreationLevelModel::Update( UInt iMinLevel, UInt iMaxLevel )
 const WinGUILayout * UIHeroCreationLevelModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -399,7 +399,7 @@ Void UIHeroCreationSanctifyModel::Update( Bool bSanctifyAllowed )
 const WinGUILayout * UIHeroCreationSanctifyModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -457,7 +457,7 @@ Void UIHeroCreationEvolvedModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIHeroCreationEvolvedModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -497,7 +497,7 @@ Void UIHeroCreationButtonModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIHeroCreationButtonModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetHeroExplorer()->GetHeroCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -594,6 +594,9 @@ Bool UIHeroCreationButtonModel::OnClick()
 	WinGUITable * pHeroTable = m_pGUI->GetHeroExplorer()->GetHeroTable()->GetTable();
 	UIHeroTableModel * pModel = (UIHeroTableModel*)( pHeroTable->GetModel() );
 	pModel->UpdateAfterHeroCreation( iHeroID );
+
+	// Update GearSetStats HeroView List
+	m_pGUI->GetGearSetExplorer()->GetGearSetStats()->UpdateHeroViewList();
 
 	// Set Unsaved Changes Mark
 	m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();

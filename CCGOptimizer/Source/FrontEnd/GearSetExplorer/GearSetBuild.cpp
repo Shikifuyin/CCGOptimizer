@@ -48,7 +48,7 @@ const WinGUILayout * UIGearSetBuildGroupModel::GetLayout() const
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = ( CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH + CCGOP_LAYOUT_SPACING_GAP_HORIZ ) * RUNE_SLOT_COUNT + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(2,8,1,0) + CCGOP_LAYOUT_SPACING_GAP_VERT + 2 * CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(3,8,1,0) + CCGOP_LAYOUT_SPACING_GAP_VERT + 2 * CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = CCGOP_LAYOUT_GEARSETEXPLORER_ROOM_LEFT;
@@ -635,6 +635,60 @@ Bool UIGearSetBuildRuneEquipModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
+// UIGearSetBuildClearPoolsModel implementation
+UIGearSetBuildClearPoolsModel::UIGearSetBuildClearPoolsModel():
+	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD_CLEARPOOLS)
+{
+	m_pGUI = NULL;
+}
+UIGearSetBuildClearPoolsModel::~UIGearSetBuildClearPoolsModel()
+{
+	// nothing to do
+}
+
+Void UIGearSetBuildClearPoolsModel::Initialize( CCGOPGUI * pGUI )
+{
+	m_pGUI = pGUI;
+
+	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Clear All Pools") );
+	m_hCreationParameters.bCenterLabel = true;
+	m_hCreationParameters.bEnableTabStop = true;
+	m_hCreationParameters.bEnableNotify = false;
+}
+
+const WinGUILayout * UIGearSetBuildClearPoolsModel::GetLayout() const
+{
+	WinGUIRectangle hClientArea;
+	m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetArea( &hClientArea );
+
+	static WinGUIManualLayout hLayout;
+
+	hLayout.UseScalingSize = false;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft + CCGOP_LAYOUT_CENTER( hLayout.FixedSize.iX, hClientArea.iWidth );
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(2,4 + RUNE_RANDOM_STAT_COUNT,1,0) + CCGOP_LAYOUT_SPACING_GAP_VERT + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
+
+	return &hLayout;
+}
+
+Bool UIGearSetBuildClearPoolsModel::OnClick()
+{
+	// Enum all slots
+	for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i ) {
+		WinGUIComboBox * pRunePool = m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->GetRunePool( i );
+		pRunePool->RemoveAllItems();
+
+		m_pGUI->GetGearSetExplorer()->GetGearSetBuild()->UpdateModels( i );
+	}
+
+	// Done
+	return true;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
 // UIGearSetBuild implementation
 UIGearSetBuild::UIGearSetBuild( CCGOPGUI * pGUI )
 {
@@ -655,6 +709,8 @@ UIGearSetBuild::UIGearSetBuild( CCGOPGUI * pGUI )
 		m_arrBuildSlots[i].pRuneRemove = NULL;
 		m_arrBuildSlots[i].pRuneEquip = NULL;
 	}
+
+	m_pClearPools = NULL;
 }
 UIGearSetBuild::~UIGearSetBuild()
 {
@@ -698,6 +754,9 @@ Void UIGearSetBuild::Initialize()
 		m_arrBuildSlots[i].hRuneEquipModel.Initialize( m_pGUI, i );
 		m_arrBuildSlots[i].pRuneEquip = WinGUIFn->CreateButton( m_pRoot, &(m_arrBuildSlots[i].hRuneEquipModel) );
 	}
+
+	m_hClearPoolsModel.Initialize( m_pGUI );
+	m_pClearPools = WinGUIFn->CreateButton( m_pRoot, &m_hClearPoolsModel );
 }
 Void UIGearSetBuild::Cleanup()
 {

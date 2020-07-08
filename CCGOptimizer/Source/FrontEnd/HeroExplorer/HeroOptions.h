@@ -196,7 +196,7 @@ public:
 	Void Cleanup();
 
 	// Hero Options
-	inline Void GetOptionsArea( WinGUIRectangle * outClientArea ) const;
+	inline Void GetArea( WinGUIRectangle * outClientArea ) const;
 
 	inline WinGUIComboBox * GetSanctifyChoice() const;
 

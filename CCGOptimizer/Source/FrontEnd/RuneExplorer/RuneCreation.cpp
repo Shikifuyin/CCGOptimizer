@@ -100,7 +100,7 @@ Void UIRuneCreationSlotModel::Update()
 const WinGUILayout * UIRuneCreationSlotModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -189,7 +189,7 @@ Void UIRuneCreationSetModel::Update()
 const WinGUILayout * UIRuneCreationSetModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -271,7 +271,7 @@ Void UIRuneCreationRankModel::Update()
 const WinGUILayout * UIRuneCreationRankModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -353,7 +353,7 @@ Void UIRuneCreationQualityModel::Update()
 const WinGUILayout * UIRuneCreationQualityModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -442,7 +442,7 @@ Void UIRuneCreationLevelModel::Update()
 const WinGUILayout * UIRuneCreationLevelModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -559,7 +559,7 @@ Void UIRuneCreationMainStatModel::Update( UInt iSelectedSlot, RuneStat * arrExcl
 const WinGUILayout * UIRuneCreationMainStatModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -670,7 +670,7 @@ Void UIRuneCreationInnateStatModel::Update( RuneStat * arrExcludedStats, UInt iE
 const WinGUILayout * UIRuneCreationInnateStatModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -752,7 +752,7 @@ Void UIRuneCreationInnateStatValueModel::Update()
 const WinGUILayout * UIRuneCreationInnateStatValueModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -842,7 +842,7 @@ Void UIRuneCreationRandomStatModel::Update( RuneStat * arrExcludedStats, UInt iE
 const WinGUILayout * UIRuneCreationRandomStatModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -926,7 +926,7 @@ Void UIRuneCreationRandomStatValueModel::Update()
 const WinGUILayout * UIRuneCreationRandomStatValueModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -974,7 +974,7 @@ Void UIRuneCreationButtonModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIRuneCreationButtonModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 

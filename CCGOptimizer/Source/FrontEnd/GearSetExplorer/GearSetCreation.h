@@ -109,7 +109,7 @@ public:
 	Void Cleanup();
 
 	// GearSet Creation
-	inline Void GetCreationArea( WinGUIRectangle * outClientArea ) const;
+	inline Void GetArea( WinGUIRectangle * outClientArea ) const;
 
 	inline WinGUITextEdit * GetName() const;
 

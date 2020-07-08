@@ -82,7 +82,7 @@ Void UIRuneOptionsLockModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIRuneOptionsLockModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -160,7 +160,7 @@ Void UIRuneOptionsPoolModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIRuneOptionsPoolModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -219,7 +219,7 @@ Void UIRuneOptionsDeleteModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIRuneOptionsDeleteModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 

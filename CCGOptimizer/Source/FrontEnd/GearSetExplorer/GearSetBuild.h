@@ -226,6 +226,27 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
+// The UIGearSetBuildClearPoolsModel class
+class UIGearSetBuildClearPoolsModel : public WinGUIButtonModel
+{
+public:
+	UIGearSetBuildClearPoolsModel();
+	virtual ~UIGearSetBuildClearPoolsModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
 // The UIGearSetBuild class
 class UIGearSetBuild
 {
@@ -286,6 +307,9 @@ private:
 		UIGearSetBuildRuneEquipModel hRuneEquipModel;
 		WinGUIButton * pRuneEquip;
 	} m_arrBuildSlots[RUNE_SLOT_COUNT];
+
+	UIGearSetBuildClearPoolsModel m_hClearPoolsModel;
+	WinGUIButton * m_pClearPools;
 };
 
 /////////////////////////////////////////////////////////////////////////////////

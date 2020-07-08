@@ -82,7 +82,7 @@ Void UIHeroOptionsMaxRankModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIHeroOptionsMaxRankModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -119,6 +119,9 @@ Bool UIHeroOptionsMaxRankModel::OnClick()
 		}
 	}
 
+	// Update GearSetStats Models
+	m_pGUI->GetGearSetExplorer()->GetGearSetStats()->UpdateModels();
+
 	// Set Unsaved Changes Mark
 	if ( bChanged )
 		m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
@@ -152,7 +155,7 @@ Void UIHeroOptionsMaxLevelModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIHeroOptionsMaxLevelModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -188,6 +191,9 @@ Bool UIHeroOptionsMaxLevelModel::OnClick()
 			bChanged = true;
 		}
 	}
+
+	// Update GearSetStats Models
+	m_pGUI->GetGearSetExplorer()->GetGearSetStats()->UpdateModels();
 	
 	// Set Unsaved Changes Mark
 	if ( bChanged )
@@ -222,7 +228,7 @@ Void UIHeroOptionsEvolveModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIHeroOptionsEvolveModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -259,6 +265,9 @@ Bool UIHeroOptionsEvolveModel::OnClick()
 			bChanged = true;
 		}
 	}
+
+	// Update GearSetStats Models
+	m_pGUI->GetGearSetExplorer()->GetGearSetStats()->UpdateModels();
 
 	// Set Unsaved Changes Mark
 	if ( bChanged )
@@ -311,7 +320,7 @@ Void UIHeroOptionsSanctifyChoiceModel::Update()
 const WinGUILayout * UIHeroOptionsSanctifyChoiceModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -369,7 +378,7 @@ Void UIHeroOptionsSanctifyModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIHeroOptionsSanctifyModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -419,6 +428,9 @@ Bool UIHeroOptionsSanctifyModel::OnClick()
 		}
 	}
 
+	// Update GearSetStats Models
+	m_pGUI->GetGearSetExplorer()->GetGearSetStats()->UpdateModels();
+
 	// Set Unsaved Changes Mark
 	if ( bChanged )
 		m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
@@ -452,7 +464,7 @@ Void UIHeroOptionsDeleteModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIHeroOptionsDeleteModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetHeroExplorer()->GetHeroOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -517,6 +529,9 @@ Bool UIHeroOptionsDeleteModel::OnClick()
 		if ( !bRemoved )
 			break;
 	}
+
+	// Update GearSetStats HeroView List
+	m_pGUI->GetGearSetExplorer()->GetGearSetStats()->UpdateHeroViewList();
 
 	// Set Unsaved Changes Mark
 	if ( bChanged )

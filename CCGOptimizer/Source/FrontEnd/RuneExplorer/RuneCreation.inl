@@ -17,7 +17,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // UIRuneCreation implementation
-inline Void UIRuneCreation::GetCreationArea( WinGUIRectangle * outClientArea ) const {
+inline Void UIRuneCreation::GetArea( WinGUIRectangle * outClientArea ) const {
 	m_pGroup->ComputeClientArea( outClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 }
 

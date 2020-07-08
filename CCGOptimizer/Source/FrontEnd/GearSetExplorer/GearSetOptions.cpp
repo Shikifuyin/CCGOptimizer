@@ -93,7 +93,7 @@ Void UIGearSetOptionsNameModel::Update()
 const WinGUILayout * UIGearSetOptionsNameModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -141,7 +141,7 @@ Void UIGearSetOptionsReNameModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIGearSetOptionsReNameModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -214,7 +214,7 @@ Void UIGearSetOptionsCloneModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIGearSetOptionsCloneModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -298,7 +298,7 @@ Void UIGearSetOptionsLockModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIGearSetOptionsLockModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -380,7 +380,7 @@ Void UIGearSetOptionsUnequipModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIGearSetOptionsUnequipModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -447,7 +447,7 @@ Void UIGearSetOptionsDeleteModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIGearSetOptionsDeleteModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetOptions()->GetOptionsArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetOptions()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -557,6 +557,7 @@ Void UIGearSetOptions::Initialize()
 
 	m_hNameModel.Initialize( m_pGUI );
 	m_pName = WinGUIFn->CreateTextEdit( m_pRoot, &m_hNameModel );
+	m_hNameModel.Update();
 
 	m_hReNameModel.Initialize( m_pGUI );
 	m_pReName = WinGUIFn->CreateButton( m_pRoot, &m_hReNameModel );

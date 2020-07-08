@@ -359,7 +359,7 @@ public:
 	Void Cleanup();
 
 	// Rune Creation
-	inline Void GetCreationArea( WinGUIRectangle * outClientArea ) const;
+	inline Void GetArea( WinGUIRectangle * outClientArea ) const;
 
 	inline WinGUIComboBox * GetSlot() const;
 	inline WinGUIComboBox * GetSet() const;

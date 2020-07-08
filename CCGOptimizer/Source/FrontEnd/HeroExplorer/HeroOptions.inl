@@ -17,7 +17,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // UIHeroOptions implementation
-inline Void UIHeroOptions::GetOptionsArea( WinGUIRectangle * outClientArea ) const {
+inline Void UIHeroOptions::GetArea( WinGUIRectangle * outClientArea ) const {
 	m_pGroup->ComputeClientArea( outClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 }
 

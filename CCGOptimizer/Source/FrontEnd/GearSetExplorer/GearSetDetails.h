@@ -177,6 +177,28 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
+// The UIGearSetDetailsUnequipModel class
+class UIGearSetDetailsUnequipModel : public WinGUIButtonModel
+{
+public:
+	UIGearSetDetailsUnequipModel();
+	virtual ~UIGearSetDetailsUnequipModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI, UInt iSlot );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+	UInt m_iSlot;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
 // The UIGearSetDetails class
 class UIGearSetDetails
 {
@@ -226,6 +248,9 @@ private:
 
 		UIGearSetDetailsLockModel hLockModel;
 		WinGUICheckBox * pLock;
+
+		UIGearSetDetailsUnequipModel hUnequipModel;
+		WinGUIButton * pUnequip;
 	} m_arrDetailsSlots[RUNE_SLOT_COUNT];
 };
 

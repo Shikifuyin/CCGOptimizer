@@ -54,12 +54,31 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-// The UIGearSetStatsDisplayModel class
-class UIGearSetStatsDisplayModel : public WinGUIStaticModel
+// The UIGearSetStatsLabelModel class
+class UIGearSetStatsLabelModel : public WinGUIStaticModel
 {
 public:
-	UIGearSetStatsDisplayModel();
-	virtual ~UIGearSetStatsDisplayModel();
+	UIGearSetStatsLabelModel();
+	virtual ~UIGearSetStatsLabelModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI, HeroStat iHeroStat );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+private:
+	CCGOPGUI * m_pGUI;
+	HeroStat m_iHeroStat;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The UIGearSetStatsValueModel class
+class UIGearSetStatsValueModel : public WinGUIStaticModel
+{
+public:
+	UIGearSetStatsValueModel();
+	virtual ~UIGearSetStatsValueModel();
 
 	// Initialization / Update
 	Void Initialize( CCGOPGUI * pGUI, HeroStat iHeroStat );
@@ -93,6 +112,54 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
+// The UIGearSetStatsModeModel class
+class UIGearSetStatsModeModel : public WinGUICheckBoxModel
+{
+public:
+	UIGearSetStatsModeModel();
+	virtual ~UIGearSetStatsModeModel();
+
+	// Initialization
+	Void Initialize( CCGOPGUI * pGUI );
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Bool OnClick();
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
+// The UIGearSetStatsHeroViewModel class
+class UIGearSetStatsHeroViewModel : public WinGUIComboBoxModel
+{
+public:
+	UIGearSetStatsHeroViewModel();
+	virtual ~UIGearSetStatsHeroViewModel();
+
+	// Initialization / Update
+	Void Initialize( CCGOPGUI * pGUI );
+	Void Update();
+
+	// Layout
+	virtual const WinGUILayout * GetLayout() const;
+
+	// Events
+	virtual Void OnMousePress( const WinGUIPoint & hPoint, KeyCode iKey );
+
+	virtual Bool OnSelectionOK();
+
+	// Item Callback Events
+	virtual Void OnRequestItemLabel( GChar * outBuffer, UInt iMaxLength, UInt iItemIndex, Void * pItemData );
+
+private:
+	CCGOPGUI * m_pGUI;
+};
+
+/////////////////////////////////////////////////////////////////////////////////
 // The UIGearSetStats class
 class UIGearSetStats
 {
@@ -105,10 +172,14 @@ public:
 	Void Cleanup();
 
 	// GearSet Stats
-	inline Void GetStatsArea( WinGUIRectangle * outClientArea ) const;
+	inline Void GetArea( WinGUIRectangle * outClientArea ) const;
+
+	inline WinGUICheckBox * GetMode() const;
+	inline WinGUIComboBox * GetHeroView() const;
 
 	// Helpers
 	Void UpdateModels();
+	Void UpdateHeroViewList();
 
 private:
 	// GUI Instance
@@ -120,12 +191,21 @@ private:
 	WinGUIGroupBox * m_pGroup;
 
 	struct _hero_stats {
-		UIGearSetStatsDisplayModel hStatModel;
-		WinGUIStatic * pStat;
+		UIGearSetStatsLabelModel hLabelModel;
+		WinGUIStatic * pLabel;
+
+		UIGearSetStatsValueModel hValueModel;
+		WinGUIStatic * pValue;
 	} m_arrHeroStats[HERO_STAT_COUNT];
 
 	UIGearSetStatsSetBonusModel m_hSetBonusModel;
 	WinGUIStatic * m_pSetBonus;
+
+	UIGearSetStatsModeModel m_hModeModel;
+	WinGUICheckBox * m_pMode;
+
+	UIGearSetStatsHeroViewModel m_hHeroViewModel;
+	WinGUIComboBox * m_pHeroView;
 };
 
 /////////////////////////////////////////////////////////////////////////////////

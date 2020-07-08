@@ -129,7 +129,7 @@ public:
 	Void Cleanup();
 
 	// Rune Options
-	inline Void GetOptionsArea( WinGUIRectangle * outClientArea ) const;
+	inline Void GetArea( WinGUIRectangle * outClientArea ) const;
 
 private:
 	// GUI Instance

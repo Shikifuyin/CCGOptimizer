@@ -17,7 +17,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // UIHeroCreation implementation
-inline Void UIHeroCreation::GetCreationArea( WinGUIRectangle * outClientArea ) const {
+inline Void UIHeroCreation::GetArea( WinGUIRectangle * outClientArea ) const {
 	m_pGroup->ComputeClientArea( outClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 }
 

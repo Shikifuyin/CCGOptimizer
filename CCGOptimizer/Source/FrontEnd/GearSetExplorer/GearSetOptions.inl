@@ -17,7 +17,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // UIGearSetOptions implementation
-inline Void UIGearSetOptions::GetOptionsArea( WinGUIRectangle * outClientArea ) const {
+inline Void UIGearSetOptions::GetArea( WinGUIRectangle * outClientArea ) const {
 	m_pGroup->ComputeClientArea( outClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 }
 

@@ -100,7 +100,7 @@ Void UIRuneSearchSlotModel::Update()
 const WinGUILayout * UIRuneSearchSlotModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetSearchArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -189,7 +189,7 @@ Void UIRuneSearchSetModel::Update()
 const WinGUILayout * UIRuneSearchSetModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetSearchArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -271,7 +271,7 @@ Void UIRuneSearchRankModel::Update()
 const WinGUILayout * UIRuneSearchRankModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetSearchArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -353,7 +353,7 @@ Void UIRuneSearchQualityModel::Update()
 const WinGUILayout * UIRuneSearchQualityModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetSearchArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -435,7 +435,7 @@ Void UIRuneSearchLevelModel::Update()
 const WinGUILayout * UIRuneSearchLevelModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetSearchArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -545,7 +545,7 @@ Void UIRuneSearchMainStatModel::Update( UInt iSelectedSlot, RuneStat * arrExclud
 const WinGUILayout * UIRuneSearchMainStatModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetSearchArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -616,7 +616,7 @@ Void UIRuneSearchSubStatsModeModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIRuneSearchSubStatsModeModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetSearchArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -711,7 +711,7 @@ Void UIRuneSearchSubStatModel::Update( RuneStat * arrExcludedStats, UInt iExclud
 const WinGUILayout * UIRuneSearchSubStatModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetSearchArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -795,7 +795,7 @@ Void UIRuneSearchSubStatValueModel::Update()
 const WinGUILayout * UIRuneSearchSubStatValueModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetSearchArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -847,7 +847,7 @@ Void UIRuneSearchIndicatorModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIRuneSearchIndicatorModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetSearchArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -887,7 +887,7 @@ Void UIRuneSearchClearModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIRuneSearchClearModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetSearchArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -961,7 +961,7 @@ Void UIRuneSearchApplyModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIRuneSearchApplyModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetSearchArea( &hClientArea );
+	m_pGUI->GetRuneExplorer()->GetRuneSearch()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 

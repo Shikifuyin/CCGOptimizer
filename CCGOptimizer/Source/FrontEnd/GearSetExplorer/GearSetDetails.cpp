@@ -46,7 +46,7 @@ const WinGUILayout * UIGearSetDetailsGroupModel::GetLayout() const
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = ( CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH + CCGOP_LAYOUT_SPACING_GAP_HORIZ ) * (RUNE_SLOT_COUNT >> 1) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
-	hLayout.FixedSize.iY = ( CCGOP_LAYOUT_SHIFT_VERT(1,8,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT + CCGOP_LAYOUT_SPACING_GAP_VERT ) * 2 + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
+	hLayout.FixedSize.iY = ( CCGOP_LAYOUT_SHIFT_VERT(2,8,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT + CCGOP_LAYOUT_SPACING_GAP_VERT ) * 2 + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = CCGOP_LAYOUT_ALIGNRIGHT( hLayout.FixedSize.iX, CCGOP_LAYOUT_CLIENT_WIDTH );
@@ -85,7 +85,7 @@ const WinGUILayout * UIGearSetDetailsSlotGroupModel::GetLayout() const
 
 	hLayout.UseScalingSize = false;
 	hLayout.FixedSize.iX = CCGOP_LAYOUT_SHIFT_HORIZ(1,0,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_WIDTH;
-	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(1,8,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_SHIFT_VERT(2,8,0,0) + CCGOP_LAYOUT_GROUPBOX_FIT_HEIGHT;
 
 	hLayout.UseScalingPosition = false;
 	hLayout.FixedPosition.iX = hClientArea.iLeft + ( (m_iSlot >> 1) * (hLayout.FixedSize.iX + CCGOP_LAYOUT_SPACING_GAP_HORIZ) );
@@ -568,6 +568,82 @@ Bool UIGearSetDetailsLockModel::OnClick()
 }
 
 /////////////////////////////////////////////////////////////////////////////////
+// UIGearSetDetailsUnequipModel implementation
+UIGearSetDetailsUnequipModel::UIGearSetDetailsUnequipModel():
+	WinGUIButtonModel(CCGOP_RESID_GEARSETEXPLORER_GEARSETDETAILS_UNEQUIP)
+{
+	m_pGUI = NULL;
+	m_iSlot = INVALID_OFFSET;
+}
+UIGearSetDetailsUnequipModel::~UIGearSetDetailsUnequipModel()
+{
+	// nothing to do
+}
+
+Void UIGearSetDetailsUnequipModel::Initialize( CCGOPGUI * pGUI, UInt iSlot )
+{
+	m_pGUI = pGUI;
+	m_iSlot = iSlot;
+
+	StringFn->Copy( m_hCreationParameters.strLabel, TEXT("Unequip") );
+	m_hCreationParameters.bCenterLabel = true;
+	m_hCreationParameters.bEnableTabStop = true;
+	m_hCreationParameters.bEnableNotify = false;
+}
+
+const WinGUILayout * UIGearSetDetailsUnequipModel::GetLayout() const
+{
+	WinGUIRectangle hClientArea;
+	m_pGUI->GetGearSetExplorer()->GetGearSetDetails()->GetSlotArea( &hClientArea, m_iSlot );
+
+	static WinGUIManualLayout hLayout;
+
+	hLayout.UseScalingSize = false;
+	hLayout.FixedSize.iX = CCGOP_LAYOUT_BUTTON_WIDTH;
+	hLayout.FixedSize.iY = CCGOP_LAYOUT_BUTTON_HEIGHT;
+
+	hLayout.UseScalingPosition = false;
+	hLayout.FixedPosition.iX = hClientArea.iLeft;
+	hLayout.FixedPosition.iY = hClientArea.iTop + CCGOP_LAYOUT_SHIFT_VERT(1,4 + RUNE_RANDOM_STAT_COUNT,0,0);
+
+	return &hLayout;
+}
+
+Bool UIGearSetDetailsUnequipModel::OnClick()
+{
+	// Retrieve selected GearSet
+	WinGUITable * pGearSetTable = m_pGUI->GetGearSetExplorer()->GetGearSetTable()->GetTable();
+	UInt iSelectedGearSet = INVALID_OFFSET;
+	pGearSetTable->GetSelectedItems( &iSelectedGearSet, 1 );
+
+	if ( iSelectedGearSet == INVALID_OFFSET )
+		return true;
+
+	GearSetID iGearSetID = (GearSetID)(UIntPtr)( pGearSetTable->GetItemData(iSelectedGearSet) );
+	const GearSet * pGearSet = CCGOPFn->GetGearSet( iGearSetID );
+
+	// Retrieve this slot's rune
+	RuneID iRuneID = pGearSet->GetEquippedRune( m_iSlot );
+
+	if ( iRuneID == INVALID_OFFSET )
+		return true;
+
+	// Unequip the rune
+	CCGOPFn->UnequipRuneFromGearSet( iRuneID, iGearSetID );
+
+	// Update Models
+	pGearSetTable->UpdateItem( iSelectedGearSet );
+	m_pGUI->GetGearSetExplorer()->GetGearSetDetails()->UpdateModels( m_iSlot );
+	m_pGUI->GetGearSetExplorer()->GetGearSetStats()->UpdateModels();
+
+	// Set Unsaved Changes Mark
+	m_pGUI->GetImportExport()->GetLoadSave()->SetUnsavedChangesMark();
+
+	// Done
+	return true;
+}
+
+/////////////////////////////////////////////////////////////////////////////////
 // UIGearSetDetails implementation
 UIGearSetDetails::UIGearSetDetails( CCGOPGUI * pGUI )
 {
@@ -585,6 +661,7 @@ UIGearSetDetails::UIGearSetDetails( CCGOPGUI * pGUI )
 			m_arrDetailsSlots[i].arrRandomStats[j].pStat = NULL;
 
 		m_arrDetailsSlots[i].pLock = NULL;
+		m_arrDetailsSlots[i].pUnequip = NULL;
 	}
 }
 UIGearSetDetails::~UIGearSetDetails()
@@ -622,6 +699,9 @@ Void UIGearSetDetails::Initialize()
 		m_arrDetailsSlots[i].hLockModel.Initialize( m_pGUI, i );
 		m_arrDetailsSlots[i].pLock = WinGUIFn->CreateCheckBox( m_pRoot, &(m_arrDetailsSlots[i].hLockModel) );
 		m_arrDetailsSlots[i].hLockModel.Update();
+
+		m_arrDetailsSlots[i].hUnequipModel.Initialize( m_pGUI, i );
+		m_arrDetailsSlots[i].pUnequip = WinGUIFn->CreateButton( m_pRoot, &(m_arrDetailsSlots[i].hUnequipModel) );
 	}
 }
 Void UIGearSetDetails::Cleanup()

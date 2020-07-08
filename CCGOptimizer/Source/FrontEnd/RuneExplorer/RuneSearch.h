@@ -367,7 +367,7 @@ public:
 	Void Cleanup();
 
 	// Rune Search
-	inline Void GetSearchArea( WinGUIRectangle * outClientArea ) const;
+	inline Void GetArea( WinGUIRectangle * outClientArea ) const;
 
 	inline WinGUIComboBox * GetSlot() const;
 	inline WinGUIComboBox * GetSet() const;

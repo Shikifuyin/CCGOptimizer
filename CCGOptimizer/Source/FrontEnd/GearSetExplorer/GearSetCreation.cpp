@@ -93,7 +93,7 @@ Void UIGearSetCreationNameModel::Update()
 const WinGUILayout * UIGearSetCreationNameModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 
@@ -141,7 +141,7 @@ Void UIGearSetCreationButtonModel::Initialize( CCGOPGUI * pGUI )
 const WinGUILayout * UIGearSetCreationButtonModel::GetLayout() const
 {
 	WinGUIRectangle hClientArea;
-	m_pGUI->GetGearSetExplorer()->GetGearSetCreation()->GetCreationArea( &hClientArea );
+	m_pGUI->GetGearSetExplorer()->GetGearSetCreation()->GetArea( &hClientArea );
 
 	static WinGUIManualLayout hLayout;
 

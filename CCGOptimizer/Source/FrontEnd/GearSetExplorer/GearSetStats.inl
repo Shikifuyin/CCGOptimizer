@@ -17,6 +17,13 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // UIGearSetStats implementation
-inline Void UIGearSetStats::GetStatsArea( WinGUIRectangle * outClientArea ) const {
+inline Void UIGearSetStats::GetArea( WinGUIRectangle * outClientArea ) const {
 	m_pGroup->ComputeClientArea( outClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
+}
+
+inline WinGUICheckBox * UIGearSetStats::GetMode() const {
+	return m_pMode;
+}
+inline WinGUIComboBox * UIGearSetStats::GetHeroView() const {
+	return m_pHeroView;
 }

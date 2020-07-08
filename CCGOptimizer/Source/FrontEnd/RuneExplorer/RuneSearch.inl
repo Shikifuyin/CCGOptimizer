@@ -17,7 +17,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // UIRuneSearch implementation
-inline Void UIRuneSearch::GetSearchArea( WinGUIRectangle * outClientArea ) const {
+inline Void UIRuneSearch::GetArea( WinGUIRectangle * outClientArea ) const {
 	m_pGroup->ComputeClientArea( outClientArea, CCGOP_LAYOUT_GROUPBOX_PADDING );
 }
 

@@ -221,7 +221,7 @@ public:
 	Void Cleanup();
 
 	// Hero Creation
-	inline Void GetCreationArea( WinGUIRectangle * outClientArea ) const;
+	inline Void GetArea( WinGUIRectangle * outClientArea ) const;
 
 	inline WinGUIComboBox * GetName() const;
 	inline WinGUIComboBox * GetRank() const;
