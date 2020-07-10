@@ -22,13 +22,15 @@
 /////////////////////////////////////////////////////////////////////////////////
 // CCGOptimizer implementation
 CCGOptimizer::CCGOptimizer():
-    m_hSearchParams()
+    m_hSearchParams(), m_arrResults()
 {
     m_iEstimatedPermutations = 0;
+
+    m_arrResults.Create();
 }
 CCGOptimizer::~CCGOptimizer()
 {
-	// nothing to do
+	m_arrResults.Destroy();
 }
 
 Bool CCGOptimizer::Optimize()
@@ -41,6 +43,7 @@ Bool CCGOptimizer::Optimize()
     // Reset search data
     for( UInt iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot )
         m_arrRuneSlotPools[iSlot].Reset();
+    m_arrResults.Clear();
 
     // Filter Rune Pool
     Bool bSuccess = _BuildRuneSlotPools();
@@ -73,6 +76,7 @@ Bool CCGOptimizer::_BuildRuneSlotPools()
     // Prepare for Rune Queries
     RuneQueryParameter hQueryParams;
     RuneQueryMap hQueryMap;
+    hQueryMap.SetComparator( RuneQueryMap_Compare );
     hQueryMap.Create();
 
     Array<RuneID> arrQueryResults;
@@ -121,16 +125,18 @@ Bool CCGOptimizer::_BuildRuneSlotPools()
             hQueryParams.hQueryMainStat.iStatCount = m_hSearchParams.arrRequestedMainStatsSlot2.Count();
             for( i = 0; i < hQueryParams.hQueryMainStat.iStatCount; ++i )
                 hQueryParams.hQueryMainStat.arrStats[i] = m_hSearchParams.arrRequestedMainStatsSlot2[i];
+            hQueryMap.Insert( RUNE_QUERY_MAINSTAT, hQueryParams );
         } else if ( iSlot == 3 ) { // Slot 4
             hQueryParams.hQueryMainStat.iStatCount = m_hSearchParams.arrRequestedMainStatsSlot4.Count();
             for( i = 0; i < hQueryParams.hQueryMainStat.iStatCount; ++i )
                 hQueryParams.hQueryMainStat.arrStats[i] = m_hSearchParams.arrRequestedMainStatsSlot4[i];
+            hQueryMap.Insert( RUNE_QUERY_MAINSTAT, hQueryParams );
         } else if ( iSlot == 5 ) { // Slot 6
             hQueryParams.hQueryMainStat.iStatCount = m_hSearchParams.arrRequestedMainStatsSlot6.Count();
             for( i = 0; i < hQueryParams.hQueryMainStat.iStatCount; ++i )
                 hQueryParams.hQueryMainStat.arrStats[i] = m_hSearchParams.arrRequestedMainStatsSlot6[i];
+            hQueryMap.Insert( RUNE_QUERY_MAINSTAT, hQueryParams );
         }
-        hQueryMap.Insert( RUNE_QUERY_MAINSTAT, hQueryParams );
 
         // Perform the query
         CCGOPFn->FilterRunes (
@@ -209,7 +215,40 @@ Bool CCGOptimizer::_BuildRuneSlotPools()
 }
 Bool CCGOptimizer::_ExplorePermutations()
 {
-    // Computational heaviness is here ...
+    //// Search Depth
+    //UInt iSearchDepth = m_hSearchParams.iSearchDepth;
+
+    //// Explore ...
+    //UInt iSlot1Count = Min<UInt>( m_arrRuneSlotPools[0].GetTotalCount(), iSearchDepth );
+    //UInt iSlot2Count = Min<UInt>( m_arrRuneSlotPools[1].GetTotalCount(), iSearchDepth );
+    //UInt iSlot3Count = Min<UInt>( m_arrRuneSlotPools[2].GetTotalCount(), iSearchDepth );
+    //UInt iSlot4Count = Min<UInt>( m_arrRuneSlotPools[3].GetTotalCount(), iSearchDepth );
+    //UInt iSlot5Count = Min<UInt>( m_arrRuneSlotPools[4].GetTotalCount(), iSearchDepth );
+    //UInt iSlot6Count = Min<UInt>( m_arrRuneSlotPools[5].GetTotalCount(), iSearchDepth );
+    //OptimizerResult hResult;
+
+    //for( UInt iSlot1Rune = 0; iSlot1Rune < iSlot1Count; ++iSlot1Rune ) {
+    //    // Get the rune
+    //    //m_arrRuneSlotPools[0].GetMainSetRune(,);
+
+    //    for( UInt iSlot1Rune = 0; iSlot1Rune < iSlot1Count; ++iSlot1Rune ) {
+    //        for( UInt iSlot1Rune = 0; iSlot1Rune < iSlot1Count; ++iSlot1Rune ) {
+    //            for( UInt iSlot1Rune = 0; iSlot1Rune < iSlot1Count; ++iSlot1Rune ) {
+    //                for( UInt iSlot1Rune = 0; iSlot1Rune < iSlot1Count; ++iSlot1Rune ) {
+    //                    for( UInt iSlot1Rune = 0; iSlot1Rune < iSlot1Count; ++iSlot1Rune ) {
+    //                        // Make it a result
+
+
+    //                        
+
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+    
+    // Done
     return true;
 }
 

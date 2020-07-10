@@ -22,6 +22,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // Includes
+#include "Lib/Datastruct/Array/Array.h"
 #include "Lib/Datastruct/Tree/Heap.h"
 
 #include "../CCGOPManager.h"

@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/BackEnd/Optimizer/CCGOptimizer.h
+// File : Source/BackEnd/Importer/CCGImporter.h
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 1.0
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : Optimized Search Implementation
+// Description : Game Account Data Importer (The tricky part !)
 /////////////////////////////////////////////////////////////////////////////////
 // License :
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -17,77 +17,40 @@
 
 /////////////////////////////////////////////////////////////////////////////////
 // Header prelude
-#ifndef CCGOP_BACKEND_OPTIMIZER_CCGOPTIMIZER_H
-#define CCGOP_BACKEND_OPTIMIZER_CCGOPTIMIZER_H
+#ifndef CCGOP_BACKEND_IMPORTER_CCGIMPORTER_H
+#define CCGOP_BACKEND_IMPORTER_CCGIMPORTER_H
 
 /////////////////////////////////////////////////////////////////////////////////
 // Includes
 #include "../CCGOPManager.h"
 
-#include "SearchParameters.h"
-#include "RuneSlotPool.h"
-
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
 
-// Result Builds
-typedef struct _optimizer_result {
-    RuneID arrRunes[RUNE_SLOT_COUNT];
-    Float arrRatings[RUNE_SLOT_COUNT];
-} OptimizerResult;
-
 /////////////////////////////////////////////////////////////////////////////////
-// The CCGOptimizer class
-class CCGOptimizer
+// The CCGImporter class
+class CCGImporter
 {
     // Discrete singleton interface
 public:
-    inline static CCGOptimizer * GetInstance();
+    inline static CCGImporter * GetInstance();
 
 private:
-    CCGOptimizer();
-    ~CCGOptimizer();
+    CCGImporter();
+    ~CCGImporter();
 
 public:
-    // Search Parameters
-    inline SearchParameters * GetSearchParameters();
-
-    // Search Results
-    inline UInt GetEstimatedPermutations() const;
-
-    // public function GetBuildCount():int {
-    // }
-    // public function GetAllBuilds():array {
-    // }k
-
-    // Main Search Algorithm
-    Bool Optimize();
+  
 
 private:
-    // Heuristics
-    Float _ComputeRating( const Rune * pRune );
-
-    // Search Sub-Routines
-    Bool _BuildRuneSlotPools();
-    Bool _ExplorePermutations();
-
-    // Helpers
-    Void _EstimatePermutations();
-
-    // Members
-    SearchParameters m_hSearchParams;
-    RuneSlotPool m_arrRuneSlotPools[RUNE_SLOT_COUNT];
-
-    UInt m_iEstimatedPermutations;
-
-    Array<OptimizerResult> m_arrResults;
+ 
 };
 
 /////////////////////////////////////////////////////////////////////////////////
 // Backward Includes (Inlines & Templates)
-#include "CCGOptimizer.inl"
+#include "CCGImporter.inl"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Header end
-#endif // CCGOP_BACKEND_OPTIMIZER_CCGOPTIMIZER_H
+#endif // CCGOP_BACKEND_IMPORTER_CCGIMPORTER_H
 
