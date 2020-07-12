@@ -45,25 +45,20 @@ public:
     inline Bool IsEmpty() const;
     inline UInt GetTotalCount() const;
 
+    // Sets Availability
+    inline UInt GetMainSetsCount() const;
+    inline UInt GetOffSetsCount() const;
+
     inline Bool IsSetAvailable( RuneSet iRuneSet ) const;
-
-    // Main Sets Pool access
-    inline UInt GetMainSetsTotalCount() const;
-
     inline Bool IsMainSetAvailable( RuneSet iRuneSet ) const;
-    inline Float GetMainSetBestRating( RuneSet iRuneSet ) const;
-
-    inline UInt GetMainSetCount( RuneSet iRuneSet ) const;
-    inline RuneID GetMainSetRune( RuneSet iRuneSet, UInt iIndex, Float * outRating = NULL ) const;
-
-    // Off Sets Pool access
-    inline UInt GetOffSetsTotalCount() const;
-
     inline Bool IsOffSetAvailable( RuneSet iRuneSet ) const;
-    inline Float GetOffSetBestRating( RuneSet iRuneSet ) const;
 
-    inline UInt GetOffSetCount( RuneSet iRuneSet ) const;
-    inline RuneID GetOffSetRune( RuneSet iRuneSet, UInt iIndex, Float * outRating = NULL ) const;
+    inline Float GetMainSetBestRating() const;
+    inline Float GetOffSetBestRating() const;
+
+    // Direct Access
+    inline RuneID GetMainSetRune( UInt iIndex, Float * outRating = NULL ) const;
+    inline RuneID GetOffSetRune( UInt iIndex, Float * outRating = NULL ) const;
 
     // Construction Procedure
     inline Void SetSlot( UInt iSlot );
@@ -73,6 +68,11 @@ public:
     Void FinalizeSorting();
 
     Void Reset();
+
+    // Enumeration
+    inline Bool IsEnumerating() const;
+    Void Enumerate();
+    RuneID EnumerateNextRune( Float * outRating = NULL );
 
 private:
     typedef struct _rune_pool_entry {
@@ -88,15 +88,18 @@ private:
     UInt m_iRuneSlot;
     Bool m_bIsForced; // True if rune pool has been forced by user (therefore is small)
 
-    UInt m_iMainSetsTotalCount;
     Bool m_arrAvailableMainSets[RUNE_SET_COUNT];
-    PoolHeap m_arrMainSetsHeaps[RUNE_SET_COUNT];
-    Array<RunePoolEntry> m_arrMainSets[RUNE_SET_COUNT];
-
-    UInt m_iOffSetsTotalCount;
     Bool m_arrAvailableOffSets[RUNE_SET_COUNT];
-    PoolHeap m_arrOffSetsHeaps[RUNE_SET_COUNT];
-    Array<RunePoolEntry> m_arrOffSets[RUNE_SET_COUNT];
+
+    PoolHeap m_hMainSetsHeap;
+    PoolHeap m_hOffSetsHeap;
+
+    Array<RunePoolEntry> m_arrMainSets;
+    Array<RunePoolEntry> m_arrOffSets;
+
+    Bool m_bEnumerating;
+    UInt m_iEnumMainSetIndex;
+    UInt m_iEnumOffSetIndex;
 };
 
 /////////////////////////////////////////////////////////////////////////////////

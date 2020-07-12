@@ -61,7 +61,8 @@ public:
     // }k
 
     // Main Search Algorithm
-    Bool Optimize();
+    Bool OptimizeBegin();
+    Bool OptimizeStep( UInt iPermutations );
 
 private:
     // Heuristics
@@ -69,16 +70,18 @@ private:
 
     // Search Sub-Routines
     Bool _BuildRuneSlotPools();
-    Bool _ExplorePermutations();
-
-    // Helpers
     Void _EstimatePermutations();
+
+    Bool _GetNextPermutation();
 
     // Members
     SearchParameters m_hSearchParams;
     RuneSlotPool m_arrRuneSlotPools[RUNE_SLOT_COUNT];
 
+    Bool m_bOptimizing;
     UInt m_iEstimatedPermutations;
+
+    OptimizerResult m_hCurrentPermutation;
 
     Array<OptimizerResult> m_arrResults;
 };

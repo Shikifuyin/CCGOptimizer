@@ -30,24 +30,24 @@ RuneSlotPool::RuneSlotPool()
     m_iRuneSlot = INVALID_OFFSET;
     m_bIsForced = false;
 
-    m_iMainSetsTotalCount = 0;
     for( i = 0; i < RUNE_SET_COUNT; ++i )
         m_arrAvailableMainSets[i] = false;
 
-    m_iOffSetsTotalCount = 0;
     for( i = 0; i < RUNE_SET_COUNT; ++i )
         m_arrAvailableOffSets[i] = false;
+
+    m_bEnumerating = false;
+    m_iEnumMainSetIndex = INVALID_OFFSET;
+    m_iEnumOffSetIndex = INVALID_OFFSET;
 }
 RuneSlotPool::~RuneSlotPool()
 {
     Assert( m_bFinalized );
 
-    for( UInt i = 0; i < RUNE_SET_COUNT; ++i ) {
-        if ( m_arrAvailableMainSets[i] )
-            m_arrMainSets[i].Destroy();
-        if ( m_arrAvailableOffSets[i] )
-            m_arrOffSets[i].Destroy();
-    }   
+    if ( m_arrMainSets.IsCreated() )
+        m_arrMainSets.Destroy();
+    if ( m_arrOffSets.IsCreated() )
+        m_arrOffSets.Destroy();
 }
 
 Void RuneSlotPool::AddMainSetRune( RuneID iRuneID, Float fRating )
@@ -59,16 +59,18 @@ Void RuneSlotPool::AddMainSetRune( RuneID iRuneID, Float fRating )
     Assert( pRune->GetSlot() == m_iRuneSlot );
 
     RuneSet iSet = pRune->GetSet();
-    if ( !(m_arrAvailableMainSets[iSet]) ) {
+    if ( !(m_arrAvailableMainSets[iSet]) )
         m_arrAvailableMainSets[iSet] = true;
-        m_arrMainSetsHeaps[iSet].SetComparator( _CompareRunePoolEntries );
-        m_arrMainSetsHeaps[iSet].Create();
+
+    if ( !(m_hMainSetsHeap.IsCreated()) ) {
+        m_hMainSetsHeap.SetComparator( _CompareRunePoolEntries );
+        m_hMainSetsHeap.Create();
     }
 
     RunePoolEntry hEntry;
     hEntry.iRuneID = iRuneID;
     hEntry.fRating = fRating;
-    m_arrMainSetsHeaps[iSet].Merge( hEntry );
+    m_hMainSetsHeap.Merge( hEntry );
 }
 Void RuneSlotPool::AddOffSetRune( RuneID iRuneID, Float fRating )
 {
@@ -79,47 +81,42 @@ Void RuneSlotPool::AddOffSetRune( RuneID iRuneID, Float fRating )
     Assert( pRune->GetSlot() == m_iRuneSlot );
 
     RuneSet iSet = pRune->GetSet();
-    if ( !(m_arrAvailableOffSets[iSet]) ) {
+    if ( !(m_arrAvailableOffSets[iSet]) )
         m_arrAvailableOffSets[iSet] = true;
-        m_arrOffSetsHeaps[iSet].SetComparator( _CompareRunePoolEntries );
-        m_arrOffSetsHeaps[iSet].Create();
+
+    if ( !(m_hOffSetsHeap.IsCreated()) ) {
+        m_hOffSetsHeap.SetComparator( _CompareRunePoolEntries );
+        m_hOffSetsHeap.Create();
     }
 
     RunePoolEntry hEntry;
     hEntry.iRuneID = iRuneID;
     hEntry.fRating = fRating;
-    m_arrOffSetsHeaps[iSet].Merge( hEntry );
+    m_hOffSetsHeap.Merge( hEntry );
 }
 Void RuneSlotPool::FinalizeSorting()
 {
     Assert( m_iRuneSlot != INVALID_OFFSET );
     Assert( !m_bFinalized );
 
-    for( UInt i = 0; i < RUNE_SET_COUNT; ++i ) {
-        if ( m_arrAvailableMainSets[i] ) {
-            m_arrMainSets[i].Create();
-            UInt iCount = 0;
-            while( !(m_arrMainSetsHeaps[i].IsEmpty()) ) {
-                RunePoolEntry hEntry;
-                m_arrMainSetsHeaps[i].Extract( hEntry );
-                m_arrMainSets[i].Push( hEntry );
-                ++iCount;
-            }
-            m_arrMainSetsHeaps[i].Destroy();
-            m_iMainSetsTotalCount += iCount;
+    if ( m_hMainSetsHeap.IsCreated() ) {
+        m_arrMainSets.Create();
+        while ( !(m_hMainSetsHeap.IsEmpty()) ) {
+            RunePoolEntry hEntry;
+            m_hMainSetsHeap.Extract( hEntry );
+            m_arrMainSets.Push( hEntry );
         }
-        if ( m_arrAvailableOffSets[i] ) {
-            m_arrOffSets[i].Create();
-            UInt iCount = 0;
-            while( !(m_arrOffSetsHeaps[i].IsEmpty()) ) {
-                RunePoolEntry hEntry;
-                m_arrOffSetsHeaps[i].Extract( hEntry );
-                m_arrOffSets[i].Push( hEntry );
-                ++iCount;
-            }
-            m_arrOffSetsHeaps[i].Destroy();
-            m_iOffSetsTotalCount += iCount;
+        m_hMainSetsHeap.Destroy();
+    }
+
+    if ( m_hOffSetsHeap.IsCreated() ) {
+        m_arrOffSets.Create();
+        while ( !(m_hOffSetsHeap.IsEmpty()) ) {
+            RunePoolEntry hEntry;
+            m_hOffSetsHeap.Extract( hEntry );
+            m_arrOffSets.Push( hEntry );
         }
+        m_hOffSetsHeap.Destroy();
     }
         
     m_bFinalized = true;
@@ -131,23 +128,86 @@ Void RuneSlotPool::Reset()
 
     UInt i;
 
-    for( i = 0; i < RUNE_SET_COUNT; ++i ) {
-        if ( m_arrAvailableMainSets[i] )
-            m_arrMainSets[i].Destroy();
-        if ( m_arrAvailableOffSets[i] )
-            m_arrOffSets[i].Destroy();
-    }
+    if ( m_arrMainSets.IsCreated() )
+        m_arrMainSets.Destroy();
+    if ( m_arrOffSets.IsCreated() )
+        m_arrOffSets.Destroy();
 
     m_bFinalized = false;
 
     m_iRuneSlot = INVALID_OFFSET;
     m_bIsForced = false;
 
-    m_iMainSetsTotalCount = 0;
     for( i = 0; i < RUNE_SET_COUNT; ++i )
         m_arrAvailableMainSets[i] = false;
 
-    m_iOffSetsTotalCount = 0;
     for( i = 0; i < RUNE_SET_COUNT; ++i )
         m_arrAvailableOffSets[i] = false;
+
+    m_bEnumerating = false;
+    m_iEnumMainSetIndex = INVALID_OFFSET;
+    m_iEnumOffSetIndex = INVALID_OFFSET;
 }
+
+Void RuneSlotPool::Enumerate()
+{
+    Assert( m_bFinalized );
+    Assert( !m_bEnumerating );
+
+    m_bEnumerating = true;
+    m_iEnumMainSetIndex = 0;
+    m_iEnumOffSetIndex = 0;
+}
+RuneID RuneSlotPool::EnumerateNextRune( Float * outRating )
+{
+    Assert( m_bFinalized );
+    Assert( m_bEnumerating );
+
+    Bool bMainSetEnd = ( m_iEnumMainSetIndex >= m_arrMainSets.Count() );
+    Bool bOffSetEnd = ( m_iEnumOffSetIndex >= m_arrOffSets.Count() );
+
+    // End of enumeration
+    if ( bMainSetEnd && bOffSetEnd ) {
+        m_bEnumerating = false;
+        m_iEnumMainSetIndex = INVALID_OFFSET;
+        m_iEnumOffSetIndex = INVALID_OFFSET;
+        return INVALID_OFFSET;
+    }
+
+    // Only Main Set available case
+    if ( bOffSetEnd ) {
+        const RunePoolEntry & hEntry = m_arrMainSets[m_iEnumMainSetIndex];
+        ++m_iEnumMainSetIndex;
+        if ( outRating != NULL )
+            *outRating = hEntry.fRating;
+        return hEntry.iRuneID;
+    }
+
+    // Only Off Set available case
+    if ( bMainSetEnd ) {
+        const RunePoolEntry & hEntry = m_arrOffSets[m_iEnumOffSetIndex];
+        ++m_iEnumOffSetIndex;
+        if ( outRating != NULL )
+            *outRating = hEntry.fRating;
+        return hEntry.iRuneID;
+    }
+
+    // Both available, pick highest rating
+    const RunePoolEntry & hMainEntry = m_arrMainSets[m_iEnumMainSetIndex];
+    const RunePoolEntry & hOffEntry = m_arrOffSets[m_iEnumOffSetIndex];
+
+    // Next is Main case
+    if ( hMainEntry.fRating >= hOffEntry.fRating ) {
+        ++m_iEnumMainSetIndex;
+        if ( outRating != NULL )
+            *outRating = hMainEntry.fRating;
+        return hMainEntry.iRuneID;
+    }
+
+    // Next is Off case
+    ++m_iEnumOffSetIndex;
+    if ( outRating != NULL )
+        *outRating = hOffEntry.fRating;
+    return hOffEntry.iRuneID;
+}
+

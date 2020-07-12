@@ -24,7 +24,13 @@
 CCGOptimizer::CCGOptimizer():
     m_hSearchParams(), m_arrResults()
 {
+    m_bOptimizing = false;
     m_iEstimatedPermutations = 0;
+
+    for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i ) {
+        m_hCurrentPermutation.arrRunes[i] = INVALID_OFFSET;
+        m_hCurrentPermutation.arrRatings[i] = 0.0f;
+    }
 
     m_arrResults.Create();
 }
@@ -33,16 +39,24 @@ CCGOptimizer::~CCGOptimizer()
 	m_arrResults.Destroy();
 }
 
-Bool CCGOptimizer::Optimize()
+Bool CCGOptimizer::OptimizeBegin()
 {
+    Assert( !m_bOptimizing );
+
+    UInt iSlot;
+
     // Validate Search Parameters
     Bool bValid = m_hSearchParams.Validate();
     if ( !bValid )
         return false;
 
     // Reset search data
-    for( UInt iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot )
+    for( iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot ) {
         m_arrRuneSlotPools[iSlot].Reset();
+        m_hCurrentPermutation.arrRunes[iSlot] = INVALID_OFFSET;
+        m_hCurrentPermutation.arrRatings[iSlot] = 0.0f;
+    }
+
     m_arrResults.Clear();
 
     // Filter Rune Pool
@@ -50,11 +64,50 @@ Bool CCGOptimizer::Optimize()
     if ( !bSuccess )
         return false;
 
-    // Explore all permutations (!!)
-    bSuccess = _ExplorePermutations();
+    // Start Optimizing
+    for( iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot ) {
+        m_arrRuneSlotPools[iSlot].Enumerate();
+        m_hCurrentPermutation.arrRunes[iSlot] = m_arrRuneSlotPools[iSlot].EnumerateNextRune( m_hCurrentPermutation.arrRatings + iSlot );
+    }
+    m_bOptimizing = true;
 
     // Done !
-    return bSuccess;
+    return true;
+}
+Bool CCGOptimizer::OptimizeStep( UInt iPermutations )
+{
+    Assert( m_bOptimizing );
+
+    // We're allowed to explore iPermutations for this step
+    UInt iExploredPermutations = 0;
+    while( iExploredPermutations < iPermutations ) {
+        // Test Sets validity
+        Bool bValidSets = false;
+
+        /////////////////////////////////////////
+
+        // Test Stats validity
+        Bool bValidStats = false;
+
+        /////////////////////////////////////////
+
+        // Store result if passed
+        if ( bValidSets && bValidStats )
+            m_arrResults.Push( m_hCurrentPermutation );
+
+        // Next Permutation
+        Bool bContinue = _GetNextPermutation();
+
+        // End of Optimization case
+        if ( !bContinue )
+            return false;
+
+        // Proceed
+        ++iExploredPermutations;
+    }
+
+    // More to compute, delay to next idle time
+    return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -213,44 +266,6 @@ Bool CCGOptimizer::_BuildRuneSlotPools()
 
     return true;
 }
-Bool CCGOptimizer::_ExplorePermutations()
-{
-    //// Search Depth
-    //UInt iSearchDepth = m_hSearchParams.iSearchDepth;
-
-    //// Explore ...
-    //UInt iSlot1Count = Min<UInt>( m_arrRuneSlotPools[0].GetTotalCount(), iSearchDepth );
-    //UInt iSlot2Count = Min<UInt>( m_arrRuneSlotPools[1].GetTotalCount(), iSearchDepth );
-    //UInt iSlot3Count = Min<UInt>( m_arrRuneSlotPools[2].GetTotalCount(), iSearchDepth );
-    //UInt iSlot4Count = Min<UInt>( m_arrRuneSlotPools[3].GetTotalCount(), iSearchDepth );
-    //UInt iSlot5Count = Min<UInt>( m_arrRuneSlotPools[4].GetTotalCount(), iSearchDepth );
-    //UInt iSlot6Count = Min<UInt>( m_arrRuneSlotPools[5].GetTotalCount(), iSearchDepth );
-    //OptimizerResult hResult;
-
-    //for( UInt iSlot1Rune = 0; iSlot1Rune < iSlot1Count; ++iSlot1Rune ) {
-    //    // Get the rune
-    //    //m_arrRuneSlotPools[0].GetMainSetRune(,);
-
-    //    for( UInt iSlot1Rune = 0; iSlot1Rune < iSlot1Count; ++iSlot1Rune ) {
-    //        for( UInt iSlot1Rune = 0; iSlot1Rune < iSlot1Count; ++iSlot1Rune ) {
-    //            for( UInt iSlot1Rune = 0; iSlot1Rune < iSlot1Count; ++iSlot1Rune ) {
-    //                for( UInt iSlot1Rune = 0; iSlot1Rune < iSlot1Count; ++iSlot1Rune ) {
-    //                    for( UInt iSlot1Rune = 0; iSlot1Rune < iSlot1Count; ++iSlot1Rune ) {
-    //                        // Make it a result
-
-
-    //                        
-
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
-    
-    // Done
-    return true;
-}
 
 Void CCGOptimizer::_EstimatePermutations()
 {
@@ -258,5 +273,39 @@ Void CCGOptimizer::_EstimatePermutations()
     m_iEstimatedPermutations = 1;
     for( UInt iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot )
         m_iEstimatedPermutations *= m_arrRuneSlotPools[iSlot].GetTotalCount();
+}
+Bool CCGOptimizer::_GetNextPermutation()
+{
+    for( Int iSlot = RUNE_SLOT_COUNT - 1; iSlot >= 0; --iSlot ) {
+        // Step Inner-most Loop
+        Float fRating;
+        RuneID iRuneID = m_arrRuneSlotPools[iSlot].EnumerateNextRune( &fRating );
+
+        // Loop continues, no need to go further up
+        if ( iRuneID != INVALID_OFFSET ) {
+            m_hCurrentPermutation.arrRunes[iSlot] = iRuneID;
+            m_hCurrentPermutation.arrRatings[iSlot] = fRating;
+            break;
+        }
+
+        // Loop has ended
+
+        // Top-most loop case : End of enumeration
+        if ( iSlot == 0 )
+            return false;
+
+        // Restart loop
+        m_arrRuneSlotPools[iSlot].Enumerate();
+
+        // Init loop again
+        iRuneID = m_arrRuneSlotPools[iSlot].EnumerateNextRune( &fRating );
+        m_hCurrentPermutation.arrRunes[iSlot] = iRuneID;
+        m_hCurrentPermutation.arrRatings[iSlot] = fRating;
+
+        // Go up parent loop
+    }
+
+    // Done
+    return true;
 }
 

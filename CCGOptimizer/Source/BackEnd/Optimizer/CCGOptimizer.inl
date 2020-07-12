@@ -25,9 +25,11 @@ inline CCGOptimizer * CCGOptimizer::GetInstance() {
 }
 
 inline SearchParameters * CCGOptimizer::GetSearchParameters() {
+    Assert( !m_bOptimizing );
     return &m_hSearchParams;
 }
 
 inline UInt CCGOptimizer::GetEstimatedPermutations() const {
+    Assert( m_bOptimizing );
     return m_iEstimatedPermutations;
 }
