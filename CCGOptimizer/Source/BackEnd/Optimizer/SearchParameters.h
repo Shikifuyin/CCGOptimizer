@@ -40,7 +40,7 @@ public:
     Bool Validate();
 
     // Members
-    HeroID iReferenceHeroID; // HeroID, optional
+    const Hero * pReferenceHero; // Optional
 
         // Set Filtering
     Array<RuneSet> arrRequestedSets;
@@ -58,14 +58,14 @@ public:
 
     Bool bAllowLockedRunes; // default = false
     Bool bAllowEquippedRunes; // default = true
-    //Bool bUseMaxLevelMainStatsValues; // default = true, only for main stats
-    //Bool bUseMaxLevel12ForOddSlots;   // default = true, only if UseMaxLevelMainStatsValues = true
+    Bool bUseMaxLevelMainStatsValues; // default = true, only for main stats
+    Bool bUseMaxLevel12ForOddSlots;   // default = true, only if UseMaxLevelMainStatsValues = true
 
         // Search Behaviour
     Float arrStatsWeights[HERO_STAT_COUNT]; // Weights in [0;1], 0 = ignore
     UInt iSearchDepth;                      // default = 10, How many runes to consider per slot
 
-        // Target Stats Constraints
+        // Target Stats Constraints (can be a combined %/flat value)
     UInt arrTargetStatsMin[HERO_STAT_COUNT]; // 0 = unconstrained
     UInt arrTargetStatsMax[HERO_STAT_COUNT]; // UINT_MAX = unconstrained
 };

@@ -29,7 +29,15 @@ inline SearchParameters * CCGOptimizer::GetSearchParameters() {
     return &m_hSearchParams;
 }
 
-inline UInt CCGOptimizer::GetEstimatedPermutations() const {
+inline UInt CCGOptimizer::GetPermutationsCount() const {
     Assert( m_bOptimizing );
-    return m_iEstimatedPermutations;
+    return m_iPermutationsCount;
+}
+inline UInt CCGOptimizer::GetExploredPermutations() const {
+    Assert( m_bOptimizing );
+    return m_iExploredPermutation;
+}
+
+inline Bool CCGOptimizer::IsOptimizing() const {
+    return m_bOptimizing;
 }

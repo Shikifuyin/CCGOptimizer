@@ -28,7 +28,7 @@ SearchParameters::SearchParameters():
 {
     UInt i;
 
-    iReferenceHeroID = INVALID_OFFSET;
+    pReferenceHero = NULL;
 
     arrRequestedSets.Create();
     arrExcludedSets.Create();
@@ -43,8 +43,8 @@ SearchParameters::SearchParameters():
 
     bAllowLockedRunes = false;
     bAllowEquippedRunes = true;
-    //bUseMaxLevelMainStatsValues = true;
-    //bUseMaxLevel12ForOddSlots = true;
+    bUseMaxLevelMainStatsValues = true;
+    bUseMaxLevel12ForOddSlots = true;
 
     for( i = 0; i < HERO_STAT_COUNT; ++i )
         arrStatsWeights[i] = 0.0f;
@@ -108,8 +108,8 @@ Bool SearchParameters::Validate()
         return false;
 
     // Ensure no bogus config
-    //if ( bUseMaxLevelMainStatsValues == false )
-    //    bUseMaxLevel12ForOddSlots = false;
+    if ( bUseMaxLevelMainStatsValues == false )
+        bUseMaxLevel12ForOddSlots = false;
 
     // Ensure weights are properly clamped
     for( i = 0; i < HERO_STAT_COUNT; ++i ) {

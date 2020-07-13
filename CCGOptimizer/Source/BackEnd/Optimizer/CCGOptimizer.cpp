@@ -22,13 +22,14 @@
 /////////////////////////////////////////////////////////////////////////////////
 // CCGOptimizer implementation
 CCGOptimizer::CCGOptimizer():
-    m_hSearchParams(), m_arrResults()
+    m_hSearchParams(), m_arrResults( 1024 )
 {
-    m_bOptimizing = false;
-    m_iEstimatedPermutations = 0;
+    m_iPermutationsCount = 0;
 
+    m_bOptimizing = false;
+    m_iExploredPermutation = 0;
     for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i ) {
-        m_hCurrentPermutation.arrRunes[i] = INVALID_OFFSET;
+        m_hCurrentPermutation.arrRunes[i] = NULL;
         m_hCurrentPermutation.arrRatings[i] = 0.0f;
     }
 
@@ -51,25 +52,26 @@ Bool CCGOptimizer::OptimizeBegin()
         return false;
 
     // Reset search data
-    for( iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot ) {
+    for( iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot )
         m_arrRuneSlotPools[iSlot].Reset();
-        m_hCurrentPermutation.arrRunes[iSlot] = INVALID_OFFSET;
-        m_hCurrentPermutation.arrRatings[iSlot] = 0.0f;
-    }
-
     m_arrResults.Clear();
 
-    // Filter Rune Pool
+    // Build Rune Slot Pools
     Bool bSuccess = _BuildRuneSlotPools();
     if ( !bSuccess )
         return false;
 
+    // Count Permutations
+    _CountPermutations();
+
     // Start Optimizing
+    m_bOptimizing = true;
+    m_iExploredPermutation = 0;
     for( iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot ) {
         m_arrRuneSlotPools[iSlot].Enumerate();
-        m_hCurrentPermutation.arrRunes[iSlot] = m_arrRuneSlotPools[iSlot].EnumerateNextRune( m_hCurrentPermutation.arrRatings + iSlot );
+        RuneID iRuneID = m_arrRuneSlotPools[iSlot].EnumerateNextRune( m_hCurrentPermutation.arrRatings + iSlot );
+        m_hCurrentPermutation.arrRunes[iSlot] = CCGOPFn->GetRune( iRuneID );
     }
-    m_bOptimizing = true;
 
     // Done !
     return true;
@@ -78,29 +80,24 @@ Bool CCGOptimizer::OptimizeStep( UInt iPermutations )
 {
     Assert( m_bOptimizing );
 
-    // We're allowed to explore iPermutations for this step
+    // We're allowed to explore up to iPermutations for this step
     UInt iExploredPermutations = 0;
     while( iExploredPermutations < iPermutations ) {
-        // Test Sets validity
-        Bool bValidSets = false;
-
-        /////////////////////////////////////////
-
-        // Test Stats validity
-        Bool bValidStats = false;
-
-        /////////////////////////////////////////
-
-        // Store result if passed
-        if ( bValidSets && bValidStats )
-            m_arrResults.Push( m_hCurrentPermutation );
+        // Test current permutation
+        if ( _TestValidSets() ) {
+            if ( _TestValidStats() )
+                m_arrResults.Push( m_hCurrentPermutation );
+        }
+        ++m_iExploredPermutation;
 
         // Next Permutation
         Bool bContinue = _GetNextPermutation();
 
         // End of Optimization case
-        if ( !bContinue )
+        if ( !bContinue ) {
+            m_bOptimizing = false;
             return false;
+        }
 
         // Proceed
         ++iExploredPermutations;
@@ -257,9 +254,6 @@ Bool CCGOptimizer::_BuildRuneSlotPools()
         }
     }
 
-    // Estimate Permutations
-    _EstimatePermutations();
-
     // Done
     arrQueryResults.Destroy();
     hQueryMap.Destroy();
@@ -267,12 +261,11 @@ Bool CCGOptimizer::_BuildRuneSlotPools()
     return true;
 }
 
-Void CCGOptimizer::_EstimatePermutations()
+Void CCGOptimizer::_CountPermutations()
 {
-    // This is the Upper Bound
-    m_iEstimatedPermutations = 1;
+    m_iPermutationsCount = 1;
     for( UInt iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot )
-        m_iEstimatedPermutations *= m_arrRuneSlotPools[iSlot].GetTotalCount();
+        m_iPermutationsCount *= m_arrRuneSlotPools[iSlot].GetTotalCount();
 }
 Bool CCGOptimizer::_GetNextPermutation()
 {
@@ -283,7 +276,7 @@ Bool CCGOptimizer::_GetNextPermutation()
 
         // Loop continues, no need to go further up
         if ( iRuneID != INVALID_OFFSET ) {
-            m_hCurrentPermutation.arrRunes[iSlot] = iRuneID;
+            m_hCurrentPermutation.arrRunes[iSlot] = CCGOPFn->GetRune( iRuneID );
             m_hCurrentPermutation.arrRatings[iSlot] = fRating;
             break;
         }
@@ -296,16 +289,356 @@ Bool CCGOptimizer::_GetNextPermutation()
 
         // Restart loop
         m_arrRuneSlotPools[iSlot].Enumerate();
-
-        // Init loop again
         iRuneID = m_arrRuneSlotPools[iSlot].EnumerateNextRune( &fRating );
-        m_hCurrentPermutation.arrRunes[iSlot] = iRuneID;
+        m_hCurrentPermutation.arrRunes[iSlot] = CCGOPFn->GetRune( iRuneID );
         m_hCurrentPermutation.arrRatings[iSlot] = fRating;
 
-        // Go up parent loop
+        // Go up to parent loop
     }
 
     // Done
     return true;
+}
+Bool CCGOptimizer::_TestValidSets()
+{
+    UInt iSet, iSlot;
+
+    // Compute Set Counts
+    UInt arrSetCounts[RUNE_SET_COUNT];
+    for( iSet = 0; iSet < RUNE_SET_COUNT; ++iSet )
+        arrSetCounts[iSet] = 0;
+    for( iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot ) {
+        const Rune * pRune = m_hCurrentPermutation.arrRunes[iSlot];
+        ++( arrSetCounts[pRune->GetSet()] );
+    }
+
+    // Enumerate requested sets
+    UInt iRequestedSetsCount = m_hSearchParams.arrRequestedSets.Count();
+    for( iSet = 0; iSet < iRequestedSetsCount; ++iSet ) {
+        UInt iSetSize = GameDataFn->GetRuneSetSize( (RuneSet)iSet );
+        if ( arrSetCounts[iSet] < iSetSize )
+            return false;
+        arrSetCounts[iSet] -= iSetSize;
+    }
+
+    // Passed !
+    return true;
+}
+Bool CCGOptimizer::_TestValidStats()
+{
+    UInt iHeroStat, iSlot;
+
+    // Enum all hero stats
+    for ( iHeroStat = 0; iHeroStat < HERO_STAT_COUNT; ++iHeroStat ) {
+        // Check if there is a requirement
+        if ( m_hSearchParams.arrTargetStatsMin[iHeroStat] == 0 && m_hSearchParams.arrTargetStatsMax[iHeroStat] == UINT_MAX )
+            continue;
+
+        // Compute total stat
+		Bool bStatIsPercent = false;
+		Bool bStatIsBoth = false;
+		UInt iStatFlatTotal = 0;
+		UInt iStatPercentTotal = 0;
+
+		switch( iHeroStat ) {
+			case HERO_STAT_HP: {
+					bStatIsBoth = true;
+					for( iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot ) {
+						const Rune * pRune = m_hCurrentPermutation.arrRunes[iSlot];
+						RuneRank iRank = pRune->GetRank();
+
+						// Use effective level
+						UInt iLevel = pRune->GetLevel();
+						if ( m_hSearchParams.bUseMaxLevelMainStatsValues ) {
+							if ( m_hSearchParams.bUseMaxLevel12ForOddSlots && ((iSlot & 1) == 0) )
+								iLevel = RUNE_MAX_LEVEL - 3;
+							else
+								iLevel = RUNE_MAX_LEVEL;
+						}
+						
+						// Main stat
+						if ( pRune->GetMainStat() == RUNE_STAT_HP_FLAT )
+							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_HP_FLAT, iRank, iLevel );
+						else if ( pRune->GetMainStat() == RUNE_STAT_HP_PERCENT )
+							iStatPercentTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_HP_PERCENT, iRank, iLevel );
+
+						// Innate stat
+						if ( pRune->GetInnateStat() == RUNE_STAT_HP_FLAT )
+							iStatFlatTotal += pRune->GetInnateStatValue();
+						else if ( pRune->GetInnateStat() == RUNE_STAT_HP_PERCENT )
+							iStatPercentTotal += pRune->GetInnateStatValue();
+
+						// Random stats
+						if ( pRune->HasRandomStat(RUNE_STAT_HP_FLAT) )
+							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_HP_FLAT );
+						if ( pRune->HasRandomStat(RUNE_STAT_HP_PERCENT) )
+							iStatPercentTotal += pRune->GetRandomStatValue( RUNE_STAT_HP_PERCENT );
+					}
+				} break;
+			case HERO_STAT_ATTACK: {
+					bStatIsBoth = true;
+					for( iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot ) {
+						const Rune * pRune = m_hCurrentPermutation.arrRunes[iSlot];
+						RuneRank iRank = pRune->GetRank();
+
+						// Use effective level
+						UInt iLevel = pRune->GetLevel();
+						if ( m_hSearchParams.bUseMaxLevelMainStatsValues ) {
+							if ( m_hSearchParams.bUseMaxLevel12ForOddSlots && ((iSlot & 1) == 0) )
+								iLevel = RUNE_MAX_LEVEL - 3;
+							else
+								iLevel = RUNE_MAX_LEVEL;
+						}
+						
+						// Main stat
+						if ( pRune->GetMainStat() == RUNE_STAT_ATTACK_FLAT )
+							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_ATTACK_FLAT, iRank, iLevel );
+						else if ( pRune->GetMainStat() == RUNE_STAT_ATTACK_PERCENT )
+							iStatPercentTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_ATTACK_PERCENT, iRank, iLevel );
+
+						// Innate stat
+						if ( pRune->GetInnateStat() == RUNE_STAT_ATTACK_FLAT )
+							iStatFlatTotal += pRune->GetInnateStatValue();
+						else if ( pRune->GetInnateStat() == RUNE_STAT_ATTACK_PERCENT )
+							iStatPercentTotal += pRune->GetInnateStatValue();
+
+						// Random stats
+						if ( pRune->HasRandomStat(RUNE_STAT_ATTACK_FLAT) )
+							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_ATTACK_FLAT );
+						if ( pRune->HasRandomStat(RUNE_STAT_ATTACK_PERCENT) )
+							iStatPercentTotal += pRune->GetRandomStatValue( RUNE_STAT_ATTACK_PERCENT );
+					}
+				} break;
+			case HERO_STAT_DEFENSE: {
+					bStatIsBoth = true;
+					for( iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot ) {
+						const Rune * pRune = m_hCurrentPermutation.arrRunes[iSlot];
+						RuneRank iRank = pRune->GetRank();
+
+						// Use effective level
+						UInt iLevel = pRune->GetLevel();
+						if ( m_hSearchParams.bUseMaxLevelMainStatsValues ) {
+							if ( m_hSearchParams.bUseMaxLevel12ForOddSlots && ((iSlot & 1) == 0) )
+								iLevel = RUNE_MAX_LEVEL - 3;
+							else
+								iLevel = RUNE_MAX_LEVEL;
+						}
+						
+						// Main stat
+						if ( pRune->GetMainStat() == RUNE_STAT_DEFENSE_FLAT )
+							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_DEFENSE_FLAT, iRank, iLevel );
+						else if ( pRune->GetMainStat() == RUNE_STAT_DEFENSE_PERCENT )
+							iStatPercentTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_DEFENSE_PERCENT, iRank, iLevel );
+
+						// Innate stat
+						if ( pRune->GetInnateStat() == RUNE_STAT_DEFENSE_FLAT )
+							iStatFlatTotal += pRune->GetInnateStatValue();
+						else if ( pRune->GetInnateStat() == RUNE_STAT_DEFENSE_PERCENT )
+							iStatPercentTotal += pRune->GetInnateStatValue();
+
+						// Random stats
+						if ( pRune->HasRandomStat(RUNE_STAT_DEFENSE_FLAT) )
+							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_DEFENSE_FLAT );
+						if ( pRune->HasRandomStat(RUNE_STAT_DEFENSE_PERCENT) )
+							iStatPercentTotal += pRune->GetRandomStatValue( RUNE_STAT_DEFENSE_PERCENT );
+					}
+				} break;
+			case HERO_STAT_SPEED: {
+					for( iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot ) {
+						const Rune * pRune = m_hCurrentPermutation.arrRunes[iSlot];
+						RuneRank iRank = pRune->GetRank();
+
+						// Use effective level
+						UInt iLevel = pRune->GetLevel();
+						if ( m_hSearchParams.bUseMaxLevelMainStatsValues ) {
+							if ( m_hSearchParams.bUseMaxLevel12ForOddSlots && ((iSlot & 1) == 0) )
+								iLevel = RUNE_MAX_LEVEL - 3;
+							else
+								iLevel = RUNE_MAX_LEVEL;
+						}
+
+						// Main/Innate/Random stat
+						if ( pRune->GetMainStat() == RUNE_STAT_SPEED )
+							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_SPEED, iRank, iLevel );
+						else if ( pRune->GetInnateStat() == RUNE_STAT_SPEED )
+							iStatFlatTotal += pRune->GetInnateStatValue();
+						else if ( pRune->HasRandomStat(RUNE_STAT_SPEED) )
+							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_SPEED );
+					}
+				} break;
+			case HERO_STAT_CRIT_RATE: {
+					bStatIsPercent = true;
+					for( iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot ) {
+						const Rune * pRune = m_hCurrentPermutation.arrRunes[iSlot];
+						RuneRank iRank = pRune->GetRank();
+
+						// Use effective level
+						UInt iLevel = pRune->GetLevel();
+						if ( m_hSearchParams.bUseMaxLevelMainStatsValues ) {
+							if ( m_hSearchParams.bUseMaxLevel12ForOddSlots && ((iSlot & 1) == 0) )
+								iLevel = RUNE_MAX_LEVEL - 3;
+							else
+								iLevel = RUNE_MAX_LEVEL;
+						}
+
+						// Main/Innate/Random stat
+						if ( pRune->GetMainStat() == RUNE_STAT_CRIT_RATE )
+							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_CRIT_RATE, iRank, iLevel );
+						else if ( pRune->GetInnateStat() == RUNE_STAT_CRIT_RATE )
+							iStatFlatTotal += pRune->GetInnateStatValue();
+						else if ( pRune->HasRandomStat(RUNE_STAT_CRIT_RATE) )
+							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_CRIT_RATE );
+					}
+				} break;
+			case HERO_STAT_CRIT_DMG: {
+					bStatIsPercent = true;
+					for( iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot ) {
+						const Rune * pRune = m_hCurrentPermutation.arrRunes[iSlot];
+						RuneRank iRank = pRune->GetRank();
+
+						// Use effective level
+						UInt iLevel = pRune->GetLevel();
+						if ( m_hSearchParams.bUseMaxLevelMainStatsValues ) {
+							if ( m_hSearchParams.bUseMaxLevel12ForOddSlots && ((iSlot & 1) == 0) )
+								iLevel = RUNE_MAX_LEVEL - 3;
+							else
+								iLevel = RUNE_MAX_LEVEL;
+						}
+
+						// Main/Innate/Random stat
+						if ( pRune->GetMainStat() == RUNE_STAT_CRIT_DMG )
+							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_CRIT_DMG, iRank, iLevel );
+						else if ( pRune->GetInnateStat() == RUNE_STAT_CRIT_DMG )
+							iStatFlatTotal += pRune->GetInnateStatValue();
+						else if ( pRune->HasRandomStat(RUNE_STAT_CRIT_DMG) )
+							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_CRIT_DMG );
+					}
+				} break;
+			case HERO_STAT_HIT: {
+					bStatIsPercent = true;
+					for( iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot ) {
+						const Rune * pRune = m_hCurrentPermutation.arrRunes[iSlot];
+						RuneRank iRank = pRune->GetRank();
+
+						// Use effective level
+						UInt iLevel = pRune->GetLevel();
+						if ( m_hSearchParams.bUseMaxLevelMainStatsValues ) {
+							if ( m_hSearchParams.bUseMaxLevel12ForOddSlots && ((iSlot & 1) == 0) )
+								iLevel = RUNE_MAX_LEVEL - 3;
+							else
+								iLevel = RUNE_MAX_LEVEL;
+						}
+
+						// Main/Innate/Random stat
+						if ( pRune->GetMainStat() == RUNE_STAT_HIT )
+							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_HIT, iRank, iLevel );
+						else if ( pRune->GetInnateStat() == RUNE_STAT_HIT )
+							iStatFlatTotal += pRune->GetInnateStatValue();
+						else if ( pRune->HasRandomStat(RUNE_STAT_HIT) )
+							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_HIT );
+					}
+				} break;
+			case HERO_STAT_RESISTANCE: {
+					bStatIsPercent = true;
+					for( iSlot = 0; iSlot < RUNE_SLOT_COUNT; ++iSlot ) {
+						const Rune * pRune = m_hCurrentPermutation.arrRunes[iSlot];
+						RuneRank iRank = pRune->GetRank();
+
+						// Use effective level
+						UInt iLevel = pRune->GetLevel();
+						if ( m_hSearchParams.bUseMaxLevelMainStatsValues ) {
+							if ( m_hSearchParams.bUseMaxLevel12ForOddSlots && ((iSlot & 1) == 0) )
+								iLevel = RUNE_MAX_LEVEL - 3;
+							else
+								iLevel = RUNE_MAX_LEVEL;
+						}
+
+						// Main/Innate/Random stat
+						if ( pRune->GetMainStat() == RUNE_STAT_RESISTANCE )
+							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_RESISTANCE, iRank, iLevel );
+						else if ( pRune->GetInnateStat() == RUNE_STAT_RESISTANCE )
+							iStatFlatTotal += pRune->GetInnateStatValue();
+						else if ( pRune->HasRandomStat(RUNE_STAT_RESISTANCE) )
+							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_RESISTANCE );
+					}
+				} break;
+			default: Assert(false); break;
+		}
+
+		// Retrieve Reference Hero
+		const Hero * pRefHero = m_hSearchParams.pReferenceHero;
+
+		// Compare stats
+		if ( pRefHero == NULL ) {
+			// Pure stats case
+			if ( bStatIsPercent ) {
+				if ( iStatFlatTotal < m_hSearchParams.arrTargetStatsMin[iHeroStat] )
+					return false;
+				if ( iStatFlatTotal > m_hSearchParams.arrTargetStatsMax[iHeroStat] )
+					return false;
+			} else if ( bStatIsBoth ) {
+				UInt iMinPercent = ( m_hSearchParams.arrTargetStatsMin[iHeroStat] && 0xffff0000 ) >> 16;
+				UInt iMinFlat = ( m_hSearchParams.arrTargetStatsMin[iHeroStat] && 0x0000ffff );
+				UInt iMaxPercent = ( m_hSearchParams.arrTargetStatsMax[iHeroStat] && 0xffff0000 ) >> 16;
+				UInt iMaxFlat = ( m_hSearchParams.arrTargetStatsMax[iHeroStat] && 0x0000ffff );
+
+				if ( iStatPercentTotal < iMinPercent )
+					return false;
+				if ( iStatPercentTotal > iMaxPercent )
+					return false;
+				if ( iStatFlatTotal < iMinFlat )
+					return false;
+				if ( iStatFlatTotal > iMaxFlat )
+					return false;
+			} else {
+				if ( iStatFlatTotal < m_hSearchParams.arrTargetStatsMin[iHeroStat] )
+					return false;
+				if ( iStatFlatTotal > m_hSearchParams.arrTargetStatsMax[iHeroStat] )
+					return false;
+			}
+		} else {
+			// Reference Hero stats case
+			UInt iBaseValue = GameDataFn->GetHeroBaseStat( pRefHero->GetName(), (HeroStat)iHeroStat, pRefHero->GetRank(), pRefHero->GetLevel(), pRefHero->IsEvolved() );
+
+			if ( pRefHero->IsSanctified() ) {
+				HeroSanctify iSanctify = pRefHero->GetSanctification();
+				UInt iSanctifyBonus = GameDataFn->GetHeroSanctifyBonus( iSanctify );
+				switch( iSanctify ) {
+					case HERO_SANCTIFY_HP:
+						if ( iHeroStat == HERO_STAT_HP )
+							iBaseValue += (UInt)( ((Float)iSanctifyBonus) * 0.01f * (Float)iBaseValue );
+						break;
+					case HERO_SANCTIFY_ATT:
+						if ( iHeroStat == HERO_STAT_ATTACK )
+							iBaseValue += (UInt)( ((Float)iSanctifyBonus) * 0.01f * (Float)iBaseValue );
+						break;
+					case HERO_SANCTIFY_DEF:
+						if ( iHeroStat == HERO_STAT_DEFENSE )
+							iBaseValue += (UInt)( ((Float)iSanctifyBonus) * 0.01f * (Float)iBaseValue );
+						break;
+					case HERO_SANCTIFY_HIT:
+						if ( iHeroStat == HERO_STAT_HIT )
+							iBaseValue += iSanctifyBonus;
+						break;
+					case HERO_SANCTIFY_RES:
+						if ( iHeroStat == HERO_STAT_RESISTANCE )
+							iBaseValue += iSanctifyBonus;
+						break;
+					default: Assert(false); break;
+				}
+			}
+
+			UInt iBonusValue = iStatFlatTotal + (UInt)( ((Float)iStatPercentTotal) * 0.01f * (Float)iBaseValue );
+			UInt iTotalValue = iBaseValue + iBonusValue;
+
+			if ( iTotalValue < m_hSearchParams.arrTargetStatsMin[iHeroStat] )
+				return false;
+			if ( iTotalValue > m_hSearchParams.arrTargetStatsMax[iHeroStat] )
+				return false;
+		}
+    }
+
+	// Passed !
+	return true;
 }
 
