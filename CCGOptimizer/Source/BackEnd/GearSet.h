@@ -55,6 +55,17 @@ public:
     inline const GChar * GetName() const;
     inline Void SetName( const GChar * strName );
 
+    // Active Sets
+    Bool HasActiveSet( RuneSet iRuneSet, UInt * outAmount = NULL ) const;
+
+    inline Bool HasFull6Set() const;
+    inline UInt GetActiveSetCount() const;
+    inline RuneSet GetActiveSet( UInt iIndex ) const;
+
+    // Effective Stats
+    inline UInt GetEffectiveStatPercent( HeroStat iHeroStat ) const;
+    inline UInt GetEffectiveStatFlat( HeroStat iHeroStat ) const;
+
     // Rune Equip
     inline RuneID GetEquippedRune( UInt iSlot ) const;
     inline UInt HasEquippedRune( RuneID iRuneID ) const;
@@ -83,14 +94,25 @@ private:
     inline Void _DetachFromAllHeroes();
 
     // Helpers
+    Void _ComputeActiveSets();
+    Void _ComputeEffectiveStats();
+
     Void _ComputeScores();
 
     // Descriptor
     GearSetID m_iGearSetID;
     GChar m_strName[GAMEDATA_NAMES_MAX_LENGTH];
 
+    Bool m_bHasFull6Set;
+    UInt m_iActiveSetsCount;
+    RuneSet m_arrActiveSets[4]; // Max is 3
+
+    UInt m_arrEffectiveStatsPercent[HERO_STAT_COUNT];
+    UInt m_arrEffectiveStatsFlat[HERO_STAT_COUNT];
+
     // State
     RuneID m_arrEquippedRunes[RUNE_SLOT_COUNT];
+
     UInt m_iAttachedHeroesCount;
     HeroID m_arrAttachedHeroes[GEARSET_MAX_HEROES];
 

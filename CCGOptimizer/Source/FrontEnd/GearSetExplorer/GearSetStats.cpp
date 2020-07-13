@@ -161,198 +161,23 @@ Void UIGearSetStatsValueModel::Update()
 	UInt iStatPercentTotal = 0;
 
 	switch( m_iHeroStat ) {
-		case HERO_STAT_HP: {
-				bStatIsBoth = true;
-				for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i ) {
-					RuneID iRuneID = pGearSet->GetEquippedRune( i );
-					if ( iRuneID == INVALID_OFFSET )
-						continue;
-					const Rune * pRune = CCGOPFn->GetRune( iRuneID );
-
-					if ( pRune->GetMainStat() == RUNE_STAT_HP_FLAT ) {
-						if ( bUseMaxedRunes )
-							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_HP_FLAT, pRune->GetRank(), RUNE_MAX_LEVEL );
-						else
-							iStatFlatTotal += pRune->GetMainStatValue();
-					} else if ( pRune->GetMainStat() == RUNE_STAT_HP_PERCENT ) {
-						if ( bUseMaxedRunes )
-							iStatPercentTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_HP_PERCENT, pRune->GetRank(), RUNE_MAX_LEVEL );
-						else
-							iStatPercentTotal += pRune->GetMainStatValue();
-					}
-
-					if ( pRune->GetInnateStat() == RUNE_STAT_HP_FLAT )
-						iStatFlatTotal += pRune->GetInnateStatValue();
-					else if ( pRune->GetInnateStat() == RUNE_STAT_HP_PERCENT )
-						iStatPercentTotal += pRune->GetInnateStatValue();
-
-					if ( pRune->HasRandomStat(RUNE_STAT_HP_FLAT) )
-						iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_HP_FLAT );
-					if ( pRune->HasRandomStat(RUNE_STAT_HP_PERCENT) )
-						iStatPercentTotal += pRune->GetRandomStatValue( RUNE_STAT_HP_PERCENT );
-				}
-			} break;
-		case HERO_STAT_ATTACK: {
-				bStatIsBoth = true;
-				for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i ) {
-					RuneID iRuneID = pGearSet->GetEquippedRune( i );
-					if ( iRuneID == INVALID_OFFSET )
-						continue;
-					const Rune * pRune = CCGOPFn->GetRune( iRuneID );
-
-					if ( pRune->GetMainStat() == RUNE_STAT_ATTACK_FLAT ) {
-						if ( bUseMaxedRunes )
-							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_ATTACK_FLAT, pRune->GetRank(), RUNE_MAX_LEVEL );
-						else
-							iStatFlatTotal += pRune->GetMainStatValue();
-					} else if ( pRune->GetMainStat() == RUNE_STAT_ATTACK_PERCENT ) {
-						if ( bUseMaxedRunes )
-							iStatPercentTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_ATTACK_PERCENT, pRune->GetRank(), RUNE_MAX_LEVEL );
-						else
-							iStatPercentTotal += pRune->GetMainStatValue();
-					}
-
-					if ( pRune->GetInnateStat() == RUNE_STAT_ATTACK_FLAT )
-						iStatFlatTotal += pRune->GetInnateStatValue();
-					else if ( pRune->GetInnateStat() == RUNE_STAT_ATTACK_PERCENT )
-						iStatPercentTotal += pRune->GetInnateStatValue();
-
-					if ( pRune->HasRandomStat(RUNE_STAT_ATTACK_FLAT) )
-						iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_ATTACK_FLAT );
-					if ( pRune->HasRandomStat(RUNE_STAT_ATTACK_PERCENT) )
-						iStatPercentTotal += pRune->GetRandomStatValue( RUNE_STAT_ATTACK_PERCENT );
-				}
-			} break;
-		case HERO_STAT_DEFENSE: {
-				bStatIsBoth = true;
-				for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i ) {
-					RuneID iRuneID = pGearSet->GetEquippedRune( i );
-					if ( iRuneID == INVALID_OFFSET )
-						continue;
-					const Rune * pRune = CCGOPFn->GetRune( iRuneID );
-
-					if ( pRune->GetMainStat() == RUNE_STAT_DEFENSE_FLAT ) {
-						if ( bUseMaxedRunes )
-							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_DEFENSE_FLAT, pRune->GetRank(), RUNE_MAX_LEVEL );
-						else
-							iStatFlatTotal += pRune->GetMainStatValue();
-					} else if ( pRune->GetMainStat() == RUNE_STAT_DEFENSE_PERCENT ) {
-						if ( bUseMaxedRunes )
-							iStatPercentTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_DEFENSE_PERCENT, pRune->GetRank(), RUNE_MAX_LEVEL );
-						else
-							iStatPercentTotal += pRune->GetMainStatValue();
-					}
-
-					if ( pRune->GetInnateStat() == RUNE_STAT_DEFENSE_FLAT )
-						iStatFlatTotal += pRune->GetInnateStatValue();
-					else if ( pRune->GetInnateStat() == RUNE_STAT_DEFENSE_PERCENT )
-						iStatPercentTotal += pRune->GetInnateStatValue();
-
-					if ( pRune->HasRandomStat(RUNE_STAT_DEFENSE_FLAT) )
-						iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_DEFENSE_FLAT );
-					if ( pRune->HasRandomStat(RUNE_STAT_DEFENSE_PERCENT) )
-						iStatPercentTotal += pRune->GetRandomStatValue( RUNE_STAT_DEFENSE_PERCENT );
-				}
-			} break;
-		case HERO_STAT_SPEED: {
-				for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i ) {
-					RuneID iRuneID = pGearSet->GetEquippedRune( i );
-					if ( iRuneID == INVALID_OFFSET )
-						continue;
-					const Rune * pRune = CCGOPFn->GetRune( iRuneID );
-
-					if ( pRune->GetMainStat() == RUNE_STAT_SPEED ) {
-						if ( bUseMaxedRunes )
-							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_SPEED, pRune->GetRank(), RUNE_MAX_LEVEL );
-						else
-							iStatFlatTotal += pRune->GetMainStatValue();
-					}
-					else if ( pRune->GetInnateStat() == RUNE_STAT_SPEED )
-						iStatFlatTotal += pRune->GetInnateStatValue();
-					else if ( pRune->HasRandomStat(RUNE_STAT_SPEED) )
-						iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_SPEED );
-				}
-			} break;
-		case HERO_STAT_CRIT_RATE: {
-				bStatIsPercent = true;
-				for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i ) {
-					RuneID iRuneID = pGearSet->GetEquippedRune( i );
-					if ( iRuneID == INVALID_OFFSET )
-						continue;
-					const Rune * pRune = CCGOPFn->GetRune( iRuneID );
-
-					if ( pRune->GetMainStat() == RUNE_STAT_CRIT_RATE ) {
-						if ( bUseMaxedRunes )
-							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_CRIT_RATE, pRune->GetRank(), RUNE_MAX_LEVEL );
-						else
-							iStatFlatTotal += pRune->GetMainStatValue();
-					}
-					else if ( pRune->GetInnateStat() == RUNE_STAT_CRIT_RATE )
-						iStatFlatTotal += pRune->GetInnateStatValue();
-					else if ( pRune->HasRandomStat(RUNE_STAT_CRIT_RATE) )
-						iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_CRIT_RATE );
-				}
-			} break;
-		case HERO_STAT_CRIT_DMG: {
-				bStatIsPercent = true;
-				for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i ) {
-					RuneID iRuneID = pGearSet->GetEquippedRune( i );
-					if ( iRuneID == INVALID_OFFSET )
-						continue;
-					const Rune * pRune = CCGOPFn->GetRune( iRuneID );
-
-					if ( pRune->GetMainStat() == RUNE_STAT_CRIT_DMG ) {
-						if ( bUseMaxedRunes )
-							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_CRIT_DMG, pRune->GetRank(), RUNE_MAX_LEVEL );
-						else
-							iStatFlatTotal += pRune->GetMainStatValue();
-					}
-					else if ( pRune->GetInnateStat() == RUNE_STAT_CRIT_DMG )
-						iStatFlatTotal += pRune->GetInnateStatValue();
-					else if ( pRune->HasRandomStat(RUNE_STAT_CRIT_DMG) )
-						iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_CRIT_DMG );
-				}
-			} break;
-		case HERO_STAT_HIT: {
-				bStatIsPercent = true;
-				for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i ) {
-					RuneID iRuneID = pGearSet->GetEquippedRune( i );
-					if ( iRuneID == INVALID_OFFSET )
-						continue;
-					const Rune * pRune = CCGOPFn->GetRune( iRuneID );
-
-					if ( pRune->GetMainStat() == RUNE_STAT_HIT ) {
-						if ( bUseMaxedRunes )
-							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_HIT, pRune->GetRank(), RUNE_MAX_LEVEL );
-						else
-							iStatFlatTotal += pRune->GetMainStatValue();
-					}
-					else if ( pRune->GetInnateStat() == RUNE_STAT_HIT )
-						iStatFlatTotal += pRune->GetInnateStatValue();
-					else if ( pRune->HasRandomStat(RUNE_STAT_HIT) )
-						iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_HIT );
-				}
-			} break;
-		case HERO_STAT_RESISTANCE: {
-				bStatIsPercent = true;
-				for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i ) {
-					RuneID iRuneID = pGearSet->GetEquippedRune( i );
-					if ( iRuneID == INVALID_OFFSET )
-						continue;
-					const Rune * pRune = CCGOPFn->GetRune( iRuneID );
-
-					if ( pRune->GetMainStat() == RUNE_STAT_RESISTANCE ) {
-						if ( bUseMaxedRunes )
-							iStatFlatTotal += GameDataFn->GetRuneMainStatValue( RUNE_STAT_RESISTANCE, pRune->GetRank(), RUNE_MAX_LEVEL );
-						else
-							iStatFlatTotal += pRune->GetMainStatValue();
-					}
-					else if ( pRune->GetInnateStat() == RUNE_STAT_RESISTANCE )
-						iStatFlatTotal += pRune->GetInnateStatValue();
-					else if ( pRune->HasRandomStat(RUNE_STAT_RESISTANCE) )
-						iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_RESISTANCE );
-				}
-			} break;
+		case HERO_STAT_HP:
+		case HERO_STAT_ATTACK:
+		case HERO_STAT_DEFENSE:
+			bStatIsBoth = true;
+			iStatPercentTotal = pGearSet->GetEffectiveStatPercent( m_iHeroStat );
+			iStatFlatTotal = pGearSet->GetEffectiveStatFlat( m_iHeroStat );
+			break;
+		case HERO_STAT_SPEED:
+			iStatFlatTotal = pGearSet->GetEffectiveStatFlat( m_iHeroStat );
+			break;
+		case HERO_STAT_CRIT_RATE:
+		case HERO_STAT_CRIT_DMG:
+		case HERO_STAT_HIT:
+		case HERO_STAT_RESISTANCE:
+			bStatIsPercent = true;
+			iStatFlatTotal = pGearSet->GetEffectiveStatFlat( m_iHeroStat );
+			break;
 		default: Assert(false); break;
 	}
 
@@ -374,34 +199,7 @@ Void UIGearSetStatsValueModel::Update()
 		HeroID iHeroID = (HeroID)(UIntPtr)( pHeroView->GetItemData(iSelected) );
 		const Hero * pHero = CCGOPFn->GetHero( iHeroID );
 
-		UInt iBaseValue = GameDataFn->GetHeroBaseStat( pHero->GetName(), m_iHeroStat, pHero->GetRank(), pHero->GetLevel(), pHero->IsEvolved() );
-		if ( pHero->IsSanctified() ) {
-			HeroSanctify iSanctify = pHero->GetSanctification();
-			UInt iSanctifyBonus = GameDataFn->GetHeroSanctifyBonus( iSanctify );
-			switch( iSanctify ) {
-				case HERO_SANCTIFY_HP:
-					if ( m_iHeroStat == HERO_STAT_HP )
-						iBaseValue += (UInt)( ((Float)iSanctifyBonus) * 0.01f * (Float)iBaseValue );
-					break;
-				case HERO_SANCTIFY_ATT:
-					if ( m_iHeroStat == HERO_STAT_ATTACK )
-						iBaseValue += (UInt)( ((Float)iSanctifyBonus) * 0.01f * (Float)iBaseValue );
-					break;
-				case HERO_SANCTIFY_DEF:
-					if ( m_iHeroStat == HERO_STAT_DEFENSE )
-						iBaseValue += (UInt)( ((Float)iSanctifyBonus) * 0.01f * (Float)iBaseValue );
-					break;
-				case HERO_SANCTIFY_HIT:
-					if ( m_iHeroStat == HERO_STAT_HIT )
-						iBaseValue += iSanctifyBonus;
-					break;
-				case HERO_SANCTIFY_RES:
-					if ( m_iHeroStat == HERO_STAT_RESISTANCE )
-						iBaseValue += iSanctifyBonus;
-					break;
-				default: Assert(false); break;
-			}
-		}
+		UInt iBaseValue = pHero->GetBaseStat( m_iHeroStat );
 
 		UInt iBonusValue = iStatFlatTotal + (UInt)( ((Float)iStatPercentTotal) * 0.01f * (Float)iBaseValue );
 		UInt iTotalValue = iBaseValue + iBonusValue;
@@ -477,40 +275,28 @@ Void UIGearSetStatsSetBonusModel::Update()
 	GearSetID iGearSetID = (GearSetID)(UIntPtr)( pGearSetTable->GetItemData(iSelected) );
 	const GearSet * pGearSet = CCGOPFn->GetGearSet( iGearSetID );
 
-	// Compute Set Counts
-	UInt arrSetCounts[RUNE_SET_COUNT];
-	for( i = 0; i < RUNE_SET_COUNT; ++i )
-		arrSetCounts[i] = 0;
-
-	for( i = 0; i < RUNE_SLOT_COUNT; ++i ) {
-		RuneID iRuneID = pGearSet->GetEquippedRune( i );
-		if ( iRuneID == INVALID_OFFSET )
-			continue;
-		const Rune * pRune = CCGOPFn->GetRune( iRuneID );
-		++( arrSetCounts[pRune->GetSet()] );
-	}
-
-	// Compute Active Set Bonuses
+	// Display Active Set Bonuses
 	GChar * pAppend = strSetBonusText;
 	pAppend = StringFn->NCopy( pAppend, TEXT("Set Bonus ="), 63 );
 
-	for( i = 0; i < RUNE_SET_COUNT; ++i ) {
-		RuneSet iRuneSet = (RuneSet)i;
+	if ( pGearSet->HasFull6Set() ) {
+		Assert( pGearSet->GetActiveSetCount() == 1 );
+		RuneSet iRuneSet = pGearSet->GetActiveSet( 0 );
 		const GChar * strSetName = GameDataFn->GetRuneSetName( iRuneSet );
-		UInt iSetSize = GameDataFn->GetRuneSetSize( iRuneSet );
-		if ( arrSetCounts[i] < iSetSize )
-			continue;
-		if ( iSetSize = 2 ) {
-			UInt iAmount = ( arrSetCounts[i] >> 1 );
+		pAppend = StringFn->Format( pAppend, TEXT(" %s(6),"), strSetName );
+	} else {
+		for( i = 0; i < RUNE_SET_COUNT; ++i ) {
+			RuneSet iRuneSet = (RuneSet)i;
+			UInt iAmount;
+			if ( !(pGearSet->HasActiveSet(iRuneSet,&iAmount)) )
+				continue;
+
+			const GChar * strSetName = GameDataFn->GetRuneSetName( iRuneSet );
+
 			if ( iAmount > 1 )
 				pAppend = StringFn->Format( pAppend, TEXT(" %s x%d,"), strSetName, iAmount );
 			else
 				pAppend = StringFn->Format( pAppend, TEXT(" %s,"), strSetName );
-		} else if ( iSetSize == 4 ) {
-			Bool bHas6Bonus = ( arrSetCounts[i] == 6 );
-			pAppend = StringFn->Format( pAppend, TEXT(" %s(%d),"), strSetName, bHas6Bonus ? 6 : 4 );
-		} else { // Should never happen
-			Assert( false );
 		}
 	}
 

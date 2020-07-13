@@ -150,7 +150,6 @@ private:
 	WinGUIButton * m_pDelete;
 };
 
-
 /////////////////////////////////////////////////////////////////////////////////
 // Backward Includes (Inlines & Templates)
 #include "RuneOptions.inl"

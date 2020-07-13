@@ -220,7 +220,8 @@ CCGOPGUI::CCGOPGUI( CCGOPApplication * pApplication ):
 	m_hImportExport(this),
 	m_hHeroExplorer(this),
 	m_hRuneExplorer(this),
-	m_hGearSetExplorer(this)
+	m_hGearSetExplorer(this),
+	m_hOptimizer(this)
 {
 	UInt i;
 
@@ -274,6 +275,7 @@ Void CCGOPGUI::Initialize()
 	m_hHeroExplorer.Initialize();
 	m_hRuneExplorer.Initialize();
 	m_hGearSetExplorer.Initialize();
+	m_hOptimizer.Initialize();
 
 	// Initial Tab
 	m_pTabs->SelectTab( UI_MAINMENU_IMPORTEXPORT );
@@ -285,6 +287,7 @@ Void CCGOPGUI::Initialize()
 Void CCGOPGUI::Cleanup()
 {
 	// Cleanup Delegates
+	m_hOptimizer.Cleanup();
 	m_hGearSetExplorer.Cleanup();
 	m_hRuneExplorer.Cleanup();
 	m_hHeroExplorer.Cleanup();

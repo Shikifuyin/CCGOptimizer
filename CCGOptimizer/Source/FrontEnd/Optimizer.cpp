@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////////////
-// File : Source/FrontEnd/CCGOPGUI.inl
+// File : Source/FrontEnd/Optimizer.cpp
 /////////////////////////////////////////////////////////////////////////////////
 // Version : 0.1
 // Status : Alpha
 /////////////////////////////////////////////////////////////////////////////////
-// Description : CCGOP GUI
+// Description : Optimizer GUI
 /////////////////////////////////////////////////////////////////////////////////
 // Part of Scarab-Engine, licensed under the
 // Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
@@ -16,32 +16,32 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////
-// CCGOPGUI implementation
-inline WinGUITabs * CCGOPGUI::GetTabs() const {
-	return m_pTabs;
+// Includes
+#include "Optimizer.h"
+
+#include "CCGOPGUI.h"
+
+/////////////////////////////////////////////////////////////////////////////////
+// Optimizer implementation
+Optimizer::Optimizer( CCGOPGUI * pGUI )
+{
+	m_pGUI = pGUI;
+	m_pRoot = NULL;
 }
-inline WinGUIContainer * CCGOPGUI::GetTabPane( UIMainMenuTabs iTabIndex ) const {
-	Assert( iTabIndex < UI_MAINMENU_COUNT );
-	return m_arrTabPanes[iTabIndex].pTabPane;
+Optimizer::~Optimizer()
+{
+	// nothing to do
 }
 
-inline WinGUIStatusBar * CCGOPGUI::GetStatusBar() const {
-	return m_pStatusBar;
+Void Optimizer::Initialize()
+{
+	// Grab Root
+	m_pRoot = m_pGUI->GetTabPane( UI_MAINMENU_OPTIMIZER );
+
+}
+Void Optimizer::Cleanup()
+{
+
 }
 
-inline ImportExport * CCGOPGUI::GetImportExport() {
-	return &m_hImportExport;
-}
-inline HeroExplorer * CCGOPGUI::GetHeroExplorer() {
-	return &m_hHeroExplorer;
-}
-inline RuneExplorer * CCGOPGUI::GetRuneExplorer() {
-	return &m_hRuneExplorer;
-}
-inline GearSetExplorer * CCGOPGUI::GetGearSetExplorer() {
-	return &m_hGearSetExplorer;
-}
-inline Optimizer * CCGOPGUI::GetOptimizer() {
-	return &m_hOptimizer;
-}
 

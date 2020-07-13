@@ -73,6 +73,9 @@ public:
 	inline HeroSanctify GetSanctification() const;
 	inline Void SetSanctification( HeroSanctify iSanctify );
 
+	// Base Stats
+	UInt GetBaseStat( HeroStat iHeroStat ) const;
+
 	// GearSet Attach
 	inline UInt GetGearSetCount() const;
 	inline GearSetID GetGearSet( UInt iIndex ) const;

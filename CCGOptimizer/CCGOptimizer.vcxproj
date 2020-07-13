@@ -177,6 +177,8 @@
     <ClCompile Include="Source\FrontEnd\HeroExplorer\HeroTable.cpp" />
     <ClCompile Include="Source\FrontEnd\ImportExport.cpp" />
     <ClCompile Include="Source\FrontEnd\ImportExport\LoadSave.cpp" />
+    <ClCompile Include="Source\FrontEnd\Optimizer.cpp" />
+    <ClCompile Include="Source\FrontEnd\Optimizer\OptimizerOptions.cpp" />
     <ClCompile Include="Source\FrontEnd\RuneExplorer.cpp" />
     <ClCompile Include="Source\FrontEnd\RuneExplorer\RuneCreation.cpp" />
     <ClCompile Include="Source\FrontEnd\RuneExplorer\RuneOptions.cpp" />
@@ -214,6 +216,9 @@
     <ClInclude Include="Source\FrontEnd\ImportExport.h" />
     <ClInclude Include="Source\FrontEnd\ImportExport\LoadSave.h" />
     <ClInclude Include="Source\FrontEnd\Layout.h" />
+    <ClInclude Include="Source\FrontEnd\Optimizer.h" />
+    <ClInclude Include="Source\FrontEnd\Optimizer\Layout.h" />
+    <ClInclude Include="Source\FrontEnd\Optimizer\OptimizerOptions.h" />
     <ClInclude Include="Source\FrontEnd\ResourceIDs.h" />
     <ClInclude Include="Source\FrontEnd\RuneExplorer.h" />
     <ClInclude Include="Source\FrontEnd\RuneExplorer\Layout.h" />
@@ -250,6 +255,8 @@
     <None Include="Source\FrontEnd\HeroExplorer\HeroTable.inl" />
     <None Include="Source\FrontEnd\ImportExport.inl" />
     <None Include="Source\FrontEnd\ImportExport\LoadSave.inl" />
+    <None Include="Source\FrontEnd\Optimizer.inl" />
+    <None Include="Source\FrontEnd\Optimizer\OptimizerOptions.inl" />
     <None Include="Source\FrontEnd\RuneExplorer.inl" />
     <None Include="Source\FrontEnd\RuneExplorer\RuneCreation.inl" />
     <None Include="Source\FrontEnd\RuneExplorer\RuneOptions.inl" />

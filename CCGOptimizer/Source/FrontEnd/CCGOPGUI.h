@@ -33,6 +33,7 @@
 #include "HeroExplorer.h"
 #include "RuneExplorer.h"
 #include "GearSetExplorer.h"
+#include "Optimizer.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 // Constants definitions
@@ -156,6 +157,7 @@ public:
 	inline HeroExplorer * GetHeroExplorer();
 	inline RuneExplorer * GetRuneExplorer();
 	inline GearSetExplorer * GetGearSetExplorer();
+	inline Optimizer * GetOptimizer();
 
 private:
 	// Application Instance
@@ -184,6 +186,7 @@ private:
 	HeroExplorer m_hHeroExplorer;
 	RuneExplorer m_hRuneExplorer;
 	GearSetExplorer m_hGearSetExplorer;
+	Optimizer m_hOptimizer;
 };
 
 /////////////////////////////////////////////////////////////////////////////////

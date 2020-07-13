@@ -28,6 +28,26 @@ inline Void GearSet::SetName( const GChar * strName ) {
     StringFn->NCopy( m_strName, strName, GAMEDATA_NAMES_MAX_LENGTH - 1 );
 }
 
+inline Bool GearSet::HasFull6Set() const {
+    return m_bHasFull6Set;
+}
+inline UInt GearSet::GetActiveSetCount() const {
+    return m_iActiveSetsCount;
+}
+inline RuneSet GearSet::GetActiveSet( UInt iIndex ) const {
+    Assert( iIndex < m_iActiveSetsCount );
+    return m_arrActiveSets[iIndex];
+}
+
+inline UInt GearSet::GetEffectiveStatPercent( HeroStat iHeroStat ) const {
+    Assert( iHeroStat < HERO_STAT_COUNT );
+    return m_arrEffectiveStatsPercent[iHeroStat];
+}
+inline UInt GearSet::GetEffectiveStatFlat( HeroStat iHeroStat ) const {
+    Assert( iHeroStat < HERO_STAT_COUNT );
+    return m_arrEffectiveStatsFlat[iHeroStat];
+}
+
 inline RuneID GearSet::GetEquippedRune( UInt iSlot ) const {
     Assert( iSlot < RUNE_SLOT_COUNT );
     return m_arrEquippedRunes[iSlot];
@@ -63,16 +83,22 @@ inline Float GearSet::GetScoreTanking() const {
 inline Void GearSet::_EquipRune( RuneID iRuneID, UInt iSlot ) {
     Assert( iSlot < RUNE_SLOT_COUNT );
     m_arrEquippedRunes[iSlot] = iRuneID;
+    _ComputeActiveSets();
+    _ComputeEffectiveStats();
     _ComputeScores();
 }
 inline Void GearSet::_UnequipRune( UInt iSlot ) {
     Assert( iSlot < RUNE_SLOT_COUNT );
     m_arrEquippedRunes[iSlot] = INVALID_OFFSET;
+    _ComputeActiveSets();
+    _ComputeEffectiveStats();
     _ComputeScores();
 }
 inline Void GearSet::_UnequipAllRunes() {
     for( UInt i = 0; i < RUNE_SLOT_COUNT; ++i )
         m_arrEquippedRunes[i] = INVALID_OFFSET;
+    _ComputeActiveSets();
+    _ComputeEffectiveStats();
     _ComputeScores();
 }
 

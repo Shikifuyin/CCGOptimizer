@@ -61,6 +61,12 @@
     <Filter Include="Source Files\BackEnd\Importer">
       <UniqueIdentifier>{3f640869-f623-4f3f-844b-bdb65c875293}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FrontEnd\Optimizer">
+      <UniqueIdentifier>{33798a57-4b9a-4d10-8e3a-5b5eab898572}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FrontEnd\Optimizer">
+      <UniqueIdentifier>{fcc3a6d6-52d0-4084-82d5-be9eab685179}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp">
@@ -158,6 +164,12 @@
     </ClCompile>
     <ClCompile Include="Source\BackEnd\Importer\CCGImporter.cpp">
       <Filter>Source Files\BackEnd\Importer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FrontEnd\Optimizer.cpp">
+      <Filter>Source Files\FrontEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FrontEnd\Optimizer\OptimizerOptions.cpp">
+      <Filter>Source Files\FrontEnd\Optimizer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,6 +284,15 @@
     <ClInclude Include="Source\BackEnd\Importer\CCGImporter.h">
       <Filter>Header Files\BackEnd\Importer</Filter>
     </ClInclude>
+    <ClInclude Include="Source\FrontEnd\Optimizer.h">
+      <Filter>Header Files\FrontEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FrontEnd\Optimizer\OptimizerOptions.h">
+      <Filter>Header Files\FrontEnd\Optimizer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FrontEnd\Optimizer\Layout.h">
+      <Filter>Header Files\FrontEnd\Optimizer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\BackEnd\GameData.inl">
@@ -366,6 +387,12 @@
     </None>
     <None Include="Source\BackEnd\Importer\CCGImporter.inl">
       <Filter>Source Files\BackEnd\Importer</Filter>
+    </None>
+    <None Include="Source\FrontEnd\Optimizer.inl">
+      <Filter>Source Files\FrontEnd</Filter>
+    </None>
+    <None Include="Source\FrontEnd\Optimizer\OptimizerOptions.inl">
+      <Filter>Source Files\FrontEnd\Optimizer</Filter>
     </None>
   </ItemGroup>
 </Project>

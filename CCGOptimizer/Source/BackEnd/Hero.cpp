@@ -208,6 +208,47 @@ Void Hero::SetLevel( UInt iLevel )
 		m_iLevel = iMaxLevel;
 }
 
+UInt Hero::GetBaseStat( HeroStat iHeroStat ) const
+{
+	UInt iBaseStat = GameDataFn->GetHeroBaseStat( m_strName, iHeroStat, m_iRank, m_iLevel, m_bEvolved );
+		
+	switch( m_iSanctify ) {
+		case HERO_SANCTIFY_HP:
+			if ( iHeroStat == HERO_STAT_HP ) {
+				UInt iSanctifyBonus = GameDataFn->GetHeroSanctifyBonus( m_iSanctify );
+				iBaseStat += (UInt)( ((Float)iSanctifyBonus) * 0.01f * (Float)iBaseStat );
+			}
+			break;
+		case HERO_SANCTIFY_ATT:
+			if ( iHeroStat == HERO_STAT_ATTACK ) {
+				UInt iSanctifyBonus = GameDataFn->GetHeroSanctifyBonus( m_iSanctify );
+				iBaseStat += (UInt)( ((Float)iSanctifyBonus) * 0.01f * (Float)iBaseStat );
+			}
+			break;
+		case HERO_SANCTIFY_DEF:
+			if ( iHeroStat == HERO_STAT_DEFENSE ) {
+				UInt iSanctifyBonus = GameDataFn->GetHeroSanctifyBonus( m_iSanctify );
+				iBaseStat += (UInt)( ((Float)iSanctifyBonus) * 0.01f * (Float)iBaseStat );
+			}
+			break;
+		case HERO_SANCTIFY_HIT:
+			if ( iHeroStat == HERO_STAT_HIT ) {
+				UInt iSanctifyBonus = GameDataFn->GetHeroSanctifyBonus( m_iSanctify );
+				iBaseStat += iSanctifyBonus;
+			}
+			break;
+		case HERO_SANCTIFY_RES:
+			if ( iHeroStat == HERO_STAT_RESISTANCE ) {
+				UInt iSanctifyBonus = GameDataFn->GetHeroSanctifyBonus( m_iSanctify );
+				iBaseStat += iSanctifyBonus;
+			}
+			break;
+		default: break;
+	}
+
+	return iBaseStat;
+}
+
 Bool Hero::HasGearSet( GearSetID iGearSetID ) const
 {
 	for( UInt i = 0; i < m_iAttachedGearSetsCount; ++i ) {

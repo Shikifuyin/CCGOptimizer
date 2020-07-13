@@ -32,6 +32,7 @@
 #define CCGOP_RESID_HEROEXPLORER    (CCGOP_RESID_ROOT + 200)
 #define CCGOP_RESID_RUNEEXPLORER    (CCGOP_RESID_ROOT + 300)
 #define CCGOP_RESID_GEARSETEXPLORER (CCGOP_RESID_ROOT + 400)
+#define CCGOP_RESID_OPTIMIZER       (CCGOP_RESID_ROOT + 500)
 
 /////////////////////////////////////////////////////////////////////////////////
 // Root/ImportExport
@@ -205,6 +206,14 @@
 #define CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD_RUNEREMOVE (CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD + 7)
 #define CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD_RUNEEQUIP  (CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD + 8)
 #define CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD_CLEARPOOLS (CCGOP_RESID_GEARSETEXPLORER_GEARSETBUILD + 9)
+
+/////////////////////////////////////////////////////////////////////////////////
+// Root/Optimizer
+#define CCGOP_RESID_OPTIMIZER_OPTIMIZEROPTIONS (CCGOP_RESID_OPTIMIZER + 0)
+
+/////////////////////////////////////////////////////////////////////////////////
+// Root/Optimizer/OptimizerOptions
+#define CCGOP_RESID_OPTIMIZER_OPTIMIZEROPTIONS_GROUP (CCGOP_RESID_OPTIMIZER_OPTIMIZEROPTIONS + 0)
 
 /////////////////////////////////////////////////////////////////////////////////
 // Header end

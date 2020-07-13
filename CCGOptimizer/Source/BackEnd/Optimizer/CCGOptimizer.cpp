@@ -315,7 +315,8 @@ Bool CCGOptimizer::_TestValidSets()
     // Enumerate requested sets
     UInt iRequestedSetsCount = m_hSearchParams.arrRequestedSets.Count();
     for( iSet = 0; iSet < iRequestedSetsCount; ++iSet ) {
-        UInt iSetSize = GameDataFn->GetRuneSetSize( (RuneSet)iSet );
+		RuneSet iRuneSet = m_hSearchParams.arrRequestedSets[iSet];
+        UInt iSetSize = GameDataFn->GetRuneSetSize( iRuneSet );
         if ( arrSetCounts[iSet] < iSetSize )
             return false;
         arrSetCounts[iSet] -= iSetSize;
