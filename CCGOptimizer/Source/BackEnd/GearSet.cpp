@@ -283,7 +283,11 @@ Void GearSet::_ComputeEffectiveStats()
     for ( iHeroStat = 0; iHeroStat < HERO_STAT_COUNT; ++iHeroStat ) {
         // Compute total stat
 		UInt iStatFlatTotal = 0;
+		UInt iStatFlatTotalMaxed = 0;
+		UInt iStatFlatTotalMaxed12Odd = 0;
 		UInt iStatPercentTotal = 0;
+		UInt iStatPercentTotalMaxed = 0;
+		UInt iStatPercentTotalMaxed12Odd = 0;
 
 		switch( iHeroStat ) {
 			case HERO_STAT_HP: {
@@ -294,22 +298,40 @@ Void GearSet::_ComputeEffectiveStats()
 						const Rune * pRune = CCGOPFn->GetRune( iRuneID );
 						
 						// Main stat
-						if ( pRune->GetMainStat() == RUNE_STAT_HP_FLAT )
+						if ( pRune->GetMainStat() == RUNE_STAT_HP_FLAT ) {
+							Assert( (iSlot & 1) == 0 );
 							iStatFlatTotal += pRune->GetMainStatValue();
-						else if ( pRune->GetMainStat() == RUNE_STAT_HP_PERCENT )
+							iStatFlatTotalMaxed += GameDataFn->GetRuneMainStatValue( RUNE_STAT_HP_FLAT, pRune->GetRank(), RUNE_MAX_LEVEL );
+							iStatFlatTotalMaxed12Odd += GameDataFn->GetRuneMainStatValue( RUNE_STAT_HP_FLAT, pRune->GetRank(), 12 );
+						} else if ( pRune->GetMainStat() == RUNE_STAT_HP_PERCENT ) {
+							Assert( (iSlot & 1) != 0 );
 							iStatPercentTotal += pRune->GetMainStatValue();
+							iStatPercentTotalMaxed += GameDataFn->GetRuneMainStatValue( RUNE_STAT_HP_PERCENT, pRune->GetRank(), RUNE_MAX_LEVEL );
+							iStatPercentTotalMaxed12Odd += GameDataFn->GetRuneMainStatValue( RUNE_STAT_HP_PERCENT, pRune->GetRank(), RUNE_MAX_LEVEL );
+						}
 
 						// Innate stat
-						if ( pRune->GetInnateStat() == RUNE_STAT_HP_FLAT )
+						if ( pRune->GetInnateStat() == RUNE_STAT_HP_FLAT ) {
 							iStatFlatTotal += pRune->GetInnateStatValue();
-						else if ( pRune->GetInnateStat() == RUNE_STAT_HP_PERCENT )
+							iStatFlatTotalMaxed += pRune->GetInnateStatValue();
+							iStatFlatTotalMaxed12Odd += pRune->GetInnateStatValue();
+						} else if ( pRune->GetInnateStat() == RUNE_STAT_HP_PERCENT ) {
 							iStatPercentTotal += pRune->GetInnateStatValue();
+							iStatPercentTotalMaxed += pRune->GetInnateStatValue();
+							iStatPercentTotalMaxed12Odd += pRune->GetInnateStatValue();
+						}
 
 						// Random stats
-						if ( pRune->HasRandomStat(RUNE_STAT_HP_FLAT) )
+						if ( pRune->HasRandomStat(RUNE_STAT_HP_FLAT) ) {
 							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_HP_FLAT );
-						if ( pRune->HasRandomStat(RUNE_STAT_HP_PERCENT) )
+							iStatFlatTotalMaxed += pRune->GetRandomStatValue( RUNE_STAT_HP_FLAT );
+							iStatFlatTotalMaxed12Odd += pRune->GetRandomStatValue( RUNE_STAT_HP_FLAT );
+						}
+						if ( pRune->HasRandomStat(RUNE_STAT_HP_PERCENT) ) {
 							iStatPercentTotal += pRune->GetRandomStatValue( RUNE_STAT_HP_PERCENT );
+							iStatPercentTotalMaxed += pRune->GetRandomStatValue( RUNE_STAT_HP_PERCENT );
+							iStatPercentTotalMaxed12Odd += pRune->GetRandomStatValue( RUNE_STAT_HP_PERCENT );
+						}
 					}
 				} break;
 			case HERO_STAT_ATTACK: {
@@ -320,22 +342,40 @@ Void GearSet::_ComputeEffectiveStats()
 						const Rune * pRune = CCGOPFn->GetRune( iRuneID );
 
 						// Main stat
-						if ( pRune->GetMainStat() == RUNE_STAT_ATTACK_FLAT )
+						if ( pRune->GetMainStat() == RUNE_STAT_ATTACK_FLAT ) {
+							Assert( (iSlot & 1) == 0 );
 							iStatFlatTotal += pRune->GetMainStatValue();
-						else if ( pRune->GetMainStat() == RUNE_STAT_ATTACK_PERCENT )
+							iStatFlatTotalMaxed += GameDataFn->GetRuneMainStatValue( RUNE_STAT_ATTACK_FLAT, pRune->GetRank(), RUNE_MAX_LEVEL );
+							iStatFlatTotalMaxed12Odd += GameDataFn->GetRuneMainStatValue( RUNE_STAT_ATTACK_FLAT, pRune->GetRank(), 12 );
+						} else if ( pRune->GetMainStat() == RUNE_STAT_ATTACK_PERCENT ) {
+							Assert( (iSlot & 1) != 0 );
 							iStatPercentTotal += pRune->GetMainStatValue();
+							iStatPercentTotalMaxed += GameDataFn->GetRuneMainStatValue( RUNE_STAT_ATTACK_PERCENT, pRune->GetRank(), RUNE_MAX_LEVEL );
+							iStatPercentTotalMaxed12Odd += GameDataFn->GetRuneMainStatValue( RUNE_STAT_ATTACK_PERCENT, pRune->GetRank(), RUNE_MAX_LEVEL );
+						}
 
 						// Innate stat
-						if ( pRune->GetInnateStat() == RUNE_STAT_ATTACK_FLAT )
+						if ( pRune->GetInnateStat() == RUNE_STAT_ATTACK_FLAT ) {
 							iStatFlatTotal += pRune->GetInnateStatValue();
-						else if ( pRune->GetInnateStat() == RUNE_STAT_ATTACK_PERCENT )
+							iStatFlatTotalMaxed += pRune->GetInnateStatValue();
+							iStatFlatTotalMaxed12Odd += pRune->GetInnateStatValue();
+						} else if ( pRune->GetInnateStat() == RUNE_STAT_ATTACK_PERCENT ) {
 							iStatPercentTotal += pRune->GetInnateStatValue();
+							iStatPercentTotalMaxed += pRune->GetInnateStatValue();
+							iStatPercentTotalMaxed12Odd += pRune->GetInnateStatValue();
+						}
 
 						// Random stats
-						if ( pRune->HasRandomStat(RUNE_STAT_ATTACK_FLAT) )
+						if ( pRune->HasRandomStat(RUNE_STAT_ATTACK_FLAT) ) {
 							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_ATTACK_FLAT );
-						if ( pRune->HasRandomStat(RUNE_STAT_ATTACK_PERCENT) )
+							iStatFlatTotalMaxed += pRune->GetRandomStatValue( RUNE_STAT_ATTACK_FLAT );
+							iStatFlatTotalMaxed12Odd += pRune->GetRandomStatValue( RUNE_STAT_ATTACK_FLAT );
+						}
+						if ( pRune->HasRandomStat(RUNE_STAT_ATTACK_PERCENT) ) {
 							iStatPercentTotal += pRune->GetRandomStatValue( RUNE_STAT_ATTACK_PERCENT );
+							iStatPercentTotalMaxed += pRune->GetRandomStatValue( RUNE_STAT_ATTACK_PERCENT );
+							iStatPercentTotalMaxed12Odd += pRune->GetRandomStatValue( RUNE_STAT_ATTACK_PERCENT );
+						}
 					}
 				} break;
 			case HERO_STAT_DEFENSE: {
@@ -346,22 +386,40 @@ Void GearSet::_ComputeEffectiveStats()
 						const Rune * pRune = CCGOPFn->GetRune( iRuneID );
 
 						// Main stat
-						if ( pRune->GetMainStat() == RUNE_STAT_DEFENSE_FLAT )
+						if ( pRune->GetMainStat() == RUNE_STAT_DEFENSE_FLAT ) {
+							Assert( (iSlot & 1) == 0 );
 							iStatFlatTotal += pRune->GetMainStatValue();
-						else if ( pRune->GetMainStat() == RUNE_STAT_DEFENSE_PERCENT )
+							iStatFlatTotalMaxed += GameDataFn->GetRuneMainStatValue( RUNE_STAT_DEFENSE_FLAT, pRune->GetRank(), RUNE_MAX_LEVEL );
+							iStatFlatTotalMaxed12Odd += GameDataFn->GetRuneMainStatValue( RUNE_STAT_DEFENSE_FLAT, pRune->GetRank(), 12 );
+						} else if ( pRune->GetMainStat() == RUNE_STAT_DEFENSE_PERCENT ) {
+							Assert( (iSlot & 1) != 0 );
 							iStatPercentTotal += pRune->GetMainStatValue();
+							iStatPercentTotalMaxed += GameDataFn->GetRuneMainStatValue( RUNE_STAT_DEFENSE_PERCENT, pRune->GetRank(), RUNE_MAX_LEVEL );
+							iStatPercentTotalMaxed12Odd += GameDataFn->GetRuneMainStatValue( RUNE_STAT_DEFENSE_PERCENT, pRune->GetRank(), RUNE_MAX_LEVEL );
+						}
 
 						// Innate stat
-						if ( pRune->GetInnateStat() == RUNE_STAT_DEFENSE_FLAT )
+						if ( pRune->GetInnateStat() == RUNE_STAT_DEFENSE_FLAT ) {
 							iStatFlatTotal += pRune->GetInnateStatValue();
-						else if ( pRune->GetInnateStat() == RUNE_STAT_DEFENSE_PERCENT )
+							iStatFlatTotalMaxed += pRune->GetInnateStatValue();
+							iStatFlatTotalMaxed12Odd += pRune->GetInnateStatValue();
+						} else if ( pRune->GetInnateStat() == RUNE_STAT_DEFENSE_PERCENT ) {
 							iStatPercentTotal += pRune->GetInnateStatValue();
+							iStatPercentTotalMaxed += pRune->GetInnateStatValue();
+							iStatPercentTotalMaxed12Odd += pRune->GetInnateStatValue();
+						}
 
 						// Random stats
-						if ( pRune->HasRandomStat(RUNE_STAT_DEFENSE_FLAT) )
+						if ( pRune->HasRandomStat(RUNE_STAT_DEFENSE_FLAT) ) {
 							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_DEFENSE_FLAT );
-						if ( pRune->HasRandomStat(RUNE_STAT_DEFENSE_PERCENT) )
+							iStatFlatTotalMaxed += pRune->GetRandomStatValue( RUNE_STAT_DEFENSE_FLAT );
+							iStatFlatTotalMaxed12Odd += pRune->GetRandomStatValue( RUNE_STAT_DEFENSE_FLAT );
+						}
+						if ( pRune->HasRandomStat(RUNE_STAT_DEFENSE_PERCENT) ) {
 							iStatPercentTotal += pRune->GetRandomStatValue( RUNE_STAT_DEFENSE_PERCENT );
+							iStatPercentTotalMaxed += pRune->GetRandomStatValue( RUNE_STAT_DEFENSE_PERCENT );
+							iStatPercentTotalMaxed12Odd += pRune->GetRandomStatValue( RUNE_STAT_DEFENSE_PERCENT );
+						}
 					}
 				} break;
 			case HERO_STAT_SPEED: {
@@ -372,12 +430,20 @@ Void GearSet::_ComputeEffectiveStats()
 						const Rune * pRune = CCGOPFn->GetRune( iRuneID );
 
 						// Main/Innate/Random stat
-						if ( pRune->GetMainStat() == RUNE_STAT_SPEED )
+						if ( pRune->GetMainStat() == RUNE_STAT_SPEED ) {
+							Assert( (iSlot & 1) != 0 );
 							iStatFlatTotal += pRune->GetMainStatValue();
-						else if ( pRune->GetInnateStat() == RUNE_STAT_SPEED )
+							iStatFlatTotalMaxed += GameDataFn->GetRuneMainStatValue( RUNE_STAT_SPEED, pRune->GetRank(), RUNE_MAX_LEVEL );
+							iStatFlatTotalMaxed12Odd += GameDataFn->GetRuneMainStatValue( RUNE_STAT_SPEED, pRune->GetRank(), RUNE_MAX_LEVEL );
+						} else if ( pRune->GetInnateStat() == RUNE_STAT_SPEED ) {
 							iStatFlatTotal += pRune->GetInnateStatValue();
-						else if ( pRune->HasRandomStat(RUNE_STAT_SPEED) )
+							iStatFlatTotalMaxed += pRune->GetInnateStatValue();
+							iStatFlatTotalMaxed12Odd += pRune->GetInnateStatValue();
+						} else if ( pRune->HasRandomStat(RUNE_STAT_SPEED) ) {
 							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_SPEED );
+							iStatFlatTotalMaxed += pRune->GetRandomStatValue( RUNE_STAT_SPEED );
+							iStatFlatTotalMaxed12Odd += pRune->GetRandomStatValue( RUNE_STAT_SPEED );
+						}
 					}
 				} break;
 			case HERO_STAT_CRIT_RATE: {
@@ -388,12 +454,20 @@ Void GearSet::_ComputeEffectiveStats()
 						const Rune * pRune = CCGOPFn->GetRune( iRuneID );
 
 						// Main/Innate/Random stat
-						if ( pRune->GetMainStat() == RUNE_STAT_CRIT_RATE )
+						if ( pRune->GetMainStat() == RUNE_STAT_CRIT_RATE ) {
+							Assert( (iSlot & 1) != 0 );
 							iStatFlatTotal += pRune->GetMainStatValue();
-						else if ( pRune->GetInnateStat() == RUNE_STAT_CRIT_RATE )
+							iStatFlatTotalMaxed += GameDataFn->GetRuneMainStatValue( RUNE_STAT_CRIT_RATE, pRune->GetRank(), RUNE_MAX_LEVEL );
+							iStatFlatTotalMaxed12Odd += GameDataFn->GetRuneMainStatValue( RUNE_STAT_CRIT_RATE, pRune->GetRank(), RUNE_MAX_LEVEL );
+						} else if ( pRune->GetInnateStat() == RUNE_STAT_CRIT_RATE ) {
 							iStatFlatTotal += pRune->GetInnateStatValue();
-						else if ( pRune->HasRandomStat(RUNE_STAT_CRIT_RATE) )
+							iStatFlatTotalMaxed += pRune->GetInnateStatValue();
+							iStatFlatTotalMaxed12Odd += pRune->GetInnateStatValue();
+						} else if ( pRune->HasRandomStat(RUNE_STAT_CRIT_RATE) ) {
 							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_CRIT_RATE );
+							iStatFlatTotalMaxed += pRune->GetRandomStatValue( RUNE_STAT_CRIT_RATE );
+							iStatFlatTotalMaxed12Odd += pRune->GetRandomStatValue( RUNE_STAT_CRIT_RATE );
+						}
 					}
 				} break;
 			case HERO_STAT_CRIT_DMG: {
@@ -404,12 +478,20 @@ Void GearSet::_ComputeEffectiveStats()
 						const Rune * pRune = CCGOPFn->GetRune( iRuneID );
 
 						// Main/Innate/Random stat
-						if ( pRune->GetMainStat() == RUNE_STAT_CRIT_DMG )
+						if ( pRune->GetMainStat() == RUNE_STAT_CRIT_DMG ) {
+							Assert( (iSlot & 1) != 0 );
 							iStatFlatTotal += pRune->GetMainStatValue();
-						else if ( pRune->GetInnateStat() == RUNE_STAT_CRIT_DMG )
+							iStatFlatTotalMaxed += GameDataFn->GetRuneMainStatValue( RUNE_STAT_CRIT_DMG, pRune->GetRank(), RUNE_MAX_LEVEL );
+							iStatFlatTotalMaxed12Odd += GameDataFn->GetRuneMainStatValue( RUNE_STAT_CRIT_DMG, pRune->GetRank(), RUNE_MAX_LEVEL );
+						} else if ( pRune->GetInnateStat() == RUNE_STAT_CRIT_DMG ) {
 							iStatFlatTotal += pRune->GetInnateStatValue();
-						else if ( pRune->HasRandomStat(RUNE_STAT_CRIT_DMG) )
+							iStatFlatTotalMaxed += pRune->GetInnateStatValue();
+							iStatFlatTotalMaxed12Odd += pRune->GetInnateStatValue();
+						} else if ( pRune->HasRandomStat(RUNE_STAT_CRIT_DMG) ) {
 							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_CRIT_DMG );
+							iStatFlatTotalMaxed += pRune->GetRandomStatValue( RUNE_STAT_CRIT_DMG );
+							iStatFlatTotalMaxed12Odd += pRune->GetRandomStatValue( RUNE_STAT_CRIT_DMG );
+						}
 					}
 				} break;
 			case HERO_STAT_HIT: {
@@ -420,12 +502,20 @@ Void GearSet::_ComputeEffectiveStats()
 						const Rune * pRune = CCGOPFn->GetRune( iRuneID );
 
 						// Main/Innate/Random stat
-						if ( pRune->GetMainStat() == RUNE_STAT_HIT )
+						if ( pRune->GetMainStat() == RUNE_STAT_HIT ) {
+							Assert( (iSlot & 1) != 0 );
 							iStatFlatTotal += pRune->GetMainStatValue();
-						else if ( pRune->GetInnateStat() == RUNE_STAT_HIT )
+							iStatFlatTotalMaxed += GameDataFn->GetRuneMainStatValue( RUNE_STAT_HIT, pRune->GetRank(), RUNE_MAX_LEVEL );
+							iStatFlatTotalMaxed12Odd += GameDataFn->GetRuneMainStatValue( RUNE_STAT_HIT, pRune->GetRank(), RUNE_MAX_LEVEL );
+						} else if ( pRune->GetInnateStat() == RUNE_STAT_HIT ) {
 							iStatFlatTotal += pRune->GetInnateStatValue();
-						else if ( pRune->HasRandomStat(RUNE_STAT_HIT) )
+							iStatFlatTotalMaxed += pRune->GetInnateStatValue();
+							iStatFlatTotalMaxed12Odd += pRune->GetInnateStatValue();
+						} else if ( pRune->HasRandomStat(RUNE_STAT_HIT) ) {
 							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_HIT );
+							iStatFlatTotalMaxed += pRune->GetRandomStatValue( RUNE_STAT_HIT );
+							iStatFlatTotalMaxed12Odd += pRune->GetRandomStatValue( RUNE_STAT_HIT );
+						}
 					}
 				} break;
 			case HERO_STAT_RESISTANCE: {
@@ -436,12 +526,20 @@ Void GearSet::_ComputeEffectiveStats()
 						const Rune * pRune = CCGOPFn->GetRune( iRuneID );
 
 						// Main/Innate/Random stat
-						if ( pRune->GetMainStat() == RUNE_STAT_RESISTANCE )
+						if ( pRune->GetMainStat() == RUNE_STAT_RESISTANCE ) {
+							Assert( (iSlot & 1) != 0 );
 							iStatFlatTotal += pRune->GetMainStatValue();
-						else if ( pRune->GetInnateStat() == RUNE_STAT_RESISTANCE )
+							iStatFlatTotalMaxed += GameDataFn->GetRuneMainStatValue( RUNE_STAT_RESISTANCE, pRune->GetRank(), RUNE_MAX_LEVEL );
+							iStatFlatTotalMaxed12Odd += GameDataFn->GetRuneMainStatValue( RUNE_STAT_RESISTANCE, pRune->GetRank(), RUNE_MAX_LEVEL );
+						} else if ( pRune->GetInnateStat() == RUNE_STAT_RESISTANCE ) {
 							iStatFlatTotal += pRune->GetInnateStatValue();
-						else if ( pRune->HasRandomStat(RUNE_STAT_RESISTANCE) )
+							iStatFlatTotalMaxed += pRune->GetInnateStatValue();
+							iStatFlatTotalMaxed12Odd += pRune->GetInnateStatValue();
+						} else if ( pRune->HasRandomStat(RUNE_STAT_RESISTANCE) ) {
 							iStatFlatTotal += pRune->GetRandomStatValue( RUNE_STAT_RESISTANCE );
+							iStatFlatTotalMaxed += pRune->GetRandomStatValue( RUNE_STAT_RESISTANCE );
+							iStatFlatTotalMaxed12Odd += pRune->GetRandomStatValue( RUNE_STAT_RESISTANCE );
+						}
 					}
 				} break;
 			default: Assert(false); break;
@@ -450,9 +548,77 @@ Void GearSet::_ComputeEffectiveStats()
 		// Save
 		m_arrEffectiveStatsPercent[iHeroStat] = iStatPercentTotal;
 		m_arrEffectiveStatsFlat[iHeroStat] = iStatFlatTotal;
+		m_arrEffectiveStatsPercentMaxed[iHeroStat] = iStatPercentTotalMaxed;
+		m_arrEffectiveStatsFlatMaxed[iHeroStat] = iStatFlatTotalMaxed;
+		m_arrEffectiveStatsPercentMaxed12Odd[iHeroStat] = iStatPercentTotalMaxed12Odd;
+		m_arrEffectiveStatsFlatMaxed12Odd[iHeroStat] = iStatFlatTotalMaxed12Odd;
     }
 
 	// Apply Set Bonuses
+	for( UInt i = 0; i < m_iActiveSetsCount; ++i ) {
+		RuneSet iRuneSet = m_arrActiveSets[i];
+		switch( iRuneSet ) {
+			case RUNE_SET_BLESSING:
+				m_arrEffectiveStatsPercent[HERO_STAT_HP] += 15;
+				m_arrEffectiveStatsPercentMaxed[HERO_STAT_HP] += 15;
+				m_arrEffectiveStatsPercentMaxed12Odd[HERO_STAT_HP] += 15;
+				break;
+			case RUNE_SET_ATTACK:
+				m_arrEffectiveStatsPercent[HERO_STAT_ATTACK] += 35;
+				m_arrEffectiveStatsPercentMaxed[HERO_STAT_ATTACK] += 35;
+				m_arrEffectiveStatsPercentMaxed12Odd[HERO_STAT_ATTACK] += 35;
+				break;
+			case RUNE_SET_DEFENSE:
+				m_arrEffectiveStatsPercent[HERO_STAT_DEFENSE] += 15;
+				m_arrEffectiveStatsPercentMaxed[HERO_STAT_DEFENSE] += 15;
+				m_arrEffectiveStatsPercentMaxed12Odd[HERO_STAT_DEFENSE] += 15;
+				break;
+			case RUNE_SET_AGILE:
+				m_arrEffectiveStatsPercent[HERO_STAT_SPEED] += 25;
+				m_arrEffectiveStatsPercentMaxed[HERO_STAT_SPEED] += 25;
+				m_arrEffectiveStatsPercentMaxed12Odd[HERO_STAT_SPEED] += 25;
+				break;
+			case RUNE_SET_WILD:
+				m_arrEffectiveStatsFlat[HERO_STAT_CRIT_RATE] += 12;
+				m_arrEffectiveStatsFlatMaxed[HERO_STAT_CRIT_RATE] += 12;
+				m_arrEffectiveStatsFlatMaxed12Odd[HERO_STAT_CRIT_RATE] += 12;
+				break;
+			case RUNE_SET_DESTRUCTION:
+				m_arrEffectiveStatsFlat[HERO_STAT_CRIT_DMG] += 40;
+				m_arrEffectiveStatsFlatMaxed[HERO_STAT_CRIT_DMG] += 40;
+				m_arrEffectiveStatsFlatMaxed12Odd[HERO_STAT_CRIT_DMG] += 40;
+				if ( m_bHasFull6Set ) {
+					m_arrEffectiveStatsPercent[HERO_STAT_ATTACK] += 15;
+					m_arrEffectiveStatsPercentMaxed[HERO_STAT_ATTACK] += 15;
+					m_arrEffectiveStatsPercentMaxed12Odd[HERO_STAT_ATTACK] += 15;
+				}
+				break;
+			case RUNE_SET_FOCUS:
+				m_arrEffectiveStatsFlat[HERO_STAT_HIT] += 20;
+				m_arrEffectiveStatsFlatMaxed[HERO_STAT_HIT] += 20;
+				m_arrEffectiveStatsFlatMaxed12Odd[HERO_STAT_HIT] += 20;
+				break;
+			case RUNE_SET_STALWART:
+				m_arrEffectiveStatsFlat[HERO_STAT_RESISTANCE] += 20;
+				m_arrEffectiveStatsFlatMaxed[HERO_STAT_RESISTANCE] += 20;
+				m_arrEffectiveStatsFlatMaxed12Odd[HERO_STAT_RESISTANCE] += 20;
+				break;
+			case RUNE_SET_DESPERATION:
+			case RUNE_SET_DRAIN:
+			case RUNE_SET_FRENZY:
+			case RUNE_SET_BERSERK:
+			case RUNE_SET_COUNTER:
+			case RUNE_SET_GUARD:
+			case RUNE_SET_IMMUNITY:
+			case RUNE_SET_RAVAGE:
+			case RUNE_SET_PRAYER:   // Team bonuses are not taken into account !
+			case RUNE_SET_CONFLICT:
+			case RUNE_SET_UNITY:
+			case RUNE_SET_HIT:
+			case RUNE_SET_FORTITUDE: break;
+			default: Assert(false); break;
+		}
+	}
 }
 
 Void GearSet::_ComputeScores()

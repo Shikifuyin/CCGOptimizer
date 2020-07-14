@@ -156,27 +156,26 @@ Void UIGearSetStatsValueModel::Update()
 
 	// Retrieve Stat Value
 	Bool bStatIsPercent = false;
-	Bool bStatIsBoth = false;
-	UInt iStatFlatTotal = 0;
 	UInt iStatPercentTotal = 0;
+	UInt iStatFlatTotal = 0;
 
 	switch( m_iHeroStat ) {
 		case HERO_STAT_HP:
 		case HERO_STAT_ATTACK:
 		case HERO_STAT_DEFENSE:
-			bStatIsBoth = true;
-			iStatPercentTotal = pGearSet->GetEffectiveStatPercent( m_iHeroStat );
-			iStatFlatTotal = pGearSet->GetEffectiveStatFlat( m_iHeroStat );
+			iStatPercentTotal = pGearSet->GetEffectiveStatPercent( m_iHeroStat, bUseMaxedRunes, false );
+			iStatFlatTotal = pGearSet->GetEffectiveStatFlat( m_iHeroStat, bUseMaxedRunes, false );
 			break;
 		case HERO_STAT_SPEED:
-			iStatFlatTotal = pGearSet->GetEffectiveStatFlat( m_iHeroStat );
+			iStatPercentTotal = pGearSet->GetEffectiveStatPercent( m_iHeroStat, bUseMaxedRunes, false );
+			iStatFlatTotal = pGearSet->GetEffectiveStatFlat( m_iHeroStat, bUseMaxedRunes, false );
 			break;
 		case HERO_STAT_CRIT_RATE:
 		case HERO_STAT_CRIT_DMG:
 		case HERO_STAT_HIT:
 		case HERO_STAT_RESISTANCE:
 			bStatIsPercent = true;
-			iStatFlatTotal = pGearSet->GetEffectiveStatFlat( m_iHeroStat );
+			iStatFlatTotal = pGearSet->GetEffectiveStatFlat( m_iHeroStat, bUseMaxedRunes, false );
 			break;
 		default: Assert(false); break;
 	}
@@ -190,10 +189,12 @@ Void UIGearSetStatsValueModel::Update()
 		// GearSet View Mode
 		if ( bStatIsPercent )
 			StringFn->Format( strStatText, TEXT( "%d %%" ), iStatFlatTotal );
-		else if ( bStatIsBoth )
-			StringFn->Format( strStatText, TEXT( "%d + %d %%" ), iStatFlatTotal, iStatPercentTotal );
-		else
-			StringFn->Format( strStatText, TEXT( "%d" ), iStatFlatTotal );
+		else {
+			if ( iStatPercentTotal > 0 )
+				StringFn->Format( strStatText, TEXT( "%d + %d %%" ), iStatFlatTotal, iStatPercentTotal );
+			else
+				StringFn->Format( strStatText, TEXT( "%d" ), iStatFlatTotal );
+		}
 	} else {
 		// Hero View Mode
 		HeroID iHeroID = (HeroID)(UIntPtr)( pHeroView->GetItemData(iSelected) );

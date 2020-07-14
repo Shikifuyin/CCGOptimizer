@@ -39,12 +39,22 @@ inline RuneSet GearSet::GetActiveSet( UInt iIndex ) const {
     return m_arrActiveSets[iIndex];
 }
 
-inline UInt GearSet::GetEffectiveStatPercent( HeroStat iHeroStat ) const {
+inline UInt GearSet::GetEffectiveStatPercent( HeroStat iHeroStat, Bool bMaxedRunes, Bool bMax12OddSlots ) const {
     Assert( iHeroStat < HERO_STAT_COUNT );
+    if ( bMaxedRunes ) {
+        if ( bMax12OddSlots )
+            return m_arrEffectiveStatsPercentMaxed12Odd[iHeroStat];
+        return m_arrEffectiveStatsPercentMaxed[iHeroStat];
+    }
     return m_arrEffectiveStatsPercent[iHeroStat];
 }
-inline UInt GearSet::GetEffectiveStatFlat( HeroStat iHeroStat ) const {
+inline UInt GearSet::GetEffectiveStatFlat( HeroStat iHeroStat, Bool bMaxedRunes, Bool bMax12OddSlots ) const {
     Assert( iHeroStat < HERO_STAT_COUNT );
+    if ( bMaxedRunes ) {
+        if ( bMax12OddSlots )
+            return m_arrEffectiveStatsFlatMaxed12Odd[iHeroStat];
+        return m_arrEffectiveStatsFlatMaxed[iHeroStat];
+    }
     return m_arrEffectiveStatsFlat[iHeroStat];
 }
 

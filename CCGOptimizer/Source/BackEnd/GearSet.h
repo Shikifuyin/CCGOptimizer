@@ -63,8 +63,8 @@ public:
     inline RuneSet GetActiveSet( UInt iIndex ) const;
 
     // Effective Stats
-    inline UInt GetEffectiveStatPercent( HeroStat iHeroStat ) const;
-    inline UInt GetEffectiveStatFlat( HeroStat iHeroStat ) const;
+    inline UInt GetEffectiveStatPercent( HeroStat iHeroStat, Bool bMaxedRunes, Bool bMax12OddSlots ) const;
+    inline UInt GetEffectiveStatFlat( HeroStat iHeroStat, Bool bMaxedRunes, Bool bMax12OddSlots ) const;
 
     // Rune Equip
     inline RuneID GetEquippedRune( UInt iSlot ) const;
@@ -109,6 +109,12 @@ private:
 
     UInt m_arrEffectiveStatsPercent[HERO_STAT_COUNT];
     UInt m_arrEffectiveStatsFlat[HERO_STAT_COUNT];
+
+    UInt m_arrEffectiveStatsPercentMaxed[HERO_STAT_COUNT];
+    UInt m_arrEffectiveStatsFlatMaxed[HERO_STAT_COUNT];
+
+    UInt m_arrEffectiveStatsPercentMaxed12Odd[HERO_STAT_COUNT];
+    UInt m_arrEffectiveStatsFlatMaxed12Odd[HERO_STAT_COUNT];
 
     // State
     RuneID m_arrEquippedRunes[RUNE_SLOT_COUNT];

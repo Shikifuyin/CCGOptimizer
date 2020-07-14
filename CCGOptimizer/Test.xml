@@ -1,84 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ccgop_data>
 	<inventory_runes>
-		<rune level="9" locked="false" main_stat="6" quality="3" rank="5" rune_id="0" set="3" slot="1">
-			<innate_stat type="1" value="10"/>
-			<random_stat_0 type="7" value="10"/>
-			<random_stat_1 type="8" value="10"/>
-			<random_stat_2 type="3" value="10"/>
-			<random_stat_3 type="11" value="0"/>
-			<equipped_gearsets count="0"/>
-		</rune>
-		<rune level="9" locked="false" main_stat="6" quality="3" rank="5" rune_id="1" set="3" slot="1">
-			<innate_stat type="1" value="10"/>
-			<random_stat_0 type="7" value="10"/>
-			<random_stat_1 type="8" value="10"/>
-			<random_stat_2 type="3" value="10"/>
-			<random_stat_3 type="11" value="0"/>
-			<equipped_gearsets count="0"/>
-		</rune>
-		<rune level="9" locked="false" main_stat="6" quality="3" rank="5" rune_id="2" set="3" slot="1">
-			<innate_stat type="1" value="10"/>
-			<random_stat_0 type="7" value="10"/>
-			<random_stat_1 type="8" value="10"/>
-			<random_stat_2 type="3" value="10"/>
-			<random_stat_3 type="11" value="0"/>
-			<equipped_gearsets count="0"/>
-		</rune>
-		<rune level="15" locked="false" main_stat="6" quality="4" rank="5" rune_id="3" set="0" slot="1">
+		<rune level="9" locked="false" main_stat="2" quality="4" rank="5" rune_id="10" set="3" slot="0">
 			<innate_stat type="11" value="0"/>
 			<random_stat_0 type="0" value="1"/>
 			<random_stat_1 type="1" value="1"/>
-			<random_stat_2 type="2" value="1"/>
-			<random_stat_3 type="3" value="1"/>
+			<random_stat_2 type="3" value="1"/>
+			<random_stat_3 type="4" value="1"/>
 			<equipped_gearsets count="0"/>
 		</rune>
-		<rune level="15" locked="false" main_stat="5" quality="4" rank="5" rune_id="4" set="0" slot="1">
+		<rune level="9" locked="false" main_stat="6" quality="4" rank="5" rune_id="11" set="3" slot="1">
 			<innate_stat type="11" value="0"/>
 			<random_stat_0 type="0" value="1"/>
 			<random_stat_1 type="1" value="1"/>
-			<random_stat_2 type="2" value="1"/>
-			<random_stat_3 type="3" value="1"/>
+			<random_stat_2 type="3" value="1"/>
+			<random_stat_3 type="4" value="1"/>
 			<equipped_gearsets count="0"/>
 		</rune>
-		<rune level="14" locked="false" main_stat="5" quality="4" rank="5" rune_id="5" set="0" slot="1">
+		<rune level="9" locked="false" main_stat="4" quality="4" rank="5" rune_id="12" set="3" slot="2">
 			<innate_stat type="11" value="0"/>
 			<random_stat_0 type="0" value="1"/>
 			<random_stat_1 type="1" value="1"/>
-			<random_stat_2 type="2" value="1"/>
-			<random_stat_3 type="3" value="1"/>
+			<random_stat_2 type="3" value="1"/>
+			<random_stat_3 type="5" value="1"/>
 			<equipped_gearsets count="0"/>
 		</rune>
-		<rune level="14" locked="false" main_stat="6" quality="4" rank="5" rune_id="6" set="0" slot="1">
+		<rune level="9" locked="false" main_stat="7" quality="4" rank="5" rune_id="13" set="3" slot="3">
 			<innate_stat type="11" value="0"/>
 			<random_stat_0 type="0" value="1"/>
 			<random_stat_1 type="1" value="1"/>
-			<random_stat_2 type="2" value="1"/>
-			<random_stat_3 type="3" value="1"/>
+			<random_stat_2 type="3" value="1"/>
+			<random_stat_3 type="5" value="1"/>
 			<equipped_gearsets count="0"/>
 		</rune>
-		<rune level="15" locked="false" main_stat="6" quality="3" rank="5" rune_id="7" set="0" slot="1">
+		<rune level="9" locked="false" main_stat="0" quality="4" rank="5" rune_id="14" set="3" slot="4">
 			<innate_stat type="11" value="0"/>
-			<random_stat_0 type="0" value="1"/>
+			<random_stat_0 type="2" value="1"/>
 			<random_stat_1 type="1" value="1"/>
-			<random_stat_2 type="2" value="1"/>
-			<random_stat_3 type="3" value="1"/>
+			<random_stat_2 type="3" value="1"/>
+			<random_stat_3 type="5" value="1"/>
 			<equipped_gearsets count="0"/>
 		</rune>
-		<rune level="9" locked="false" main_stat="6" quality="3" rank="5" rune_id="8" set="0" slot="1">
+		<rune level="9" locked="false" main_stat="9" quality="4" rank="5" rune_id="15" set="3" slot="5">
 			<innate_stat type="11" value="0"/>
-			<random_stat_0 type="0" value="1"/>
+			<random_stat_0 type="2" value="1"/>
 			<random_stat_1 type="1" value="1"/>
-			<random_stat_2 type="2" value="1"/>
-			<random_stat_3 type="11" value="0"/>
+			<random_stat_2 type="3" value="1"/>
+			<random_stat_3 type="5" value="1"/>
 			<equipped_gearsets count="0"/>
 		</rune>
-		<rune level="10" locked="false" main_stat="6" quality="3" rank="5" rune_id="9" set="0" slot="1">
+		<rune level="9" locked="false" main_stat="2" quality="4" rank="5" rune_id="16" set="0" slot="0">
 			<innate_stat type="11" value="0"/>
-			<random_stat_0 type="0" value="1"/>
+			<random_stat_0 type="4" value="1"/>
 			<random_stat_1 type="1" value="1"/>
-			<random_stat_2 type="2" value="1"/>
-			<random_stat_3 type="11" value="0"/>
+			<random_stat_2 type="3" value="1"/>
+			<random_stat_3 type="0" value="1"/>
+			<equipped_gearsets count="0"/>
+		</rune>
+		<rune level="9" locked="false" main_stat="5" quality="4" rank="5" rune_id="17" set="0" slot="1">
+			<innate_stat type="11" value="0"/>
+			<random_stat_0 type="4" value="1"/>
+			<random_stat_1 type="1" value="1"/>
+			<random_stat_2 type="3" value="1"/>
+			<random_stat_3 type="0" value="1"/>
+			<equipped_gearsets count="0"/>
+		</rune>
+		<rune level="9" locked="false" main_stat="4" quality="4" rank="5" rune_id="18" set="0" slot="2">
+			<innate_stat type="11" value="0"/>
+			<random_stat_0 type="7" value="1"/>
+			<random_stat_1 type="3" value="1"/>
+			<random_stat_2 type="6" value="1"/>
+			<random_stat_3 type="8" value="1"/>
+			<equipped_gearsets count="0"/>
+		</rune>
+		<rune level="9" locked="false" main_stat="1" quality="4" rank="5" rune_id="19" set="0" slot="3">
+			<innate_stat type="11" value="0"/>
+			<random_stat_0 type="7" value="1"/>
+			<random_stat_1 type="3" value="1"/>
+			<random_stat_2 type="6" value="1"/>
+			<random_stat_3 type="8" value="1"/>
+			<equipped_gearsets count="0"/>
+		</rune>
+		<rune level="9" locked="false" main_stat="0" quality="4" rank="5" rune_id="20" set="0" slot="4">
+			<innate_stat type="11" value="0"/>
+			<random_stat_0 type="7" value="1"/>
+			<random_stat_1 type="3" value="1"/>
+			<random_stat_2 type="6" value="1"/>
+			<random_stat_3 type="8" value="1"/>
+			<equipped_gearsets count="0"/>
+		</rune>
+		<rune level="9" locked="false" main_stat="1" quality="4" rank="5" rune_id="21" set="0" slot="5">
+			<innate_stat type="11" value="0"/>
+			<random_stat_0 type="7" value="1"/>
+			<random_stat_1 type="3" value="1"/>
+			<random_stat_2 type="6" value="1"/>
+			<random_stat_3 type="8" value="1"/>
 			<equipped_gearsets count="0"/>
 		</rune>
 	</inventory_runes>
